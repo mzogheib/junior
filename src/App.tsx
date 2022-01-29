@@ -19,27 +19,31 @@ const getLetterColor = (
 };
 
 const App = () => {
-  const [attempt, setAttempt] = useState('');
+  const [attempts, setAttempts] = useState<string[]>([]);
 
   const handleSubmit = (submittedWord: string) => {
-    setAttempt(submittedWord);
+    setAttempts(attempts.concat([submittedWord]));
   };
+
+  const renderAttempt = (attempt: string) =>
+    POSITIONS.map((position) => (
+      <span
+        key={position}
+        style={{
+          color: getLetterColor(TARGET_WORD, attempt, position),
+        }}
+      >
+        {attempt[position]}
+      </span>
+    ));
 
   return (
     <div className="App">
       <WordInput onSubmit={handleSubmit} length={WORD_LENGTH} />
       <div>
-        {attempt &&
-          POSITIONS.map((position) => (
-            <span
-              key={position}
-              style={{
-                color: getLetterColor(TARGET_WORD, attempt, position),
-              }}
-            >
-              {attempt[position]}
-            </span>
-          ))}
+        {attempts.map((attempt, i) => (
+          <div key={`${attempt}-${i}`}>{renderAttempt(attempt)}</div>
+        ))}
       </div>
     </div>
   );

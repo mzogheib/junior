@@ -29,6 +29,7 @@ const WordInput = ({ onSubmit, length }: Props) => {
     }
 
     onSubmit(word);
+    setWord('');
   };
 
   return (
