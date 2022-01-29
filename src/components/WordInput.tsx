@@ -1,24 +1,12 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 
-const WORD_LENGTH = 5;
-const POSITIONS = Array.from(Array(WORD_LENGTH).keys());
-const TARGET_WORD = 'FOCUS';
-
-const getLetterColor = (
-  targetWord: string,
-  inputWord: string,
-  position: number
-) => {
-  return targetWord[position] === inputWord[position]
-    ? 'green'
-    : targetWord.includes(inputWord[position])
-    ? 'orange'
-    : 'gray';
+type Props = {
+  onSubmit: (attempt: string) => void;
+  length: number;
 };
 
-const WordInput = () => {
+const WordInput = ({ onSubmit, length }: Props) => {
   const [word, setWord] = useState('');
-  const [didSumbit, setDidSubmit] = useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -29,19 +17,18 @@ const WordInput = () => {
       return;
     }
 
-    setDidSubmit(false);
     setWord(inputValue.toUpperCase());
   };
 
-  const isValid = word.length === WORD_LENGTH;
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const isValid = word.length === length;
     if (!isValid) {
       return;
     }
 
-    setDidSubmit(true);
+    onSubmit(word);
   };
 
   return (
@@ -50,23 +37,10 @@ const WordInput = () => {
         <input
           type="text"
           value={word}
-          maxLength={WORD_LENGTH}
+          maxLength={length}
           onChange={handleChange}
         />
       </form>
-      <div>
-        {didSumbit &&
-          POSITIONS.map((position) => (
-            <span
-              key={position}
-              style={{
-                color: getLetterColor(TARGET_WORD, word, position),
-              }}
-            >
-              {word[position]}
-            </span>
-          ))}
-      </div>
     </div>
   );
 };
