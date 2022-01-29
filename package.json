@@ -20,6 +20,7 @@
     "prettier": "2.5.1",
     "react-scripts": "5.0.0",
     "stylelint": "^14.3.0",
+    "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^24.0.0",
     "typescript": "^4.5.5",
     "web-vitals": "^2.1.4"
@@ -29,7 +30,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "stylelint-check": "stylelint-config-prettier-check"
   },
   "eslintConfig": {
     "extends": [
