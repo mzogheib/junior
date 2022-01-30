@@ -12,7 +12,7 @@ const WordInput = ({ onSubmit, length }: Props) => {
     const inputValue = event.target.value;
 
     // Only letters are allowed
-    const reg = /^[a-z]+$/i;
+    const reg = /^[0-9]+$/i;
     if (inputValue && !reg.test(inputValue)) {
       return;
     }
