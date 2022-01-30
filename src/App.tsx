@@ -12,12 +12,20 @@ const TARGET_LENGTH = 5;
 const POSITIONS = Array.from(Array(TARGET_LENGTH).keys());
 
 const Wrapper = styled.div`
-  background-color: #eeeeee;
-  height: 100vh;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const Body = styled.div`
+  flex-grow: 1;
+`;
+
+const Footer = styled.div`
+  position: fixed;
+  bottom: 50px;
 `;
 
 const getTileState = (target: string, attempt: string, position: number) => {
@@ -70,22 +78,27 @@ const App = () => {
 
   return (
     <Wrapper>
-      {!!attempts.length && (
-        <Attempts>
-          {attempts.map((attempt, i) => (
-            <div key={`${attempt}-${i}`}>{renderAttempt(attempt)}</div>
-          ))}
-        </Attempts>
-      )}
-      <AttemptInput onSubmit={handleSubmit} length={TARGET_LENGTH} />
-      {didSucceed && (
-        <div>
-          <div>Success! Solved in {attempts.length} attempt(s).</div>
-        </div>
-      )}
-      <button type="button" onClick={handleReset}>
-        New game
-      </button>
+      <div>Header</div>
+      <Body>
+        {!!attempts.length && (
+          <Attempts>
+            {attempts.map((attempt, i) => (
+              <div key={`${attempt}-${i}`}>{renderAttempt(attempt)}</div>
+            ))}
+          </Attempts>
+        )}
+        <AttemptInput onSubmit={handleSubmit} length={TARGET_LENGTH} />
+        {didSucceed && (
+          <div>
+            <div>Success! Solved in {attempts.length} attempt(s).</div>
+          </div>
+        )}
+      </Body>
+      <Footer>
+        <button type="button" onClick={handleReset}>
+          New game
+        </button>
+      </Footer>
     </Wrapper>
   );
 };
