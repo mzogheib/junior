@@ -13,19 +13,21 @@ const POSITIONS = Array.from(Array(TARGET_LENGTH).keys());
 
 const Wrapper = styled.div`
   height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 const Body = styled.div`
-  flex-grow: 1;
+  margin-top: 40px;
+`;
+
+const Header = styled.div`
+  position: fixed;
+  top: 0;
+  height: 40px;
 `;
 
 const Footer = styled.div`
   position: fixed;
-  bottom: 50px;
+  bottom: 0;
 `;
 
 const getTileState = (target: string, attempt: string, position: number) => {
@@ -78,7 +80,7 @@ const App = () => {
 
   return (
     <Wrapper>
-      <div>Header</div>
+      <Header>Header</Header>
       <Body>
         {!!attempts.length && (
           <Attempts>
