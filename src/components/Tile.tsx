@@ -21,6 +21,9 @@ const Wrapper = styled.span<WrapperProps>(
   ({ state }) => css`
     width: 50px;
     height: 50px;
+    border: 1px transparent solid;
+    margin: 2px;
+
     color: black;
     background-color: ${stateMap[state]};
     font-weight: 500;
