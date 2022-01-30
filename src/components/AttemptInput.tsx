@@ -5,7 +5,7 @@ import {
   useRef,
   MutableRefObject,
 } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Input = styled.input`
   height: 0;
@@ -22,17 +22,19 @@ const InputTiles = styled.div`
   align-items: center;
 `;
 
-const InputTile = styled.div`
-  width: 50px;
-  height: 50px;
-  border: 1px black solid;
-  margin: 2px;
-  color: black;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const InputTile = styled.div<{ isFocussed: boolean }>(
+  ({ isFocussed }) => css`
+    width: 50px;
+    height: 50px;
+    border: 1px ${isFocussed ? 'black' : 'gray'} solid;
+    margin: 2px;
+    color: black;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `
+);
 
 // https://stackoverflow.com/questions/28889826/how-to-set-focus-on-an-input-field-after-rendering
 const useFocus = (): [any, () => void] => {
@@ -90,7 +92,9 @@ const AttemptInput = ({ onSubmit, length }: Props) => {
       />
       <InputTiles onClick={setInputFocus}>
         {POSITIONS.map((position) => (
-          <InputTile key={position}>{attempt[position]}</InputTile>
+          <InputTile key={position} isFocussed={position === attempt.length}>
+            {attempt[position]}
+          </InputTile>
         ))}
       </InputTiles>
     </form>
