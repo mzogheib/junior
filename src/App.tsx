@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import WordInput from './components/WordInput';
-import LetterTile from './components/LetterTile';
-import LetterTiles from './components/LetterTiles';
+import AttemptInput from './components/AttemptInput';
+import Tile from './components/Tile';
+import Tiles from './components/Tiles';
 import Attempts from './components/Attempts';
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 
-const WORD_LENGTH = 5;
-const POSITIONS = Array.from(Array(WORD_LENGTH).keys());
+const NUMBER_LENGTH = 5;
+const POSITIONS = Array.from(Array(NUMBER_LENGTH).keys());
 
 const Wrapper = styled.div`
   background-color: #eeeeee;
@@ -35,7 +35,7 @@ const getLetterState = (
 const makeRandomNumberString = () =>
   Math.random()
     .toString()
-    .substring(2, WORD_LENGTH + 2);
+    .substring(2, NUMBER_LENGTH + 2);
 
 const App = () => {
   const [attempts, setAttempts] = useState<string[]>([]);
@@ -61,15 +61,15 @@ const App = () => {
   };
 
   const renderAttempt = (attempt: string) => (
-    <LetterTiles>
+    <Tiles>
       {POSITIONS.map((position) => (
-        <LetterTile
+        <Tile
           key={position}
           letter={attempt[position]}
           state={getLetterState(target, attempt, position)}
         />
       ))}
-    </LetterTiles>
+    </Tiles>
   );
 
   return (
@@ -81,7 +81,7 @@ const App = () => {
           ))}
         </Attempts>
       )}
-      <WordInput onSubmit={handleSubmit} length={WORD_LENGTH} />
+      <AttemptInput onSubmit={handleSubmit} length={NUMBER_LENGTH} />
       {didSucceed && (
         <div>
           <div>Success! Solved in {attempts.length} attempt(s).</div>

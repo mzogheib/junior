@@ -5,8 +5,8 @@ type Props = {
   length: number;
 };
 
-const WordInput = ({ onSubmit, length }: Props) => {
-  const [word, setWord] = useState('');
+const AttemptInput = ({ onSubmit, length }: Props) => {
+  const [attempt, setAttempt] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -17,19 +17,19 @@ const WordInput = ({ onSubmit, length }: Props) => {
       return;
     }
 
-    setWord(inputValue.toUpperCase());
+    setAttempt(inputValue.toUpperCase());
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const isValid = word.length === length;
+    const isValid = attempt.length === length;
     if (!isValid) {
       return;
     }
 
-    onSubmit(word);
-    setWord('');
+    onSubmit(attempt);
+    setAttempt('');
   };
 
   return (
@@ -37,7 +37,7 @@ const WordInput = ({ onSubmit, length }: Props) => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={word}
+          value={attempt}
           maxLength={length}
           onChange={handleChange}
         />
@@ -46,4 +46,4 @@ const WordInput = ({ onSubmit, length }: Props) => {
   );
 };
 
-export default WordInput;
+export default AttemptInput;

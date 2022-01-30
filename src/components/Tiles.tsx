@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const LetterTiles = styled.div`
+const Tiles = styled.div`
   display: flex;
 `;
 
-export default LetterTiles;
+export default Tiles;

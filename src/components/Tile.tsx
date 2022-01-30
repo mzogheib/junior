@@ -31,8 +31,8 @@ type Props = {
   state: State;
 };
 
-const LetterTile = ({ letter, state }: Props) => {
+const Tile = ({ letter, state }: Props) => {
   return <Wrapper state={state}>{letter}</Wrapper>;
 };
 
-export default LetterTile;
+export default Tile;
