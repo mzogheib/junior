@@ -1,16 +1,20 @@
 import react from 'react';
 import styled, { css } from 'styled-components';
 
-type State = 'match' | 'present' | 'absent';
+export enum TileState {
+  Match,
+  Present,
+  Absent,
+}
 
 const stateMap = {
-  match: '#91C483',
-  present: '#FFE162',
-  absent: '#FF6464',
+  [TileState.Match]: '#91C483',
+  [TileState.Present]: '#FFE162',
+  [TileState.Absent]: '#FF6464',
 };
 
 type WrapperProps = {
-  state: State;
+  state: TileState;
 };
 
 const Wrapper = styled.span<WrapperProps>(
@@ -28,7 +32,7 @@ const Wrapper = styled.span<WrapperProps>(
 
 type Props = {
   letter: string;
-  state: State;
+  state: TileState;
 };
 
 const Tile = ({ letter, state }: Props) => {
