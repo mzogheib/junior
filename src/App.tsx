@@ -20,9 +20,19 @@ const getLetterColor = (
 
 const App = () => {
   const [attempts, setAttempts] = useState<string[]>([]);
+  const [didSucceed, setDidSucceed] = useState(false);
 
   const handleSubmit = (submittedWord: string) => {
     setAttempts(attempts.concat([submittedWord]));
+
+    if (submittedWord === TARGET_WORD) {
+      setDidSucceed(true);
+    }
+  };
+
+  const handleReset = () => {
+    setAttempts([]);
+    setDidSucceed(false);
   };
 
   const renderAttempt = (attempt: string) =>
@@ -39,12 +49,22 @@ const App = () => {
 
   return (
     <div className="App">
+      {!!attempts.length && (
+        <ol>
+          {attempts.map((attempt, i) => (
+            <li key={`${attempt}-${i}`}>{renderAttempt(attempt)}</li>
+          ))}
+        </ol>
+      )}
       <WordInput onSubmit={handleSubmit} length={WORD_LENGTH} />
-      <div>
-        {attempts.map((attempt, i) => (
-          <div key={`${attempt}-${i}`}>{renderAttempt(attempt)}</div>
-        ))}
-      </div>
+      {didSucceed && (
+        <div>
+          <div>Success! Solved in {attempts.length} attempt(s).</div>
+        </div>
+      )}
+      <button type="button" onClick={handleReset}>
+        New game
+      </button>
     </div>
   );
 };
