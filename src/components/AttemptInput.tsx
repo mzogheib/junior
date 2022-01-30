@@ -81,7 +81,7 @@ const AttemptInput = ({ onSubmit, length }: Props) => {
   return (
     <form onSubmit={handleSubmit}>
       <Input
-        type="text"
+        type="tel"
         value={attempt}
         maxLength={length}
         onChange={handleChange}
