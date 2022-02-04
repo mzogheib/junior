@@ -5,6 +5,7 @@ import AttemptInput from './components/AttemptInput';
 import Tile, { TileState } from './components/Tile';
 import Tiles from './components/Tiles';
 import Attempts from './components/Attempts';
+import IconButton from './components/IconButton';
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 
@@ -23,11 +24,6 @@ const Header = styled.div`
   position: fixed;
   top: 0;
   height: 40px;
-`;
-
-const Footer = styled.div`
-  position: fixed;
-  bottom: 0;
 `;
 
 const getTileState = (target: string, attempt: string, position: number) => {
@@ -80,7 +76,9 @@ const App = () => {
 
   return (
     <Wrapper>
-      <Header>Header</Header>
+      <Header>
+        <IconButton icon="MdRefresh" type="button" onClick={handleReset} />
+      </Header>
       <Body>
         {!!attempts.length && (
           <Attempts>
@@ -96,11 +94,6 @@ const App = () => {
           </div>
         )}
       </Body>
-      <Footer>
-        <button type="button" onClick={handleReset}>
-          New game
-        </button>
-      </Footer>
     </Wrapper>
   );
 };
