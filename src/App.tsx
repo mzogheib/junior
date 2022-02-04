@@ -6,6 +6,7 @@ import Tile, { TileState } from './components/Tile';
 import Tiles from './components/Tiles';
 import Attempts from './components/Attempts';
 import IconButton from './components/IconButton';
+import Result from './components/Result';
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 
@@ -97,11 +98,7 @@ const App = () => {
           </Attempts>
         )}
         <AttemptInput onSubmit={handleSubmit} length={TARGET_LENGTH} />
-        {didSucceed && (
-          <div>
-            <div>Success! Solved in {attempts.length} attempt(s).</div>
-          </div>
-        )}
+        {didSucceed && <Result numAttempts={attempts.length} />}
       </Body>
     </Wrapper>
   );
