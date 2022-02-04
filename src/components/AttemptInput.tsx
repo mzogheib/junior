@@ -27,7 +27,7 @@ const InputTile = styled.div<{ isFocussed: boolean }>(
     width: 50px;
     height: 50px;
     border: 1px ${isFocussed ? 'black' : 'gray'} solid;
-    margin: 2px;
+    margin: 0 2px;
     color: black;
     font-weight: 500;
     display: flex;

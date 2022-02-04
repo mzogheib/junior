@@ -18,12 +18,21 @@ const Wrapper = styled.div`
 
 const Body = styled.div`
   margin-top: 40px;
+  padding: 10px;
 `;
 
 const Header = styled.div`
   position: fixed;
   top: 0;
   height: 40px;
+  width: 100%;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  background-color: black;
+  > * {
+    color: white;
+  }
 `;
 
 const getTileState = (target: string, attempt: string, position: number) => {

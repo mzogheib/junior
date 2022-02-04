@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 
 export enum TileState {
@@ -22,7 +22,7 @@ const Wrapper = styled.span<WrapperProps>(
     width: 50px;
     height: 50px;
     border: 1px transparent solid;
-    margin: 2px;
+    margin: 0 2px;
 
     color: black;
     background-color: ${stateMap[state]};
