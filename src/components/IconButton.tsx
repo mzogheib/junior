@@ -1,4 +1,4 @@
-import react, { ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { MdRefresh } from 'react-icons/md';
 
