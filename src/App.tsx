@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import AttemptInput from './components/AttemptInput';
 import Tile, { TileState } from './components/Tile';

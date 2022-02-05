@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from '@emotion/styled';
 
 export enum TileState {
   Match,
@@ -17,21 +17,19 @@ type WrapperProps = {
   state: TileState;
 };
 
-const Wrapper = styled.span<WrapperProps>(
-  ({ state }) => css`
-    width: 50px;
-    height: 50px;
-    border: 1px transparent solid;
-    margin: 0 2px;
+const Wrapper = styled.span<WrapperProps>`
+  width: 50px;
+  height: 50px;
+  border: 1px transparent solid;
+  margin: 0 2px;
 
-    color: black;
-    background-color: ${stateMap[state]};
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `
-);
+  color: black;
+  background-color: ${({ state }) => stateMap[state]};
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 type Props = {
   letter: string;
