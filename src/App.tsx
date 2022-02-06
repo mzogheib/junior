@@ -7,6 +7,7 @@ import Tiles from './components/Tiles';
 import Attempts from './components/Attempts';
 import IconButton from './components/IconButton';
 import Result from './components/Result';
+import AutoScollToBottom from './components/AutoScollToBottom';
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 
@@ -15,21 +16,18 @@ const POSITIONS = Array.from(Array(TARGET_LENGTH).keys());
 
 const Wrapper = styled.div`
   height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
 `;
 
 const Body = styled.div`
-  margin-top: 40px;
   padding: 10px;
+  overflow: auto;
 `;
 
 const Header = styled.div`
-  position: fixed;
-  top: 0;
-  height: 40px;
-  width: 100%;
-  padding: 0 6px;
-  display: flex;
-  align-items: center;
+  padding: 5px;
   background-color: black;
   > * {
     color: white;
@@ -99,6 +97,7 @@ const App = () => {
         )}
         <AttemptInput onSubmit={handleSubmit} length={TARGET_LENGTH} />
         {didSucceed && <Result numAttempts={attempts.length} />}
+        <AutoScollToBottom />
       </Body>
     </Wrapper>
   );
