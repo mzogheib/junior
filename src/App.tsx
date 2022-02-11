@@ -7,7 +7,7 @@ import Tiles from './components/Tiles';
 import Attempts from './components/Attempts';
 import IconButton from './components/IconButton';
 import Result from './components/Result';
-import AutoScollToBottom from './components/AutoScollToBottom';
+import AutoScrollToBottom from './components/AutoScrollToBottom';
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 
@@ -97,7 +97,7 @@ const App = () => {
         )}
         <AttemptInput onSubmit={handleSubmit} length={TARGET_LENGTH} />
         {didSucceed && <Result numAttempts={attempts.length} />}
-        <AutoScollToBottom />
+        <AutoScrollToBottom />
       </Body>
     </Wrapper>
   );
