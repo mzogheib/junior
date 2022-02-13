@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Global, css } from '@emotion/react';
+import { Global, css, ThemeProvider } from '@emotion/react';
+import { createTheme } from '@mui/material';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -10,7 +11,6 @@ const globalStyles = css`
   body,
   #root {
     height: 100%;
-    background-color: #eeeeee;
   }
   body {
     margin: 0;
@@ -26,10 +26,13 @@ const globalStyles = css`
   }
 `;
 
+// Pass the base MUI theme into Emotion so that it is accessible by Emotion's styled
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-    <Global styles={globalStyles} />
+    <ThemeProvider theme={createTheme()}>
+      <App />
+      <Global styles={globalStyles} />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

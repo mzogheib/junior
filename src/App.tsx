@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
 
 import AttemptInput from './components/AttemptInput';
 import Tile, { TileState } from './components/Tile';
 import Tiles from './components/Tiles';
 import Attempts from './components/Attempts';
-import IconButton from './components/IconButton';
 import Result from './components/Result';
 import AutoScrollToBottom from './components/AutoScrollToBottom';
 
@@ -16,22 +18,12 @@ const POSITIONS = Array.from(Array(TARGET_LENGTH).keys());
 
 const Wrapper = styled.div`
   height: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
+  background-color: ${({ theme }) => theme.palette.background.paper};
 `;
 
-const Body = styled.div`
+const Main = styled.main`
   padding: 10px;
   overflow: auto;
-`;
-
-const Header = styled.div`
-  padding: 5px;
-  background-color: black;
-  > * {
-    color: white;
-  }
 `;
 
 const getTileState = (target: string, attempt: string, position: number) => {
@@ -84,10 +76,15 @@ const App = () => {
 
   return (
     <Wrapper>
-      <Header>
-        <IconButton icon="MdRefresh" type="button" onClick={handleReset} />
-      </Header>
-      <Body>
+      <AppBar position="sticky">
+        <Toolbar>
+          <Button onClick={handleReset} color="inherit">
+            new game
+          </Button>
+        </Toolbar>
+      </AppBar>
+
+      <Main>
         {!!attempts.length && (
           <Attempts>
             {attempts.map((attempt, i) => (
@@ -98,7 +95,7 @@ const App = () => {
         <AttemptInput onSubmit={handleSubmit} length={TARGET_LENGTH} />
         {didSucceed && <Result numAttempts={attempts.length} />}
         <AutoScrollToBottom />
-      </Body>
+      </Main>
     </Wrapper>
   );
 };
