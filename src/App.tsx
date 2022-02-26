@@ -41,7 +41,6 @@ const makeRandomNumberString = () =>
 
 const App = () => {
   const [attempts, setAttempts] = useState<string[]>([]);
-  const [didSucceed, setDidSucceed] = useState(false);
   const [target, setTarget] = useState('');
 
   useEffect(() => {
@@ -50,15 +49,10 @@ const App = () => {
 
   const handleSubmit = (attempt: string) => {
     setAttempts(attempts.concat([attempt]));
-
-    if (attempt === target) {
-      setDidSucceed(true);
-    }
   };
 
   const handleReset = () => {
     setAttempts([]);
-    setDidSucceed(false);
     setTarget(makeRandomNumberString());
   };
 
@@ -73,6 +67,11 @@ const App = () => {
       ))}
     </Tiles>
   );
+
+  const lastAttempt = attempts.length
+    ? attempts[attempts.length - 1]
+    : undefined;
+  const didSucceed = lastAttempt === target;
 
   return (
     <Wrapper>
