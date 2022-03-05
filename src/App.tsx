@@ -8,7 +8,7 @@ import AttemptInput from './components/AttemptInput';
 import Tile, { TileState } from './components/Tile';
 import Tiles from './components/Tiles';
 import Attempts from './components/Attempts';
-import Result from './components/Result';
+import ResultModal from './components/ResultModal';
 import AutoScrollToBottom from './components/AutoScrollToBottom';
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
@@ -74,28 +74,37 @@ const App = () => {
   const didSucceed = lastAttempt === target;
 
   return (
-    <Wrapper>
-      <AppBar position="sticky">
-        <Toolbar>
-          <Button onClick={handleReset} color="inherit">
-            new game
-          </Button>
-        </Toolbar>
-      </AppBar>
+    <>
+      <Wrapper>
+        <AppBar position="sticky">
+          <Toolbar>
+            <Button onClick={handleReset} color="inherit">
+              new game
+            </Button>
+          </Toolbar>
+        </AppBar>
 
-      <Main>
-        {!!attempts.length && (
-          <Attempts>
-            {attempts.map((attempt, i) => (
-              <div key={`${attempt}-${i}`}>{renderAttempt(attempt)}</div>
-            ))}
-          </Attempts>
-        )}
-        <AttemptInput onSubmit={handleSubmit} length={TARGET_LENGTH} />
-        {didSucceed && <Result numAttempts={attempts.length} />}
-        <AutoScrollToBottom />
-      </Main>
-    </Wrapper>
+        <Main>
+          {!!attempts.length && (
+            <Attempts>
+              {attempts.map((attempt, i) => (
+                <div key={`${attempt}-${i}`}>{renderAttempt(attempt)}</div>
+              ))}
+            </Attempts>
+          )}
+          {!didSucceed && (
+            <AttemptInput onSubmit={handleSubmit} length={TARGET_LENGTH} />
+          )}
+          <AutoScrollToBottom />
+        </Main>
+      </Wrapper>
+
+      <ResultModal
+        isOpen={didSucceed}
+        numAttempts={attempts.length}
+        onAccept={handleReset}
+      />
+    </>
   );
 };
 

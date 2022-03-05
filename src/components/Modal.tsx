@@ -9,6 +9,8 @@ const StyledMuiModal = styled(MuiModal)`
 `;
 
 const ModalChildren = styled.div`
+  background-color: ${({ theme }) => theme.palette.background.paper};
+  border-radius: ${({ theme }) => theme.shape.borderRadius}px;
   outline: 0;
 `;
 
