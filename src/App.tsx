@@ -10,6 +10,7 @@ import Tiles from './components/Tiles';
 import Attempts from './components/Attempts';
 import ResultModal from './components/ResultModal';
 import AutoScrollToBottom from './components/AutoScrollToBottom';
+import { getRandomWord } from './words';
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 
@@ -34,17 +35,12 @@ const getTileState = (target: string, attempt: string, position: number) => {
     : TileState.Absent;
 };
 
-const makeRandomNumberString = () =>
-  Math.random()
-    .toString()
-    .substring(2, TARGET_LENGTH + 2);
-
 const App = () => {
   const [attempts, setAttempts] = useState<string[]>([]);
   const [target, setTarget] = useState('');
 
   useEffect(() => {
-    setTarget(makeRandomNumberString());
+    setTarget(getRandomWord());
   }, []);
 
   const handleSubmit = (attempt: string) => {
@@ -53,7 +49,7 @@ const App = () => {
 
   const handleReset = () => {
     setAttempts([]);
-    setTarget(makeRandomNumberString());
+    setTarget(getRandomWord());
   };
 
   const renderAttempt = (attempt: string) => (
