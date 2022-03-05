@@ -8,8 +8,14 @@ const StyledMuiModal = styled(MuiModal)`
   align-items: center;
 `;
 
-const Modal = ({ children, ...rest }: ModalProps) => {
-  return <StyledMuiModal {...rest}>{children}</StyledMuiModal>;
-};
+const ModalChildren = styled.div`
+  outline: 0;
+`;
+
+const Modal = ({ children, ...rest }: ModalProps) => (
+  <StyledMuiModal {...rest}>
+    <ModalChildren>{children}</ModalChildren>
+  </StyledMuiModal>
+);
 
 export default Modal;
