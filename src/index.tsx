@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Global, css, ThemeProvider } from '@emotion/react';
+import {
+  Global,
+  css,
+  ThemeProvider as EmotionThemeProvider,
+} from '@emotion/react';
 import { createTheme } from '@mui/material';
 
 import App from './App';
@@ -29,10 +33,10 @@ const globalStyles = css`
 // Pass the base MUI theme into Emotion so that it is accessible by Emotion's styled
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={createTheme()}>
+    <EmotionThemeProvider theme={createTheme()}>
       <App />
       <Global styles={globalStyles} />
-    </ThemeProvider>
+    </EmotionThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
