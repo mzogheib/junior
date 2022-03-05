@@ -57,7 +57,7 @@ const AttemptInput = ({ onSubmit, length }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
 
-    // Only letters are allowed
+    // Only numbers are allowed
     const reg = /^[0-9]+$/i;
     if (inputValue && !reg.test(inputValue)) {
       return;
