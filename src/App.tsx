@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
 
 import AttemptInput from './components/AttemptInput';
 import Tile, { TileState } from './components/Tile';
@@ -11,6 +8,7 @@ import Attempts from './components/Attempts';
 import ResultModal from './components/ResultModal';
 import AutoScrollToBottom from './components/AutoScrollToBottom';
 import { getRandomWord } from './words';
+import AppHeader from './components/AppHeader';
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 
@@ -72,13 +70,7 @@ const App = () => {
   return (
     <>
       <Wrapper>
-        <AppBar position="sticky">
-          <Toolbar>
-            <Button onClick={handleReset} color="inherit">
-              new game
-            </Button>
-          </Toolbar>
-        </AppBar>
+        <AppHeader onNewGame={handleReset} />
 
         <Main>
           {!!attempts.length && (
