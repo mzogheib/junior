@@ -6,6 +6,7 @@ import {
   MutableRefObject,
 } from 'react';
 import styled from '@emotion/styled';
+import { Theme } from '@emotion/react';
 
 const Input = styled.input`
   height: 0;
@@ -22,12 +23,22 @@ const InputTiles = styled.div`
   align-items: center;
 `;
 
+const getBorderColor = (isFocussed: boolean, theme: Theme) => {
+  const focussedConfig = {
+    light: 'black',
+    dark: 'white',
+  };
+
+  return isFocussed ? focussedConfig[theme.palette.mode] : 'gray';
+};
+
 const InputTile = styled.div<{ isFocussed: boolean }>`
   width: 50px;
   height: 50px;
-  border: 1px ${({ isFocussed }) => (isFocussed ? 'black' : 'gray')} solid;
+  border: 1px ${({ isFocussed, theme }) => getBorderColor(isFocussed, theme)}
+    solid;
   margin: 0 2px;
-  color: black;
+  color: ${({ theme }) => (theme.palette.mode === 'light' ? 'black' : 'white')};
   font-weight: 500;
   display: flex;
   justify-content: center;
