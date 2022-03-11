@@ -15,6 +15,10 @@ const ButtonWrapper = styled.div`
   margin-top: ${({ theme }) => theme.spacing(3)};
 `;
 
+const Content = styled(Typography)`
+  margin-top: ${({ theme }) => theme.spacing(2)};
+`;
+
 type Props = {
   isOpen: boolean;
   numAttempts: number;
@@ -24,12 +28,12 @@ type Props = {
 const ResultModal = ({ isOpen, numAttempts, onAccept }: Props) => (
   <Modal open={isOpen}>
     <Wrapper>
-      <Typography variant="h3" component="h3" color="primary.main">
+      <Typography variant="h4" color="primary.main">
         Success!
       </Typography>
-      <Typography variant="body1" color="primary.main" component="p">
+      <Content variant="body1" color="primary.main">
         Solved in {numAttempts} attempt(s).
-      </Typography>
+      </Content>
       <ButtonWrapper>
         <Button onClick={onAccept} variant="contained">
           New game
