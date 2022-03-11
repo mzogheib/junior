@@ -37,6 +37,7 @@ const InputTile = styled.div<{ isFocussed: boolean }>`
   height: 50px;
   border: 1px ${({ isFocussed, theme }) => getBorderColor(isFocussed, theme)}
     solid;
+  border-radius: ${({ theme }) => theme.shape.borderRadius}px;
   margin: 0 2px;
   color: ${({ theme }) => (theme.palette.mode === 'light' ? 'black' : 'white')};
   font-weight: 500;

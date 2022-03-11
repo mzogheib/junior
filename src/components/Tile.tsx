@@ -21,6 +21,7 @@ const Wrapper = styled.span<WrapperProps>`
   width: 50px;
   height: 50px;
   border: 1px transparent solid;
+  border-radius: ${({ theme }) => theme.shape.borderRadius}px;
   margin: 0 2px;
 
   color: black;
