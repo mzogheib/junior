@@ -1,9 +1,9 @@
 import words from './words-data.json';
+import { randomNumberBetween } from '../utils';
 
 const WORDS_LENGTH = words.length;
 
-const randomNumberBetween = (min: number, max: number) =>
-  Math.floor(Math.random() * (max - min + 1) + min);
+export const TARGET_LENGTH = 5;
 
 export const getRandomWord = (): Promise<string> => {
   const index = randomNumberBetween(0, WORDS_LENGTH - 1);

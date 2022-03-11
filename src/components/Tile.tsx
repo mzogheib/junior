@@ -7,6 +7,7 @@ export enum TileState {
   Absent,
 }
 
+// https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 const stateMap = {
   [TileState.Match]: '#91C483',
   [TileState.Present]: '#FFE162',

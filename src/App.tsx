@@ -7,12 +7,9 @@ import Tiles from './components/Tiles';
 import Attempts from './components/Attempts';
 import ResultModal from './components/ResultModal';
 import AutoScrollToBottom from './components/AutoScrollToBottom';
-import { getRandomWord } from './services/words';
+import { getRandomWord, TARGET_LENGTH } from './services/words';
 import AppHeader from './components/AppHeader';
 
-// https://colorhunt.co/palette/ffe162ff646491c483eeeeee
-
-const TARGET_LENGTH = 5;
 const POSITIONS = Array.from(Array(TARGET_LENGTH).keys());
 
 const Wrapper = styled.div`
