@@ -11,9 +11,6 @@ const ThemeContext = createContext<ThemeContextValue>({});
 
 export const useTheme = () => useContext(ThemeContext);
 
-// Pass the base MUI theme into Emotion so that it is accessible by Emotion's styled function.
-// The declaration file ensures the full type of MUI's Theme is available to styled components.
-
 const ThemeProvider: FC = ({ children }) => {
   const [mode, setMode] = useState<PaletteMode>('light');
 
@@ -25,11 +22,16 @@ const ThemeProvider: FC = ({ children }) => {
     }
   };
 
+  // Pass the base MUI theme into Emotion so that it is accessible by Emotion's styled function.
+  // The declaration file ensures the full type of MUI's Theme is available to styled components.
+  const muiTheme = createTheme({ palette: { mode } });
+  const renderThemeProvider = () => (
+    <EmotionThemeProvider theme={muiTheme}>{children}</EmotionThemeProvider>
+  );
+
   return (
     <ThemeContext.Provider value={{ onToggleMode: handleToggleMode, mode }}>
-      <EmotionThemeProvider theme={createTheme({ palette: { mode } })}>
-        {children}
-      </EmotionThemeProvider>
+      {renderThemeProvider()}
     </ThemeContext.Provider>
   );
 };
