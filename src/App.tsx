@@ -7,7 +7,7 @@ import Tiles from './components/Tiles';
 import Attempts from './components/Attempts';
 import ResultModal from './components/ResultModal';
 import AutoScrollToBottom from './components/AutoScrollToBottom';
-import { getRandomWord } from './words';
+import { getRandomWord } from './services/words';
 import AppHeader from './components/AppHeader';
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
@@ -37,17 +37,18 @@ const App = () => {
   const [attempts, setAttempts] = useState<string[]>([]);
   const [target, setTarget] = useState('');
 
+  const handleReset = async () => {
+    const word = await getRandomWord();
+    setTarget(word);
+    setAttempts([]);
+  };
+
   useEffect(() => {
-    setTarget(getRandomWord());
+    handleReset();
   }, []);
 
   const handleSubmit = (attempt: string) => {
     setAttempts(attempts.concat([attempt]));
-  };
-
-  const handleReset = () => {
-    setAttempts([]);
-    setTarget(getRandomWord());
   };
 
   const renderAttempt = (attempt: string) => (
