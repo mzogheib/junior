@@ -5,6 +5,7 @@ export enum TileState {
   Match,
   Present,
   Absent,
+  ReadOnly,
 }
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
@@ -12,6 +13,7 @@ const stateMap = {
   [TileState.Match]: '#91C483',
   [TileState.Present]: '#FFE162',
   [TileState.Absent]: '#FF6464',
+  [TileState.ReadOnly]: '#CFCFCF',
 };
 
 type WrapperProps = {
