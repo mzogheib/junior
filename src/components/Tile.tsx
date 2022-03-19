@@ -34,12 +34,12 @@ const Wrapper = styled.span<WrapperProps>`
 `;
 
 type Props = {
-  letter: string;
+  value: string;
   state: TileState;
 };
 
-const Tile = ({ letter, state }: Props) => {
-  return <Wrapper state={state}>{letter}</Wrapper>;
+const Tile = ({ value, state }: Props) => {
+  return <Wrapper state={state}>{value}</Wrapper>;
 };
 
 export default Tile;

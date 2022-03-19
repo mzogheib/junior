@@ -30,7 +30,7 @@ const Attempts = ({ target, attempts }: Props) => {
       {POSITIONS.map((position) => (
         <Tile
           key={position}
-          letter={attempt[position]}
+          value={attempt[position]}
           state={getTileState(target, attempt, position)}
         />
       ))}
