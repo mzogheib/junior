@@ -20,7 +20,7 @@ type WrapperProps = {
   state: TileState;
 };
 
-const Wrapper = styled.span<WrapperProps>`
+const Wrapper = styled.div<WrapperProps>`
   width: 50px;
   height: 50px;
   border: 1px transparent solid;
