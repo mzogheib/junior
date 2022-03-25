@@ -82,7 +82,6 @@ const EquationInput = ({ equation, onSubmit }: Props) => {
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    console.log('handleSubmit', inputValues);
     event.preventDefault();
 
     if (!inputValues || !checkIsValid(equation, inputValues)) {
