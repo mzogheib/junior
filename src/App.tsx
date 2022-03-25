@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
 import ResultModal from './components/ResultModal';
@@ -30,7 +30,7 @@ const App = () => {
   const [targetEquation, setTargetEquation] = useState<Equation>();
   const [targetWord, setTargetWord] = useState<string>();
 
-  const handleNewGame = async () => {
+  const handleNewGame = useCallback(async () => {
     if (gameMode === GameMode.Numbers) {
       const newTarget = await getRandomEquation();
       setTargetEquation(newTarget);
@@ -42,25 +42,11 @@ const App = () => {
     }
 
     setNumSuccessAttempts(0);
-  };
+  }, [gameMode]);
 
   useEffect(() => {
-    const handleReset = async () => {
-      if (gameMode === GameMode.Numbers) {
-        const newTarget = await getRandomEquation();
-        setTargetEquation(newTarget);
-        setTargetWord(undefined);
-      } else {
-        const newTarget = await getRandomWord();
-        setTargetWord(newTarget);
-        setTargetEquation(undefined);
-      }
-
-      setNumSuccessAttempts(0);
-    };
-
-    handleReset();
-  }, [gameMode]);
+    handleNewGame();
+  }, [handleNewGame]);
 
   return (
     <>
