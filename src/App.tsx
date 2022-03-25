@@ -30,7 +30,11 @@ const App = () => {
   const [targetEquation, setTargetEquation] = useState<Equation>();
   const [targetWord, setTargetWord] = useState<string>();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleNewGame = useCallback(async () => {
+    setIsLoading(true);
+
     if (gameMode === GameMode.Numbers) {
       const newTarget = await getRandomEquation();
       setTargetEquation(newTarget);
@@ -42,6 +46,8 @@ const App = () => {
     }
 
     setNumSuccessAttempts(0);
+
+    setIsLoading(false);
   }, [gameMode]);
 
   useEffect(() => {
@@ -51,7 +57,7 @@ const App = () => {
   return (
     <>
       <Wrapper>
-        <AppHeader onNewGame={handleNewGame} />
+        <AppHeader isLoading={isLoading} onNewGame={handleNewGame} />
 
         <Main>
           {targetEquation?.length && (
@@ -69,6 +75,7 @@ const App = () => {
 
       <ResultModal
         isOpen={!!numSuccessAttempts}
+        isLoading={isLoading}
         numAttempts={numSuccessAttempts}
         onAccept={handleNewGame}
       />

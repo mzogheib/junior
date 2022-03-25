@@ -21,11 +21,12 @@ const Content = styled(Typography)`
 
 type Props = {
   isOpen: boolean;
+  isLoading?: boolean;
   numAttempts: number;
   onAccept(): void;
 };
 
-const ResultModal = ({ isOpen, numAttempts, onAccept }: Props) => (
+const ResultModal = ({ isOpen, isLoading, numAttempts, onAccept }: Props) => (
   <Modal open={isOpen}>
     <Wrapper>
       <Typography variant="h4" color="primary.main">
@@ -35,7 +36,7 @@ const ResultModal = ({ isOpen, numAttempts, onAccept }: Props) => (
         Solved in {numAttempts} attempt(s).
       </Content>
       <ButtonWrapper>
-        <Button onClick={onAccept} variant="contained">
+        <Button disabled={isLoading} onClick={onAccept} variant="contained">
           New game
         </Button>
       </ButtonWrapper>

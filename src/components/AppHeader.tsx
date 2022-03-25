@@ -13,21 +13,22 @@ const StyledToolbar = styled(Toolbar)`
 `;
 
 type Props = {
+  isLoading?: boolean;
   onNewGame(): void;
 };
 
-const AppHeader = ({ onNewGame }: Props) => {
+const AppHeader = ({ isLoading, onNewGame }: Props) => {
   const { onToggleMode, mode } = useTheme();
   const { onToggleGameMode, gameMode } = useGameSettings();
 
   return (
     <AppBar position="sticky">
       <StyledToolbar>
-        <Button onClick={onNewGame} color="inherit">
+        <Button disabled={isLoading} onClick={onNewGame} color="inherit">
           new game
         </Button>
 
-        <Button onClick={onToggleGameMode} color="inherit">
+        <Button disabled={isLoading} onClick={onToggleGameMode} color="inherit">
           {gameMode === GameMode.Letters
             ? 'Play with numbers'
             : 'Play with letters'}
