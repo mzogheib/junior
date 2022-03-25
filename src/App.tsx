@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
-import AttemptInput from './components/AttemptInput';
-import Attempts from './components/Attempts';
 import ResultModal from './components/ResultModal';
 import AutoScrollToBottom from './components/AutoScrollToBottom';
-import { getRandomWord, TARGET_LENGTH } from './services/words';
+import { getRandomWord } from './services/words';
 import AppHeader from './components/AppHeader';
+import { Equation, getRandomEquation } from './services/equation';
+import {
+  GameMode,
+  useGameSettings,
+} from './components/GameSettings/GameSettingsProvider';
+import EquationGame from './components/EquationGame';
+import WordGame from './components/WordGame';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -19,48 +24,60 @@ const Main = styled.main`
 `;
 
 const App = () => {
-  const [attempts, setAttempts] = useState<string[]>([]);
-  const [target, setTarget] = useState('');
+  const { gameMode } = useGameSettings();
 
-  const handleReset = async () => {
-    const word = await getRandomWord();
-    setTarget(word);
-    setAttempts([]);
-  };
+  const [numSuccessAttempts, setNumSuccessAttempts] = useState(0);
+  const [targetEquation, setTargetEquation] = useState<Equation>();
+  const [targetWord, setTargetWord] = useState<string>();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleNewGame = useCallback(async () => {
+    setIsLoading(true);
+
+    if (gameMode === GameMode.Numbers) {
+      const newTarget = await getRandomEquation();
+      setTargetEquation(newTarget);
+      setTargetWord(undefined);
+    } else {
+      const newTarget = await getRandomWord();
+      setTargetWord(newTarget);
+      setTargetEquation(undefined);
+    }
+
+    setNumSuccessAttempts(0);
+
+    setIsLoading(false);
+  }, [gameMode]);
 
   useEffect(() => {
-    handleReset();
-  }, []);
-
-  const handleSubmit = (attempt: string) => {
-    setAttempts(attempts.concat([attempt]));
-  };
-
-  const lastAttempt = attempts.length
-    ? attempts[attempts.length - 1]
-    : undefined;
-  const didSucceed = lastAttempt === target;
+    handleNewGame();
+  }, [handleNewGame]);
 
   return (
     <>
       <Wrapper>
-        <AppHeader onNewGame={handleReset} />
+        <AppHeader isLoading={isLoading} onNewGame={handleNewGame} />
 
         <Main>
-          {!!attempts.length && (
-            <Attempts attempts={attempts} target={target} />
+          {targetEquation?.length && (
+            <EquationGame
+              target={targetEquation}
+              onSuccess={setNumSuccessAttempts}
+            />
           )}
-          {!didSucceed && (
-            <AttemptInput onSubmit={handleSubmit} length={TARGET_LENGTH} />
+          {targetWord?.length && (
+            <WordGame target={targetWord} onSuccess={setNumSuccessAttempts} />
           )}
           <AutoScrollToBottom />
         </Main>
       </Wrapper>
 
       <ResultModal
-        isOpen={didSucceed}
-        numAttempts={attempts.length}
-        onAccept={handleReset}
+        isOpen={!!numSuccessAttempts}
+        isLoading={isLoading}
+        numAttempts={numSuccessAttempts}
+        onAccept={handleNewGame}
       />
     </>
   );

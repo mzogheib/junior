@@ -5,6 +5,7 @@ import { Global, css } from '@emotion/react';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ThemeProvider from './components/ThemeProvider/ThemeProvider';
+import GameSettingsProvider from './components/GameSettings/GameSettingsProvider';
 
 const globalStyles = css`
   html,
@@ -29,8 +30,10 @@ const globalStyles = css`
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider>
-      <App />
-      <Global styles={globalStyles} />
+      <GameSettingsProvider>
+        <App />
+        <Global styles={globalStyles} />
+      </GameSettingsProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
