@@ -5,6 +5,12 @@ import ResultModal from './components/ResultModal';
 import AutoScrollToBottom from './components/AutoScrollToBottom';
 import { getRandomWord } from './services/words';
 import AppHeader from './components/AppHeader';
+import { Equation, getRandomEquation } from './services/equation';
+import {
+  GameMode,
+  useGameSettings,
+} from './components/GameSettings/GameSettingsProvider';
+import EquationGame from './components/EquationGame';
 import WordGame from './components/WordGame';
 
 const Wrapper = styled.div`
@@ -18,25 +24,56 @@ const Main = styled.main`
 `;
 
 const App = () => {
+  const { gameMode } = useGameSettings();
+
   const [numSuccessAttempts, setNumSuccessAttempts] = useState(0);
+  const [targetEquation, setTargetEquation] = useState<Equation>();
   const [targetWord, setTargetWord] = useState<string>();
 
-  const handleReset = async () => {
-    const newTarget = await getRandomWord();
-    setTargetWord(newTarget);
+  const handleNewGame = async () => {
+    if (gameMode === GameMode.Numbers) {
+      const newTarget = await getRandomEquation();
+      setTargetEquation(newTarget);
+      setTargetWord(undefined);
+    } else {
+      const newTarget = await getRandomWord();
+      setTargetWord(newTarget);
+      setTargetEquation(undefined);
+    }
+
     setNumSuccessAttempts(0);
   };
 
   useEffect(() => {
+    const handleReset = async () => {
+      if (gameMode === GameMode.Numbers) {
+        const newTarget = await getRandomEquation();
+        setTargetEquation(newTarget);
+        setTargetWord(undefined);
+      } else {
+        const newTarget = await getRandomWord();
+        setTargetWord(newTarget);
+        setTargetEquation(undefined);
+      }
+
+      setNumSuccessAttempts(0);
+    };
+
     handleReset();
-  }, []);
+  }, [gameMode]);
 
   return (
     <>
       <Wrapper>
-        <AppHeader onNewGame={handleReset} />
+        <AppHeader onNewGame={handleNewGame} />
 
         <Main>
+          {targetEquation?.length && (
+            <EquationGame
+              target={targetEquation}
+              onSuccess={setNumSuccessAttempts}
+            />
+          )}
           {targetWord?.length && (
             <WordGame target={targetWord} onSuccess={setNumSuccessAttempts} />
           )}
@@ -47,7 +84,7 @@ const App = () => {
       <ResultModal
         isOpen={!!numSuccessAttempts}
         numAttempts={numSuccessAttempts}
-        onAccept={handleReset}
+        onAccept={handleNewGame}
       />
     </>
   );
