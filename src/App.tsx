@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
-import AttemptInput from './components/AttemptInput';
-import Attempts from './components/Attempts';
 import ResultModal from './components/ResultModal';
 import AutoScrollToBottom from './components/AutoScrollToBottom';
-import { getRandomWord, TARGET_LENGTH } from './services/words';
+import { getRandomWord } from './services/words';
 import AppHeader from './components/AppHeader';
+import WordGame from './components/WordGame';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -19,27 +18,18 @@ const Main = styled.main`
 `;
 
 const App = () => {
-  const [attempts, setAttempts] = useState<string[]>([]);
-  const [target, setTarget] = useState('');
+  const [numSuccessAttempts, setNumSuccessAttempts] = useState(0);
+  const [targetWord, setTargetWord] = useState<string>();
 
   const handleReset = async () => {
-    const word = await getRandomWord();
-    setTarget(word);
-    setAttempts([]);
+    const newTarget = await getRandomWord();
+    setTargetWord(newTarget);
+    setNumSuccessAttempts(0);
   };
 
   useEffect(() => {
     handleReset();
   }, []);
-
-  const handleSubmit = (attempt: string) => {
-    setAttempts(attempts.concat([attempt]));
-  };
-
-  const lastAttempt = attempts.length
-    ? attempts[attempts.length - 1]
-    : undefined;
-  const didSucceed = lastAttempt === target;
 
   return (
     <>
@@ -47,19 +37,16 @@ const App = () => {
         <AppHeader onNewGame={handleReset} />
 
         <Main>
-          {!!attempts.length && (
-            <Attempts attempts={attempts} target={target} />
-          )}
-          {!didSucceed && (
-            <AttemptInput onSubmit={handleSubmit} length={TARGET_LENGTH} />
+          {targetWord?.length && (
+            <WordGame target={targetWord} onSuccess={setNumSuccessAttempts} />
           )}
           <AutoScrollToBottom />
         </Main>
       </Wrapper>
 
       <ResultModal
-        isOpen={didSucceed}
-        numAttempts={attempts.length}
+        isOpen={!!numSuccessAttempts}
+        numAttempts={numSuccessAttempts}
         onAccept={handleReset}
       />
     </>
