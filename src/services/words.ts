@@ -3,8 +3,6 @@ import { randomNumberBetween } from '../misc/utils';
 
 const WORDS_LENGTH = words.length;
 
-export const TARGET_LENGTH = 5;
-
 export const getRandomWord = (): Promise<string> => {
   const index = randomNumberBetween(0, WORDS_LENGTH - 1);
 
