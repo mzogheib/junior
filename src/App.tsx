@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import styled from '@emotion/styled';
 
 import ResultModal from './components/Modals/ResultModal';
@@ -6,10 +6,7 @@ import AutoScrollToBottom from './components/AutoScrollToBottom';
 import { getRandomWord } from './services/words';
 import AppHeader from './components/AppHeader';
 import { Equation, getRandomEquation } from './services/equation';
-import {
-  GameMode,
-  useGameSettings,
-} from './components/GameSettings/GameSettingsProvider';
+import { GameMode } from './components/GameSettings/GameSettingsProvider';
 import EquationGame from './components/EquationGame';
 import WordGame from './components/WordGame';
 import NewGameModal from './components/Modals/NewGameModal';
@@ -25,8 +22,6 @@ const Main = styled.main`
 `;
 
 const App = () => {
-  const { gameMode } = useGameSettings();
-
   const [isNewGameModalOpen, setIsNewGameModalOpen] = useState(true);
 
   const [numSuccessAttempts, setNumSuccessAttempts] = useState(0);
@@ -35,7 +30,7 @@ const App = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleNewGame = useCallback(async () => {
+  const handleNewGame = async (gameMode: GameMode) => {
     setIsLoading(true);
 
     if (gameMode === GameMode.Numbers) {
@@ -52,7 +47,12 @@ const App = () => {
 
     setIsLoading(false);
     setIsNewGameModalOpen(false);
-  }, [gameMode]);
+  };
+
+  const handleCloseResultsModal = () => {
+    setNumSuccessAttempts(0);
+    setIsNewGameModalOpen(true);
+  };
 
   return (
     <>
@@ -80,7 +80,7 @@ const App = () => {
         isOpen={!!numSuccessAttempts}
         isLoading={isLoading}
         numAttempts={numSuccessAttempts}
-        onAccept={handleNewGame}
+        onAccept={handleCloseResultsModal}
       />
       <NewGameModal
         isOpen={isNewGameModalOpen}

@@ -1,8 +1,8 @@
 import React, { FC, useState, createContext, useContext } from 'react';
 
 export enum GameMode {
-  Letters,
-  Numbers,
+  Letters = 'letters',
+  Numbers = 'numbers',
 }
 
 type GameSettingsContextValue = {
