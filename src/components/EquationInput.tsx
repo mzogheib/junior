@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
 import styled from '@emotion/styled';
+import Button from '@mui/material/Button';
 
 import EquationTermInput from './EquationTermInput';
 import EquationOperatorTile from './EquationOperatorTile';
@@ -14,6 +15,12 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const ButtonWrapper = styled.div`
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
 `;
 
 export type EquationInputValues = Record<number, string>;
@@ -98,16 +105,15 @@ const EquationInput = ({ equation, onSubmit }: Props) => {
   ) => {
     if (type === EquationComponentType.Term) {
       return (
-        <form onSubmit={handleSubmit} key={index}>
-          <EquationTermInput
-            length={value.length}
-            value={inputValues?.[index] ?? ''}
-            onChange={(value) => handleChange(index, value)}
-            autoFocus={index === 0}
-            onFocus={() => handleFocus(index)}
-            isFocussed={index === focussedInput}
-          />
-        </form>
+        <EquationTermInput
+          key={index}
+          length={value.length}
+          value={inputValues?.[index] ?? ''}
+          onChange={(value) => handleChange(index, value)}
+          autoFocus={index === 0}
+          onFocus={() => handleFocus(index)}
+          isFocussed={index === focussedInput}
+        />
       );
     }
 
@@ -120,7 +126,16 @@ const EquationInput = ({ equation, onSubmit }: Props) => {
     );
   };
 
-  return <Wrapper>{equation.map(renderEquationComponent)}</Wrapper>;
+  return (
+    <form onSubmit={handleSubmit}>
+      <Wrapper>{equation.map(renderEquationComponent)}</Wrapper>
+      <ButtonWrapper>
+        <Button type="submit" variant="contained">
+          Submit
+        </Button>
+      </ButtonWrapper>
+    </form>
+  );
 };
 
 export default EquationInput;

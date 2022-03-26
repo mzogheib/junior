@@ -7,6 +7,7 @@ import {
 } from 'react';
 import styled from '@emotion/styled';
 import { Theme } from '@emotion/react';
+import Button from '@mui/material/Button';
 
 const Input = styled.input`
   height: 0;
@@ -44,6 +45,12 @@ const InputTile = styled.div<{ isFocussed: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const ButtonWrapper = styled.div`
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
 `;
 
 // https://stackoverflow.com/questions/28889826/how-to-set-focus-on-an-input-field-after-rendering
@@ -107,6 +114,11 @@ const AttemptInput = ({ onSubmit, length }: Props) => {
           </InputTile>
         ))}
       </InputTiles>
+      <ButtonWrapper>
+        <Button type="submit" variant="contained">
+          Submit
+        </Button>
+      </ButtonWrapper>
     </form>
   );
 };
