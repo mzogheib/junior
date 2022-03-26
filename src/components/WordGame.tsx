@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { usePrevious } from '../utils';
+import { usePrevious } from '../misc/utils';
 import AttemptInput from './AttemptInput';
 import Attempts from './Attempts';
 

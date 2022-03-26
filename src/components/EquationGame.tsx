@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Equation, stringifyEquation } from '../services/equation';
-import { usePrevious } from '../utils';
+import { usePrevious } from '../misc/utils';
 import EquationAttempts from './EquationAttempts';
 import EquationInput from './EquationInput';
 

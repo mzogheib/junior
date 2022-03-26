@@ -1,4 +1,4 @@
-import { randomNumberBetween } from '../utils';
+import { randomNumberBetween } from '../misc/utils';
 
 export enum EquationComponentType {
   Term = 'term',
