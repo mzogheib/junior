@@ -54,6 +54,9 @@ const EquationTermInput = ({
         onFocus={onFocus}
         length={length}
         validChars="0-9"
+        inputProps={{
+          type: 'tel',
+        }}
         placeholder=""
         removeDefaultStyles
         classNames={{
