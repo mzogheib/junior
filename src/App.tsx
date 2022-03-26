@@ -6,7 +6,7 @@ import AutoScrollToBottom from './components/AutoScrollToBottom';
 import { getRandomWord } from './services/words';
 import AppHeader from './components/AppHeader';
 import { Equation, getRandomEquation } from './services/equation';
-import { GameMode } from './components/GameSettings/GameSettingsProvider';
+import { GameMode } from './misc/types';
 import EquationGame from './components/EquationGame';
 import WordGame from './components/WordGame';
 import NewGameModal from './components/Modals/NewGameModal';

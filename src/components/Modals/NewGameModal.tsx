@@ -6,7 +6,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 import Modal from './Modal';
-import { GameMode } from '../GameSettings/GameSettingsProvider';
+import { GameMode } from '../../misc/types';
 
 const Wrapper = styled.div`
   padding: ${({ theme }) => theme.spacing(3)};
