@@ -5,16 +5,6 @@ import Typography from '@mui/material/Typography';
 
 import Modal from './Modal';
 
-const Wrapper = styled.div`
-  padding: ${({ theme }) => theme.spacing(3)};
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: ${({ theme }) => theme.spacing(3)};
-`;
-
 const Content = styled(Typography)`
   margin-top: ${({ theme }) => theme.spacing(2)};
 `;
@@ -28,19 +18,19 @@ type Props = {
 
 const ResultModal = ({ isOpen, isLoading, numAttempts, onAccept }: Props) => (
   <Modal open={isOpen}>
-    <Wrapper>
+    <Modal.Content>
       <Typography variant="h4" color="primary.main">
         Success!
       </Typography>
       <Content variant="body1" color="primary.main">
         Solved in {numAttempts} attempt(s).
       </Content>
-      <ButtonWrapper>
+      <Modal.Buttons>
         <Button disabled={isLoading} onClick={onAccept} variant="contained">
           New game
         </Button>
-      </ButtonWrapper>
-    </Wrapper>
+      </Modal.Buttons>
+    </Modal.Content>
   </Modal>
 );
 

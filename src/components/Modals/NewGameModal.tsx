@@ -8,18 +8,8 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Modal from './Modal';
 import { GameMode } from '../../misc/types';
 
-const Wrapper = styled.div`
-  padding: ${({ theme }) => theme.spacing(3)};
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: ${({ theme }) => theme.spacing(3)};
-`;
-
 const Content = styled(Typography)`
-  margin-top: ${({ theme }) => theme.spacing(2)};
+  margin-bottom: ${({ theme }) => theme.spacing(2)};
 `;
 
 type Props = {
@@ -44,7 +34,7 @@ const NewGameModal = ({ isOpen, isLoading, onSubmit }: Props) => {
 
   return (
     <Modal open={isOpen}>
-      <Wrapper>
+      <Modal.Content>
         <Content variant="body1" color="primary.main">
           Choose a game type
         </Content>
@@ -62,7 +52,7 @@ const NewGameModal = ({ isOpen, isLoading, onSubmit }: Props) => {
           </ToggleButton>
         </ToggleButtonGroup>
 
-        <ButtonWrapper>
+        <Modal.Buttons>
           <Button
             disabled={isLoading}
             onClick={handleSubmit}
@@ -70,8 +60,8 @@ const NewGameModal = ({ isOpen, isLoading, onSubmit }: Props) => {
           >
             Go!
           </Button>
-        </ButtonWrapper>
-      </Wrapper>
+        </Modal.Buttons>
+      </Modal.Content>
     </Modal>
   );
 };
