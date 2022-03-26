@@ -3,17 +3,17 @@ import VerificationInput from 'react-verification-input';
 import { ClassNames, ClassNamesContent } from '@emotion/react';
 
 const makeContainerClassName = ({ css }: ClassNamesContent) => css`
-  height: 50px;
+  height: 36px;
 `;
 
 const makeCharacterClassName = ({ css, theme }: ClassNamesContent) => css`
-  line-height: 50px;
-  font-size: 36px;
+  line-height: 34px;
+  font-size: 24px;
   border: 1px solid gray;
   border-radius: ${theme.shape.borderRadius}px;
   color: ${theme.palette.mode === 'light' ? 'black' : 'white'};
   margin: 0 2px;
-  width: 50px;
+  width: 36px;
 `;
 
 const focussedConfig = {

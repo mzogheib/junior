@@ -1,4 +1,4 @@
-import Tile, { TileState } from './Tile';
+import Tile, { TileSize, TileState } from './Tile';
 import Tiles from './Tiles';
 
 const getTileState = (
@@ -22,15 +22,17 @@ type Props = {
   target: string;
   attempt: string;
   readOnlyValues?: string[];
+  size?: TileSize;
 };
 
-const Attempt = ({ target, attempt, readOnlyValues }: Props) => {
+const Attempt = ({ target, attempt, readOnlyValues, size }: Props) => {
   const POSITIONS = Array.from(Array(target.length).keys());
 
   return (
     <Tiles>
       {POSITIONS.map((position) => (
         <Tile
+          size={size}
           key={position}
           value={attempt[position]}
           state={getTileState(target, attempt, position, readOnlyValues)}

@@ -4,6 +4,7 @@ import {
   stringifyEquation,
 } from '../services/equation';
 import Attempt from './Attempt';
+import { TileSize } from './Tile';
 
 type Props = {
   attempt: Equation;
@@ -15,6 +16,7 @@ const EquationAttempt = ({ attempt, target }: Props) => (
     target={stringifyEquation(target)}
     attempt={stringifyEquation(attempt)}
     readOnlyValues={READ_ONLY_CHARACTERS}
+    size={TileSize.Small}
   />
 );
 

@@ -8,6 +8,11 @@ export enum TileState {
   ReadOnly,
 }
 
+export enum TileSize {
+  Small,
+  Default,
+}
+
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 const stateMap = {
   [TileState.Match]: '#91C483',
@@ -18,11 +23,12 @@ const stateMap = {
 
 type WrapperProps = {
   state: TileState;
+  size: TileSize;
 };
 
 const Wrapper = styled.div<WrapperProps>`
-  width: 50px;
-  height: 50px;
+  width: ${({ size }) => (size === TileSize.Small ? '36px' : '50px')};
+  height: ${({ size }) => (size === TileSize.Small ? '36px' : '50px')};
   border: 1px transparent solid;
   border-radius: ${({ theme }) => theme.shape.borderRadius}px;
   margin: 0 2px;
@@ -38,10 +44,15 @@ const Wrapper = styled.div<WrapperProps>`
 type Props = {
   value: string;
   state: TileState;
+  size?: TileSize;
 };
 
-const Tile = ({ value, state }: Props) => {
-  return <Wrapper state={state}>{value}</Wrapper>;
+const Tile = ({ value, state, size = TileSize.Default }: Props) => {
+  return (
+    <Wrapper state={state} size={size}>
+      {value}
+    </Wrapper>
+  );
 };
 
 export default Tile;
