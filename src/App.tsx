@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 
 import ResultModal from './components/Modals/ResultModal';
@@ -12,6 +12,7 @@ import {
 } from './components/GameSettings/GameSettingsProvider';
 import EquationGame from './components/EquationGame';
 import WordGame from './components/WordGame';
+import NewGameModal from './components/Modals/NewGameModal';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -25,6 +26,8 @@ const Main = styled.main`
 
 const App = () => {
   const { gameMode } = useGameSettings();
+
+  const [isNewGameModalOpen, setIsNewGameModalOpen] = useState(true);
 
   const [numSuccessAttempts, setNumSuccessAttempts] = useState(0);
   const [targetEquation, setTargetEquation] = useState<Equation>();
@@ -48,16 +51,16 @@ const App = () => {
     setNumSuccessAttempts(0);
 
     setIsLoading(false);
+    setIsNewGameModalOpen(false);
   }, [gameMode]);
-
-  useEffect(() => {
-    handleNewGame();
-  }, [handleNewGame]);
 
   return (
     <>
       <Wrapper>
-        <AppHeader isLoading={isLoading} onNewGame={handleNewGame} />
+        <AppHeader
+          isLoading={isLoading}
+          onNewGame={() => setIsNewGameModalOpen(true)}
+        />
 
         <Main>
           {targetEquation?.length && (
@@ -78,6 +81,11 @@ const App = () => {
         isLoading={isLoading}
         numAttempts={numSuccessAttempts}
         onAccept={handleNewGame}
+      />
+      <NewGameModal
+        isOpen={isNewGameModalOpen}
+        isLoading={isLoading}
+        onSubmit={handleNewGame}
       />
     </>
   );
