@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
-import ResultModal from './components/ResultModal';
+import ResultModal from './components/Modals/ResultModal';
 import AutoScrollToBottom from './components/AutoScrollToBottom';
 import { getRandomWord } from './services/words';
 import AppHeader from './components/AppHeader';
