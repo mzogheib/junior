@@ -7,6 +7,6 @@ export const getRandomWord = (): Promise<string> => {
   const index = randomNumberBetween(0, WORDS_LENGTH - 1);
 
   return new Promise((resolve) =>
-    setTimeout(() => resolve(words[index].toUpperCase()), 1000)
+    setTimeout(() => resolve(words[index].toUpperCase()), 500)
   );
 };
