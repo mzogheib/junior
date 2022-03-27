@@ -29,7 +29,6 @@ const makeCharacterSelectedClassName = ({
 `;
 
 type Props = {
-  autoFocus: boolean;
   isFocussed: boolean;
   length: number;
   value: string;
@@ -38,7 +37,6 @@ type Props = {
 };
 
 const EquationTermInput = ({
-  autoFocus,
   isFocussed,
   length,
   value,
@@ -48,15 +46,13 @@ const EquationTermInput = ({
   <ClassNames>
     {(classNamesProps) => (
       <VerificationInput
-        autoFocus={autoFocus}
+        autoFocus={isFocussed}
         value={value}
         onChange={onChange}
         onFocus={onFocus}
         length={length}
         validChars="0-9"
-        inputProps={{
-          type: 'tel',
-        }}
+        inputProps={{ type: 'tel' }}
         placeholder=""
         removeDefaultStyles
         classNames={{

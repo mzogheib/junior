@@ -78,10 +78,16 @@ const EquationInput = ({ equation, onSubmit }: Props) => {
   const [focussedInput, setFocussedInput] = useState(0);
 
   const handleChange = (index: number, value: string) => {
+    console.log('value', value);
     setInputValues({
       ...inputValues,
       [index]: value,
     });
+
+    const isInputComplete = value.length === equation[index].value.length;
+    if (isInputComplete && index < equation.length - 1) {
+      setFocussedInput(index + 2);
+    }
   };
 
   const handleFocus = (index: number) => {
@@ -110,7 +116,6 @@ const EquationInput = ({ equation, onSubmit }: Props) => {
           length={value.length}
           value={inputValues?.[index] ?? ''}
           onChange={(value) => handleChange(index, value)}
-          autoFocus={index === 0}
           onFocus={() => handleFocus(index)}
           isFocussed={index === focussedInput}
         />
