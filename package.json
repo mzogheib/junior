@@ -38,7 +38,7 @@
     "prepare": "husky install",
     "stylelint-check": "stylelint-config-prettier-check",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b main -d build"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
