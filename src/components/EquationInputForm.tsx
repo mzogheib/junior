@@ -9,6 +9,25 @@ import InvisibleInputForm from './InvisibleInputForm';
 import InputTiles, { InputTile } from './InputTiles';
 import { TileSize } from './Tile';
 
+const getStartEnd = (eqCompIndex: number) => {
+  switch (eqCompIndex) {
+    case 0:
+      return [0, 1];
+    case 2:
+      return [1, 2];
+    case 4:
+      return [2, 3];
+    case 6:
+    default:
+      return [3];
+  }
+};
+
+const getValueForTerm = (value: string, eqCompIndex: number) => {
+  const [start, end] = getStartEnd(eqCompIndex);
+  return value.slice(start, end);
+};
+
 type Props = {
   equation: Equation;
   onSubmit: (attempt: Equation) => void;
@@ -21,21 +40,7 @@ const EquationInput = ({ equation, onSubmit }: Props) => {
         return eqComp;
       }
 
-      const getStartEnd = () => {
-        switch (eqCompIndex) {
-          case 0:
-            return [0, 1];
-          case 2:
-            return [1, 2];
-          case 4:
-            return [2, 3];
-          case 6:
-          default:
-            return [3];
-        }
-      };
-      const [start, end] = getStartEnd();
-      const slicedValue = value.slice(start, end);
+      const slicedValue = getValueForTerm(value, eqCompIndex);
 
       return {
         ...eqComp,
@@ -69,21 +74,8 @@ const EquationInput = ({ equation, onSubmit }: Props) => {
               );
             }
 
-            const getStartEnd = () => {
-              switch (eqCompIndex) {
-                case 0:
-                  return [0, 1];
-                case 2:
-                  return [1, 2];
-                case 4:
-                  return [2, 3];
-                case 6:
-                default:
-                  return [3];
-              }
-            };
-            const [start, end] = getStartEnd();
-            const slicedValue = value.slice(start, end);
+            const [start] = getStartEnd(eqCompIndex);
+            const slicedValue = getValueForTerm(value, eqCompIndex);
 
             return eqValue.split('').map((_, eqValueIndex) => {
               return (
