@@ -36,7 +36,7 @@ type Props = {
   onSubmit: (attempt: string) => void;
 };
 
-const AttemptInput = ({ length, onSubmit }: Props) => {
+const WordInput = ({ length, onSubmit }: Props) => {
   const tileIndeces = Array.from(Array(length).keys());
 
   return (
@@ -59,4 +59,4 @@ const AttemptInput = ({ length, onSubmit }: Props) => {
   );
 };
 
-export default AttemptInput;
+export default WordInput;

@@ -3,7 +3,7 @@ import Alert from '@mui/material/Alert';
 
 import { usePrevious } from '../misc/utils';
 import { isValidWord } from '../services/words';
-import AttemptInput from './AttemptInput';
+import WordInputForm from './WordInputForm';
 import Attempts from './Attempts';
 import AutoScrollToBottom from './AutoScrollToBottom';
 
@@ -52,7 +52,7 @@ const WordGame = ({ target, onSuccess }: Props) => {
         <Attempts attempts={attempts} target={target} />
       )}
       {!didSucceed && (
-        <AttemptInput length={target.length} onSubmit={handleSubmit} />
+        <WordInputForm length={target.length} onSubmit={handleSubmit} />
       )}
 
       {error && (

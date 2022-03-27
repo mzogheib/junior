@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Equation, stringifyEquation } from '../services/equation';
 import { usePrevious } from '../misc/utils';
 import EquationAttempts from './EquationAttempts';
-import EquationInput from './EquationInput';
+import EquationInputForm from './EquationInputForm';
 import AutoScrollToBottom from './AutoScrollToBottom';
 
 type Props = {
@@ -43,7 +43,7 @@ const EquationGame = ({ target, onSuccess }: Props) => {
         <EquationAttempts attempts={atempts} target={target} />
       )}
       {!didSucceed && target && (
-        <EquationInput equation={target} onSubmit={handleSubmit} />
+        <EquationInputForm equation={target} onSubmit={handleSubmit} />
       )}
       <AutoScrollToBottom />
     </>
