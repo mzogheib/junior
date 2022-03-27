@@ -19,7 +19,7 @@ type Props = {
 };
 
 const NewGameModal = ({ isOpen, isLoading, onSubmit }: Props) => {
-  const [gameMode, setGameMode] = useState(GameMode.Letters);
+  const [gameMode, setGameMode] = useState(GameMode.Numbers);
 
   const handleSubmit = () => onSubmit(gameMode);
 
@@ -44,11 +44,11 @@ const NewGameModal = ({ isOpen, isLoading, onSubmit }: Props) => {
           onChange={handleChangeGameMode}
           aria-label="game mode"
         >
-          <ToggleButton value={GameMode.Letters} aria-label="letters">
-            Letters
-          </ToggleButton>
           <ToggleButton value={GameMode.Numbers} aria-label="numbers">
             Numbers
+          </ToggleButton>
+          <ToggleButton value={GameMode.Letters} aria-label="letters">
+            Letters
           </ToggleButton>
         </ToggleButtonGroup>
 
