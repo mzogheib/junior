@@ -36,19 +36,19 @@ const useFocus = (): [any, () => void] => {
 
 type Props = {
   length: number;
+  mode: 'letters' | 'numbers';
   onSubmit: (attempt: string) => void;
   renderInput: (value: string, onClick: () => void) => ReactNode;
 };
 
-const InvisibleInputForm = ({ length, onSubmit, renderInput }: Props) => {
+const InvisibleInputForm = ({ length, mode, onSubmit, renderInput }: Props) => {
   const [inputRef, setInputFocus] = useFocus();
   const [value, setValue] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
 
-    // Only letters are allowed
-    const reg = /^[a-z]+$/i;
+    const reg = mode === 'letters' ? /^[a-z]+$/i : /^[0-9]+$/i;
     if (inputValue && !reg.test(inputValue)) {
       return;
     }
@@ -68,9 +68,12 @@ const InvisibleInputForm = ({ length, onSubmit, renderInput }: Props) => {
     setValue('');
   };
 
+  const inputType = mode === 'numbers' ? 'tel' : undefined;
+
   return (
     <form onSubmit={handleSubmit}>
       <Input
+        type={inputType}
         value={value}
         maxLength={length}
         onChange={handleChange}

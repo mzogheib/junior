@@ -41,6 +41,7 @@ const AttemptInput = ({ length, onSubmit }: Props) => {
 
   return (
     <InvisibleInputForm
+      mode="letters"
       length={length}
       onSubmit={onSubmit}
       renderInput={(value, onClick) => (
