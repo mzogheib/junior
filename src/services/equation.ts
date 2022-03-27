@@ -26,6 +26,9 @@ export type EquationComponent = EquationTerm | EquationOperator;
 
 export type Equation = EquationComponent[];
 
+export const isEquationTerm = ({ type }: EquationComponent) =>
+  type === EquationComponentType.Term;
+
 export const mapOperatorCharacter = (value: string) => {
   if (value === EquationOperatorValue.Multiply) {
     return 'X';

@@ -1,72 +1,43 @@
-import { FormEvent, useState } from 'react';
 import styled from '@emotion/styled';
-import Button from '@mui/material/Button';
+import { Theme } from '@emotion/react';
 
-import EquationTermInput from './EquationTermInput';
 import EquationOperatorTile from './EquationOperatorTile';
 import {
   Equation,
-  EquationComponent,
   EquationComponentType,
   EquationOperatorValue,
+  isEquationTerm,
 } from '../services/equation';
+import InvisibleInputForm from './InvisibleInputForm';
 
-const Wrapper = styled.div`
+const InputTiles = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const ButtonWrapper = styled.div`
-  margin-top: 24px;
+const getBorderColor = (isFocussed: boolean, theme: Theme) => {
+  const focussedConfig = {
+    light: 'black',
+    dark: 'white',
+  };
+
+  return isFocussed ? focussedConfig[theme.palette.mode] : 'gray';
+};
+
+const InputTile = styled.div<{ isFocussed: boolean }>`
+  width: 36px;
+  height: 36px;
+  border: 1px ${({ isFocussed, theme }) => getBorderColor(isFocussed, theme)}
+    solid;
+  border-radius: ${({ theme }) => theme.shape.borderRadius}px;
+  margin: 0 2px;
+  color: ${({ theme }) => (theme.palette.mode === 'light' ? 'black' : 'white')};
+  font-weight: 500;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
-
-export type EquationInputValues = Record<number, string>;
-
-const checkIsComponentValid = (
-  equationComponent: EquationComponent,
-  value?: string
-) => {
-  if (equationComponent.type === EquationComponentType.Operator) {
-    return true;
-  }
-
-  return value?.length === equationComponent.value.toString().length;
-};
-
-const checkIsValid = (equation: Equation, values?: EquationInputValues) => {
-  if (!values) {
-    return false;
-  }
-
-  return equation.every((equationComponent, index) =>
-    checkIsComponentValid(equationComponent, values[index])
-  );
-};
-
-const makeAttemptComponent = (
-  equationComponent: EquationComponent,
-  value: string
-): EquationComponent => {
-  if (equationComponent.type === EquationComponentType.Operator) {
-    return equationComponent;
-  }
-
-  return {
-    ...equationComponent,
-    value,
-  };
-};
-
-const makeAttempt = (
-  equation: Equation,
-  values: EquationInputValues
-): Equation =>
-  equation.map((equationComponent, index) =>
-    makeAttemptComponent(equationComponent, values[index])
-  );
 
 type Props = {
   equation: Equation;
@@ -74,71 +45,90 @@ type Props = {
 };
 
 const EquationInput = ({ equation, onSubmit }: Props) => {
-  const [inputValues, setInputValues] = useState<EquationInputValues>();
-  const [focussedInput, setFocussedInput] = useState(0);
+  const handleSubmit = (value: string) => {
+    const attemptedEquation = equation.map((eqComp, eqCompIndex) => {
+      if (eqComp.type === EquationComponentType.Operator) {
+        return eqComp;
+      }
 
-  const handleChange = (index: number, value: string) => {
-    setInputValues({
-      ...inputValues,
-      [index]: value,
+      const getStartEnd = () => {
+        switch (eqCompIndex) {
+          case 0:
+            return [0, 1];
+          case 2:
+            return [1, 2];
+          case 4:
+            return [2, 3];
+          case 6:
+          default:
+            return [3];
+        }
+      };
+      const [start, end] = getStartEnd();
+      const slicedValue = value.slice(start, end);
+
+      return {
+        ...eqComp,
+        value: slicedValue,
+      };
     });
 
-    const isInputComplete = value.length === equation[index].value.length;
-    if (isInputComplete && index < equation.length - 1) {
-      setFocussedInput(index + 2);
-    }
+    onSubmit(attemptedEquation);
   };
 
-  const handleFocus = (index: number) => {
-    setFocussedInput(index);
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!inputValues || !checkIsValid(equation, inputValues)) {
-      return;
-    }
-
-    onSubmit(makeAttempt(equation, inputValues));
-    setInputValues(undefined);
-  };
-
-  const renderEquationComponent = (
-    { type, value }: EquationComponent,
-    index: number
-  ) => {
-    if (type === EquationComponentType.Term) {
-      return (
-        <EquationTermInput
-          key={index}
-          length={value.length}
-          value={inputValues?.[index] ?? ''}
-          onChange={(value) => handleChange(index, value)}
-          onFocus={() => handleFocus(index)}
-          isFocussed={index === focussedInput}
-        />
-      );
-    }
-
-    // TypeScript complains that value could be a string but it clearly cannot
-    return (
-      <EquationOperatorTile
-        value={value as EquationOperatorValue}
-        key={index}
-      />
-    );
-  };
+  const termsString = equation
+    .filter(isEquationTerm)
+    .map(({ value }) => value)
+    .join('');
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Wrapper>{equation.map(renderEquationComponent)}</Wrapper>
-      <ButtonWrapper>
-        <Button type="submit" variant="contained">
-          Submit
-        </Button>
-      </ButtonWrapper>
-    </form>
+    <InvisibleInputForm
+      mode="numbers"
+      length={termsString.length}
+      onSubmit={handleSubmit}
+      renderInput={(value, onClick) => (
+        <InputTiles onClick={onClick}>
+          {equation.map(({ value: eqValue, type }, eqCompIndex) => {
+            if (type === EquationComponentType.Operator) {
+              return (
+                <EquationOperatorTile
+                  // TypeScript complains that value could be a string but it clearly cannot
+                  value={eqValue as EquationOperatorValue}
+                  key={eqCompIndex}
+                />
+              );
+            }
+
+            const getStartEnd = () => {
+              switch (eqCompIndex) {
+                case 0:
+                  return [0, 1];
+                case 2:
+                  return [1, 2];
+                case 4:
+                  return [2, 3];
+                case 6:
+                default:
+                  return [3];
+              }
+            };
+            const [start, end] = getStartEnd();
+            const slicedValue = value.slice(start, end);
+
+            return eqValue.split('').map((_, eqValueIndex) => {
+              return (
+                <InputTile
+                  key={eqCompIndex + eqValueIndex}
+                  isFocussed={start + eqValueIndex === value.length}
+                >
+                  {slicedValue[eqValueIndex]}
+                </InputTile>
+              );
+            });
+          })}
+        </InputTiles>
+      )}
+    />
   );
 };
 
