@@ -10,3 +10,7 @@ export const getRandomWord = (): Promise<string> => {
     setTimeout(() => resolve(words[index].toUpperCase()), 500)
   );
 };
+
+// Perhaps the JSON import should have a type definition
+export const isValidWord = (word: string) =>
+  (words as string[]).map((w) => w.toUpperCase()).includes(word);

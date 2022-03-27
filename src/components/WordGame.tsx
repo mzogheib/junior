@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import Alert from '@mui/material/Alert';
 
 import { usePrevious } from '../misc/utils';
+import { isValidWord } from '../services/words';
 import AttemptInput from './AttemptInput';
 import Attempts from './Attempts';
 import AutoScrollToBottom from './AutoScrollToBottom';
@@ -12,6 +14,7 @@ type Props = {
 
 const WordGame = ({ target, onSuccess }: Props) => {
   const [attempts, setAttempts] = useState<string[]>([]);
+  const [error, setError] = useState('');
 
   const previousTarget = usePrevious(target);
   const didChangeTarget = target !== previousTarget;
@@ -22,7 +25,14 @@ const WordGame = ({ target, onSuccess }: Props) => {
   }, [didChangeTarget]);
 
   const handleSubmit = (attempt: string) => {
-    setAttempts(attempts.concat([attempt]));
+    setError('');
+
+    if (isValidWord(attempt)) {
+      setAttempts(attempts.concat([attempt]));
+      return;
+    }
+
+    setError(`Not in word list: ${attempt}`);
   };
 
   const lastAttempt = attempts.length
@@ -44,6 +54,14 @@ const WordGame = ({ target, onSuccess }: Props) => {
       {!didSucceed && (
         <AttemptInput length={target.length} onSubmit={handleSubmit} />
       )}
+
+      {error && (
+        <>
+          <br />
+          <Alert severity="error">{error}</Alert>
+        </>
+      )}
+
       <AutoScrollToBottom />
     </>
   );
