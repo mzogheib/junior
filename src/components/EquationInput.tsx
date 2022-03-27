@@ -78,7 +78,6 @@ const EquationInput = ({ equation, onSubmit }: Props) => {
   const [focussedInput, setFocussedInput] = useState(0);
 
   const handleChange = (index: number, value: string) => {
-    console.log('value', value);
     setInputValues({
       ...inputValues,
       [index]: value,
