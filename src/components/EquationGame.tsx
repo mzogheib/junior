@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Alert from '@mui/material/Alert';
 
-import {
-  Equation,
-  isValidEquation,
-  stringifyEquation,
-} from '../services/equation';
+import { Equation, stringifyEquation } from '../services/equation';
 import { usePrevious } from '../misc/utils';
 import EquationAttempts from './EquationAttempts';
 import EquationInputForm from './EquationInputForm';
@@ -31,12 +27,7 @@ const EquationGame = ({ target, onSuccess }: Props) => {
   const handleSubmit = (attempt: Equation) => {
     setError('');
 
-    if (isValidEquation(attempt)) {
-      setAttempts(atempts.concat([attempt]));
-      return;
-    }
-
-    setError('Invalid equation');
+    setAttempts(atempts.concat([attempt]));
   };
 
   const lastAttempt = atempts.length ? atempts[atempts.length - 1] : undefined;
@@ -56,7 +47,11 @@ const EquationGame = ({ target, onSuccess }: Props) => {
         <EquationAttempts attempts={atempts} target={target} />
       )}
       {!didSucceed && target && (
-        <EquationInputForm equation={target} onSubmit={handleSubmit} />
+        <EquationInputForm
+          equation={target}
+          onSubmit={handleSubmit}
+          onError={setError}
+        />
       )}
 
       {error && (

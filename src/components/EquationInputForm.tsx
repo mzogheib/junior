@@ -4,6 +4,7 @@ import {
   EquationComponentType,
   EquationOperatorValue,
   isEquationTerm,
+  isValidEquation,
 } from '../services/equation';
 import InvisibleInputForm from './InvisibleInputForm';
 import InputTiles, { InputTile } from './InputTiles';
@@ -31,11 +32,12 @@ const getValueForTerm = (value: string, eqCompIndex: number) => {
 type Props = {
   equation: Equation;
   onSubmit: (attempt: Equation) => void;
+  onError: (error: string) => void;
 };
 
-const EquationInputForm = ({ equation, onSubmit }: Props) => {
-  const handleSubmit = (value: string) => {
-    const attemptedEquation = equation.map((eqComp, eqCompIndex) => {
+const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
+  const makeAttempt = (value: string) =>
+    equation.map((eqComp, eqCompIndex) => {
       if (eqComp.type === EquationComponentType.Operator) {
         return eqComp;
       }
@@ -46,7 +48,15 @@ const EquationInputForm = ({ equation, onSubmit }: Props) => {
       };
     });
 
-    onSubmit(attemptedEquation);
+  const handleSubmit = (value: string) => onSubmit(makeAttempt(value));
+
+  const handleValidate = (value: string) => {
+    if (!isValidEquation(makeAttempt(value))) {
+      onError('Invalid equation');
+      return false;
+    }
+
+    return true;
   };
 
   const termsString = equation
@@ -59,6 +69,7 @@ const EquationInputForm = ({ equation, onSubmit }: Props) => {
       mode="numbers"
       length={termsString.length}
       onSubmit={handleSubmit}
+      onValidate={handleValidate}
       renderInput={(value, onClick) => (
         <InputTiles onClick={onClick}>
           {equation.map(({ value: eqValue, type }, eqCompIndex) => {

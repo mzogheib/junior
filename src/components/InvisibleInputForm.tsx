@@ -38,10 +38,17 @@ type Props = {
   length: number;
   mode: 'letters' | 'numbers';
   onSubmit: (attempt: string) => void;
+  onValidate: (attempt: string) => boolean;
   renderInput: (value: string, onClick: () => void) => ReactNode;
 };
 
-const InvisibleInputForm = ({ length, mode, onSubmit, renderInput }: Props) => {
+const InvisibleInputForm = ({
+  length,
+  mode,
+  onSubmit,
+  onValidate,
+  renderInput,
+}: Props) => {
   const [inputRef, setInputFocus] = useFocus();
   const [value, setValue] = useState('');
 
@@ -59,13 +66,15 @@ const InvisibleInputForm = ({ length, mode, onSubmit, renderInput }: Props) => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const isValid = value.length === length;
-    if (!isValid) {
+    const isComplete = value.length === length;
+    if (!isComplete) {
       return;
     }
 
-    onSubmit(value);
-    setValue('');
+    if (onValidate(value)) {
+      onSubmit(value);
+      setValue('');
+    }
   };
 
   const inputType = mode === 'numbers' ? 'tel' : undefined;
