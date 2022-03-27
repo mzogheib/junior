@@ -1,6 +1,3 @@
-import styled from '@emotion/styled';
-import { Theme } from '@emotion/react';
-
 import EquationOperatorTile from './EquationOperatorTile';
 import {
   Equation,
@@ -9,35 +6,8 @@ import {
   isEquationTerm,
 } from '../services/equation';
 import InvisibleInputForm from './InvisibleInputForm';
-
-const InputTiles = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const getBorderColor = (isFocussed: boolean, theme: Theme) => {
-  const focussedConfig = {
-    light: 'black',
-    dark: 'white',
-  };
-
-  return isFocussed ? focussedConfig[theme.palette.mode] : 'gray';
-};
-
-const InputTile = styled.div<{ isFocussed: boolean }>`
-  width: 36px;
-  height: 36px;
-  border: 1px ${({ isFocussed, theme }) => getBorderColor(isFocussed, theme)}
-    solid;
-  border-radius: ${({ theme }) => theme.shape.borderRadius}px;
-  margin: 0 2px;
-  color: ${({ theme }) => (theme.palette.mode === 'light' ? 'black' : 'white')};
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+import InputTiles, { InputTile } from './InputTiles';
+import { TileSize } from './Tile';
 
 type Props = {
   equation: Equation;
@@ -120,6 +90,7 @@ const EquationInput = ({ equation, onSubmit }: Props) => {
                 <InputTile
                   key={eqCompIndex + eqValueIndex}
                   isFocussed={start + eqValueIndex === value.length}
+                  size={TileSize.Small}
                 >
                   {slicedValue[eqValueIndex]}
                 </InputTile>
