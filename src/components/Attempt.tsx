@@ -4,16 +4,16 @@ import Tiles from './Tiles';
 const getTileState = (
   target: string,
   attempt: string,
-  position: number,
+  index: number,
   readOnlyValues?: string[]
 ) => {
-  if (readOnlyValues?.includes(target[position])) {
+  if (readOnlyValues?.includes(target[index])) {
     return TileState.ReadOnly;
   }
 
-  return target[position] === attempt[position]
+  return target[index] === attempt[index]
     ? TileState.Match
-    : target.includes(attempt[position])
+    : target.includes(attempt[index])
     ? TileState.Present
     : TileState.Absent;
 };
@@ -25,21 +25,17 @@ type Props = {
   size?: TileSize;
 };
 
-const Attempt = ({ target, attempt, readOnlyValues, size }: Props) => {
-  const POSITIONS = Array.from(Array(target.length).keys());
-
-  return (
-    <Tiles>
-      {POSITIONS.map((position) => (
-        <Tile
-          size={size}
-          key={position}
-          value={attempt[position]}
-          state={getTileState(target, attempt, position, readOnlyValues)}
-        />
-      ))}
-    </Tiles>
-  );
-};
+const Attempt = ({ target, attempt, readOnlyValues, size }: Props) => (
+  <Tiles>
+    {target.split('').map((_, index) => (
+      <Tile
+        size={size}
+        key={index}
+        value={attempt[index]}
+        state={getTileState(target, attempt, index, readOnlyValues)}
+      />
+    ))}
+  </Tiles>
+);
 
 export default Attempt;
