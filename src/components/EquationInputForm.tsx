@@ -40,11 +40,9 @@ const EquationInput = ({ equation, onSubmit }: Props) => {
         return eqComp;
       }
 
-      const slicedValue = getValueForTerm(value, eqCompIndex);
-
       return {
         ...eqComp,
-        value: slicedValue,
+        value: getValueForTerm(value, eqCompIndex),
       };
     });
 

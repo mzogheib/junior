@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import Alert from '@mui/material/Alert';
 
-import { Equation, stringifyEquation } from '../services/equation';
+import {
+  Equation,
+  isValidEquation,
+  stringifyEquation,
+} from '../services/equation';
 import { usePrevious } from '../misc/utils';
 import EquationAttempts from './EquationAttempts';
 import EquationInputForm from './EquationInputForm';
@@ -13,6 +18,7 @@ type Props = {
 
 const EquationGame = ({ target, onSuccess }: Props) => {
   const [atempts, setAttempts] = useState<Equation[]>([]);
+  const [error, setError] = useState('');
 
   const previousTarget = usePrevious(target);
   const didChangeTarget = target !== previousTarget;
@@ -23,7 +29,14 @@ const EquationGame = ({ target, onSuccess }: Props) => {
   }, [didChangeTarget]);
 
   const handleSubmit = (attempt: Equation) => {
-    setAttempts(atempts.concat([attempt]));
+    setError('');
+
+    if (isValidEquation(attempt)) {
+      setAttempts(atempts.concat([attempt]));
+      return;
+    }
+
+    setError('Invalid equation');
   };
 
   const lastAttempt = atempts.length ? atempts[atempts.length - 1] : undefined;
@@ -45,6 +58,14 @@ const EquationGame = ({ target, onSuccess }: Props) => {
       {!didSucceed && target && (
         <EquationInputForm equation={target} onSubmit={handleSubmit} />
       )}
+
+      {error && (
+        <>
+          <br />
+          <Alert severity="error">{error}</Alert>
+        </>
+      )}
+
       <AutoScrollToBottom />
     </>
   );

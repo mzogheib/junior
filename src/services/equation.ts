@@ -38,11 +38,21 @@ export const mapOperatorCharacter = (value: string) => {
 };
 
 export const stringifyEquation = (equationComponents: Equation) =>
-  equationComponents.map(({ value }) => mapOperatorCharacter(value)).join('');
+  equationComponents.map(({ value }) => value).join('');
 
-export const READ_ONLY_CHARACTERS = Object.values(EquationOperatorValue).map(
-  mapOperatorCharacter
-);
+export const READ_ONLY_CHARACTERS = Object.values(EquationOperatorValue);
+
+export const isValidEquation = (equation: Equation) => {
+  const equationString = stringifyEquation(equation);
+  const [expressionString, resultString] = equationString.split(
+    EquationOperatorValue.Equals
+  );
+
+  // eslint-disable-next-line no-eval
+  const evaluatedExpressionString = eval(expressionString).toString();
+
+  return evaluatedExpressionString === resultString;
+};
 
 const getRandomOperator = () => {
   const values = Object.values(EquationOperatorValue).filter(
