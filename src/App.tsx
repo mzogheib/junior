@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 
 import ResultModal from './components/Modals/ResultModal';
-import AutoScrollToBottom from './components/AutoScrollToBottom';
 import { getRandomWord } from './services/words';
 import AppHeader from './components/AppHeader';
 import { Equation, getRandomEquation } from './services/equation';
@@ -72,7 +71,6 @@ const App = () => {
           {targetWord?.length && (
             <WordGame target={targetWord} onSuccess={setNumSuccessAttempts} />
           )}
-          <AutoScrollToBottom />
         </Main>
       </Wrapper>
 

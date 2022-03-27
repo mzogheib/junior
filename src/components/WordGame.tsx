@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { usePrevious } from '../misc/utils';
 import AttemptInput from './AttemptInput';
 import Attempts from './Attempts';
+import AutoScrollToBottom from './AutoScrollToBottom';
 
 type Props = {
   target: string;
@@ -43,6 +44,7 @@ const WordGame = ({ target, onSuccess }: Props) => {
       {!didSucceed && (
         <AttemptInput length={target.length} onSubmit={handleSubmit} />
       )}
+      <AutoScrollToBottom />
     </>
   );
 };

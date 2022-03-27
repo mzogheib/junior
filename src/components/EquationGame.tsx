@@ -4,6 +4,7 @@ import { Equation, stringifyEquation } from '../services/equation';
 import { usePrevious } from '../misc/utils';
 import EquationAttempts from './EquationAttempts';
 import EquationInput from './EquationInput';
+import AutoScrollToBottom from './AutoScrollToBottom';
 
 type Props = {
   target: Equation;
@@ -44,6 +45,7 @@ const EquationGame = ({ target, onSuccess }: Props) => {
       {!didSucceed && target && (
         <EquationInput equation={target} onSubmit={handleSubmit} />
       )}
+      <AutoScrollToBottom />
     </>
   );
 };
