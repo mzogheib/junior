@@ -33,7 +33,7 @@ type Props = {
   onSubmit: (attempt: Equation) => void;
 };
 
-const EquationInput = ({ equation, onSubmit }: Props) => {
+const EquationInputForm = ({ equation, onSubmit }: Props) => {
   const handleSubmit = (value: string) => {
     const attemptedEquation = equation.map((eqComp, eqCompIndex) => {
       if (eqComp.type === EquationComponentType.Operator) {
@@ -93,4 +93,4 @@ const EquationInput = ({ equation, onSubmit }: Props) => {
   );
 };
 
-export default EquationInput;
+export default EquationInputForm;

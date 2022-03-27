@@ -6,7 +6,7 @@ type Props = {
   onSubmit: (attempt: string) => void;
 };
 
-const WordInput = ({ length, onSubmit }: Props) => {
+const WordInputForm = ({ length, onSubmit }: Props) => {
   const tileIndeces = Array.from(Array(length).keys());
 
   return (
@@ -29,4 +29,4 @@ const WordInput = ({ length, onSubmit }: Props) => {
   );
 };
 
-export default WordInput;
+export default WordInputForm;
