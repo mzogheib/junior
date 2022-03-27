@@ -20,6 +20,7 @@ const WordGame = ({ target, onSuccess }: Props) => {
   useEffect(() => {
     if (didChangeTarget) {
       setAttempts([]);
+      setError('');
     }
   }, [didChangeTarget]);
 
