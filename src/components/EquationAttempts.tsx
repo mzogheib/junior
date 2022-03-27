@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 import {
   Equation,
+  mapOperatorCharacter,
   READ_ONLY_CHARACTERS,
   stringifyEquation,
 } from '../services/equation';
@@ -25,7 +26,10 @@ const EquationAttempts = ({ target, attempts }: Props) => (
       <Attempt
         key={index}
         target={stringifyEquation(target)}
-        attempt={stringifyEquation(attempt)}
+        attempt={stringifyEquation(attempt)
+          .split('')
+          .map(mapOperatorCharacter)
+          .join('')}
         readOnlyValues={READ_ONLY_CHARACTERS}
         size={TileSize.Small}
       />
