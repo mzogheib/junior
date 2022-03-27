@@ -17,11 +17,28 @@ const getTileState = (
     return TileState.ReadOnly;
   }
 
-  return target[index] === attempt[index]
-    ? TileState.Match
-    : target.includes(attempt[index])
-    ? TileState.Present
-    : TileState.Absent;
+  if (target[index] === attempt[index]) {
+    return TileState.Match;
+  }
+
+  // Remove matched values to avoid showing a value as present when it has
+  // already been matched in another position.
+  const unmatchedTarget = target
+    .split('')
+    .map((value, i) => {
+      if (target[i] === attempt[i]) {
+        return '_';
+      }
+
+      return value;
+    })
+    .join('');
+
+  if (unmatchedTarget.includes(attempt[index])) {
+    return TileState.Present;
+  }
+
+  return TileState.Absent;
 };
 
 type Props = {
