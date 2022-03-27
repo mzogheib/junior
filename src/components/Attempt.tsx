@@ -1,5 +1,11 @@
+import styled from '@emotion/styled';
+
 import Tile, { TileSize, TileState } from './Tile';
-import Tiles from './Tiles';
+
+const Tiles = styled.div`
+  display: flex;
+  margin-bottom: 4px;
+`;
 
 const getTileState = (
   target: string,
