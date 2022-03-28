@@ -110,5 +110,5 @@ export const getRandomEquation = (): Promise<Equation> => {
     },
   ];
 
-  return new Promise((resolve) => setTimeout(() => resolve(equation), 1000));
+  return new Promise((resolve) => setTimeout(() => resolve(equation), 125));
 };
