@@ -48,6 +48,7 @@ const WordGame = ({ target, onSuccess }: Props) => {
       )}
       {!didSucceed && (
         <WordInputForm
+          key={`${didChangeTarget}`}
           length={target.length}
           onSubmit={handleSubmit}
           onError={setError}

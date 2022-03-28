@@ -49,6 +49,7 @@ const EquationGame = ({ target, onSuccess }: Props) => {
       )}
       {!didSucceed && target && (
         <EquationInputForm
+          key={`${didChangeTarget}`}
           equation={target}
           onSubmit={handleSubmit}
           onError={setError}
