@@ -59,6 +59,7 @@
       "last 1 safari version"
     ]
   },
+  "prettier": {},
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown --ignore-path ./.gitignore"
   }
