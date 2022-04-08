@@ -1,4 +1,4 @@
 export enum GameMode {
-  Letters = 'letters',
-  Numbers = 'numbers',
+  Letters = "letters",
+  Numbers = "numbers",
 }

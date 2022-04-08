@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import Alert from '@mui/material/Alert';
+import React, { useEffect, useState } from "react";
+import Alert from "@mui/material/Alert";
 
-import { Equation, stringifyEquation } from '../services/equation';
-import { usePrevious } from '../misc/utils';
-import EquationAttempts from './EquationAttempts';
-import EquationInputForm from './EquationInputForm';
-import AutoScrollToBottom from './AutoScrollToBottom';
+import { Equation, stringifyEquation } from "../services/equation";
+import { usePrevious } from "../misc/utils";
+import EquationAttempts from "./EquationAttempts";
+import EquationInputForm from "./EquationInputForm";
+import AutoScrollToBottom from "./AutoScrollToBottom";
 
 type Props = {
   target: Equation;
@@ -14,19 +14,19 @@ type Props = {
 
 const EquationGame = ({ target, onSuccess }: Props) => {
   const [atempts, setAttempts] = useState<Equation[]>([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const previousTarget = usePrevious(target);
   const didChangeTarget = target !== previousTarget;
   useEffect(() => {
     if (didChangeTarget) {
       setAttempts([]);
-      setError('');
+      setError("");
     }
   }, [didChangeTarget]);
 
   const handleSubmit = (attempt: Equation) => {
-    setError('');
+    setError("");
 
     setAttempts(atempts.concat([attempt]));
   };

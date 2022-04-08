@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
-import Tile, { TileSize, TileState } from './Tile';
+import Tile, { TileSize, TileState } from "./Tile";
 
 const Tiles = styled.div`
   display: flex;
@@ -24,15 +24,15 @@ const getTileState = (
   // Remove matched values to avoid showing a value as present when it has
   // already been matched in another position.
   const unmatchedTarget = target
-    .split('')
+    .split("")
     .map((value, i) => {
       if (target[i] === attempt[i]) {
-        return '_';
+        return "_";
       }
 
       return value;
     })
-    .join('');
+    .join("");
 
   if (unmatchedTarget.includes(attempt[index])) {
     return TileState.Present;
@@ -50,7 +50,7 @@ type Props = {
 
 const Attempt = ({ target, attempt, readOnlyValues, size }: Props) => (
   <Tiles>
-    {target.split('').map((_, index) => (
+    {target.split("").map((_, index) => (
       <Tile
         size={size}
         key={index}

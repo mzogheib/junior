@@ -5,9 +5,9 @@ import {
   useRef,
   MutableRefObject,
   ReactNode,
-} from 'react';
-import styled from '@emotion/styled';
-import Button from '@mui/material/Button';
+} from "react";
+import styled from "@emotion/styled";
+import Button from "@mui/material/Button";
 
 const Input = styled.input`
   height: 0;
@@ -36,7 +36,7 @@ const useFocus = (): [any, () => void] => {
 
 type Props = {
   length: number;
-  mode: 'letters' | 'numbers';
+  mode: "letters" | "numbers";
   onSubmit: (attempt: string) => void;
   onValidate: (attempt: string) => boolean;
   renderInput: (value: string, onClick: () => void) => ReactNode;
@@ -50,12 +50,12 @@ const InvisibleInputForm = ({
   renderInput,
 }: Props) => {
   const [inputRef, setInputFocus] = useFocus();
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
 
-    const reg = mode === 'letters' ? /^[a-z]+$/i : /^[0-9]+$/i;
+    const reg = mode === "letters" ? /^[a-z]+$/i : /^[0-9]+$/i;
     if (inputValue && !reg.test(inputValue)) {
       return;
     }
@@ -73,11 +73,11 @@ const InvisibleInputForm = ({
 
     if (onValidate(value)) {
       onSubmit(value);
-      setValue('');
+      setValue("");
     }
   };
 
-  const inputType = mode === 'numbers' ? 'tel' : undefined;
+  const inputType = mode === "numbers" ? "tel" : undefined;
 
   return (
     <form onSubmit={handleSubmit}>

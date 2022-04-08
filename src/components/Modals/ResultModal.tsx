@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import React from "react";
+import styled from "@emotion/styled";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
-import Modal from './Modal';
+import Modal from "./Modal";
 
 const Content = styled(Typography)`
   margin-top: ${({ theme }) => theme.spacing(2)};
@@ -11,7 +11,7 @@ const Content = styled(Typography)`
 
 const makeMessage = (numAttempts: number) => {
   if (numAttempts === 1) {
-    return 'Solved in 1 attempt';
+    return "Solved in 1 attempt";
   }
 
   return `Solved in ${numAttempts} attempts`;

@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import Attempt from './Attempt';
+import styled from "@emotion/styled";
+import Attempt from "./Attempt";
 
 const Wrapper = styled.div`
   display: flex;

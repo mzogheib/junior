@@ -1,14 +1,14 @@
-import EquationOperatorTile from './EquationOperatorTile';
+import EquationOperatorTile from "./EquationOperatorTile";
 import {
   Equation,
   EquationComponentType,
   EquationOperatorValue,
   isEquationTerm,
   isValidEquation,
-} from '../services/equation';
-import InvisibleInputForm from './InvisibleInputForm';
-import InputTiles, { InputTile } from './InputTiles';
-import { TileSize } from './Tile';
+} from "../services/equation";
+import InvisibleInputForm from "./InvisibleInputForm";
+import InputTiles, { InputTile } from "./InputTiles";
+import { TileSize } from "./Tile";
 
 const getStartEnd = (eqCompIndex: number) => {
   switch (eqCompIndex) {
@@ -52,7 +52,7 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
 
   const handleValidate = (value: string) => {
     if (!isValidEquation(makeAttempt(value))) {
-      onError('Invalid equation');
+      onError("Invalid equation");
       return false;
     }
 
@@ -62,7 +62,7 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
   const termsString = equation
     .filter(isEquationTerm)
     .map(({ value }) => value)
-    .join('');
+    .join("");
 
   return (
     <InvisibleInputForm
@@ -86,7 +86,7 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
             const [start] = getStartEnd(eqCompIndex);
             const slicedValue = getValueForTerm(value, eqCompIndex);
 
-            return eqValue.split('').map((_, eqValueIndex) => {
+            return eqValue.split("").map((_, eqValueIndex) => {
               return (
                 <InputTile
                   key={eqCompIndex + eqValueIndex}

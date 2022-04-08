@@ -1,6 +1,6 @@
-import InvisibleInputForm from './InvisibleInputForm';
-import InputTiles, { InputTile } from './InputTiles';
-import { isValidWord } from '../services/words';
+import InvisibleInputForm from "./InvisibleInputForm";
+import InputTiles, { InputTile } from "./InputTiles";
+import { isValidWord } from "../services/words";
 
 type Props = {
   length: number;

@@ -1,13 +1,13 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
 import {
   Equation,
   mapOperatorCharacter,
   READ_ONLY_CHARACTERS,
   stringifyEquation,
-} from '../services/equation';
-import Attempt from './Attempt';
-import { TileSize } from './Tile';
+} from "../services/equation";
+import Attempt from "./Attempt";
+import { TileSize } from "./Tile";
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,9 +27,9 @@ const EquationAttempts = ({ target, attempts }: Props) => (
         key={index}
         target={stringifyEquation(target)}
         attempt={stringifyEquation(attempt)
-          .split('')
+          .split("")
           .map(mapOperatorCharacter)
-          .join('')}
+          .join("")}
         readOnlyValues={READ_ONLY_CHARACTERS}
         size={TileSize.Small}
       />

@@ -1,15 +1,15 @@
-import { randomNumberBetween } from '../misc/utils';
+import { randomNumberBetween } from "../misc/utils";
 
 export enum EquationComponentType {
-  Term = 'term',
-  Operator = 'operator',
+  Term = "term",
+  Operator = "operator",
 }
 
 export enum EquationOperatorValue {
-  Add = '+',
-  Subtract = '-',
-  Multiply = '*',
-  Equals = '=',
+  Add = "+",
+  Subtract = "-",
+  Multiply = "*",
+  Equals = "=",
 }
 
 export type EquationTerm = {
@@ -31,14 +31,14 @@ export const isEquationTerm = ({ type }: EquationComponent) =>
 
 export const mapOperatorCharacter = (value: string) => {
   if (value === EquationOperatorValue.Multiply) {
-    return 'X';
+    return "X";
   }
 
   return value;
 };
 
 export const stringifyEquation = (equationComponents: Equation) =>
-  equationComponents.map(({ value }) => value).join('');
+  equationComponents.map(({ value }) => value).join("");
 
 export const READ_ONLY_CHARACTERS = Object.values(EquationOperatorValue);
 
@@ -92,7 +92,7 @@ export const getRandomEquation = (): Promise<Equation> => {
 
   const expressionString = expression
     .map(({ value }) => value.toString())
-    .join('');
+    .join("");
 
   // This isn't evaluation arbitrary input so should be safe... I think
   // eslint-disable-next-line no-eval

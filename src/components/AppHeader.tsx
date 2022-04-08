@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
+import React from "react";
+import styled from "@emotion/styled";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
 
-import { useTheme } from './ThemeProvider/ThemeProvider';
+import { useTheme } from "./ThemeProvider/ThemeProvider";
 
 const StyledToolbar = styled(Toolbar)`
   display: flex;
@@ -27,7 +27,7 @@ const AppHeader = ({ isLoading, onNewGame }: Props) => {
         </Button>
 
         <Button onClick={onToggleMode} color="inherit">
-          {mode === 'light' ? 'dark mode' : 'light mode'}
+          {mode === "light" ? "dark mode" : "light mode"}
         </Button>
       </StyledToolbar>
     </AppBar>

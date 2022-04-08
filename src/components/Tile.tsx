@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from '@emotion/styled';
+import React from "react";
+import styled from "@emotion/styled";
 
 export enum TileState {
   Match,
@@ -15,10 +15,10 @@ export enum TileSize {
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 const stateMap = {
-  [TileState.Match]: '#91C483',
-  [TileState.Present]: '#FFE162',
-  [TileState.Absent]: '#FF6464',
-  [TileState.ReadOnly]: '#CFCFCF',
+  [TileState.Match]: "#91C483",
+  [TileState.Present]: "#FFE162",
+  [TileState.Absent]: "#FF6464",
+  [TileState.ReadOnly]: "#CFCFCF",
 };
 
 type WrapperProps = {
@@ -27,8 +27,8 @@ type WrapperProps = {
 };
 
 const Wrapper = styled.div<WrapperProps>`
-  width: ${({ size }) => (size === TileSize.Small ? '36px' : '50px')};
-  height: ${({ size }) => (size === TileSize.Small ? '36px' : '50px')};
+  width: ${({ size }) => (size === TileSize.Small ? "36px" : "50px")};
+  height: ${({ size }) => (size === TileSize.Small ? "36px" : "50px")};
   border: 1px transparent solid;
   border-radius: ${({ theme }) => theme.shape.borderRadius}px;
   margin: 0 2px;

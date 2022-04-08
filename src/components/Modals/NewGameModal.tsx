@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import styled from '@emotion/styled';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import React, { useState } from "react";
+import styled from "@emotion/styled";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
-import Modal from './Modal';
-import { GameMode } from '../../misc/types';
+import Modal from "./Modal";
+import { GameMode } from "../../misc/types";
 
 const Content = styled(Typography)`
   margin-bottom: ${({ theme }) => theme.spacing(2)};

@@ -1,6 +1,6 @@
-import React, { FC, useState, createContext, useContext } from 'react';
-import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
-import { createTheme, PaletteMode } from '@mui/material';
+import React, { FC, useState, createContext, useContext } from "react";
+import { ThemeProvider as EmotionThemeProvider } from "@emotion/react";
+import { createTheme, PaletteMode } from "@mui/material";
 
 type ThemeContextValue = {
   onToggleMode?: () => void;
@@ -12,13 +12,13 @@ const ThemeContext = createContext<ThemeContextValue>({});
 export const useTheme = () => useContext(ThemeContext);
 
 const ThemeProvider: FC = ({ children }) => {
-  const [mode, setMode] = useState<PaletteMode>('light');
+  const [mode, setMode] = useState<PaletteMode>("light");
 
   const handleToggleMode = () => {
-    if (mode === 'light') {
-      setMode('dark');
+    if (mode === "light") {
+      setMode("dark");
     } else {
-      setMode('light');
+      setMode("light");
     }
   };
 
