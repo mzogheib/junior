@@ -4,7 +4,6 @@ import Tile, { TileSize, TileState } from "./Tile";
 
 const Tiles = styled.div`
   display: flex;
-  margin-bottom: 4px;
 `;
 
 const getTileState = (
