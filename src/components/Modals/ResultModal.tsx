@@ -9,6 +9,14 @@ const Content = styled(Typography)`
   margin-top: ${({ theme }) => theme.spacing(2)};
 `;
 
+const makeMessage = (numAttempts: number) => {
+  if (numAttempts === 1) {
+    return 'Solved in 1 attempt';
+  }
+
+  return `Solved in ${numAttempts} attempts`;
+};
+
 type Props = {
   isOpen: boolean;
   isLoading?: boolean;
@@ -19,11 +27,11 @@ type Props = {
 const ResultModal = ({ isOpen, isLoading, numAttempts, onAccept }: Props) => (
   <Modal open={isOpen}>
     <Modal.Content>
-      <Typography variant="h4" color="primary.main">
-        Success!
+      <Typography variant="h4" color="primary.main" align="center">
+        🥳
       </Typography>
       <Content variant="body1" color="primary.main">
-        Solved in {numAttempts} attempt(s).
+        {makeMessage(numAttempts)}
       </Content>
       <Modal.Buttons>
         <Button disabled={isLoading} onClick={onAccept} variant="contained">
