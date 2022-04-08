@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Alert from "@mui/material/Alert";
 
 import { Equation, stringifyEquation } from "../services/equation";
 import { usePrevious } from "../misc/utils";
 import EquationAttempts from "./EquationAttempts";
 import EquationInputForm from "./EquationInputForm";
 import AutoScrollToBottom from "./AutoScrollToBottom";
+import ErrorMessage from "./ErrorMessage";
 
 type Props = {
   target: Equation;
@@ -59,7 +59,7 @@ const EquationGame = ({ target, onSuccess }: Props) => {
       {error && (
         <>
           <br />
-          <Alert severity="error">{error}</Alert>
+          <ErrorMessage error={error} />
         </>
       )}
 

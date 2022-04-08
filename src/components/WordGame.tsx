@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Alert from "@mui/material/Alert";
 
 import { usePrevious } from "../misc/utils";
 import WordInputForm from "./WordInputForm";
 import Attempts from "./Attempts";
 import AutoScrollToBottom from "./AutoScrollToBottom";
+import ErrorMessage from "./ErrorMessage";
 
 type Props = {
   target: string;
@@ -58,7 +58,7 @@ const WordGame = ({ target, onSuccess }: Props) => {
       {error && (
         <>
           <br />
-          <Alert severity="error">{error}</Alert>
+          <ErrorMessage error={error} />
         </>
       )}
 
