@@ -38,7 +38,8 @@
     "prepare": "husky install",
     "stylelint-check": "stylelint-config-prettier-check",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "format": "prettier --write --ignore-unknown --ignore-path ./.gitignore"
   },
   "eslintConfig": {
     "extends": [
@@ -61,6 +62,6 @@
   },
   "prettier": {},
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown --ignore-path ./.gitignore"
+    "**/*": "npm run format"
   }
 }
