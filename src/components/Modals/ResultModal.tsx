@@ -9,8 +9,6 @@ const Content = styled(Typography)`
   margin-top: ${({ theme }) => theme.spacing(2)};
 `;
 
-//   testdsdf
-
 const makeMessage = (numAttempts: number) => {
   if (numAttempts === 1) {
     return "Solved in 1 attempt";
