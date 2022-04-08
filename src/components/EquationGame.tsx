@@ -4,8 +4,7 @@ import { Equation, stringifyEquation } from "../services/equation";
 import { usePrevious } from "../misc/utils";
 import EquationAttempts from "./EquationAttempts";
 import EquationInputForm from "./EquationInputForm";
-import AutoScrollToBottom from "./AutoScrollToBottom";
-import ErrorMessage from "./ErrorMessage";
+import GameLayout from "./GameLayout";
 
 type Props = {
   target: Equation;
@@ -42,29 +41,27 @@ const EquationGame = ({ target, onSuccess }: Props) => {
     }
   }, [didSucceed, atempts.length, onSuccess]);
 
+  const renderAttempts = () =>
+    !!atempts.length &&
+    !!target && <EquationAttempts attempts={atempts} target={target} />;
+
+  const renderInput = () =>
+    !didSucceed &&
+    target && (
+      <EquationInputForm
+        key={`${didChangeTarget}`}
+        equation={target}
+        onSubmit={handleSubmit}
+        onError={setError}
+      />
+    );
+
   return (
-    <>
-      {!!atempts.length && !!target && (
-        <EquationAttempts attempts={atempts} target={target} />
-      )}
-      {!didSucceed && target && (
-        <EquationInputForm
-          key={`${didChangeTarget}`}
-          equation={target}
-          onSubmit={handleSubmit}
-          onError={setError}
-        />
-      )}
-
-      {error && (
-        <>
-          <br />
-          <ErrorMessage error={error} />
-        </>
-      )}
-
-      <AutoScrollToBottom />
-    </>
+    <GameLayout
+      error={error}
+      renderAttempts={renderAttempts}
+      renderInput={renderInput}
+    />
   );
 };
 

@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { usePrevious } from "../misc/utils";
 import WordInputForm from "./WordInputForm";
 import Attempts from "./Attempts";
-import AutoScrollToBottom from "./AutoScrollToBottom";
-import ErrorMessage from "./ErrorMessage";
+import GameLayout from "./GameLayout";
 
 type Props = {
   target: string;
@@ -41,29 +40,26 @@ const WordGame = ({ target, onSuccess }: Props) => {
     }
   }, [didSucceed, attempts.length, onSuccess]);
 
+  const renderAttempts = () =>
+    !!attempts.length &&
+    !!target && <Attempts attempts={attempts} target={target} />;
+
+  const renderInput = () =>
+    !didSucceed && (
+      <WordInputForm
+        key={`${didChangeTarget}`}
+        length={target.length}
+        onSubmit={handleSubmit}
+        onError={setError}
+      />
+    );
+
   return (
-    <>
-      {!!attempts.length && !!target && (
-        <Attempts attempts={attempts} target={target} />
-      )}
-      {!didSucceed && (
-        <WordInputForm
-          key={`${didChangeTarget}`}
-          length={target.length}
-          onSubmit={handleSubmit}
-          onError={setError}
-        />
-      )}
-
-      {error && (
-        <>
-          <br />
-          <ErrorMessage error={error} />
-        </>
-      )}
-
-      <AutoScrollToBottom />
-    </>
+    <GameLayout
+      error={error}
+      renderAttempts={renderAttempts}
+      renderInput={renderInput}
+    />
   );
 };
 
