@@ -28,7 +28,6 @@ export const getRandomWord = (length: number): Promise<string> => {
   );
 };
 
-// Perhaps the JSON import should have a type definition
 export const isValidWord = (word: string) => {
   const words = getWords(word.length);
 
