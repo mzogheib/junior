@@ -19,7 +19,7 @@ type Props = {
   numAttempts: number;
 };
 
-const ResultModal = ({ numAttempts }: Props) => (
+const SuccessMessage = ({ numAttempts }: Props) => (
   <Wrapper>
     <Typography variant="h4" color="primary.main">
       🥳
@@ -30,4 +30,4 @@ const ResultModal = ({ numAttempts }: Props) => (
   </Wrapper>
 );
 
-export default ResultModal;
+export default SuccessMessage;

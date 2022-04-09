@@ -7,7 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 
-import { GameMode } from "../../misc/types";
+import { GameMode } from "../misc/types";
 
 type Props = {
   isOpen: boolean;
@@ -16,7 +16,7 @@ type Props = {
   onCancel?: () => void;
 };
 
-const NewGameModal = ({ isOpen, isLoading, onSubmit, onCancel }: Props) => {
+const NewGameDialog = ({ isOpen, isLoading, onSubmit, onCancel }: Props) => {
   const [gameMode, setGameMode] = useState(GameMode.Numbers);
 
   const handleSubmit = () => onSubmit(gameMode);
@@ -64,4 +64,4 @@ const NewGameModal = ({ isOpen, isLoading, onSubmit, onCancel }: Props) => {
   );
 };
 
-export default NewGameModal;
+export default NewGameDialog;

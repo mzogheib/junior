@@ -8,7 +8,7 @@ import { Equation, getRandomEquation } from "./services/equation";
 import { GameMode } from "./misc/types";
 import EquationGame from "./components/EquationGame";
 import WordGame from "./components/WordGame";
-import NewGameModal from "./components/Modals/NewGameModal";
+import NewGameDialog from "./components/NewGameDialog";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -21,7 +21,7 @@ const Main = styled.main`
 `;
 
 const App = () => {
-  const [isNewGameModalOpen, setIsNewGameModalOpen] = useState(true);
+  const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
 
   const [numSuccessAttempts, setNumSuccessAttempts] = useState(0);
   const [targetEquation, setTargetEquation] = useState<Equation>();
@@ -45,17 +45,17 @@ const App = () => {
     setNumSuccessAttempts(0);
 
     setIsLoading(false);
-    setIsNewGameModalOpen(false);
+    setIsNewGameDialogOpen(false);
   };
 
   const handleCancelNewGame = () => {
-    // This means the app has just launched so should be able to avoid
-    // starting a new game
-    if (!targetEquation && !targetWord) {
+    // Cannot avoid creating the first game
+    const isFirstGame = !targetEquation && !targetWord;
+    if (isFirstGame) {
       return;
     }
 
-    return () => setIsNewGameModalOpen(false);
+    return () => setIsNewGameDialogOpen(false);
   };
 
   return (
@@ -63,7 +63,7 @@ const App = () => {
       <Wrapper>
         <AppHeader
           isLoading={isLoading}
-          onNewGame={() => setIsNewGameModalOpen(true)}
+          onNewGame={() => setIsNewGameDialogOpen(true)}
         />
 
         <Main>
@@ -82,8 +82,8 @@ const App = () => {
         )}
       </Wrapper>
 
-      <NewGameModal
-        isOpen={isNewGameModalOpen}
+      <NewGameDialog
+        isOpen={isNewGameDialogOpen}
         isLoading={isLoading}
         onSubmit={handleNewGame}
         onCancel={handleCancelNewGame()}
