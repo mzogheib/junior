@@ -82,14 +82,16 @@ const App = () => {
             <WordGame target={targetWord} onSuccess={setNumSuccessAttempts} />
           )}
         </Main>
+        {!!numSuccessAttempts && (
+          <ResultModal
+            isOpen={!!numSuccessAttempts}
+            isLoading={isLoading}
+            numAttempts={numSuccessAttempts}
+            onAccept={handleCloseResultsModal}
+          />
+        )}
       </Wrapper>
 
-      <ResultModal
-        isOpen={!!numSuccessAttempts}
-        isLoading={isLoading}
-        numAttempts={numSuccessAttempts}
-        onAccept={handleCloseResultsModal}
-      />
       <NewGameModal
         isOpen={isNewGameModalOpen}
         isLoading={isLoading}
