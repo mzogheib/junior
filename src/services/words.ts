@@ -1,4 +1,4 @@
-import words from "./words-data.json";
+import words from "./words-data/05-letters.json";
 import { randomNumberBetween } from "../misc/utils";
 
 const WORDS_LENGTH = words.length;
