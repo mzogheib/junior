@@ -37,7 +37,7 @@ const App = () => {
       setTargetEquation(newTarget);
       setTargetWord(undefined);
     } else {
-      const newTarget = await getRandomWord();
+      const newTarget = await getRandomWord(5);
       setTargetWord(newTarget);
       setTargetEquation(undefined);
     }
