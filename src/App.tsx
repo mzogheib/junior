@@ -53,6 +53,16 @@ const App = () => {
     setIsNewGameModalOpen(true);
   };
 
+  const handleCancelNewGame = () => {
+    // This means the app has just launched so should be able to avoid
+    // starting a new game
+    if (!targetEquation && !targetWord) {
+      return;
+    }
+
+    return () => setIsNewGameModalOpen(false);
+  };
+
   return (
     <>
       <Wrapper>
@@ -84,6 +94,7 @@ const App = () => {
         isOpen={isNewGameModalOpen}
         isLoading={isLoading}
         onSubmit={handleNewGame}
+        onCancel={handleCancelNewGame()}
       />
     </>
   );
