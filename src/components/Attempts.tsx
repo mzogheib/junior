@@ -6,6 +6,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const AttempWrapper = styled.div`
   margin-bottom: 4px;
 `;
 
@@ -19,13 +22,14 @@ type Props = {
 const Attempts = ({ target, attempts, size, readOnlyValues }: Props) => (
   <Wrapper>
     {attempts.map((attempt, i) => (
-      <Attempt
-        key={`${attempt}-${i}`}
-        attempt={attempt}
-        target={target}
-        size={size}
-        readOnlyValues={readOnlyValues}
-      />
+      <AttempWrapper key={`${attempt}-${i}`}>
+        <Attempt
+          attempt={attempt}
+          target={target}
+          size={size}
+          readOnlyValues={readOnlyValues}
+        />
+      </AttempWrapper>
     ))}
   </Wrapper>
 );
