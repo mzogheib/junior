@@ -16,13 +16,10 @@ const makeMessage = (numAttempts: number) => {
 };
 
 type Props = {
-  isOpen: boolean;
-  isLoading?: boolean;
   numAttempts: number;
-  onAccept(): void;
 };
 
-const ResultModal = ({ isOpen, isLoading, numAttempts, onAccept }: Props) => (
+const ResultModal = ({ numAttempts }: Props) => (
   <Wrapper>
     <Typography variant="h4" color="primary.main">
       🥳

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import ResultModal from "./components/Modals/ResultModal";
+import SuccessMessage from "./components/SuccessMessage";
 import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
 import { Equation, getRandomEquation } from "./services/equation";
@@ -48,11 +48,6 @@ const App = () => {
     setIsNewGameModalOpen(false);
   };
 
-  const handleCloseResultsModal = () => {
-    setNumSuccessAttempts(0);
-    setIsNewGameModalOpen(true);
-  };
-
   const handleCancelNewGame = () => {
     // This means the app has just launched so should be able to avoid
     // starting a new game
@@ -83,12 +78,7 @@ const App = () => {
           )}
         </Main>
         {!!numSuccessAttempts && (
-          <ResultModal
-            isOpen={!!numSuccessAttempts}
-            isLoading={isLoading}
-            numAttempts={numSuccessAttempts}
-            onAccept={handleCloseResultsModal}
-          />
+          <SuccessMessage numAttempts={numSuccessAttempts} />
         )}
       </Wrapper>
 
