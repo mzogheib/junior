@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
 
-import Modal from "./Modal";
 import { GameMode } from "../../misc/types";
 
 type Props = {
@@ -28,36 +31,36 @@ const NewGameModal = ({ isOpen, isLoading, onSubmit, onCancel }: Props) => {
   };
 
   return (
-    <Modal open={isOpen}>
-      <>
-        <Modal.Content>
-          <Modal.Header onClose={onCancel}>New Game</Modal.Header>
-          <ToggleButtonGroup
-            value={gameMode}
-            exclusive
-            onChange={handleChangeGameMode}
-            aria-label="game mode"
-          >
-            <ToggleButton value={GameMode.Numbers} aria-label="numbers">
-              Numbers
-            </ToggleButton>
-            <ToggleButton value={GameMode.Letters} aria-label="letters">
-              Letters
-            </ToggleButton>
-          </ToggleButtonGroup>
+    <Dialog open={isOpen}>
+      <DialogTitle>New Game</DialogTitle>
 
-          <Modal.Buttons>
-            <Button
-              disabled={isLoading}
-              onClick={handleSubmit}
-              variant="contained"
-            >
-              Go!
-            </Button>
-          </Modal.Buttons>
-        </Modal.Content>
-      </>
-    </Modal>
+      <DialogContent>
+        <ToggleButtonGroup
+          value={gameMode}
+          exclusive
+          onChange={handleChangeGameMode}
+          aria-label="game mode"
+        >
+          <ToggleButton value={GameMode.Numbers} aria-label="numbers">
+            Numbers
+          </ToggleButton>
+          <ToggleButton value={GameMode.Letters} aria-label="letters">
+            Letters
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </DialogContent>
+
+      <DialogActions>
+        {onCancel && (
+          <Button disabled={isLoading} onClick={onCancel}>
+            Cancel
+          </Button>
+        )}
+        <Button disabled={isLoading} onClick={handleSubmit}>
+          Go!
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
