@@ -41,11 +41,11 @@ const NewGameDialog = ({ isOpen, isLoading, onSubmit, onCancel }: Props) => {
           onChange={handleChangeGameMode}
           aria-label="game mode"
         >
-          <ToggleButton value={GameMode.Numbers} aria-label="numbers">
-            Numbers
+          <ToggleButton value={GameMode.Numbers} aria-label="equations">
+            Equations
           </ToggleButton>
-          <ToggleButton value={GameMode.Letters} aria-label="letters">
-            Letters
+          <ToggleButton value={GameMode.Letters} aria-label="words">
+            Words
           </ToggleButton>
         </ToggleButtonGroup>
       </DialogContent>
