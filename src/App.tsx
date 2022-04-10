@@ -29,7 +29,7 @@ const App = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleNewGame = async (gameMode: GameMode) => {
+  const handleNewGame = async (gameMode: GameMode, length: number) => {
     setIsLoading(true);
 
     if (gameMode === GameMode.Numbers) {
@@ -37,7 +37,7 @@ const App = () => {
       setTargetEquation(newTarget);
       setTargetWord(undefined);
     } else {
-      const newTarget = await getRandomWord(5);
+      const newTarget = await getRandomWord(length);
       setTargetWord(newTarget);
       setTargetEquation(undefined);
     }

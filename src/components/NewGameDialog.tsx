@@ -6,20 +6,22 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
+import Typography from "@mui/material/Typography";
 
 import { GameMode } from "../misc/types";
 
 type Props = {
   isOpen: boolean;
   isLoading: boolean;
-  onSubmit: (gameMode: GameMode) => void;
+  onSubmit: (gameMode: GameMode, length: number) => void;
   onCancel?: () => void;
 };
 
 const NewGameDialog = ({ isOpen, isLoading, onSubmit, onCancel }: Props) => {
   const [gameMode, setGameMode] = useState(GameMode.Numbers);
+  const [targetLength, setTargetLength] = useState(5);
 
-  const handleSubmit = () => onSubmit(gameMode);
+  const handleSubmit = () => onSubmit(gameMode, targetLength);
 
   const handleChangeGameMode = (
     event: React.MouseEvent<HTMLElement>,
@@ -27,6 +29,15 @@ const NewGameDialog = ({ isOpen, isLoading, onSubmit, onCancel }: Props) => {
   ) => {
     if (value) {
       setGameMode(value);
+    }
+  };
+
+  const handleChangeTargetLength = (
+    event: React.MouseEvent<HTMLElement>,
+    value: number | null
+  ) => {
+    if (value) {
+      setTargetLength(value);
     }
   };
 
@@ -48,6 +59,29 @@ const NewGameDialog = ({ isOpen, isLoading, onSubmit, onCancel }: Props) => {
             Words
           </ToggleButton>
         </ToggleButtonGroup>
+
+        {gameMode === "letters" && (
+          <>
+            <Typography variant="body1" color="primary.main">
+              <br />
+              How many letters?
+            </Typography>
+
+            <ToggleButtonGroup
+              value={targetLength}
+              exclusive
+              onChange={handleChangeTargetLength}
+              aria-label="game mode"
+            >
+              <ToggleButton value={5} aria-label="five">
+                five
+              </ToggleButton>
+              <ToggleButton value={6} aria-label="six">
+                six
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </>
+        )}
       </DialogContent>
 
       <DialogActions>
