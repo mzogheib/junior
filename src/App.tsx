@@ -82,12 +82,13 @@ const App = () => {
         )}
       </Wrapper>
 
-      <NewGameDialog
-        isOpen={isNewGameDialogOpen}
-        isLoading={isLoading}
-        onSubmit={handleNewGame}
-        onCancel={handleCancelNewGame()}
-      />
+      {isNewGameDialogOpen && (
+        <NewGameDialog
+          isLoading={isLoading}
+          onSubmit={handleNewGame}
+          onCancel={handleCancelNewGame()}
+        />
+      )}
     </>
   );
 };

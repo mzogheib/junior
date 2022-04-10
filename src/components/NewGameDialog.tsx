@@ -11,13 +11,12 @@ import Typography from "@mui/material/Typography";
 import { GameMode } from "../misc/types";
 
 type Props = {
-  isOpen: boolean;
   isLoading: boolean;
   onSubmit: (gameMode: GameMode, length: number) => void;
   onCancel?: () => void;
 };
 
-const NewGameDialog = ({ isOpen, isLoading, onSubmit, onCancel }: Props) => {
+const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
   const [gameMode, setGameMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(5);
 
@@ -42,7 +41,7 @@ const NewGameDialog = ({ isOpen, isLoading, onSubmit, onCancel }: Props) => {
   };
 
   return (
-    <Dialog open={isOpen}>
+    <Dialog open={true}>
       <DialogTitle>New Game</DialogTitle>
 
       <DialogContent>
