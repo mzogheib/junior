@@ -1,10 +1,12 @@
-import React from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 
-import { useTheme } from "./ThemeProvider/ThemeProvider";
+import DrawerMenu from "./DrawerMenu";
 
 const StyledToolbar = styled(Toolbar)`
   display: flex;
@@ -17,20 +19,23 @@ type Props = {
 };
 
 const AppHeader = ({ isLoading, onNewGame }: Props) => {
-  const { onToggleMode, mode } = useTheme();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <AppBar position="sticky">
-      <StyledToolbar>
-        <Button disabled={isLoading} onClick={onNewGame} color="inherit">
-          new game
-        </Button>
+    <>
+      <AppBar position="sticky">
+        <StyledToolbar>
+          <Button disabled={isLoading} onClick={onNewGame} color="inherit">
+            new game
+          </Button>
 
-        <Button onClick={onToggleMode} color="inherit">
-          {mode === "light" ? "dark mode" : "light mode"}
-        </Button>
-      </StyledToolbar>
-    </AppBar>
+          <IconButton onClick={() => setIsMenuOpen(true)} color="inherit">
+            <MenuIcon />
+          </IconButton>
+        </StyledToolbar>
+      </AppBar>
+      <DrawerMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+    </>
   );
 };
 

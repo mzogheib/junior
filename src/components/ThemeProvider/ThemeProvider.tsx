@@ -4,6 +4,7 @@ import { createTheme, PaletteMode } from "@mui/material";
 
 type ThemeContextValue = {
   onToggleMode?: () => void;
+  setMode?: (mode: PaletteMode) => void;
   mode?: PaletteMode;
 };
 
@@ -30,7 +31,9 @@ const ThemeProvider: FC = ({ children }) => {
   );
 
   return (
-    <ThemeContext.Provider value={{ onToggleMode: handleToggleMode, mode }}>
+    <ThemeContext.Provider
+      value={{ onToggleMode: handleToggleMode, setMode, mode }}
+    >
       {renderThemeProvider()}
     </ThemeContext.Provider>
   );
