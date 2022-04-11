@@ -4,7 +4,7 @@ import { Global, css } from "@emotion/react";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import ThemeProvider from "./components/ThemeProvider/ThemeProvider";
+import ThemeProvider from "./components/Theme/ThemeProvider";
 
 const globalStyles = css`
   html,

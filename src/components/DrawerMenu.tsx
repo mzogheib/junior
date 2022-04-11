@@ -1,7 +1,7 @@
 import Drawer from "@mui/material/Drawer";
 import styled from "@emotion/styled";
 
-import ThemeToggle from "./ThemeProvider/ThemeToggle";
+import ThemeToggle from "./Theme/ThemeToggle";
 
 const Wrapper = styled.div`
   padding: ${({ theme }) => theme.spacing(2)};
