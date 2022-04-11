@@ -1,14 +1,13 @@
-import EquationOperatorTile from "./EquationOperatorTile";
 import {
   Equation,
   EquationComponentType,
-  EquationOperatorValue,
   isEquationTerm,
   isValidEquation,
+  mapOperatorCharacter,
 } from "../services/equation";
 import InvisibleInputForm from "./InvisibleInputForm";
 import InputTiles, { InputTile } from "./InputTiles";
-import { TileSize } from "./Tile";
+import Tile, { TileSize, TileState } from "./Tile";
 
 const getStartEnd = (eqCompIndex: number) => {
   switch (eqCompIndex) {
@@ -75,10 +74,11 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
           {equation.map(({ value: eqValue, type }, eqCompIndex) => {
             if (type === EquationComponentType.Operator) {
               return (
-                <EquationOperatorTile
-                  // TypeScript complains that value could be a string but it clearly cannot
-                  value={eqValue as EquationOperatorValue}
+                <Tile
                   key={eqCompIndex}
+                  size={TileSize.Small}
+                  state={TileState.ReadOnly}
+                  value={mapOperatorCharacter(eqValue)}
                 />
               );
             }
