@@ -5,6 +5,7 @@ import { Global, css } from "@emotion/react";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import ThemeProvider from "./components/Theme/ThemeProvider";
+import AuthProvider from "./components/Auth/AuthProvider";
 
 const globalStyles = css`
   html,
@@ -28,10 +29,12 @@ const globalStyles = css`
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <App />
-      <Global styles={globalStyles} />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <App />
+        <Global styles={globalStyles} />
+      </ThemeProvider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
