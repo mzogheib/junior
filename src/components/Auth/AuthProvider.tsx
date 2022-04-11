@@ -13,7 +13,7 @@ const getConfig = () => {
 
 const config = {
   ...getConfig(),
-  redirectUri: window.location.origin,
+  redirectUri: `${window.location.origin}/junior`,
 };
 
 const AuthProvider: FC = ({ children }) => {
