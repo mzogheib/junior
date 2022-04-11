@@ -2,6 +2,8 @@ import { PaletteMode } from "@mui/material";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Typography from "@mui/material/Typography";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 import { useTheme } from "./ThemeProvider";
 
@@ -30,10 +32,12 @@ const ThemeToggle = () => {
         aria-label="theme mode"
       >
         <ToggleButton value="light" aria-label="light">
-          Light
+          <LightModeIcon />
+          &nbsp;Light
         </ToggleButton>
         <ToggleButton value="dark" aria-label="dark">
-          Dark
+          <DarkModeIcon />
+          &nbsp;Dark
         </ToggleButton>
       </ToggleButtonGroup>
     </div>
