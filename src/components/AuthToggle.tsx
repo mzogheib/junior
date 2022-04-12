@@ -10,12 +10,13 @@ const AuthToggle = () => {
   const Icon = isAuthenticated ? LogoutIcon : LoginIcon;
   const label = isAuthenticated ? "Logout" : "Login";
   const onClick = isAuthenticated ? logout : loginWithRedirect;
+  const variant = isAuthenticated ? "outlined" : "contained";
 
   return (
     <Button
       onClick={() => onClick()}
       startIcon={<Icon />}
-      variant="outlined"
+      variant={variant}
       fullWidth
     >
       {label}
