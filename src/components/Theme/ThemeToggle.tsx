@@ -30,6 +30,7 @@ const ThemeToggle = () => {
         exclusive
         onChange={handleThemeModeChange}
         aria-label="theme mode"
+        fullWidth
       >
         <ToggleButton value="light" aria-label="light">
           <LightModeIcon />
