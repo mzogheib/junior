@@ -12,7 +12,7 @@ type Props = {
 };
 
 const EquationGame = ({ target, onSuccess }: Props) => {
-  const [atempts, setAttempts] = useState<Equation[]>([]);
+  const [attempts, setAttempts] = useState<Equation[]>([]);
   const [error, setError] = useState("");
 
   const previousTarget = usePrevious(target);
@@ -27,23 +27,25 @@ const EquationGame = ({ target, onSuccess }: Props) => {
   const handleSubmit = (attempt: Equation) => {
     setError("");
 
-    setAttempts(atempts.concat([attempt]));
+    setAttempts(attempts.concat([attempt]));
   };
 
-  const lastAttempt = atempts.length ? atempts[atempts.length - 1] : undefined;
+  const lastAttempt = attempts.length
+    ? attempts[attempts.length - 1]
+    : undefined;
   const didSucceed =
     !!lastAttempt &&
     stringifyEquation(lastAttempt) === stringifyEquation(target);
 
   useEffect(() => {
     if (didSucceed) {
-      onSuccess(atempts.length);
+      onSuccess(attempts.length);
     }
-  }, [didSucceed, atempts.length, onSuccess]);
+  }, [didSucceed, attempts.length, onSuccess]);
 
   const renderAttempts = () =>
-    !!atempts.length &&
-    !!target && <EquationAttempts attempts={atempts} target={target} />;
+    !!attempts.length &&
+    !!target && <EquationAttempts attempts={attempts} target={target} />;
 
   const renderInput = () =>
     !didSucceed &&
