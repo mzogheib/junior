@@ -9,12 +9,28 @@ import TileInputForm from "./TileInputForm";
 import GameLayout, { RenderAttempts, RenderInput } from "./GameLayout";
 import Attempts from "./Attempts";
 import { TileSize } from "./Tile";
+import { GameMode } from "../misc/types";
+import { validateWord } from "../services/words";
 
 type Props = {
   targetSegments: TargetSegments;
+  gameMode: GameMode;
 };
 
-const EquationGame = ({ targetSegments }: Props) => {
+const gameConfig = {
+  [GameMode.Letters]: {
+    tileSize: TileSize.Default,
+    validate: validateWord,
+  },
+  [GameMode.Numbers]: {
+    tileSize: TileSize.Small,
+    validate: validateEquation,
+  },
+};
+
+const Game = ({ targetSegments, gameMode }: Props) => {
+  const { tileSize, validate } = gameConfig[gameMode];
+
   const renderAttempts: RenderAttempts = (attempts) =>
     !!attempts.length && (
       <Attempts
@@ -22,13 +38,13 @@ const EquationGame = ({ targetSegments }: Props) => {
         target={stringifyTargetSegments(targetSegments)}
         readOnlyValues={READ_ONLY_CHARACTERS}
         characterMap={CHARACTER_DISPLAY_MAP}
-        size={TileSize.Small}
+        size={tileSize}
       />
     );
 
   const renderInput: RenderInput = (onError, onSubmit) => {
     const handleValidate = (targetSegments: TargetSegments) => {
-      const error = validateEquation(targetSegments);
+      const error = validate(targetSegments);
       if (error) {
         onError(error);
         return false;
@@ -39,8 +55,8 @@ const EquationGame = ({ targetSegments }: Props) => {
 
     return (
       <TileInputForm
-        mode="numbers"
-        size={TileSize.Small}
+        mode={gameMode}
+        size={tileSize}
         targetSegments={targetSegments}
         onSubmit={onSubmit}
         onValidate={handleValidate}
@@ -57,4 +73,4 @@ const EquationGame = ({ targetSegments }: Props) => {
   );
 };
 
-export default EquationGame;
+export default Game;

@@ -3,11 +3,10 @@ import styled from "@emotion/styled";
 
 import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
-import { TargetSegments } from "./services/segments";
+import { stringifyTargetSegments, TargetSegments } from "./services/segments";
 import { getRandomEquation } from "./services/equation";
 import { GameMode } from "./misc/types";
-import EquationGame from "./components/EquationGame";
-import WordGame from "./components/WordGame";
+import Game from "./components/Game";
 import NewGameDialog from "./components/NewGameDialog";
 
 const Wrapper = styled.div`
@@ -70,17 +69,16 @@ const App = () => {
   };
 
   const renderGame = () => {
-    if (isLoading || !targetSegments?.length) {
+    if (isLoading || !targetSegments?.length || !gameMode) {
       return;
     }
 
-    if (gameMode === GameMode.Numbers) {
-      return <EquationGame targetSegments={targetSegments} />;
-    }
-
-    if (gameMode === GameMode.Letters) {
-      return <WordGame targetSegments={targetSegments} />;
-    }
+    // Add a key to force a re-mount when the target changes. This avoids
+    // left over state from a previous game.
+    const key = stringifyTargetSegments(targetSegments);
+    return (
+      <Game key={key} targetSegments={targetSegments} gameMode={gameMode} />
+    );
   };
 
   return (
