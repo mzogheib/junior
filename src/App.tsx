@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import SuccessMessage from "./components/SuccessMessage";
 import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
 import { Equation, getRandomEquation } from "./services/equation";
@@ -20,42 +19,67 @@ const Main = styled.main`
   overflow: auto;
 `;
 
+const useGame = () => {
+  const [gameMode, setGameMode] = useState<GameMode>();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [target, setTarget] = useState<string | Equation>();
+
+  const onNewGame = async (newGameMode: GameMode, length: number) => {
+    setIsLoading(true);
+
+    if (newGameMode === GameMode.Numbers) {
+      const newTarget = await getRandomEquation();
+      setTarget(newTarget);
+    } else {
+      const newTarget = await getRandomWord(length);
+      setTarget(newTarget);
+    }
+
+    setGameMode(newGameMode);
+    setIsLoading(false);
+  };
+
+  return {
+    target,
+    isLoading,
+    gameMode,
+    onNewGame,
+  };
+};
+
 const App = () => {
   const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
 
-  const [numSuccessAttempts, setNumSuccessAttempts] = useState(0);
-  const [targetEquation, setTargetEquation] = useState<Equation>();
-  const [targetWord, setTargetWord] = useState<string>();
+  const { target, isLoading, gameMode, onNewGame } = useGame();
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleNewGame = async (gameMode: GameMode, length: number) => {
-    setIsLoading(true);
-
-    if (gameMode === GameMode.Numbers) {
-      const newTarget = await getRandomEquation();
-      setTargetEquation(newTarget);
-      setTargetWord(undefined);
-    } else {
-      const newTarget = await getRandomWord(length);
-      setTargetWord(newTarget);
-      setTargetEquation(undefined);
-    }
-
-    setNumSuccessAttempts(0);
-
-    setIsLoading(false);
+  const handleNewGame = async (newGameMode: GameMode, length: number) => {
+    await onNewGame(newGameMode, length);
     setIsNewGameDialogOpen(false);
   };
 
   const handleCancelNewGame = () => {
     // Cannot avoid creating the first game
-    const isFirstGame = !targetEquation && !targetWord;
+    const isFirstGame = !target;
     if (isFirstGame) {
       return;
     }
 
     return () => setIsNewGameDialogOpen(false);
+  };
+
+  const renderGame = () => {
+    if (isLoading || !target?.length) {
+      return;
+    }
+
+    if (gameMode === GameMode.Numbers) {
+      return <EquationGame target={target as Equation} />;
+    }
+
+    if (gameMode === GameMode.Letters) {
+      return <WordGame target={target as string} />;
+    }
   };
 
   return (
@@ -66,20 +90,7 @@ const App = () => {
           onNewGame={() => setIsNewGameDialogOpen(true)}
         />
 
-        <Main>
-          {targetEquation?.length && (
-            <EquationGame
-              target={targetEquation}
-              onSuccess={setNumSuccessAttempts}
-            />
-          )}
-          {targetWord?.length && (
-            <WordGame target={targetWord} onSuccess={setNumSuccessAttempts} />
-          )}
-        </Main>
-        {!!numSuccessAttempts && (
-          <SuccessMessage numAttempts={numSuccessAttempts} />
-        )}
+        <Main>{renderGame()}</Main>
       </Wrapper>
 
       {isNewGameDialogOpen && (

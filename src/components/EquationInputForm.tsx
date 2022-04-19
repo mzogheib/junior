@@ -1,9 +1,11 @@
 import {
   Equation,
   EquationComponentType,
+  EQUATION_CHARACTER_MAP,
   isEquationTerm,
   isValidEquation,
-  mapOperatorCharacter,
+  READ_ONLY_CHARACTERS,
+  stringifyEquation,
 } from "../services/equation";
 import InvisibleInputForm from "./InvisibleInputForm";
 import InputTiles, { InputTile } from "./InputTiles";
@@ -30,7 +32,7 @@ const getValueForTerm = (value: string, eqCompIndex: number) => {
 
 type Props = {
   equation: Equation;
-  onSubmit: (attempt: Equation) => void;
+  onSubmit: (attempt: string) => void;
   onError: (error: string) => void;
 };
 
@@ -47,7 +49,8 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
       };
     });
 
-  const handleSubmit = (value: string) => onSubmit(makeAttempt(value));
+  const handleSubmit = (value: string) =>
+    onSubmit(stringifyEquation(makeAttempt(value)));
 
   const handleValidate = (value: string) => {
     if (!isValidEquation(makeAttempt(value))) {
@@ -71,14 +74,14 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
       onValidate={handleValidate}
       renderInput={(value, onClick) => (
         <InputTiles onClick={onClick}>
-          {equation.map(({ value: eqValue, type }, eqCompIndex) => {
-            if (type === EquationComponentType.Operator) {
+          {equation.map(({ value: eqValue }, eqCompIndex) => {
+            if (READ_ONLY_CHARACTERS.includes(eqValue)) {
               return (
                 <Tile
                   key={eqCompIndex}
                   size={TileSize.Small}
                   state={TileState.ReadOnly}
-                  value={mapOperatorCharacter(eqValue)}
+                  value={EQUATION_CHARACTER_MAP[eqValue] ?? eqValue}
                 />
               );
             }
