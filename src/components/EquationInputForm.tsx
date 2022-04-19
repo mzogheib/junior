@@ -11,22 +11,19 @@ import InvisibleInputForm from "./InvisibleInputForm";
 import InputTiles, { InputTile } from "./InputTiles";
 import Tile, { TileSize, TileState } from "./Tile";
 
-const getStartEnd = (eqCompIndex: number) => {
-  switch (eqCompIndex) {
-    case 0:
-      return [0, 1];
-    case 2:
-      return [1, 2];
-    case 4:
-      return [2, 3];
-    case 6:
-    default:
-      return [3];
-  }
+const getStartEnd = (eqValue: string, eqCompIndex: number) => {
+  const start = eqCompIndex / 2;
+  const end = start + eqValue.length;
+
+  return [start, end];
 };
 
-const getValueForTerm = (value: string, eqCompIndex: number) => {
-  const [start, end] = getStartEnd(eqCompIndex);
+const getValueForTerm = (
+  value: string,
+  eqValue: string,
+  eqCompIndex: number
+) => {
+  const [start, end] = getStartEnd(eqValue, eqCompIndex);
   return value.slice(start, end);
 };
 
@@ -45,7 +42,7 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
 
       return {
         ...eqComp,
-        value: getValueForTerm(value, eqCompIndex),
+        value: getValueForTerm(value, eqComp.value, eqCompIndex),
       };
     });
 
@@ -86,8 +83,8 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
               );
             }
 
-            const [start] = getStartEnd(eqCompIndex);
-            const slicedValue = getValueForTerm(value, eqCompIndex);
+            const [start] = getStartEnd(eqValue, eqCompIndex);
+            const slicedValue = getValueForTerm(value, eqValue, eqCompIndex);
 
             return eqValue.split("").map((_, eqValueIndex) => {
               return (
