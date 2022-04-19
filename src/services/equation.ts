@@ -12,12 +12,12 @@ export enum EquationOperatorValue {
   Equals = "=",
 }
 
-export type EquationTerm = {
+type EquationTerm = {
   type: EquationComponentType.Term;
   value: string;
 };
 
-export type EquationOperator = {
+type EquationOperator = {
   type: EquationComponentType.Operator;
   value: EquationOperatorValue;
 };
