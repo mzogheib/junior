@@ -67,7 +67,7 @@ const App = () => {
   } = useGame();
 
   const handleNewGame = async (newGameMode: GameMode, length: number) => {
-    onNewGame(newGameMode, length);
+    await onNewGame(newGameMode, length);
     setIsNewGameDialogOpen(false);
   };
 
