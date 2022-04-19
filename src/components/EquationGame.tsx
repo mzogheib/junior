@@ -1,6 +1,7 @@
 import {
   Equation,
   EQUATION_CHARACTER_MAP,
+  isValidEquation,
   READ_ONLY_CHARACTERS,
   stringifyEquation,
 } from "../services/equation";
@@ -25,13 +26,26 @@ const EquationGame = ({ target }: Props) => {
       />
     );
 
-  const renderInput: RenderInput = (onError, onSubmit) => (
-    <EquationInputForm
-      equation={target}
-      onSubmit={onSubmit}
-      onError={onError}
-    />
-  );
+  const renderInput: RenderInput = (onError, onSubmit) => {
+    const handleValidate = (equation: Equation) => {
+      if (!isValidEquation(equation)) {
+        onError("Invalid equation");
+        return false;
+      }
+
+      return true;
+    };
+
+    return (
+      <EquationInputForm
+        mode="numbers"
+        size={TileSize.Small}
+        equation={target}
+        onSubmit={onSubmit}
+        onValidate={handleValidate}
+      />
+    );
+  };
 
   return (
     <GameLayout

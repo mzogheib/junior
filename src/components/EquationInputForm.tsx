@@ -3,7 +3,6 @@ import {
   EquationComponentType,
   EQUATION_CHARACTER_MAP,
   isEquationTerm,
-  isValidEquation,
   READ_ONLY_CHARACTERS,
   stringifyEquation,
 } from "../services/equation";
@@ -30,12 +29,20 @@ const getValueForTerm = (
 };
 
 type Props = {
+  mode: "letters" | "numbers";
+  size?: TileSize;
   equation: Equation;
   onSubmit: (attempt: string) => void;
-  onError: (error: string) => void;
+  onValidate: (eqution: Equation) => boolean;
 };
 
-const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
+const EquationInputForm = ({
+  mode,
+  size,
+  equation,
+  onSubmit,
+  onValidate,
+}: Props) => {
   const makeAttempt = (value: string) =>
     equation.map((eqComp, eqCompIndex) => {
       if (eqComp.type === EquationComponentType.Operator) {
@@ -51,14 +58,7 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
   const handleSubmit = (value: string) =>
     onSubmit(stringifyEquation(makeAttempt(value)));
 
-  const handleValidate = (value: string) => {
-    if (!isValidEquation(makeAttempt(value))) {
-      onError("Invalid equation");
-      return false;
-    }
-
-    return true;
-  };
+  const handleValidate = (value: string) => onValidate(makeAttempt(value));
 
   const termsString = equation
     .filter(isEquationTerm)
@@ -67,7 +67,7 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
 
   return (
     <InvisibleInputForm
-      mode="numbers"
+      mode={mode}
       length={termsString.length}
       onSubmit={handleSubmit}
       onValidate={handleValidate}
@@ -78,7 +78,7 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
               return (
                 <Tile
                   key={eqCompIndex}
-                  size={TileSize.Small}
+                  size={size}
                   state={TileState.ReadOnly}
                   value={EQUATION_CHARACTER_MAP[eqValue] ?? eqValue}
                 />
@@ -93,7 +93,7 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
                 <InputTile
                   key={eqCompIndex + eqValueIndex}
                   isFocussed={start + eqValueIndex === value.length}
-                  size={TileSize.Small}
+                  size={size}
                 >
                   {slicedValue[eqValueIndex]}
                 </InputTile>
