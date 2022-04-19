@@ -81,6 +81,35 @@ const App = () => {
     return () => setIsNewGameDialogOpen(false);
   };
 
+  const renderGame = () => {
+    if (isLoading || !target?.length) {
+      return;
+    }
+
+    if (gameMode === GameMode.Numbers) {
+      return (
+        <EquationGame
+          target={target as Equation}
+          onSuccess={setNumSuccessAttempts}
+        />
+      );
+    }
+
+    if (gameMode === GameMode.Letters) {
+      return (
+        <WordGame target={target as string} onSuccess={setNumSuccessAttempts} />
+      );
+    }
+  };
+
+  const renderSuccessMessage = () => {
+    if (isLoading || !numSuccessAttempts) {
+      return;
+    }
+
+    return <SuccessMessage numAttempts={numSuccessAttempts} />;
+  };
+
   return (
     <>
       <Wrapper>
@@ -89,23 +118,9 @@ const App = () => {
           onNewGame={() => setIsNewGameDialogOpen(true)}
         />
 
-        <Main>
-          {gameMode === GameMode.Numbers && target?.length && (
-            <EquationGame
-              target={target as Equation}
-              onSuccess={setNumSuccessAttempts}
-            />
-          )}
-          {gameMode === GameMode.Letters && target?.length && (
-            <WordGame
-              target={target as string}
-              onSuccess={setNumSuccessAttempts}
-            />
-          )}
-        </Main>
-        {!!numSuccessAttempts && (
-          <SuccessMessage numAttempts={numSuccessAttempts} />
-        )}
+        <Main>{renderGame()}</Main>
+
+        {renderSuccessMessage()}
       </Wrapper>
 
       {isNewGameDialogOpen && (
