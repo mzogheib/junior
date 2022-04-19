@@ -10,11 +10,13 @@ import InvisibleInputForm from "./InvisibleInputForm";
 import InputTiles, { InputTile } from "./InputTiles";
 import Tile, { TileSize, TileState } from "./Tile";
 
-const getStartEnd = (targetSegments: TargetSegments, eqCompIndex: number) => {
-  const prevTerms = targetSegments.slice(0, eqCompIndex).filter(isEquationTerm);
+const getStartEnd = (targetSegments: TargetSegments, segmentIndex: number) => {
+  const prevTerms = targetSegments
+    .slice(0, segmentIndex)
+    .filter(isEquationTerm);
   const prevTermsString = stringifyTargetSegments(prevTerms);
   const prevTermsLength = prevTermsString.length;
-  const termLength = targetSegments[eqCompIndex].value.length;
+  const termLength = targetSegments[segmentIndex].value.length;
 
   return [prevTermsLength, prevTermsLength + termLength];
 };
@@ -22,9 +24,9 @@ const getStartEnd = (targetSegments: TargetSegments, eqCompIndex: number) => {
 const getValueForTerm = (
   inputValue: string,
   targetSegments: TargetSegments,
-  eqCompIndex: number
+  segmentIndex: number
 ) => {
-  const [start, end] = getStartEnd(targetSegments, eqCompIndex);
+  const [start, end] = getStartEnd(targetSegments, segmentIndex);
   return inputValue.slice(start, end);
 };
 
