@@ -4,13 +4,16 @@ import AutoScrollToBottom from "./AutoScrollToBottom";
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
 
+export type RenderAttempts = (attempts: string[]) => ReactNode;
+export type RenderInput = (
+  onError: (value: string) => void,
+  onSubmit: (value: string) => void
+) => ReactNode;
+
 type Props = {
   target: string;
-  renderAttempts: (attempts: string[]) => ReactNode;
-  renderInput: (
-    onError: (value: string) => void,
-    onSubmit: (value: string) => void
-  ) => ReactNode;
+  renderAttempts: RenderAttempts;
+  renderInput: RenderInput;
 };
 
 const GameLayout = ({ target, renderAttempts, renderInput }: Props) => {

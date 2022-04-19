@@ -1,19 +1,16 @@
 import WordInputForm from "./WordInputForm";
 import Attempts from "./Attempts";
-import GameLayout from "./GameLayout";
+import GameLayout, { RenderAttempts, RenderInput } from "./GameLayout";
 
 type Props = {
   target: string;
 };
 
 const WordGame = ({ target }: Props) => {
-  const renderAttempts = (attempts: string[]) =>
+  const renderAttempts: RenderAttempts = (attempts) =>
     !!attempts.length && <Attempts attempts={attempts} target={target} />;
 
-  const renderInput = (
-    onError: (value: string) => void,
-    onSubmit: (value: string) => void
-  ) => (
+  const renderInput: RenderInput = (onError, onSubmit) => (
     <WordInputForm
       length={target.length}
       onSubmit={onSubmit}

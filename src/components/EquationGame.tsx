@@ -5,7 +5,7 @@ import {
   stringifyEquation,
 } from "../services/equation";
 import EquationInputForm from "./EquationInputForm";
-import GameLayout from "./GameLayout";
+import GameLayout, { RenderAttempts, RenderInput } from "./GameLayout";
 import Attempts from "./Attempts";
 import { TileSize } from "./Tile";
 
@@ -14,7 +14,7 @@ type Props = {
 };
 
 const EquationGame = ({ target }: Props) => {
-  const renderAttempts = (attempts: string[]) =>
+  const renderAttempts: RenderAttempts = (attempts) =>
     !!attempts.length && (
       <Attempts
         attempts={attempts}
@@ -25,10 +25,7 @@ const EquationGame = ({ target }: Props) => {
       />
     );
 
-  const renderInput = (
-    onError: (value: string) => void,
-    onSubmit: (value: string) => void
-  ) => (
+  const renderInput: RenderInput = (onError, onSubmit) => (
     <EquationInputForm
       equation={target}
       onSubmit={onSubmit}
