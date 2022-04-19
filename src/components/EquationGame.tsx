@@ -11,10 +11,9 @@ import { TileSize } from "./Tile";
 
 type Props = {
   target: Equation;
-  onSuccess: (numAttempts: number) => void;
 };
 
-const EquationGame = ({ target, onSuccess }: Props) => {
+const EquationGame = ({ target }: Props) => {
   const renderAttempts = (attempts: string[]) =>
     !!attempts.length && (
       <Attempts
@@ -42,7 +41,6 @@ const EquationGame = ({ target, onSuccess }: Props) => {
       target={stringifyEquation(target)}
       renderAttempts={renderAttempts}
       renderInput={renderInput}
-      onSuccess={onSuccess}
     />
   );
 };

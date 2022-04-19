@@ -4,10 +4,9 @@ import GameLayout from "./GameLayout";
 
 type Props = {
   target: string;
-  onSuccess: (numAttempts: number) => void;
 };
 
-const WordGame = ({ target, onSuccess }: Props) => {
+const WordGame = ({ target }: Props) => {
   const renderAttempts = (attempts: string[]) =>
     !!attempts.length && <Attempts attempts={attempts} target={target} />;
 
@@ -27,7 +26,6 @@ const WordGame = ({ target, onSuccess }: Props) => {
       target={target}
       renderAttempts={renderAttempts}
       renderInput={renderInput}
-      onSuccess={onSuccess}
     />
   );
 };

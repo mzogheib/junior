@@ -1,7 +1,8 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 
 import AutoScrollToBottom from "./AutoScrollToBottom";
 import ErrorMessage from "./ErrorMessage";
+import SuccessMessage from "./SuccessMessage";
 
 type Props = {
   target: string;
@@ -10,15 +11,9 @@ type Props = {
     onError: (value: string) => void,
     onSubmit: (value: string) => void
   ) => ReactNode;
-  onSuccess: (numAttempts: number) => void;
 };
 
-const GameLayout = ({
-  target,
-  renderAttempts,
-  renderInput,
-  onSuccess,
-}: Props) => {
+const GameLayout = ({ target, renderAttempts, renderInput }: Props) => {
   const [attempts, setAttempts] = useState<string[]>([]);
   const [error, setError] = useState("");
 
@@ -26,12 +21,6 @@ const GameLayout = ({
     ? attempts[attempts.length - 1]
     : undefined;
   const didSucceed = !!lastAttempt && lastAttempt === target;
-
-  useEffect(() => {
-    if (didSucceed) {
-      onSuccess(attempts.length);
-    }
-  }, [didSucceed, attempts.length, onSuccess]);
 
   const handleSubmit = (attempt: string) => {
     setError("");
@@ -43,6 +32,8 @@ const GameLayout = ({
     <>
       {renderAttempts(attempts)}
       {!didSucceed && renderInput(setError, handleSubmit)}
+      {didSucceed && <SuccessMessage numAttempts={attempts.length} />}
+
       {error && (
         <>
           <br />

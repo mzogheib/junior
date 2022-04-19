@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import SuccessMessage from "./components/SuccessMessage";
 import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
 import { Equation, getRandomEquation } from "./services/equation";
@@ -23,7 +22,6 @@ const Main = styled.main`
 const useGame = () => {
   const [gameMode, setGameMode] = useState<GameMode>();
   const [isLoading, setIsLoading] = useState(false);
-  const [numSuccessAttempts, setNumSuccessAttempts] = useState(0);
 
   const [target, setTarget] = useState<string | Equation>();
 
@@ -38,7 +36,6 @@ const useGame = () => {
       setTarget(newTarget);
     }
 
-    setNumSuccessAttempts(0);
     setGameMode(newGameMode);
     setIsLoading(false);
   };
@@ -46,25 +43,16 @@ const useGame = () => {
   return {
     target:
       gameMode === GameMode.Numbers ? (target as Equation) : (target as string),
-    numSuccessAttempts,
     isLoading,
     gameMode,
     onNewGame,
-    setNumSuccessAttempts,
   };
 };
 
 const App = () => {
   const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
 
-  const {
-    target,
-    numSuccessAttempts,
-    isLoading,
-    gameMode,
-    onNewGame,
-    setNumSuccessAttempts,
-  } = useGame();
+  const { target, isLoading, gameMode, onNewGame } = useGame();
 
   const handleNewGame = async (newGameMode: GameMode, length: number) => {
     await onNewGame(newGameMode, length);
@@ -87,27 +75,12 @@ const App = () => {
     }
 
     if (gameMode === GameMode.Numbers) {
-      return (
-        <EquationGame
-          target={target as Equation}
-          onSuccess={setNumSuccessAttempts}
-        />
-      );
+      return <EquationGame target={target as Equation} />;
     }
 
     if (gameMode === GameMode.Letters) {
-      return (
-        <WordGame target={target as string} onSuccess={setNumSuccessAttempts} />
-      );
+      return <WordGame target={target as string} />;
     }
-  };
-
-  const renderSuccessMessage = () => {
-    if (isLoading || !numSuccessAttempts) {
-      return;
-    }
-
-    return <SuccessMessage numAttempts={numSuccessAttempts} />;
   };
 
   return (
@@ -119,8 +92,6 @@ const App = () => {
         />
 
         <Main>{renderGame()}</Main>
-
-        {renderSuccessMessage()}
       </Wrapper>
 
       {isNewGameDialogOpen && (
