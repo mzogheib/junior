@@ -1,62 +1,32 @@
 import { randomNumberBetween } from "../misc/utils";
+import {
+  TargetSegments,
+  stringifyTargetSegments,
+  ReadOnlySegmentValue,
+  SegmentType,
+} from "./segments";
 
-export enum EquationComponentType {
-  Term = "term",
-  Operator = "operator",
-}
-
-export enum EquationOperatorValue {
-  Add = "+",
-  Subtract = "-",
-  Multiply = "*",
-  Equals = "=",
-}
-
-export type EquationTerm = {
-  type: EquationComponentType.Term;
-  value: string;
-};
-
-export type EquationOperator = {
-  type: EquationComponentType.Operator;
-  value: EquationOperatorValue;
-};
-
-export type EquationComponent = EquationTerm | EquationOperator;
-
-export type Equation = EquationComponent[];
-
-export const isEquationTerm = ({ type }: EquationComponent) =>
-  type === EquationComponentType.Term;
-
-export const stringifyEquation = (equationComponents: Equation) =>
-  equationComponents.map(({ value }) => value).join("");
-
-export const READ_ONLY_CHARACTERS = Object.values(EquationOperatorValue).map(
-  String
-);
-
-export const EQUATION_CHARACTER_MAP = {
-  [EquationOperatorValue.Multiply.toString()]: "X",
-};
-
-export const isValidEquation = (equation: Equation) => {
-  const equationString = stringifyEquation(equation);
+export const validateEquation = (equationSegments: TargetSegments) => {
+  const equationString = stringifyTargetSegments(equationSegments);
   const [expressionString, resultString] = equationString.split(
-    EquationOperatorValue.Equals
+    ReadOnlySegmentValue.Equals
   );
 
   // eslint-disable-next-line no-eval
   const evaluatedExpressionString = eval(expressionString).toString();
 
-  return evaluatedExpressionString === resultString;
+  const isEqual = evaluatedExpressionString === resultString;
+
+  if (!isEqual) {
+    return "Invalid equation";
+  }
 };
 
 const getRandomOperator = () => {
-  const values = Object.values(EquationOperatorValue).filter(
+  const values = Object.values(ReadOnlySegmentValue).filter(
     (value) =>
       // Exclude for now
-      ![EquationOperatorValue.Subtract, EquationOperatorValue.Equals].includes(
+      ![ReadOnlySegmentValue.Subtract, ReadOnlySegmentValue.Equals].includes(
         value
       )
   );
@@ -64,49 +34,46 @@ const getRandomOperator = () => {
   return values[index];
 };
 
-export const getRandomEquation = (): Promise<Equation> => {
-  const expression: Equation = [
+export const getRandomEquation = () => {
+  const expression: TargetSegments = [
     {
-      type: EquationComponentType.Term,
+      type: SegmentType.Writeable,
       value: randomNumberBetween(1, 9).toString(),
     },
     {
-      type: EquationComponentType.Operator,
+      type: SegmentType.ReadOnly,
       value: getRandomOperator(),
     },
     {
-      type: EquationComponentType.Term,
+      type: SegmentType.Writeable,
       value: randomNumberBetween(1, 9).toString(),
     },
     {
-      type: EquationComponentType.Operator,
+      type: SegmentType.ReadOnly,
       value: getRandomOperator(),
     },
     {
-      type: EquationComponentType.Term,
+      type: SegmentType.Writeable,
       value: randomNumberBetween(1, 9).toString(),
     },
   ];
 
-  const expressionString = expression
-    .map(({ value }) => value.toString())
-    .join("");
-
-  // This isn't evaluation arbitrary input so should be safe... I think
+  const expressionString = stringifyTargetSegments(expression);
+  // This isn't evaluating arbitrary input so should be safe... I think
   // eslint-disable-next-line no-eval
   const result = eval(expressionString).toString();
 
-  const equation: Equation = [
+  const targetSegments: TargetSegments = [
     ...expression,
     {
-      type: EquationComponentType.Operator,
-      value: EquationOperatorValue.Equals,
+      type: SegmentType.ReadOnly,
+      value: ReadOnlySegmentValue.Equals,
     },
     {
-      type: EquationComponentType.Term,
+      type: SegmentType.Writeable,
       value: result,
     },
   ];
 
-  return new Promise((resolve) => setTimeout(() => resolve(equation), 125));
+  return targetSegments;
 };

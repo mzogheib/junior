@@ -3,10 +3,10 @@ import styled from "@emotion/styled";
 
 import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
-import { Equation, getRandomEquation } from "./services/equation";
+import { stringifyTargetSegments, TargetSegments } from "./services/segments";
+import { getRandomEquation } from "./services/equation";
 import { GameMode } from "./misc/types";
-import EquationGame from "./components/EquationGame";
-import WordGame from "./components/WordGame";
+import Game from "./components/Game";
 import NewGameDialog from "./components/NewGameDialog";
 
 const Wrapper = styled.div`
@@ -23,17 +23,17 @@ const useGame = () => {
   const [gameMode, setGameMode] = useState<GameMode>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const [target, setTarget] = useState<string | Equation>();
+  const [targetSegments, setTargetSegments] = useState<TargetSegments>();
 
-  const onNewGame = async (newGameMode: GameMode, length: number) => {
+  const onNewGame = (newGameMode: GameMode, length: number) => {
     setIsLoading(true);
 
     if (newGameMode === GameMode.Numbers) {
-      const newTarget = await getRandomEquation();
-      setTarget(newTarget);
+      const newTargetSegments = getRandomEquation();
+      setTargetSegments(newTargetSegments);
     } else {
-      const newTarget = await getRandomWord(length);
-      setTarget(newTarget);
+      const newTarget = getRandomWord(length);
+      setTargetSegments(newTarget);
     }
 
     setGameMode(newGameMode);
@@ -41,7 +41,7 @@ const useGame = () => {
   };
 
   return {
-    target,
+    targetSegments,
     isLoading,
     gameMode,
     onNewGame,
@@ -51,16 +51,16 @@ const useGame = () => {
 const App = () => {
   const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
 
-  const { target, isLoading, gameMode, onNewGame } = useGame();
+  const { targetSegments, isLoading, gameMode, onNewGame } = useGame();
 
-  const handleNewGame = async (newGameMode: GameMode, length: number) => {
-    await onNewGame(newGameMode, length);
+  const handleNewGame = (newGameMode: GameMode, length: number) => {
+    onNewGame(newGameMode, length);
     setIsNewGameDialogOpen(false);
   };
 
   const handleCancelNewGame = () => {
     // Cannot avoid creating the first game
-    const isFirstGame = !target;
+    const isFirstGame = !targetSegments;
     if (isFirstGame) {
       return;
     }
@@ -69,17 +69,16 @@ const App = () => {
   };
 
   const renderGame = () => {
-    if (isLoading || !target?.length) {
+    if (isLoading || !targetSegments?.length || !gameMode) {
       return;
     }
 
-    if (gameMode === GameMode.Numbers) {
-      return <EquationGame target={target as Equation} />;
-    }
-
-    if (gameMode === GameMode.Letters) {
-      return <WordGame target={target as string} />;
-    }
+    // Add a key to force a re-mount when the target changes. This avoids
+    // left over state from a previous game.
+    const key = stringifyTargetSegments(targetSegments);
+    return (
+      <Game key={key} targetSegments={targetSegments} gameMode={gameMode} />
+    );
   };
 
   return (
