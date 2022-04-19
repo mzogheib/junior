@@ -22,8 +22,8 @@ export default InputTiles;
 export const InputTile = styled.div<{ isFocussed: boolean; size?: TileSize }>`
   width: ${({ size }) => (size === TileSize.Small ? "36px" : "50px")};
   height: ${({ size }) => (size === TileSize.Small ? "36px" : "50px")};
-  border: 1px ${({ isFocussed, theme }) => getBorderColor(isFocussed, theme)}
-    solid;
+  border: ${({ isFocussed }) => (isFocussed ? "2px" : "1px")}
+    ${({ isFocussed, theme }) => getBorderColor(isFocussed, theme)} solid;
   border-radius: ${({ theme }) => theme.shape.borderRadius}px;
   margin: 0 2px;
   color: ${({ theme }) => (theme.palette.mode === "light" ? "black" : "white")};
