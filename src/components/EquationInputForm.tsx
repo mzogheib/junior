@@ -1,10 +1,10 @@
 import {
   Equation,
   EquationComponentType,
-  EquationOperatorValue,
   EQUATION_CHARACTER_MAP,
   isEquationTerm,
   isValidEquation,
+  READ_ONLY_CHARACTERS,
   stringifyEquation,
 } from "../services/equation";
 import InvisibleInputForm from "./InvisibleInputForm";
@@ -74,17 +74,14 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
       onValidate={handleValidate}
       renderInput={(value, onClick) => (
         <InputTiles onClick={onClick}>
-          {equation.map(({ value: eqValue, type }, eqCompIndex) => {
-            if (type === EquationComponentType.Operator) {
+          {equation.map(({ value: eqValue }, eqCompIndex) => {
+            if (READ_ONLY_CHARACTERS.includes(eqValue)) {
               return (
                 <Tile
                   key={eqCompIndex}
                   size={TileSize.Small}
                   state={TileState.ReadOnly}
-                  value={
-                    EQUATION_CHARACTER_MAP[eqValue as EquationOperatorValue] ??
-                    eqValue
-                  }
+                  value={EQUATION_CHARACTER_MAP[eqValue] ?? eqValue}
                 />
               );
             }

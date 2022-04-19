@@ -32,12 +32,12 @@ export const isEquationTerm = ({ type }: EquationComponent) =>
 export const stringifyEquation = (equationComponents: Equation) =>
   equationComponents.map(({ value }) => value).join("");
 
-export const READ_ONLY_CHARACTERS = Object.values(EquationOperatorValue);
+export const READ_ONLY_CHARACTERS = Object.values(EquationOperatorValue).map(
+  String
+);
 
-export const EQUATION_CHARACTER_MAP: Partial<
-  Record<EquationOperatorValue, string>
-> = {
-  [EquationOperatorValue.Multiply]: "X",
+export const EQUATION_CHARACTER_MAP = {
+  [EquationOperatorValue.Multiply.toString()]: "X",
 };
 
 export const isValidEquation = (equation: Equation) => {

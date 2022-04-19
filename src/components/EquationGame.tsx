@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
-
 import {
   Equation,
   EQUATION_CHARACTER_MAP,
   READ_ONLY_CHARACTERS,
   stringifyEquation,
 } from "../services/equation";
-import { usePrevious } from "../misc/utils";
 import EquationInputForm from "./EquationInputForm";
 import GameLayout from "./GameLayout";
 import Attempts from "./Attempts";
@@ -18,38 +15,8 @@ type Props = {
 };
 
 const EquationGame = ({ target, onSuccess }: Props) => {
-  const [attempts, setAttempts] = useState<string[]>([]);
-  const [error, setError] = useState("");
-
-  const previousTarget = usePrevious(target);
-  const didChangeTarget = target !== previousTarget;
-  useEffect(() => {
-    if (didChangeTarget) {
-      setAttempts([]);
-      setError("");
-    }
-  }, [didChangeTarget]);
-
-  const handleSubmit = (attempt: string) => {
-    setError("");
-
-    setAttempts(attempts.concat([attempt]));
-  };
-
-  const lastAttempt = attempts.length
-    ? attempts[attempts.length - 1]
-    : undefined;
-  const didSucceed = !!lastAttempt && lastAttempt === stringifyEquation(target);
-
-  useEffect(() => {
-    if (didSucceed) {
-      onSuccess(attempts.length);
-    }
-  }, [didSucceed, attempts.length, onSuccess]);
-
-  const renderAttempts = () =>
-    !!attempts.length &&
-    !!target && (
+  const renderAttempts = (attempts: string[]) =>
+    !!attempts.length && (
       <Attempts
         attempts={attempts}
         target={stringifyEquation(target)}
@@ -59,22 +26,23 @@ const EquationGame = ({ target, onSuccess }: Props) => {
       />
     );
 
-  const renderInput = () =>
-    !didSucceed &&
-    target && (
-      <EquationInputForm
-        key={`${didChangeTarget}`}
-        equation={target}
-        onSubmit={handleSubmit}
-        onError={setError}
-      />
-    );
+  const renderInput = (
+    onError: (value: string) => void,
+    onSubmit: (value: string) => void
+  ) => (
+    <EquationInputForm
+      equation={target}
+      onSubmit={onSubmit}
+      onError={onError}
+    />
+  );
 
   return (
     <GameLayout
-      error={error}
+      target={stringifyEquation(target)}
       renderAttempts={renderAttempts}
       renderInput={renderInput}
+      onSuccess={onSuccess}
     />
   );
 };
