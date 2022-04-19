@@ -7,7 +7,7 @@ import {
   READ_ONLY_CHARACTERS,
   stringifyTargetSegments,
 } from "../services/segments";
-import { isValidWord } from "../services/words";
+import { validateWord } from "../services/words";
 
 type Props = {
   targetSegments: TargetSegments;
@@ -27,9 +27,10 @@ const WordGame = ({ targetSegments }: Props) => {
   const renderInput: RenderInput = (onError, onSubmit) => {
     const handleValidate = (targetSegments: TargetSegments) => {
       const value = stringifyTargetSegments(targetSegments);
+      const error = validateWord(value);
 
-      if (!isValidWord(value)) {
-        onError(`Not in word list: ${value}`);
+      if (error) {
+        onError(error);
         return false;
       }
 

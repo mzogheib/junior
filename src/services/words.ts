@@ -28,8 +28,12 @@ export const getRandomWord = (length: number): Promise<string> => {
   );
 };
 
-export const isValidWord = (word: string) => {
+export const validateWord = (word: string) => {
   const words = getWords(word.length);
 
-  return words.map((w) => w.toUpperCase()).includes(word);
+  const isInWordsList = words.map((w) => w.toUpperCase()).includes(word);
+
+  if (!isInWordsList) {
+    return `Not in word list: ${word}`;
+  }
 };

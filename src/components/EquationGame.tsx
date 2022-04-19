@@ -1,4 +1,4 @@
-import { isValidEquation } from "../services/equation";
+import { validateEquation } from "../services/equation";
 import {
   TargetSegments,
   CHARACTER_DISPLAY_MAP,
@@ -20,16 +20,17 @@ const EquationGame = ({ targetSegments }: Props) => {
       <Attempts
         attempts={attempts}
         target={stringifyTargetSegments(targetSegments)}
-        size={TileSize.Small}
         readOnlyValues={READ_ONLY_CHARACTERS}
         characterMap={CHARACTER_DISPLAY_MAP}
+        size={TileSize.Small}
       />
     );
 
   const renderInput: RenderInput = (onError, onSubmit) => {
     const handleValidate = (targetSegments: TargetSegments) => {
-      if (!isValidEquation(targetSegments)) {
-        onError("Invalid equation");
+      const error = validateEquation(targetSegments);
+      if (error) {
+        onError(error);
         return false;
       }
 

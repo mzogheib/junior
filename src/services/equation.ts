@@ -6,7 +6,7 @@ import {
   SegmentType,
 } from "./segments";
 
-export const isValidEquation = (targetSegments: TargetSegments) => {
+export const validateEquation = (targetSegments: TargetSegments) => {
   const target = stringifyTargetSegments(targetSegments);
   const [expressionString, resultString] = target.split(
     ReadOnlySegmentValue.Equals
@@ -15,7 +15,11 @@ export const isValidEquation = (targetSegments: TargetSegments) => {
   // eslint-disable-next-line no-eval
   const evaluatedExpressionString = eval(expressionString).toString();
 
-  return evaluatedExpressionString === resultString;
+  const isEqual = evaluatedExpressionString === resultString;
+
+  if (!isEqual) {
+    return "Invalid equation";
+  }
 };
 
 const getRandomOperator = () => {
