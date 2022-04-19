@@ -2,7 +2,7 @@ import {
   TargetSegments,
   SegmentType,
   CHARACTER_DISPLAY_MAP,
-  isEquationTerm,
+  isWriteableSegment,
   READ_ONLY_CHARACTERS,
   stringifyTargetSegments,
 } from "../services/equation";
@@ -10,23 +10,29 @@ import InvisibleInputForm from "./InvisibleInputForm";
 import InputTiles, { InputTile } from "./InputTiles";
 import Tile, { TileSize, TileState } from "./Tile";
 
-const getStartEnd = (targetSegments: TargetSegments, segmentIndex: number) => {
-  const prevTerms = targetSegments
+const getStartEndOfSegment = (
+  targetSegments: TargetSegments,
+  segmentIndex: number
+) => {
+  const prevSegments = targetSegments
     .slice(0, segmentIndex)
-    .filter(isEquationTerm);
-  const prevTermsString = stringifyTargetSegments(prevTerms);
-  const prevTermsLength = prevTermsString.length;
-  const termLength = targetSegments[segmentIndex].value.length;
+    .filter(isWriteableSegment);
+  const prevSegmentsString = stringifyTargetSegments(prevSegments);
+  const prevSegmentsStringLength = prevSegmentsString.length;
+  const segmentValueLength = targetSegments[segmentIndex].value.length;
 
-  return [prevTermsLength, prevTermsLength + termLength];
+  const start = prevSegmentsStringLength;
+  const end = prevSegmentsStringLength + segmentValueLength;
+
+  return [start, end];
 };
 
-const getValueForTerm = (
+const getSegmentValueFromInput = (
   inputValue: string,
   targetSegments: TargetSegments,
   segmentIndex: number
 ) => {
-  const [start, end] = getStartEnd(targetSegments, segmentIndex);
+  const [start, end] = getStartEndOfSegment(targetSegments, segmentIndex);
   return inputValue.slice(start, end);
 };
 
@@ -45,7 +51,7 @@ const TileInputForm = ({
   onSubmit,
   onValidate,
 }: Props) => {
-  const makeAttempt = (value: string) =>
+  const makeAttempt = (inputValue: string) =>
     targetSegments.map((segment, index) => {
       if (segment.type === SegmentType.ReadOnly) {
         return segment;
@@ -53,7 +59,7 @@ const TileInputForm = ({
 
       return {
         ...segment,
-        value: getValueForTerm(value, targetSegments, index),
+        value: getSegmentValueFromInput(inputValue, targetSegments, index),
       };
     });
 
@@ -63,7 +69,7 @@ const TileInputForm = ({
   const handleValidate = (value: string) => onValidate(makeAttempt(value));
 
   const termsString = stringifyTargetSegments(
-    targetSegments.filter(isEquationTerm)
+    targetSegments.filter(isWriteableSegment)
   );
 
   const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
@@ -80,8 +86,8 @@ const TileInputForm = ({
     segmentValue: string,
     segmentIndex: number
   ) => {
-    const [start] = getStartEnd(targetSegments, segmentIndex);
-    const slicedValue = getValueForTerm(
+    const [start] = getStartEndOfSegment(targetSegments, segmentIndex);
+    const slicedInputValue = getSegmentValueFromInput(
       inputValue,
       targetSegments,
       segmentIndex
@@ -94,7 +100,7 @@ const TileInputForm = ({
           isFocussed={start + segmentValueIndex === inputValue.length}
           size={size}
         >
-          {slicedValue[segmentValueIndex]}
+          {slicedInputValue[segmentValueIndex]}
         </InputTile>
       );
     });

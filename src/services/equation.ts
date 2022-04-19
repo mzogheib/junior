@@ -26,7 +26,7 @@ type TargetSegment = WriteableSegment | ReadOnlySegment;
 
 export type TargetSegments = TargetSegment[];
 
-export const isEquationTerm = ({ type }: TargetSegment) =>
+export const isWriteableSegment = ({ type }: TargetSegment) =>
   type === SegmentType.Writeable;
 
 export const stringifyTargetSegments = (targetSegments: TargetSegments) =>
