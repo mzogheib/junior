@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
-import { parseTarget, TargetSegments } from "./services/segments";
+import { TargetSegments } from "./services/segments";
 import { getRandomEquation } from "./services/equation";
 import { GameMode } from "./misc/types";
 import EquationGame from "./components/EquationGame";
@@ -34,7 +34,7 @@ const useGame = () => {
       setTargetSegments(newTargetSegments);
     } else {
       const newTarget = getRandomWord(length);
-      setTargetSegments(parseTarget(newTarget));
+      setTargetSegments(newTarget);
     }
 
     setGameMode(newGameMode);

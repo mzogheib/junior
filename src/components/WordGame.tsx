@@ -26,8 +26,7 @@ const WordGame = ({ targetSegments }: Props) => {
 
   const renderInput: RenderInput = (onError, onSubmit) => {
     const handleValidate = (targetSegments: TargetSegments) => {
-      const value = stringifyTargetSegments(targetSegments);
-      const error = validateWord(value);
+      const error = validateWord(targetSegments);
 
       if (error) {
         onError(error);

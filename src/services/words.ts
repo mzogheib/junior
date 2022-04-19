@@ -1,6 +1,11 @@
 import wordsData05 from "./words-data/05-letters/001.json";
 import wordsData06 from "./words-data/06-letters/001.json";
 import { randomNumberBetween } from "../misc/utils";
+import {
+  parseTarget,
+  stringifyTargetSegments,
+  TargetSegments,
+} from "./segments";
 
 type WordsData = {
   source: string;
@@ -22,11 +27,13 @@ export const getRandomWord = (length: number) => {
   const words = getWords(length);
   const WORDS_LENGTH = words.length;
   const index = randomNumberBetween(0, WORDS_LENGTH - 1);
+  const word = words[index].toUpperCase();
 
-  return words[index].toUpperCase();
+  return parseTarget(word);
 };
 
-export const validateWord = (word: string) => {
+export const validateWord = (targetSegments: TargetSegments) => {
+  const word = stringifyTargetSegments(targetSegments);
   const words = getWords(word.length);
 
   const isInWordsList = words.map((w) => w.toUpperCase()).includes(word);
