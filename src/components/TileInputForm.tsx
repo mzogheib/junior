@@ -62,44 +62,54 @@ const TileInputForm = ({
 
   const termsString = stringifyEquation(targetSegments.filter(isEquationTerm));
 
+  const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
+    <Tile
+      key={segmentIndex}
+      size={size}
+      state={TileState.ReadOnly}
+      value={EQUATION_CHARACTER_MAP[segmentValue] ?? segmentValue}
+    />
+  );
+
+  const renderInputTile = (
+    inputValue: string,
+    segmentValue: string,
+    segmentIndex: number
+  ) => {
+    const [start] = getStartEnd(targetSegments, segmentIndex);
+    const slicedValue = getValueForTerm(
+      inputValue,
+      targetSegments,
+      segmentIndex
+    );
+
+    return segmentValue.split("").map((_, segmentValueIndex) => {
+      return (
+        <InputTile
+          key={segmentIndex + segmentValueIndex}
+          isFocussed={start + segmentValueIndex === inputValue.length}
+          size={size}
+        >
+          {slicedValue[segmentValueIndex]}
+        </InputTile>
+      );
+    });
+  };
+
   return (
     <InvisibleInputForm
       mode={mode}
       length={termsString.length}
       onSubmit={handleSubmit}
       onValidate={handleValidate}
-      renderInput={(value, onClick) => (
+      renderInput={(inputValue, onClick) => (
         <InputTiles onClick={onClick}>
-          {targetSegments.map(({ value: eqValue }, eqCompIndex) => {
-            if (READ_ONLY_CHARACTERS.includes(eqValue)) {
-              return (
-                <Tile
-                  key={eqCompIndex}
-                  size={size}
-                  state={TileState.ReadOnly}
-                  value={EQUATION_CHARACTER_MAP[eqValue] ?? eqValue}
-                />
-              );
+          {targetSegments.map(({ value }, segmentIndex) => {
+            if (READ_ONLY_CHARACTERS.includes(value)) {
+              return renderReadOnlyTile(value, segmentIndex);
             }
 
-            const [start] = getStartEnd(targetSegments, eqCompIndex);
-            const slicedValue = getValueForTerm(
-              value,
-              targetSegments,
-              eqCompIndex
-            );
-
-            return eqValue.split("").map((_, eqValueIndex) => {
-              return (
-                <InputTile
-                  key={eqCompIndex + eqValueIndex}
-                  isFocussed={start + eqValueIndex === value.length}
-                  size={size}
-                >
-                  {slicedValue[eqValueIndex]}
-                </InputTile>
-              );
-            });
+            return renderInputTile(inputValue, value, segmentIndex);
           })}
         </InputTiles>
       )}
