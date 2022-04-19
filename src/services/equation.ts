@@ -37,8 +37,26 @@ export const mapOperatorCharacter = (value: string) => {
   return value;
 };
 
-export const stringifyEquation = (equationComponents: Equation) =>
-  equationComponents.map(({ value }) => value).join("");
+type StringifyEquationOptions = {
+  isDisplay: boolean;
+};
+
+export const stringifyEquation = (
+  equationComponents: Equation,
+  options?: StringifyEquationOptions
+) =>
+  equationComponents
+    .map(({ value }) => {
+      if (options?.isDisplay) {
+        return mapOperatorCharacter(value);
+      }
+
+      return value;
+    })
+    .join("");
+
+export const stringifyEquationForDisplay = (equationComponents: Equation) =>
+  stringifyEquation(equationComponents, { isDisplay: true });
 
 export const READ_ONLY_CHARACTERS = Object.values(EquationOperatorValue);
 

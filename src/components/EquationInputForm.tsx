@@ -4,6 +4,7 @@ import {
   isEquationTerm,
   isValidEquation,
   mapOperatorCharacter,
+  stringifyEquationForDisplay,
 } from "../services/equation";
 import InvisibleInputForm from "./InvisibleInputForm";
 import InputTiles, { InputTile } from "./InputTiles";
@@ -30,7 +31,7 @@ const getValueForTerm = (value: string, eqCompIndex: number) => {
 
 type Props = {
   equation: Equation;
-  onSubmit: (attempt: Equation) => void;
+  onSubmit: (attempt: string) => void;
   onError: (error: string) => void;
 };
 
@@ -47,7 +48,8 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
       };
     });
 
-  const handleSubmit = (value: string) => onSubmit(makeAttempt(value));
+  const handleSubmit = (value: string) =>
+    onSubmit(stringifyEquationForDisplay(makeAttempt(value)));
 
   const handleValidate = (value: string) => {
     if (!isValidEquation(makeAttempt(value))) {

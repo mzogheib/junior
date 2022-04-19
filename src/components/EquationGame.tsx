@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import { Equation, stringifyEquation } from "../services/equation";
+import {
+  Equation,
+  READ_ONLY_CHARACTERS,
+  stringifyEquation,
+  stringifyEquationForDisplay,
+} from "../services/equation";
 import { usePrevious } from "../misc/utils";
-import EquationAttempts from "./EquationAttempts";
 import EquationInputForm from "./EquationInputForm";
 import GameLayout from "./GameLayout";
+import Attempts from "./Attempts";
+import { TileSize } from "./Tile";
 
 type Props = {
   target: Equation;
@@ -12,7 +18,7 @@ type Props = {
 };
 
 const EquationGame = ({ target, onSuccess }: Props) => {
-  const [attempts, setAttempts] = useState<Equation[]>([]);
+  const [attempts, setAttempts] = useState<string[]>([]);
   const [error, setError] = useState("");
 
   const previousTarget = usePrevious(target);
@@ -24,7 +30,7 @@ const EquationGame = ({ target, onSuccess }: Props) => {
     }
   }, [didChangeTarget]);
 
-  const handleSubmit = (attempt: Equation) => {
+  const handleSubmit = (attempt: string) => {
     setError("");
 
     setAttempts(attempts.concat([attempt]));
@@ -34,8 +40,7 @@ const EquationGame = ({ target, onSuccess }: Props) => {
     ? attempts[attempts.length - 1]
     : undefined;
   const didSucceed =
-    !!lastAttempt &&
-    stringifyEquation(lastAttempt) === stringifyEquation(target);
+    !!lastAttempt && lastAttempt === stringifyEquationForDisplay(target);
 
   useEffect(() => {
     if (didSucceed) {
@@ -45,7 +50,14 @@ const EquationGame = ({ target, onSuccess }: Props) => {
 
   const renderAttempts = () =>
     !!attempts.length &&
-    !!target && <EquationAttempts attempts={attempts} target={target} />;
+    !!target && (
+      <Attempts
+        attempts={attempts}
+        target={stringifyEquation(target)}
+        size={TileSize.Small}
+        readOnlyValues={READ_ONLY_CHARACTERS}
+      />
+    );
 
   const renderInput = () =>
     !didSucceed &&
