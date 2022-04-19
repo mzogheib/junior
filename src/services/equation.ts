@@ -6,9 +6,9 @@ import {
   SegmentType,
 } from "./segments";
 
-export const validateEquation = (targetSegments: TargetSegments) => {
-  const target = stringifyTargetSegments(targetSegments);
-  const [expressionString, resultString] = target.split(
+export const validateEquation = (equationSegments: TargetSegments) => {
+  const equationString = stringifyTargetSegments(equationSegments);
+  const [expressionString, resultString] = equationString.split(
     ReadOnlySegmentValue.Equals
   );
 

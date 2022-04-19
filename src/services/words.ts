@@ -32,8 +32,8 @@ export const getRandomWord = (length: number) => {
   return parseTarget(word);
 };
 
-export const validateWord = (targetSegments: TargetSegments) => {
-  const word = stringifyTargetSegments(targetSegments);
+export const validateWord = (wordSegments: TargetSegments) => {
+  const word = stringifyTargetSegments(wordSegments);
   const words = getWords(word.length);
 
   const isInWordsList = words.map((w) => w.toUpperCase()).includes(word);
