@@ -5,21 +5,21 @@ import {
   READ_ONLY_CHARACTERS,
   stringifyEquation,
 } from "../services/equation";
-import EquationInputForm from "./EquationInputForm";
+import TileInputForm from "./TileInputForm";
 import GameLayout, { RenderAttempts, RenderInput } from "./GameLayout";
 import Attempts from "./Attempts";
 import { TileSize } from "./Tile";
 
 type Props = {
-  target: Equation;
+  targetSegments: Equation;
 };
 
-const EquationGame = ({ target }: Props) => {
+const EquationGame = ({ targetSegments }: Props) => {
   const renderAttempts: RenderAttempts = (attempts) =>
     !!attempts.length && (
       <Attempts
         attempts={attempts}
-        target={stringifyEquation(target)}
+        target={stringifyEquation(targetSegments)}
         size={TileSize.Small}
         readOnlyValues={READ_ONLY_CHARACTERS}
         characterMap={EQUATION_CHARACTER_MAP}
@@ -27,8 +27,8 @@ const EquationGame = ({ target }: Props) => {
     );
 
   const renderInput: RenderInput = (onError, onSubmit) => {
-    const handleValidate = (equation: Equation) => {
-      if (!isValidEquation(equation)) {
+    const handleValidate = (targetSegments: Equation) => {
+      if (!isValidEquation(targetSegments)) {
         onError("Invalid equation");
         return false;
       }
@@ -37,10 +37,10 @@ const EquationGame = ({ target }: Props) => {
     };
 
     return (
-      <EquationInputForm
+      <TileInputForm
         mode="numbers"
         size={TileSize.Small}
-        equation={target}
+        targetSegments={targetSegments}
         onSubmit={onSubmit}
         onValidate={handleValidate}
       />
@@ -49,7 +49,7 @@ const EquationGame = ({ target }: Props) => {
 
   return (
     <GameLayout
-      target={stringifyEquation(target)}
+      target={stringifyEquation(targetSegments)}
       renderAttempts={renderAttempts}
       renderInput={renderInput}
     />

@@ -1,4 +1,4 @@
-import EquationInputForm from "./EquationInputForm";
+import TileInputForm from "./TileInputForm";
 import Attempts from "./Attempts";
 import GameLayout, { RenderAttempts, RenderInput } from "./GameLayout";
 import {
@@ -10,23 +10,23 @@ import {
 import { isValidWord } from "../services/words";
 
 type Props = {
-  target: Equation;
+  targetSegments: Equation;
 };
 
-const WordGame = ({ target }: Props) => {
+const WordGame = ({ targetSegments }: Props) => {
   const renderAttempts: RenderAttempts = (attempts) =>
     !!attempts.length && (
       <Attempts
         attempts={attempts}
-        target={stringifyEquation(target)}
+        target={stringifyEquation(targetSegments)}
         readOnlyValues={READ_ONLY_CHARACTERS}
         characterMap={EQUATION_CHARACTER_MAP}
       />
     );
 
   const renderInput: RenderInput = (onError, onSubmit) => {
-    const handleValidate = (equation: Equation) => {
-      const value = stringifyEquation(equation);
+    const handleValidate = (targetSegments: Equation) => {
+      const value = stringifyEquation(targetSegments);
 
       if (!isValidWord(value)) {
         onError(`Not in word list: ${value}`);
@@ -37,9 +37,9 @@ const WordGame = ({ target }: Props) => {
     };
 
     return (
-      <EquationInputForm
+      <TileInputForm
         mode="letters"
-        equation={target}
+        targetSegments={targetSegments}
         onSubmit={onSubmit}
         onValidate={handleValidate}
       />
@@ -48,7 +48,7 @@ const WordGame = ({ target }: Props) => {
 
   return (
     <GameLayout
-      target={stringifyEquation(target)}
+      target={stringifyEquation(targetSegments)}
       renderAttempts={renderAttempts}
       renderInput={renderInput}
     />

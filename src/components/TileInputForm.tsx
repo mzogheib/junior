@@ -31,27 +31,27 @@ const getValueForTerm = (
 type Props = {
   mode: "letters" | "numbers";
   size?: TileSize;
-  equation: Equation;
+  targetSegments: Equation;
   onSubmit: (attempt: string) => void;
-  onValidate: (eqution: Equation) => boolean;
+  onValidate: (targetSegments: Equation) => boolean;
 };
 
-const EquationInputForm = ({
+const TileInputForm = ({
   mode,
   size,
-  equation,
+  targetSegments,
   onSubmit,
   onValidate,
 }: Props) => {
   const makeAttempt = (value: string) =>
-    equation.map((eqComp, eqCompIndex) => {
-      if (eqComp.type === EquationComponentType.Operator) {
-        return eqComp;
+    targetSegments.map((segment, index) => {
+      if (segment.type === EquationComponentType.Operator) {
+        return segment;
       }
 
       return {
-        ...eqComp,
-        value: getValueForTerm(value, equation, eqCompIndex),
+        ...segment,
+        value: getValueForTerm(value, targetSegments, index),
       };
     });
 
@@ -60,7 +60,7 @@ const EquationInputForm = ({
 
   const handleValidate = (value: string) => onValidate(makeAttempt(value));
 
-  const termsString = stringifyEquation(equation.filter(isEquationTerm));
+  const termsString = stringifyEquation(targetSegments.filter(isEquationTerm));
 
   return (
     <InvisibleInputForm
@@ -70,7 +70,7 @@ const EquationInputForm = ({
       onValidate={handleValidate}
       renderInput={(value, onClick) => (
         <InputTiles onClick={onClick}>
-          {equation.map(({ value: eqValue }, eqCompIndex) => {
+          {targetSegments.map(({ value: eqValue }, eqCompIndex) => {
             if (READ_ONLY_CHARACTERS.includes(eqValue)) {
               return (
                 <Tile
@@ -82,8 +82,12 @@ const EquationInputForm = ({
               );
             }
 
-            const [start] = getStartEnd(equation, eqCompIndex);
-            const slicedValue = getValueForTerm(value, equation, eqCompIndex);
+            const [start] = getStartEnd(targetSegments, eqCompIndex);
+            const slicedValue = getValueForTerm(
+              value,
+              targetSegments,
+              eqCompIndex
+            );
 
             return eqValue.split("").map((_, eqValueIndex) => {
               return (
@@ -103,4 +107,4 @@ const EquationInputForm = ({
   );
 };
 
-export default EquationInputForm;
+export default TileInputForm;

@@ -95,11 +95,11 @@ const App = () => {
     }
 
     if (gameMode === GameMode.Numbers) {
-      return <EquationGame target={target} />;
+      return <EquationGame targetSegments={target} />;
     }
 
     if (gameMode === GameMode.Letters) {
-      return <WordGame target={target} />;
+      return <WordGame targetSegments={target} />;
     }
   };
 
