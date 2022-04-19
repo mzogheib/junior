@@ -3,7 +3,13 @@ import styled from "@emotion/styled";
 
 import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
-import { Equation, getRandomEquation } from "./services/equation";
+import {
+  Equation,
+  EquationComponentType,
+  EquationOperatorValue,
+  getRandomEquation,
+  READ_ONLY_CHARACTERS,
+} from "./services/equation";
 import { GameMode } from "./misc/types";
 import EquationGame from "./components/EquationGame";
 import WordGame from "./components/WordGame";
@@ -23,7 +29,7 @@ const useGame = () => {
   const [gameMode, setGameMode] = useState<GameMode>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const [target, setTarget] = useState<string | Equation>();
+  const [target, setTarget] = useState<Equation>();
 
   const onNewGame = async (newGameMode: GameMode, length: number) => {
     setIsLoading(true);
@@ -33,7 +39,22 @@ const useGame = () => {
       setTarget(newTarget);
     } else {
       const newTarget = await getRandomWord(length);
-      setTarget(newTarget);
+
+      const equation: Equation = newTarget.split("").map((value) => {
+        if (READ_ONLY_CHARACTERS.includes(value)) {
+          return {
+            type: EquationComponentType.Operator,
+            value: value as EquationOperatorValue,
+          };
+        }
+
+        return {
+          type: EquationComponentType.Term,
+          value,
+        };
+      });
+
+      setTarget(equation);
     }
 
     setGameMode(newGameMode);
@@ -74,11 +95,11 @@ const App = () => {
     }
 
     if (gameMode === GameMode.Numbers) {
-      return <EquationGame target={target as Equation} />;
+      return <EquationGame target={target} />;
     }
 
     if (gameMode === GameMode.Letters) {
-      return <WordGame target={target as string} />;
+      return <WordGame target={target} />;
     }
   };
 
