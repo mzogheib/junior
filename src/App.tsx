@@ -41,8 +41,7 @@ const useGame = () => {
   };
 
   return {
-    target:
-      gameMode === GameMode.Numbers ? (target as Equation) : (target as string),
+    target,
     isLoading,
     gameMode,
     onNewGame,
