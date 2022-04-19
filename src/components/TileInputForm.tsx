@@ -1,7 +1,7 @@
 import {
   Equation,
   EquationComponentType,
-  EQUATION_CHARACTER_MAP,
+  CHARACTER_DISPLAY_MAP,
   isEquationTerm,
   READ_ONLY_CHARACTERS,
   stringifyEquation,
@@ -10,22 +10,22 @@ import InvisibleInputForm from "./InvisibleInputForm";
 import InputTiles, { InputTile } from "./InputTiles";
 import Tile, { TileSize, TileState } from "./Tile";
 
-const getStartEnd = (equation: Equation, eqCompIndex: number) => {
-  const prevTerms = equation.slice(0, eqCompIndex).filter(isEquationTerm);
+const getStartEnd = (targetSegments: Equation, eqCompIndex: number) => {
+  const prevTerms = targetSegments.slice(0, eqCompIndex).filter(isEquationTerm);
   const prevTermsString = stringifyEquation(prevTerms);
   const prevTermsLength = prevTermsString.length;
-  const termLength = equation[eqCompIndex].value.length;
+  const termLength = targetSegments[eqCompIndex].value.length;
 
   return [prevTermsLength, prevTermsLength + termLength];
 };
 
 const getValueForTerm = (
-  value: string,
-  equation: Equation,
+  inputValue: string,
+  targetSegments: Equation,
   eqCompIndex: number
 ) => {
-  const [start, end] = getStartEnd(equation, eqCompIndex);
-  return value.slice(start, end);
+  const [start, end] = getStartEnd(targetSegments, eqCompIndex);
+  return inputValue.slice(start, end);
 };
 
 type Props = {
@@ -67,7 +67,7 @@ const TileInputForm = ({
       key={segmentIndex}
       size={size}
       state={TileState.ReadOnly}
-      value={EQUATION_CHARACTER_MAP[segmentValue] ?? segmentValue}
+      value={CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
     />
   );
 

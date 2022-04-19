@@ -36,7 +36,7 @@ export const READ_ONLY_CHARACTERS = Object.values(EquationOperatorValue).map(
   String
 );
 
-export const EQUATION_CHARACTER_MAP = {
+export const CHARACTER_DISPLAY_MAP = {
   [EquationOperatorValue.Multiply.toString()]: "X",
 };
 

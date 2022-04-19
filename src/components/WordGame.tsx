@@ -3,7 +3,7 @@ import Attempts from "./Attempts";
 import GameLayout, { RenderAttempts, RenderInput } from "./GameLayout";
 import {
   Equation,
-  EQUATION_CHARACTER_MAP,
+  CHARACTER_DISPLAY_MAP,
   READ_ONLY_CHARACTERS,
   stringifyEquation,
 } from "../services/equation";
@@ -20,7 +20,7 @@ const WordGame = ({ targetSegments }: Props) => {
         attempts={attempts}
         target={stringifyEquation(targetSegments)}
         readOnlyValues={READ_ONLY_CHARACTERS}
-        characterMap={EQUATION_CHARACTER_MAP}
+        characterMap={CHARACTER_DISPLAY_MAP}
       />
     );
 

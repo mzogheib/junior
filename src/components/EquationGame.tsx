@@ -1,6 +1,6 @@
 import {
   Equation,
-  EQUATION_CHARACTER_MAP,
+  CHARACTER_DISPLAY_MAP,
   isValidEquation,
   READ_ONLY_CHARACTERS,
   stringifyEquation,
@@ -22,7 +22,7 @@ const EquationGame = ({ targetSegments }: Props) => {
         target={stringifyEquation(targetSegments)}
         size={TileSize.Small}
         readOnlyValues={READ_ONLY_CHARACTERS}
-        characterMap={EQUATION_CHARACTER_MAP}
+        characterMap={CHARACTER_DISPLAY_MAP}
       />
     );
 
