@@ -29,36 +29,16 @@ export type Equation = EquationComponent[];
 export const isEquationTerm = ({ type }: EquationComponent) =>
   type === EquationComponentType.Term;
 
-export const mapOperatorCharacter = (value: string) => {
-  if (value === EquationOperatorValue.Multiply) {
-    return "X";
-  }
-
-  return value;
-};
-
-type StringifyEquationOptions = {
-  isDisplay: boolean;
-};
-
-export const stringifyEquation = (
-  equationComponents: Equation,
-  options?: StringifyEquationOptions
-) =>
-  equationComponents
-    .map(({ value }) => {
-      if (options?.isDisplay) {
-        return mapOperatorCharacter(value);
-      }
-
-      return value;
-    })
-    .join("");
-
-export const stringifyEquationForDisplay = (equationComponents: Equation) =>
-  stringifyEquation(equationComponents, { isDisplay: true });
+export const stringifyEquation = (equationComponents: Equation) =>
+  equationComponents.map(({ value }) => value).join("");
 
 export const READ_ONLY_CHARACTERS = Object.values(EquationOperatorValue);
+
+export const EQUATION_CHARACTER_MAP: Partial<
+  Record<EquationOperatorValue, string>
+> = {
+  [EquationOperatorValue.Multiply]: "X",
+};
 
 export const isValidEquation = (equation: Equation) => {
   const equationString = stringifyEquation(equation);

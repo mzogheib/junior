@@ -1,10 +1,11 @@
 import {
   Equation,
   EquationComponentType,
+  EquationOperatorValue,
+  EQUATION_CHARACTER_MAP,
   isEquationTerm,
   isValidEquation,
-  mapOperatorCharacter,
-  stringifyEquationForDisplay,
+  stringifyEquation,
 } from "../services/equation";
 import InvisibleInputForm from "./InvisibleInputForm";
 import InputTiles, { InputTile } from "./InputTiles";
@@ -49,7 +50,7 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
     });
 
   const handleSubmit = (value: string) =>
-    onSubmit(stringifyEquationForDisplay(makeAttempt(value)));
+    onSubmit(stringifyEquation(makeAttempt(value)));
 
   const handleValidate = (value: string) => {
     if (!isValidEquation(makeAttempt(value))) {
@@ -80,7 +81,10 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
                   key={eqCompIndex}
                   size={TileSize.Small}
                   state={TileState.ReadOnly}
-                  value={mapOperatorCharacter(eqValue)}
+                  value={
+                    EQUATION_CHARACTER_MAP[eqValue as EquationOperatorValue] ??
+                    eqValue
+                  }
                 />
               );
             }

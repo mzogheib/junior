@@ -44,16 +44,23 @@ type Props = {
   target: string;
   attempt: string;
   readOnlyValues?: string[];
+  characterMap?: Record<string, string>;
   size?: TileSize;
 };
 
-const Attempt = ({ target, attempt, readOnlyValues, size }: Props) => (
+const Attempt = ({
+  target,
+  attempt,
+  readOnlyValues,
+  characterMap,
+  size,
+}: Props) => (
   <Tiles>
     {target.split("").map((_, index) => (
       <Tile
         size={size}
         key={index}
-        value={attempt[index]}
+        value={characterMap?.[attempt[index]] ?? attempt[index]}
         state={getTileState(target, attempt, index, readOnlyValues)}
       />
     ))}

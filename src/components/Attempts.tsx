@@ -17,9 +17,16 @@ type Props = {
   attempts: string[];
   size?: TileSize;
   readOnlyValues?: string[];
+  characterMap?: Record<string, string>;
 };
 
-const Attempts = ({ target, attempts, size, readOnlyValues }: Props) => (
+const Attempts = ({
+  target,
+  attempts,
+  size,
+  readOnlyValues,
+  characterMap,
+}: Props) => (
   <Wrapper>
     {attempts.map((attempt, i) => (
       <AttempWrapper key={`${attempt}-${i}`}>
@@ -28,6 +35,7 @@ const Attempts = ({ target, attempts, size, readOnlyValues }: Props) => (
           target={target}
           size={size}
           readOnlyValues={readOnlyValues}
+          characterMap={characterMap}
         />
       </AttempWrapper>
     ))}

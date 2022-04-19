@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import {
   Equation,
+  EQUATION_CHARACTER_MAP,
   READ_ONLY_CHARACTERS,
   stringifyEquation,
-  stringifyEquationForDisplay,
 } from "../services/equation";
 import { usePrevious } from "../misc/utils";
 import EquationInputForm from "./EquationInputForm";
@@ -39,8 +39,7 @@ const EquationGame = ({ target, onSuccess }: Props) => {
   const lastAttempt = attempts.length
     ? attempts[attempts.length - 1]
     : undefined;
-  const didSucceed =
-    !!lastAttempt && lastAttempt === stringifyEquationForDisplay(target);
+  const didSucceed = !!lastAttempt && lastAttempt === stringifyEquation(target);
 
   useEffect(() => {
     if (didSucceed) {
@@ -56,6 +55,7 @@ const EquationGame = ({ target, onSuccess }: Props) => {
         target={stringifyEquation(target)}
         size={TileSize.Small}
         readOnlyValues={READ_ONLY_CHARACTERS}
+        characterMap={EQUATION_CHARACTER_MAP}
       />
     );
 
