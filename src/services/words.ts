@@ -18,14 +18,12 @@ const getWords = (length: number) => {
   return words;
 };
 
-export const getRandomWord = (length: number): Promise<string> => {
+export const getRandomWord = (length: number) => {
   const words = getWords(length);
   const WORDS_LENGTH = words.length;
   const index = randomNumberBetween(0, WORDS_LENGTH - 1);
 
-  return new Promise((resolve) =>
-    setTimeout(() => resolve(words[index].toUpperCase()), 125)
-  );
+  return words[index].toUpperCase();
 };
 
 export const validateWord = (word: string) => {

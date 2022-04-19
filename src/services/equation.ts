@@ -34,7 +34,7 @@ const getRandomOperator = () => {
   return values[index];
 };
 
-export const getRandomEquation = (): Promise<TargetSegments> => {
+export const getRandomEquation = () => {
   const expression: TargetSegments = [
     {
       type: SegmentType.Writeable,
@@ -75,7 +75,5 @@ export const getRandomEquation = (): Promise<TargetSegments> => {
     },
   ];
 
-  return new Promise((resolve) =>
-    setTimeout(() => resolve(targetSegments), 125)
-  );
+  return targetSegments;
 };

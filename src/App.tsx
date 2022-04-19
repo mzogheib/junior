@@ -26,14 +26,14 @@ const useGame = () => {
 
   const [targetSegments, setTargetSegments] = useState<TargetSegments>();
 
-  const onNewGame = async (newGameMode: GameMode, length: number) => {
+  const onNewGame = (newGameMode: GameMode, length: number) => {
     setIsLoading(true);
 
     if (newGameMode === GameMode.Numbers) {
-      const newTargetSegments = await getRandomEquation();
+      const newTargetSegments = getRandomEquation();
       setTargetSegments(newTargetSegments);
     } else {
-      const newTarget = await getRandomWord(length);
+      const newTarget = getRandomWord(length);
       setTargetSegments(parseTarget(newTarget));
     }
 
@@ -54,8 +54,8 @@ const App = () => {
 
   const { targetSegments, isLoading, gameMode, onNewGame } = useGame();
 
-  const handleNewGame = async (newGameMode: GameMode, length: number) => {
-    await onNewGame(newGameMode, length);
+  const handleNewGame = (newGameMode: GameMode, length: number) => {
+    onNewGame(newGameMode, length);
     setIsNewGameDialogOpen(false);
   };
 
