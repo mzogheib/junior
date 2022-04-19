@@ -11,19 +11,21 @@ import InvisibleInputForm from "./InvisibleInputForm";
 import InputTiles, { InputTile } from "./InputTiles";
 import Tile, { TileSize, TileState } from "./Tile";
 
-const getStartEnd = (eqValue: string, eqCompIndex: number) => {
-  const start = eqCompIndex / 2;
-  const end = start + eqValue.length;
+const getStartEnd = (equation: Equation, eqCompIndex: number) => {
+  const prevTerms = equation.slice(0, eqCompIndex).filter(isEquationTerm);
+  const prevTermsString = stringifyEquation(prevTerms);
+  const prevTermsLength = prevTermsString.length;
+  const termLength = equation[eqCompIndex].value.length;
 
-  return [start, end];
+  return [prevTermsLength, prevTermsLength + termLength];
 };
 
 const getValueForTerm = (
   value: string,
-  eqValue: string,
+  equation: Equation,
   eqCompIndex: number
 ) => {
-  const [start, end] = getStartEnd(eqValue, eqCompIndex);
+  const [start, end] = getStartEnd(equation, eqCompIndex);
   return value.slice(start, end);
 };
 
@@ -42,7 +44,7 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
 
       return {
         ...eqComp,
-        value: getValueForTerm(value, eqComp.value, eqCompIndex),
+        value: getValueForTerm(value, equation, eqCompIndex),
       };
     });
 
@@ -83,8 +85,8 @@ const EquationInputForm = ({ equation, onSubmit, onError }: Props) => {
               );
             }
 
-            const [start] = getStartEnd(eqValue, eqCompIndex);
-            const slicedValue = getValueForTerm(value, eqValue, eqCompIndex);
+            const [start] = getStartEnd(equation, eqCompIndex);
+            const slicedValue = getValueForTerm(value, equation, eqCompIndex);
 
             return eqValue.split("").map((_, eqValueIndex) => {
               return (
