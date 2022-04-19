@@ -3,12 +3,7 @@ import styled from "@emotion/styled";
 
 import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
-import {
-  TargetSegments,
-  READ_ONLY_CHARACTERS,
-  SegmentType,
-  ReadOnlySegmentValue,
-} from "./services/segments";
+import { parseTarget, TargetSegments } from "./services/segments";
 import { getRandomEquation } from "./services/equation";
 import { GameMode } from "./misc/types";
 import EquationGame from "./components/EquationGame";
@@ -39,24 +34,7 @@ const useGame = () => {
       setTargetSegments(newTargetSegments);
     } else {
       const newTarget = await getRandomWord(length);
-
-      const newTargetSegments: TargetSegments = newTarget
-        .split("")
-        .map((value) => {
-          if (READ_ONLY_CHARACTERS.includes(value)) {
-            return {
-              type: SegmentType.ReadOnly,
-              value: value as ReadOnlySegmentValue,
-            };
-          }
-
-          return {
-            type: SegmentType.Writeable,
-            value,
-          };
-        });
-
-      setTargetSegments(newTargetSegments);
+      setTargetSegments(parseTarget(newTarget));
     }
 
     setGameMode(newGameMode);

@@ -36,3 +36,18 @@ export const isWriteableSegment = ({ type }: TargetSegment) =>
 
 export const stringifyTargetSegments = (targetSegments: TargetSegments) =>
   targetSegments.map(({ value }) => value).join("");
+
+export const parseTarget = (target: string): TargetSegments =>
+  target.split("").map((value) => {
+    if (READ_ONLY_CHARACTERS.includes(value)) {
+      return {
+        type: SegmentType.ReadOnly,
+        value: value as ReadOnlySegmentValue,
+      };
+    }
+
+    return {
+      type: SegmentType.Writeable,
+      value,
+    };
+  });
