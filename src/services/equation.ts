@@ -88,11 +88,8 @@ export const getRandomEquation = (): Promise<Equation> => {
     },
   ];
 
-  const expressionString = expression
-    .map(({ value }) => value.toString())
-    .join("");
-
-  // This isn't evaluation arbitrary input so should be safe... I think
+  const expressionString = stringifyEquation(expression);
+  // This isn't evaluating arbitrary input so should be safe... I think
   // eslint-disable-next-line no-eval
   const result = eval(expressionString).toString();
 

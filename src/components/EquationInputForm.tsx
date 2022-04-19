@@ -60,10 +60,7 @@ const EquationInputForm = ({
 
   const handleValidate = (value: string) => onValidate(makeAttempt(value));
 
-  const termsString = equation
-    .filter(isEquationTerm)
-    .map(({ value }) => value)
-    .join("");
+  const termsString = stringifyEquation(equation.filter(isEquationTerm));
 
   return (
     <InvisibleInputForm
