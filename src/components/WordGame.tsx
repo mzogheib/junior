@@ -2,7 +2,7 @@ import TileInputForm from "./TileInputForm";
 import Attempts from "./Attempts";
 import GameLayout, { RenderAttempts, RenderInput } from "./GameLayout";
 import {
-  Equation,
+  TargetSegments,
   CHARACTER_DISPLAY_MAP,
   READ_ONLY_CHARACTERS,
   stringifyEquation,
@@ -10,7 +10,7 @@ import {
 import { isValidWord } from "../services/words";
 
 type Props = {
-  targetSegments: Equation;
+  targetSegments: TargetSegments;
 };
 
 const WordGame = ({ targetSegments }: Props) => {
@@ -25,7 +25,7 @@ const WordGame = ({ targetSegments }: Props) => {
     );
 
   const renderInput: RenderInput = (onError, onSubmit) => {
-    const handleValidate = (targetSegments: Equation) => {
+    const handleValidate = (targetSegments: TargetSegments) => {
       const value = stringifyEquation(targetSegments);
 
       if (!isValidWord(value)) {

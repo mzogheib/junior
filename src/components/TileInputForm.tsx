@@ -1,5 +1,5 @@
 import {
-  Equation,
+  TargetSegments,
   EquationComponentType,
   CHARACTER_DISPLAY_MAP,
   isEquationTerm,
@@ -10,7 +10,7 @@ import InvisibleInputForm from "./InvisibleInputForm";
 import InputTiles, { InputTile } from "./InputTiles";
 import Tile, { TileSize, TileState } from "./Tile";
 
-const getStartEnd = (targetSegments: Equation, eqCompIndex: number) => {
+const getStartEnd = (targetSegments: TargetSegments, eqCompIndex: number) => {
   const prevTerms = targetSegments.slice(0, eqCompIndex).filter(isEquationTerm);
   const prevTermsString = stringifyEquation(prevTerms);
   const prevTermsLength = prevTermsString.length;
@@ -21,7 +21,7 @@ const getStartEnd = (targetSegments: Equation, eqCompIndex: number) => {
 
 const getValueForTerm = (
   inputValue: string,
-  targetSegments: Equation,
+  targetSegments: TargetSegments,
   eqCompIndex: number
 ) => {
   const [start, end] = getStartEnd(targetSegments, eqCompIndex);
@@ -31,9 +31,9 @@ const getValueForTerm = (
 type Props = {
   mode: "letters" | "numbers";
   size?: TileSize;
-  targetSegments: Equation;
+  targetSegments: TargetSegments;
   onSubmit: (attempt: string) => void;
-  onValidate: (targetSegments: Equation) => boolean;
+  onValidate: (targetSegments: TargetSegments) => boolean;
 };
 
 const TileInputForm = ({

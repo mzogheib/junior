@@ -1,5 +1,5 @@
 import {
-  Equation,
+  TargetSegments,
   CHARACTER_DISPLAY_MAP,
   isValidEquation,
   READ_ONLY_CHARACTERS,
@@ -11,7 +11,7 @@ import Attempts from "./Attempts";
 import { TileSize } from "./Tile";
 
 type Props = {
-  targetSegments: Equation;
+  targetSegments: TargetSegments;
 };
 
 const EquationGame = ({ targetSegments }: Props) => {
@@ -27,7 +27,7 @@ const EquationGame = ({ targetSegments }: Props) => {
     );
 
   const renderInput: RenderInput = (onError, onSubmit) => {
-    const handleValidate = (targetSegments: Equation) => {
+    const handleValidate = (targetSegments: TargetSegments) => {
       if (!isValidEquation(targetSegments)) {
         onError("Invalid equation");
         return false;

@@ -22,15 +22,15 @@ type EquationOperator = {
   value: EquationOperatorValue;
 };
 
-export type EquationComponent = EquationTerm | EquationOperator;
+export type TargetSegment = EquationTerm | EquationOperator;
 
-export type Equation = EquationComponent[];
+export type TargetSegments = TargetSegment[];
 
-export const isEquationTerm = ({ type }: EquationComponent) =>
+export const isEquationTerm = ({ type }: TargetSegment) =>
   type === EquationComponentType.Term;
 
-export const stringifyEquation = (equationComponents: Equation) =>
-  equationComponents.map(({ value }) => value).join("");
+export const stringifyEquation = (targetSegments: TargetSegments) =>
+  targetSegments.map(({ value }) => value).join("");
 
 export const READ_ONLY_CHARACTERS = Object.values(EquationOperatorValue).map(
   String
@@ -40,9 +40,9 @@ export const CHARACTER_DISPLAY_MAP = {
   [EquationOperatorValue.Multiply.toString()]: "X",
 };
 
-export const isValidEquation = (equation: Equation) => {
-  const equationString = stringifyEquation(equation);
-  const [expressionString, resultString] = equationString.split(
+export const isValidEquation = (targetSegments: TargetSegments) => {
+  const target = stringifyEquation(targetSegments);
+  const [expressionString, resultString] = target.split(
     EquationOperatorValue.Equals
   );
 
@@ -64,8 +64,8 @@ const getRandomOperator = () => {
   return values[index];
 };
 
-export const getRandomEquation = (): Promise<Equation> => {
-  const expression: Equation = [
+export const getRandomEquation = (): Promise<TargetSegments> => {
+  const expression: TargetSegments = [
     {
       type: EquationComponentType.Term,
       value: randomNumberBetween(1, 9).toString(),
@@ -93,7 +93,7 @@ export const getRandomEquation = (): Promise<Equation> => {
   // eslint-disable-next-line no-eval
   const result = eval(expressionString).toString();
 
-  const equation: Equation = [
+  const targetSegments: TargetSegments = [
     ...expression,
     {
       type: EquationComponentType.Operator,
@@ -105,5 +105,7 @@ export const getRandomEquation = (): Promise<Equation> => {
     },
   ];
 
-  return new Promise((resolve) => setTimeout(() => resolve(equation), 125));
+  return new Promise((resolve) =>
+    setTimeout(() => resolve(targetSegments), 125)
+  );
 };

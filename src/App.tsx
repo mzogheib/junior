@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
 import {
-  Equation,
+  TargetSegments,
   EquationComponentType,
   EquationOperatorValue,
   getRandomEquation,
@@ -29,32 +29,34 @@ const useGame = () => {
   const [gameMode, setGameMode] = useState<GameMode>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const [target, setTarget] = useState<Equation>();
+  const [targetSegments, setTargetSegments] = useState<TargetSegments>();
 
   const onNewGame = async (newGameMode: GameMode, length: number) => {
     setIsLoading(true);
 
     if (newGameMode === GameMode.Numbers) {
-      const newTarget = await getRandomEquation();
-      setTarget(newTarget);
+      const newTargetSegments = await getRandomEquation();
+      setTargetSegments(newTargetSegments);
     } else {
       const newTarget = await getRandomWord(length);
 
-      const equation: Equation = newTarget.split("").map((value) => {
-        if (READ_ONLY_CHARACTERS.includes(value)) {
+      const newTargetSegments: TargetSegments = newTarget
+        .split("")
+        .map((value) => {
+          if (READ_ONLY_CHARACTERS.includes(value)) {
+            return {
+              type: EquationComponentType.Operator,
+              value: value as EquationOperatorValue,
+            };
+          }
+
           return {
-            type: EquationComponentType.Operator,
-            value: value as EquationOperatorValue,
+            type: EquationComponentType.Term,
+            value,
           };
-        }
+        });
 
-        return {
-          type: EquationComponentType.Term,
-          value,
-        };
-      });
-
-      setTarget(equation);
+      setTargetSegments(newTargetSegments);
     }
 
     setGameMode(newGameMode);
@@ -62,7 +64,7 @@ const useGame = () => {
   };
 
   return {
-    target,
+    targetSegments,
     isLoading,
     gameMode,
     onNewGame,
@@ -72,7 +74,7 @@ const useGame = () => {
 const App = () => {
   const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
 
-  const { target, isLoading, gameMode, onNewGame } = useGame();
+  const { targetSegments, isLoading, gameMode, onNewGame } = useGame();
 
   const handleNewGame = async (newGameMode: GameMode, length: number) => {
     await onNewGame(newGameMode, length);
@@ -81,7 +83,7 @@ const App = () => {
 
   const handleCancelNewGame = () => {
     // Cannot avoid creating the first game
-    const isFirstGame = !target;
+    const isFirstGame = !targetSegments;
     if (isFirstGame) {
       return;
     }
@@ -90,16 +92,16 @@ const App = () => {
   };
 
   const renderGame = () => {
-    if (isLoading || !target?.length) {
+    if (isLoading || !targetSegments?.length) {
       return;
     }
 
     if (gameMode === GameMode.Numbers) {
-      return <EquationGame targetSegments={target} />;
+      return <EquationGame targetSegments={targetSegments} />;
     }
 
     if (gameMode === GameMode.Letters) {
-      return <WordGame targetSegments={target} />;
+      return <WordGame targetSegments={targetSegments} />;
     }
   };
 
