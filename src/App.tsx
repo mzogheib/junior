@@ -5,8 +5,8 @@ import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
 import {
   TargetSegments,
-  EquationComponentType,
-  EquationOperatorValue,
+  SegmentType,
+  ReadOnlySegmentValue,
   getRandomEquation,
   READ_ONLY_CHARACTERS,
 } from "./services/equation";
@@ -45,13 +45,13 @@ const useGame = () => {
         .map((value) => {
           if (READ_ONLY_CHARACTERS.includes(value)) {
             return {
-              type: EquationComponentType.Operator,
-              value: value as EquationOperatorValue,
+              type: SegmentType.ReadOnly,
+              value: value as ReadOnlySegmentValue,
             };
           }
 
           return {
-            type: EquationComponentType.Term,
+            type: SegmentType.Writeable,
             value,
           };
         });

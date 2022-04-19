@@ -1,6 +1,6 @@
 import {
   TargetSegments,
-  EquationComponentType,
+  SegmentType,
   CHARACTER_DISPLAY_MAP,
   isEquationTerm,
   READ_ONLY_CHARACTERS,
@@ -45,7 +45,7 @@ const TileInputForm = ({
 }: Props) => {
   const makeAttempt = (value: string) =>
     targetSegments.map((segment, index) => {
-      if (segment.type === EquationComponentType.Operator) {
+      if (segment.type === SegmentType.ReadOnly) {
         return segment;
       }
 

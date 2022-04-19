@@ -1,49 +1,48 @@
 import { randomNumberBetween } from "../misc/utils";
 
-export enum EquationComponentType {
-  Term = "term",
-  Operator = "operator",
+export enum SegmentType {
+  Writeable = "writeable",
+  ReadOnly = "readOnly",
 }
 
-export enum EquationOperatorValue {
+export enum ReadOnlySegmentValue {
   Add = "+",
   Subtract = "-",
   Multiply = "*",
   Equals = "=",
 }
 
-type EquationTerm = {
-  type: EquationComponentType.Term;
+type WriteableSegment = {
+  type: SegmentType.Writeable;
   value: string;
 };
 
-type EquationOperator = {
-  type: EquationComponentType.Operator;
-  value: EquationOperatorValue;
+type ReadOnlySegment = {
+  type: SegmentType.ReadOnly;
+  value: ReadOnlySegmentValue;
 };
 
-export type TargetSegment = EquationTerm | EquationOperator;
+type TargetSegment = WriteableSegment | ReadOnlySegment;
 
 export type TargetSegments = TargetSegment[];
 
 export const isEquationTerm = ({ type }: TargetSegment) =>
-  type === EquationComponentType.Term;
+  type === SegmentType.Writeable;
 
 export const stringifyTargetSegments = (targetSegments: TargetSegments) =>
   targetSegments.map(({ value }) => value).join("");
 
-export const READ_ONLY_CHARACTERS = Object.values(EquationOperatorValue).map(
-  String
-);
+export const READ_ONLY_CHARACTERS =
+  Object.values(ReadOnlySegmentValue).map(String);
 
 export const CHARACTER_DISPLAY_MAP = {
-  [EquationOperatorValue.Multiply.toString()]: "X",
+  [ReadOnlySegmentValue.Multiply.toString()]: "X",
 };
 
 export const isValidEquation = (targetSegments: TargetSegments) => {
   const target = stringifyTargetSegments(targetSegments);
   const [expressionString, resultString] = target.split(
-    EquationOperatorValue.Equals
+    ReadOnlySegmentValue.Equals
   );
 
   // eslint-disable-next-line no-eval
@@ -53,10 +52,10 @@ export const isValidEquation = (targetSegments: TargetSegments) => {
 };
 
 const getRandomOperator = () => {
-  const values = Object.values(EquationOperatorValue).filter(
+  const values = Object.values(ReadOnlySegmentValue).filter(
     (value) =>
       // Exclude for now
-      ![EquationOperatorValue.Subtract, EquationOperatorValue.Equals].includes(
+      ![ReadOnlySegmentValue.Subtract, ReadOnlySegmentValue.Equals].includes(
         value
       )
   );
@@ -67,23 +66,23 @@ const getRandomOperator = () => {
 export const getRandomEquation = (): Promise<TargetSegments> => {
   const expression: TargetSegments = [
     {
-      type: EquationComponentType.Term,
+      type: SegmentType.Writeable,
       value: randomNumberBetween(1, 9).toString(),
     },
     {
-      type: EquationComponentType.Operator,
+      type: SegmentType.ReadOnly,
       value: getRandomOperator(),
     },
     {
-      type: EquationComponentType.Term,
+      type: SegmentType.Writeable,
       value: randomNumberBetween(1, 9).toString(),
     },
     {
-      type: EquationComponentType.Operator,
+      type: SegmentType.ReadOnly,
       value: getRandomOperator(),
     },
     {
-      type: EquationComponentType.Term,
+      type: SegmentType.Writeable,
       value: randomNumberBetween(1, 9).toString(),
     },
   ];
@@ -96,11 +95,11 @@ export const getRandomEquation = (): Promise<TargetSegments> => {
   const targetSegments: TargetSegments = [
     ...expression,
     {
-      type: EquationComponentType.Operator,
-      value: EquationOperatorValue.Equals,
+      type: SegmentType.ReadOnly,
+      value: ReadOnlySegmentValue.Equals,
     },
     {
-      type: EquationComponentType.Term,
+      type: SegmentType.Writeable,
       value: result,
     },
   ];
