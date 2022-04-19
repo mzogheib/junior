@@ -5,11 +5,11 @@ import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
 import {
   TargetSegments,
+  READ_ONLY_CHARACTERS,
   SegmentType,
   ReadOnlySegmentValue,
-  getRandomEquation,
-  READ_ONLY_CHARACTERS,
-} from "./services/equation";
+} from "./services/segments";
+import { getRandomEquation } from "./services/equation";
 import { GameMode } from "./misc/types";
 import EquationGame from "./components/EquationGame";
 import WordGame from "./components/WordGame";

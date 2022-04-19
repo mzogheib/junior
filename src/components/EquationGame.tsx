@@ -1,10 +1,10 @@
+import { isValidEquation } from "../services/equation";
 import {
   TargetSegments,
   CHARACTER_DISPLAY_MAP,
-  isValidEquation,
   READ_ONLY_CHARACTERS,
   stringifyTargetSegments,
-} from "../services/equation";
+} from "../services/segments";
 import TileInputForm from "./TileInputForm";
 import GameLayout, { RenderAttempts, RenderInput } from "./GameLayout";
 import Attempts from "./Attempts";

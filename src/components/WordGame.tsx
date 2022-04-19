@@ -6,7 +6,7 @@ import {
   CHARACTER_DISPLAY_MAP,
   READ_ONLY_CHARACTERS,
   stringifyTargetSegments,
-} from "../services/equation";
+} from "../services/segments";
 import { isValidWord } from "../services/words";
 
 type Props = {
