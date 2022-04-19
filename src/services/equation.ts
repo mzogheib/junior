@@ -29,7 +29,7 @@ export type TargetSegments = TargetSegment[];
 export const isEquationTerm = ({ type }: TargetSegment) =>
   type === EquationComponentType.Term;
 
-export const stringifyEquation = (targetSegments: TargetSegments) =>
+export const stringifyTargetSegments = (targetSegments: TargetSegments) =>
   targetSegments.map(({ value }) => value).join("");
 
 export const READ_ONLY_CHARACTERS = Object.values(EquationOperatorValue).map(
@@ -41,7 +41,7 @@ export const CHARACTER_DISPLAY_MAP = {
 };
 
 export const isValidEquation = (targetSegments: TargetSegments) => {
-  const target = stringifyEquation(targetSegments);
+  const target = stringifyTargetSegments(targetSegments);
   const [expressionString, resultString] = target.split(
     EquationOperatorValue.Equals
   );
@@ -88,7 +88,7 @@ export const getRandomEquation = (): Promise<TargetSegments> => {
     },
   ];
 
-  const expressionString = stringifyEquation(expression);
+  const expressionString = stringifyTargetSegments(expression);
   // This isn't evaluating arbitrary input so should be safe... I think
   // eslint-disable-next-line no-eval
   const result = eval(expressionString).toString();

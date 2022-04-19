@@ -5,7 +5,7 @@ import {
   TargetSegments,
   CHARACTER_DISPLAY_MAP,
   READ_ONLY_CHARACTERS,
-  stringifyEquation,
+  stringifyTargetSegments,
 } from "../services/equation";
 import { isValidWord } from "../services/words";
 
@@ -18,7 +18,7 @@ const WordGame = ({ targetSegments }: Props) => {
     !!attempts.length && (
       <Attempts
         attempts={attempts}
-        target={stringifyEquation(targetSegments)}
+        target={stringifyTargetSegments(targetSegments)}
         readOnlyValues={READ_ONLY_CHARACTERS}
         characterMap={CHARACTER_DISPLAY_MAP}
       />
@@ -26,7 +26,7 @@ const WordGame = ({ targetSegments }: Props) => {
 
   const renderInput: RenderInput = (onError, onSubmit) => {
     const handleValidate = (targetSegments: TargetSegments) => {
-      const value = stringifyEquation(targetSegments);
+      const value = stringifyTargetSegments(targetSegments);
 
       if (!isValidWord(value)) {
         onError(`Not in word list: ${value}`);
@@ -48,7 +48,7 @@ const WordGame = ({ targetSegments }: Props) => {
 
   return (
     <GameLayout
-      target={stringifyEquation(targetSegments)}
+      target={stringifyTargetSegments(targetSegments)}
       renderAttempts={renderAttempts}
       renderInput={renderInput}
     />

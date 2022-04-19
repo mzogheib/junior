@@ -3,7 +3,7 @@ import {
   CHARACTER_DISPLAY_MAP,
   isValidEquation,
   READ_ONLY_CHARACTERS,
-  stringifyEquation,
+  stringifyTargetSegments,
 } from "../services/equation";
 import TileInputForm from "./TileInputForm";
 import GameLayout, { RenderAttempts, RenderInput } from "./GameLayout";
@@ -19,7 +19,7 @@ const EquationGame = ({ targetSegments }: Props) => {
     !!attempts.length && (
       <Attempts
         attempts={attempts}
-        target={stringifyEquation(targetSegments)}
+        target={stringifyTargetSegments(targetSegments)}
         size={TileSize.Small}
         readOnlyValues={READ_ONLY_CHARACTERS}
         characterMap={CHARACTER_DISPLAY_MAP}
@@ -49,7 +49,7 @@ const EquationGame = ({ targetSegments }: Props) => {
 
   return (
     <GameLayout
-      target={stringifyEquation(targetSegments)}
+      target={stringifyTargetSegments(targetSegments)}
       renderAttempts={renderAttempts}
       renderInput={renderInput}
     />

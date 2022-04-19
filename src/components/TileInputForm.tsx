@@ -4,7 +4,7 @@ import {
   CHARACTER_DISPLAY_MAP,
   isEquationTerm,
   READ_ONLY_CHARACTERS,
-  stringifyEquation,
+  stringifyTargetSegments,
 } from "../services/equation";
 import InvisibleInputForm from "./InvisibleInputForm";
 import InputTiles, { InputTile } from "./InputTiles";
@@ -12,7 +12,7 @@ import Tile, { TileSize, TileState } from "./Tile";
 
 const getStartEnd = (targetSegments: TargetSegments, eqCompIndex: number) => {
   const prevTerms = targetSegments.slice(0, eqCompIndex).filter(isEquationTerm);
-  const prevTermsString = stringifyEquation(prevTerms);
+  const prevTermsString = stringifyTargetSegments(prevTerms);
   const prevTermsLength = prevTermsString.length;
   const termLength = targetSegments[eqCompIndex].value.length;
 
@@ -56,11 +56,13 @@ const TileInputForm = ({
     });
 
   const handleSubmit = (value: string) =>
-    onSubmit(stringifyEquation(makeAttempt(value)));
+    onSubmit(stringifyTargetSegments(makeAttempt(value)));
 
   const handleValidate = (value: string) => onValidate(makeAttempt(value));
 
-  const termsString = stringifyEquation(targetSegments.filter(isEquationTerm));
+  const termsString = stringifyTargetSegments(
+    targetSegments.filter(isEquationTerm)
+  );
 
   const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
     <Tile
