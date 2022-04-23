@@ -74,12 +74,9 @@ const TileInputForm = ({
   );
 
   const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
-    <Tile
-      key={segmentIndex}
-      size={size}
-      state={TileState.ReadOnly}
-      value={CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
-    />
+    <Tile key={segmentIndex} size={size} state={TileState.ReadOnly}>
+      {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
+    </Tile>
   );
 
   const renderInputTile = (

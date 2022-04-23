@@ -53,11 +53,12 @@ const Attempt = ({
   <Tiles length={attempt.length}>
     {target.split("").map((_, index) => (
       <Tile
-        size={size}
         key={index}
-        value={characterMap?.[attempt[index]] ?? attempt[index]}
+        size={size}
         state={getTileState(target, attempt, index, readOnlyValues)}
-      />
+      >
+        {characterMap?.[attempt[index]] ?? attempt[index]}
+      </Tile>
     ))}
   </Tiles>
 );

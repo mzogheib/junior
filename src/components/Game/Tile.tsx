@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 
 export enum TileState {
@@ -21,12 +20,12 @@ const stateMap = {
   [TileState.ReadOnly]: "#CFCFCF",
 };
 
-type WrapperProps = {
+type Props = {
   state: TileState;
-  size: TileSize;
+  size?: TileSize;
 };
 
-const Wrapper = styled.div<WrapperProps>`
+const Tile = styled.div<Props>`
   width: ${({ size }) => (size === TileSize.Small ? "36px" : "50px")};
   height: ${({ size }) => (size === TileSize.Small ? "36px" : "50px")};
   border: 1px transparent solid;
@@ -40,19 +39,5 @@ const Wrapper = styled.div<WrapperProps>`
   justify-content: center;
   align-items: center;
 `;
-
-type Props = {
-  value: string;
-  state: TileState;
-  size?: TileSize;
-};
-
-const Tile = ({ value, state, size = TileSize.Default }: Props) => {
-  return (
-    <Wrapper state={state} size={size}>
-      {value}
-    </Wrapper>
-  );
-};
 
 export default Tile;
