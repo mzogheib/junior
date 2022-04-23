@@ -2,8 +2,11 @@ import styled from "@emotion/styled";
 
 import Tile, { TileSize, TileState } from "./Tile";
 
-const Tiles = styled.div`
-  display: flex;
+const Tiles = styled.div<{ length: number }>`
+  display: inline-grid;
+  grid-template-columns: ${({ length }) => `repeat(${length}, 1fr)`};
+
+  margin-bottom: 4px;
 `;
 
 const getTileState = (
@@ -55,7 +58,7 @@ const Attempt = ({
   characterMap,
   size,
 }: Props) => (
-  <Tiles>
+  <Tiles length={attempt.length}>
     {target.split("").map((_, index) => (
       <Tile
         size={size}

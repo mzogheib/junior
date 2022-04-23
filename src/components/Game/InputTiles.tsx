@@ -2,10 +2,9 @@ import styled from "@emotion/styled";
 import { Theme } from "@emotion/react";
 import { TileSize } from "./Tile";
 
-const InputTiles = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const InputTiles = styled.div<{ length: number }>`
+  display: inline-grid;
+  grid-template-columns: ${({ length }) => `repeat(${length}, 1fr)`};
 `;
 
 const getBorderColor = (isFocussed: boolean, theme: Theme) => {

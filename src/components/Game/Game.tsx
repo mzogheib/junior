@@ -1,4 +1,6 @@
 import { useState } from "react";
+import styled from "@emotion/styled";
+
 import { GameConfig } from "./types";
 import {
   stringifyTargetSegments,
@@ -12,6 +14,12 @@ import AutoScrollToBottom from "../AutoScrollToBottom";
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
 import TileInputForm from "./TileInputForm";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const checkDidSucceed = (attempts: string[], target: string) => {
   const lastAttempt = attempts.length
@@ -50,7 +58,7 @@ const Game = ({ config }: Props) => {
   };
 
   return (
-    <>
+    <Wrapper>
       {!!attempts.length && (
         <Attempts
           attempts={attempts}
@@ -81,7 +89,7 @@ const Game = ({ config }: Props) => {
       )}
 
       <AutoScrollToBottom />
-    </>
+    </Wrapper>
   );
 };
 
