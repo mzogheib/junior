@@ -12,15 +12,23 @@ const stateMap = {
   [TileState.Match]: "#91C483",
   [TileState.Present]: "#FFE162",
   [TileState.Absent]: "#FF6464",
-  [TileState.ReadOnly]: "#CFCFCF",
+  [TileState.ReadOnly]: "transparent",
 };
 
 type Props = {
   state?: TileState;
 };
 
+const getWidth = ({ state }: Props) => {
+  if (state === TileState.ReadOnly) {
+    return 25;
+  }
+
+  return 50;
+};
+
 const Tile = styled.div<Props>`
-  max-width: 50px;
+  max-width: ${getWidth}px;
   height: 50px;
   width: 100%;
   border: 1px transparent solid;
@@ -29,7 +37,7 @@ const Tile = styled.div<Props>`
 
   color: black;
   background-color: ${({ state }) => state && stateMap[state]};
-  font-weight: 500;
+  font-size: 22px;
   display: flex;
   justify-content: center;
   align-items: center;
