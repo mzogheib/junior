@@ -10,6 +10,7 @@ const Wrapper = styled.div`
 
 const AttempWrapper = styled.div`
   margin-bottom: 4px;
+  width: 100%;
 `;
 
 type Props = {
