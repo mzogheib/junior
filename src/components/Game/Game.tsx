@@ -13,7 +13,7 @@ import Attempts from "./Attempts";
 import AutoScrollToBottom from "../AutoScrollToBottom";
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
-import TileInputForm from "./TileInputForm";
+import InputForm from "./InputForm";
 
 const Wrapper = styled.div`
   display: flex;
@@ -70,7 +70,7 @@ const Game = ({ config }: Props) => {
       )}
 
       {!didSucceed && (
-        <TileInputForm
+        <InputForm
           mode={mode}
           size={tileSize}
           targetSegments={targetSegments}

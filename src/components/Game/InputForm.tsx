@@ -45,7 +45,7 @@ type Props = {
   onValidate: (targetSegments: TargetSegments) => boolean;
 };
 
-const TileInputForm = ({
+const InputForm = ({
   mode,
   size,
   targetSegments,
@@ -127,4 +127,4 @@ const TileInputForm = ({
   );
 };
 
-export default TileInputForm;
+export default InputForm;
