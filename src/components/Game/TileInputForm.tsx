@@ -5,7 +5,7 @@ import {
   isWriteableSegment,
   READ_ONLY_CHARACTERS,
   stringifyTargetSegments,
-} from "../services/segments";
+} from "../../services/segments";
 import InvisibleInputForm from "./InvisibleInputForm";
 import InputTiles, { InputTile } from "./InputTiles";
 import Tile, { TileSize, TileState } from "./Tile";

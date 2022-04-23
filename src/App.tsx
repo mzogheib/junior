@@ -5,9 +5,9 @@ import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
 import { stringifyTargetSegments, TargetSegments } from "./services/segments";
 import { getRandomEquation } from "./services/equation";
-import { GameMode } from "./misc/types";
-import Game from "./components/Game";
-import NewGameDialog from "./components/NewGameDialog";
+import { GameMode } from "./components/Game/types";
+import Game from "./components/Game/Game";
+import NewGameDialog from "./components/Game/NewGameDialog";
 
 const Wrapper = styled.div`
   height: 100%;

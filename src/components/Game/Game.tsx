@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { TileSize } from "./Tile";
-import { GameMode } from "../misc/types";
-import { validateWord } from "../services/words";
-import { validateEquation } from "../services/equation";
+import { GameMode } from "./types";
+import { validateWord } from "../../services/words";
+import { validateEquation } from "../../services/equation";
 import {
   stringifyTargetSegments,
   READ_ONLY_CHARACTERS,
   CHARACTER_DISPLAY_MAP,
   TargetSegments,
-} from "../services/segments";
+} from "../../services/segments";
 import Attempts from "./Attempts";
 
-import AutoScrollToBottom from "./AutoScrollToBottom";
+import AutoScrollToBottom from "../AutoScrollToBottom";
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
 import TileInputForm from "./TileInputForm";

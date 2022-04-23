@@ -8,7 +8,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Typography from "@mui/material/Typography";
 
-import { GameMode } from "../misc/types";
+import { GameMode } from "./types";
 
 type Props = {
   isLoading: boolean;

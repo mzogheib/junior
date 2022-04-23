@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import ThemeToggle from "./Theme/ThemeToggle";
-import AuthToggle from "./AuthToggle";
+import AuthToggle from "./Auth/AuthToggle";
 import UserWelcome from "./UserWelcome";
 
 const Wrapper = styled.div`
