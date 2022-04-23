@@ -1,13 +1,12 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import { getRandomWord } from "./services/words";
 import AppHeader from "./components/AppHeader";
-import { stringifyTargetSegments, TargetSegments } from "./services/segments";
-import { getRandomEquation } from "./services/equation";
+import { stringifyTargetSegments } from "./services/segments";
 import { GameMode } from "./components/Game/types";
 import Game from "./components/Game/Game";
 import NewGameDialog from "./components/Game/NewGameDialog";
+import useNewGame from "./components/Game/useNewGame";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -19,39 +18,9 @@ const Main = styled.main`
   overflow: auto;
 `;
 
-const useGame = () => {
-  const [gameMode, setGameMode] = useState<GameMode>();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [targetSegments, setTargetSegments] = useState<TargetSegments>();
-
-  const onNewGame = (newGameMode: GameMode, length: number) => {
-    setIsLoading(true);
-
-    if (newGameMode === GameMode.Numbers) {
-      const newTargetSegments = getRandomEquation();
-      setTargetSegments(newTargetSegments);
-    } else {
-      const newTarget = getRandomWord(length);
-      setTargetSegments(newTarget);
-    }
-
-    setGameMode(newGameMode);
-    setIsLoading(false);
-  };
-
-  return {
-    targetSegments,
-    isLoading,
-    gameMode,
-    onNewGame,
-  };
-};
-
 const App = () => {
   const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
-
-  const { targetSegments, isLoading, gameMode, onNewGame } = useGame();
+  const { targetSegments, isLoading, gameMode, onNewGame } = useNewGame();
 
   const handleNewGame = (newGameMode: GameMode, length: number) => {
     onNewGame(newGameMode, length);
