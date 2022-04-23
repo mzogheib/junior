@@ -7,11 +7,14 @@ const getTileState = (
   index: number,
   readOnlyValues?: string[]
 ) => {
-  if (readOnlyValues?.includes(target[index])) {
+  const targetValue = target[index];
+  const attemptValue = attempt[index];
+
+  if (readOnlyValues?.includes(targetValue)) {
     return TileState.ReadOnly;
   }
 
-  if (target[index] === attempt[index]) {
+  if (targetValue === attemptValue) {
     return TileState.Match;
   }
 
@@ -20,7 +23,7 @@ const getTileState = (
   const unmatchedTarget = target
     .split("")
     .map((value, i) => {
-      if (target[i] === attempt[i]) {
+      if (value === attempt[i]) {
         return "_";
       }
 
@@ -28,7 +31,7 @@ const getTileState = (
     })
     .join("");
 
-  if (unmatchedTarget.includes(attempt[index])) {
+  if (unmatchedTarget.includes(attemptValue)) {
     return TileState.Present;
   }
 
