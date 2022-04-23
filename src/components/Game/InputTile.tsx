@@ -2,11 +2,6 @@ import styled from "@emotion/styled";
 import { Theme } from "@emotion/react";
 import { TileSize } from "./Tile";
 
-const InputTiles = styled.div<{ length: number }>`
-  display: inline-grid;
-  grid-template-columns: ${({ length }) => `repeat(${length}, 1fr)`};
-`;
-
 const getBorderColor = (isFocussed: boolean, theme: Theme) => {
   const focussedConfig = {
     light: "black",
@@ -16,9 +11,7 @@ const getBorderColor = (isFocussed: boolean, theme: Theme) => {
   return isFocussed ? focussedConfig[theme.palette.mode] : "gray";
 };
 
-export default InputTiles;
-
-export const InputTile = styled.div<{ isFocussed: boolean; size?: TileSize }>`
+const InputTile = styled.div<{ isFocussed: boolean; size?: TileSize }>`
   width: ${({ size }) => (size === TileSize.Small ? "36px" : "50px")};
   height: ${({ size }) => (size === TileSize.Small ? "36px" : "50px")};
   border: ${({ isFocussed }) => (isFocussed ? "2px" : "1px")}
@@ -31,3 +24,5 @@ export const InputTile = styled.div<{ isFocussed: boolean; size?: TileSize }>`
   justify-content: center;
   align-items: center;
 `;
+
+export default InputTile;

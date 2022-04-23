@@ -7,7 +7,8 @@ import {
   stringifyTargetSegments,
 } from "../../services/segments";
 import InvisibleInputForm from "./InvisibleInputForm";
-import InputTiles, { InputTile } from "./InputTiles";
+import Tiles from "./Tiles";
+import InputTile from "./InputTile";
 import Tile, { TileSize, TileState } from "./Tile";
 
 const getStartEndOfSegment = (
@@ -115,7 +116,7 @@ const TileInputForm = ({
       onSubmit={handleSubmit}
       onValidate={handleValidate}
       renderInput={(inputValue, onClick) => (
-        <InputTiles length={numTiles} onClick={onClick}>
+        <Tiles length={numTiles} onClick={onClick}>
           {targetSegments.map(({ value }, segmentIndex) => {
             if (READ_ONLY_CHARACTERS.includes(value)) {
               return renderReadOnlyTile(value, segmentIndex);
@@ -123,7 +124,7 @@ const TileInputForm = ({
 
             return renderInputTile(inputValue, value, segmentIndex);
           })}
-        </InputTiles>
+        </Tiles>
       )}
     />
   );

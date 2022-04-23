@@ -1,13 +1,5 @@
-import styled from "@emotion/styled";
-
+import Tiles from "./Tiles";
 import Tile, { TileSize, TileState } from "./Tile";
-
-const Tiles = styled.div<{ length: number }>`
-  display: inline-grid;
-  grid-template-columns: ${({ length }) => `repeat(${length}, 1fr)`};
-
-  margin-bottom: 4px;
-`;
 
 const getTileState = (
   target: string,
