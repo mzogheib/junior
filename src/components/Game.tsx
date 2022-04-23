@@ -1,21 +1,20 @@
-import { validateEquation } from "../services/equation";
-import {
-  TargetSegments,
-  CHARACTER_DISPLAY_MAP,
-  READ_ONLY_CHARACTERS,
-  stringifyTargetSegments,
-} from "../services/segments";
-import TileInputForm from "./TileInputForm";
-import GameLayout, { RenderAttempts, RenderInput } from "./GameLayout";
-import Attempts from "./Attempts";
+import { useState } from "react";
 import { TileSize } from "./Tile";
 import { GameMode } from "../misc/types";
 import { validateWord } from "../services/words";
+import { validateEquation } from "../services/equation";
+import {
+  stringifyTargetSegments,
+  READ_ONLY_CHARACTERS,
+  CHARACTER_DISPLAY_MAP,
+  TargetSegments,
+} from "../services/segments";
+import Attempts from "./Attempts";
 
-type Props = {
-  targetSegments: TargetSegments;
-  gameMode: GameMode;
-};
+import AutoScrollToBottom from "./AutoScrollToBottom";
+import ErrorMessage from "./ErrorMessage";
+import SuccessMessage from "./SuccessMessage";
+import TileInputForm from "./TileInputForm";
 
 const gameConfig = {
   [GameMode.Letters]: {
@@ -28,10 +27,30 @@ const gameConfig = {
   },
 };
 
+type Props = {
+  targetSegments: TargetSegments;
+  gameMode: GameMode;
+};
+
 const Game = ({ targetSegments, gameMode }: Props) => {
+  const [attempts, setAttempts] = useState<string[]>([]);
+  const [error, setError] = useState("");
+  const target = stringifyTargetSegments(targetSegments);
+
+  const lastAttempt = attempts.length
+    ? attempts[attempts.length - 1]
+    : undefined;
+  const didSucceed = !!lastAttempt && lastAttempt === target;
+
+  const handleSubmit = (attempt: string) => {
+    setError("");
+
+    setAttempts(attempts.concat([attempt]));
+  };
+
   const { tileSize, validate } = gameConfig[gameMode];
 
-  const renderAttempts: RenderAttempts = (attempts) =>
+  const renderAttempts = () =>
     !!attempts.length && (
       <Attempts
         attempts={attempts}
@@ -42,11 +61,11 @@ const Game = ({ targetSegments, gameMode }: Props) => {
       />
     );
 
-  const renderInput: RenderInput = (onError, onSubmit) => {
+  const renderInput = () => {
     const handleValidate = (targetSegments: TargetSegments) => {
       const error = validate(targetSegments);
       if (error) {
-        onError(error);
+        setError(error);
         return false;
       }
 
@@ -58,18 +77,27 @@ const Game = ({ targetSegments, gameMode }: Props) => {
         mode={gameMode}
         size={tileSize}
         targetSegments={targetSegments}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         onValidate={handleValidate}
       />
     );
   };
 
   return (
-    <GameLayout
-      target={stringifyTargetSegments(targetSegments)}
-      renderAttempts={renderAttempts}
-      renderInput={renderInput}
-    />
+    <>
+      {renderAttempts()}
+      {!didSucceed && renderInput()}
+      {didSucceed && <SuccessMessage numAttempts={attempts.length} />}
+
+      {error && (
+        <>
+          <br />
+          <ErrorMessage error={error} />
+        </>
+      )}
+
+      <AutoScrollToBottom />
+    </>
   );
 };
 
