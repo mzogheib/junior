@@ -9,7 +9,7 @@ import {
 import InvisibleInputForm from "./InvisibleInputForm";
 import Tiles from "./Tiles";
 import InputTile from "./InputTile";
-import Tile, { TileSize, TileState } from "./Tile";
+import Tile, { TileState } from "./Tile";
 
 const getStartEndOfSegment = (
   targetSegments: TargetSegments,
@@ -39,19 +39,12 @@ const getSegmentValueFromInput = (
 
 type Props = {
   mode: "letters" | "numbers";
-  size?: TileSize;
   targetSegments: TargetSegments;
   onSubmit: (attempt: string) => void;
   onValidate: (targetSegments: TargetSegments) => boolean;
 };
 
-const InputForm = ({
-  mode,
-  size,
-  targetSegments,
-  onSubmit,
-  onValidate,
-}: Props) => {
+const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
   const makeAttempt = (inputValue: string) =>
     targetSegments.map((segment, index) => {
       if (segment.type === SegmentType.ReadOnly) {
@@ -74,7 +67,7 @@ const InputForm = ({
   );
 
   const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
-    <Tile key={segmentIndex} size={size} state={TileState.ReadOnly}>
+    <Tile key={segmentIndex} state={TileState.ReadOnly}>
       {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
     </Tile>
   );
@@ -96,7 +89,6 @@ const InputForm = ({
         <InputTile
           key={segmentIndex + segmentValueIndex}
           isFocussed={start + segmentValueIndex === inputValue.length}
-          size={size}
         >
           {slicedInputValue[segmentValueIndex]}
         </InputTile>

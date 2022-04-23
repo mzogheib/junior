@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import { getRandomEquation, validateEquation } from "../../services/equation";
 import { getRandomWord, validateWord } from "../../services/words";
-import { TileSize } from "./Tile";
 import { GameMode, GameConfig } from "./types";
 
 const useNewGame = () => {
@@ -12,16 +11,13 @@ const useNewGame = () => {
   const onNewGame = (mode: GameMode, length: number) => {
     setIsLoading(true);
 
-    const tileSize =
-      mode === GameMode.Letters ? TileSize.Default : TileSize.Small;
-
     const targetSegments =
       mode === GameMode.Letters ? getRandomWord(length) : getRandomEquation();
 
     const validate =
       mode === GameMode.Letters ? validateWord : validateEquation;
 
-    setGameConfig({ mode, tileSize, targetSegments, validate });
+    setGameConfig({ mode, targetSegments, validate });
 
     setIsLoading(false);
   };

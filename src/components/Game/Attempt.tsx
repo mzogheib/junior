@@ -1,5 +1,5 @@
 import Tiles from "./Tiles";
-import Tile, { TileSize, TileState } from "./Tile";
+import Tile, { TileState } from "./Tile";
 
 const getTileState = (
   target: string,
@@ -43,21 +43,13 @@ type Props = {
   attempt: string;
   readOnlyValues?: string[];
   characterMap?: Record<string, string>;
-  size?: TileSize;
 };
 
-const Attempt = ({
-  target,
-  attempt,
-  readOnlyValues,
-  characterMap,
-  size,
-}: Props) => (
+const Attempt = ({ target, attempt, readOnlyValues, characterMap }: Props) => (
   <Tiles>
     {target.split("").map((_, index) => (
       <Tile
         key={index}
-        size={size}
         state={getTileState(target, attempt, index, readOnlyValues)}
       >
         {characterMap?.[attempt[index]] ?? attempt[index]}

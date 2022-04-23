@@ -19,6 +19,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 `;
 
 const checkDidSucceed = (attempts: string[], target: string) => {
@@ -37,7 +38,7 @@ const Game = ({ config }: Props) => {
   const [attempts, setAttempts] = useState<string[]>([]);
   const [error, setError] = useState("");
 
-  const { tileSize, targetSegments, mode, validate } = config;
+  const { targetSegments, mode, validate } = config;
   const target = stringifyTargetSegments(targetSegments);
   const didSucceed = checkDidSucceed(attempts, target);
 
@@ -65,14 +66,12 @@ const Game = ({ config }: Props) => {
           target={stringifyTargetSegments(targetSegments)}
           readOnlyValues={READ_ONLY_CHARACTERS}
           characterMap={CHARACTER_DISPLAY_MAP}
-          size={tileSize}
         />
       )}
 
       {!didSucceed && (
         <InputForm
           mode={mode}
-          size={tileSize}
           targetSegments={targetSegments}
           onSubmit={handleSubmit}
           onValidate={handleValidate}

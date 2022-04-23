@@ -7,11 +7,6 @@ export enum TileState {
   ReadOnly = "readOnly",
 }
 
-export enum TileSize {
-  Small = "small",
-  Default = "default",
-}
-
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 const stateMap = {
   [TileState.Match]: "#91C483",
@@ -22,12 +17,12 @@ const stateMap = {
 
 type Props = {
   state?: TileState;
-  size?: TileSize;
 };
 
 const Tile = styled.div<Props>`
-  width: ${({ size }) => (size === TileSize.Small ? "36px" : "50px")};
-  height: ${({ size }) => (size === TileSize.Small ? "36px" : "50px")};
+  max-width: 50px;
+  height: 50px;
+  width: 100%;
   border: 1px transparent solid;
   border-radius: ${({ theme }) => theme.shape.borderRadius}px;
   margin: 0 2px;

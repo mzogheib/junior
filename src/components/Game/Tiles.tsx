@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 
 const Tiles = styled.div`
-  display: grid;
-  grid-auto-columns: 1fr;
-  grid-auto-flow: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 
   margin-bottom: 4px;
 `;
