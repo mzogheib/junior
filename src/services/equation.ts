@@ -6,16 +6,18 @@ import {
   SegmentType,
 } from "./segments";
 
+const evaluateExpression = (expressionString: string) =>
+  // This isn't evaluating arbitrary input so should be safe... I think
+  // eslint-disable-next-line no-eval
+  eval(expressionString).toString();
+
 export const validateEquation = (equationSegments: TargetSegments) => {
   const equationString = stringifyTargetSegments(equationSegments);
   const [expressionString, resultString] = equationString.split(
     ReadOnlySegmentValue.Equals
   );
 
-  // eslint-disable-next-line no-eval
-  const evaluatedExpressionString = eval(expressionString).toString();
-
-  const isEqual = evaluatedExpressionString === resultString;
+  const isEqual = evaluateExpression(expressionString) === resultString;
 
   if (!isEqual) {
     return "Invalid equation";
@@ -59,9 +61,6 @@ export const getRandomEquation = () => {
   ];
 
   const expressionString = stringifyTargetSegments(expression);
-  // This isn't evaluating arbitrary input so should be safe... I think
-  // eslint-disable-next-line no-eval
-  const result = eval(expressionString).toString();
 
   const targetSegments: TargetSegments = [
     ...expression,
@@ -71,7 +70,7 @@ export const getRandomEquation = () => {
     },
     {
       type: SegmentType.Writeable,
-      value: result,
+      value: evaluateExpression(expressionString),
     },
   ];
 
