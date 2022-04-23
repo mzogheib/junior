@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 
-const Tiles = styled.div<{ length: number }>`
-  display: inline-grid;
-  grid-template-columns: ${({ length }) => `repeat(${length}, 1fr)`};
+const Tiles = styled.div`
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
 
   margin-bottom: 4px;
 `;

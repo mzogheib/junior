@@ -104,8 +104,6 @@ const InputForm = ({
     });
   };
 
-  const numTiles = stringifyTargetSegments(targetSegments).length;
-
   return (
     <InvisibleInputForm
       mode={mode}
@@ -113,7 +111,7 @@ const InputForm = ({
       onSubmit={handleSubmit}
       onValidate={handleValidate}
       renderInput={(inputValue, onClick) => (
-        <Tiles length={numTiles} onClick={onClick}>
+        <Tiles onClick={onClick}>
           {targetSegments.map(({ value }, segmentIndex) => {
             if (READ_ONLY_CHARACTERS.includes(value)) {
               return renderReadOnlyTile(value, segmentIndex);

@@ -50,7 +50,7 @@ const Attempt = ({
   characterMap,
   size,
 }: Props) => (
-  <Tiles length={attempt.length}>
+  <Tiles>
     {target.split("").map((_, index) => (
       <Tile
         key={index}
