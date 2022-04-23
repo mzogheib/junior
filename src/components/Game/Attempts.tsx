@@ -1,21 +1,21 @@
 import styled from "@emotion/styled";
 import Attempt from "./Attempt";
-import { TileSize } from "./Tile";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 `;
 
 const AttempWrapper = styled.div`
   margin-bottom: 4px;
+  width: 100%;
 `;
 
 type Props = {
   target: string;
   attempts: string[];
-  size?: TileSize;
   readOnlyValues?: string[];
   characterMap?: Record<string, string>;
 };
@@ -23,7 +23,6 @@ type Props = {
 const Attempts = ({
   target,
   attempts,
-  size,
   readOnlyValues,
   characterMap,
 }: Props) => (
@@ -33,7 +32,6 @@ const Attempts = ({
         <Attempt
           attempt={attempt}
           target={target}
-          size={size}
           readOnlyValues={readOnlyValues}
           characterMap={characterMap}
         />

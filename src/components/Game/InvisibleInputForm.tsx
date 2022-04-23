@@ -9,6 +9,13 @@ import {
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
+
 const Input = styled.input`
   height: 0;
   margin: 0;
@@ -80,7 +87,7 @@ const InvisibleInputForm = ({
   const inputType = mode === "numbers" ? "tel" : undefined;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <Input
         type={inputType}
         value={value}
@@ -95,7 +102,7 @@ const InvisibleInputForm = ({
           Submit
         </Button>
       </ButtonWrapper>
-    </form>
+    </Form>
   );
 };
 

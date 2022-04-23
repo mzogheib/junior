@@ -1,10 +1,5 @@
-import styled from "@emotion/styled";
-
-import Tile, { TileSize, TileState } from "./Tile";
-
-const Tiles = styled.div`
-  display: flex;
-`;
+import Tiles from "./Tiles";
+import Tile, { TileState } from "./Tile";
 
 const getTileState = (
   target: string,
@@ -12,11 +7,14 @@ const getTileState = (
   index: number,
   readOnlyValues?: string[]
 ) => {
-  if (readOnlyValues?.includes(target[index])) {
+  const targetValue = target[index];
+  const attemptValue = attempt[index];
+
+  if (readOnlyValues?.includes(targetValue)) {
     return TileState.ReadOnly;
   }
 
-  if (target[index] === attempt[index]) {
+  if (targetValue === attemptValue) {
     return TileState.Match;
   }
 
@@ -25,7 +23,7 @@ const getTileState = (
   const unmatchedTarget = target
     .split("")
     .map((value, i) => {
-      if (target[i] === attempt[i]) {
+      if (value === attempt[i]) {
         return "_";
       }
 
@@ -33,7 +31,7 @@ const getTileState = (
     })
     .join("");
 
-  if (unmatchedTarget.includes(attempt[index])) {
+  if (unmatchedTarget.includes(attemptValue)) {
     return TileState.Present;
   }
 
@@ -45,24 +43,17 @@ type Props = {
   attempt: string;
   readOnlyValues?: string[];
   characterMap?: Record<string, string>;
-  size?: TileSize;
 };
 
-const Attempt = ({
-  target,
-  attempt,
-  readOnlyValues,
-  characterMap,
-  size,
-}: Props) => (
+const Attempt = ({ target, attempt, readOnlyValues, characterMap }: Props) => (
   <Tiles>
     {target.split("").map((_, index) => (
       <Tile
-        size={size}
         key={index}
-        value={characterMap?.[attempt[index]] ?? attempt[index]}
         state={getTileState(target, attempt, index, readOnlyValues)}
-      />
+      >
+        {characterMap?.[attempt[index]] ?? attempt[index]}
+      </Tile>
     ))}
   </Tiles>
 );

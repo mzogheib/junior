@@ -28,7 +28,7 @@ export const READ_ONLY_CHARACTERS =
   Object.values(ReadOnlySegmentValue).map(String);
 
 export const CHARACTER_DISPLAY_MAP = {
-  [ReadOnlySegmentValue.Multiply.toString()]: "X",
+  [ReadOnlySegmentValue.Multiply.toString()]: "×",
 };
 
 export const isWriteableSegment = ({ type }: TargetSegment) =>

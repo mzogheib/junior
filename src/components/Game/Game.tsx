@@ -1,4 +1,6 @@
 import { useState } from "react";
+import styled from "@emotion/styled";
+
 import { GameConfig } from "./types";
 import {
   stringifyTargetSegments,
@@ -11,7 +13,14 @@ import Attempts from "./Attempts";
 import AutoScrollToBottom from "../AutoScrollToBottom";
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
-import TileInputForm from "./TileInputForm";
+import InputForm from "./InputForm";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
 
 const checkDidSucceed = (attempts: string[], target: string) => {
   const lastAttempt = attempts.length
@@ -29,7 +38,7 @@ const Game = ({ config }: Props) => {
   const [attempts, setAttempts] = useState<string[]>([]);
   const [error, setError] = useState("");
 
-  const { tileSize, targetSegments, mode, validate } = config;
+  const { targetSegments, mode, validate } = config;
   const target = stringifyTargetSegments(targetSegments);
   const didSucceed = checkDidSucceed(attempts, target);
 
@@ -50,21 +59,19 @@ const Game = ({ config }: Props) => {
   };
 
   return (
-    <>
+    <Wrapper>
       {!!attempts.length && (
         <Attempts
           attempts={attempts}
           target={stringifyTargetSegments(targetSegments)}
           readOnlyValues={READ_ONLY_CHARACTERS}
           characterMap={CHARACTER_DISPLAY_MAP}
-          size={tileSize}
         />
       )}
 
       {!didSucceed && (
-        <TileInputForm
+        <InputForm
           mode={mode}
-          size={tileSize}
           targetSegments={targetSegments}
           onSubmit={handleSubmit}
           onValidate={handleValidate}
@@ -81,7 +88,7 @@ const Game = ({ config }: Props) => {
       )}
 
       <AutoScrollToBottom />
-    </>
+    </Wrapper>
   );
 };
 

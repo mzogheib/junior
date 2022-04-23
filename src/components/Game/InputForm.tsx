@@ -7,8 +7,9 @@ import {
   stringifyTargetSegments,
 } from "../../services/segments";
 import InvisibleInputForm from "./InvisibleInputForm";
-import InputTiles, { InputTile } from "./InputTiles";
-import Tile, { TileSize, TileState } from "./Tile";
+import Tiles from "./Tiles";
+import InputTile from "./InputTile";
+import Tile, { TileState } from "./Tile";
 
 const getStartEndOfSegment = (
   targetSegments: TargetSegments,
@@ -38,19 +39,12 @@ const getSegmentValueFromInput = (
 
 type Props = {
   mode: "letters" | "numbers";
-  size?: TileSize;
   targetSegments: TargetSegments;
   onSubmit: (attempt: string) => void;
   onValidate: (targetSegments: TargetSegments) => boolean;
 };
 
-const TileInputForm = ({
-  mode,
-  size,
-  targetSegments,
-  onSubmit,
-  onValidate,
-}: Props) => {
+const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
   const makeAttempt = (inputValue: string) =>
     targetSegments.map((segment, index) => {
       if (segment.type === SegmentType.ReadOnly) {
@@ -73,12 +67,9 @@ const TileInputForm = ({
   );
 
   const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
-    <Tile
-      key={segmentIndex}
-      size={size}
-      state={TileState.ReadOnly}
-      value={CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
-    />
+    <Tile key={segmentIndex} state={TileState.ReadOnly}>
+      {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
+    </Tile>
   );
 
   const renderInputTile = (
@@ -98,7 +89,6 @@ const TileInputForm = ({
         <InputTile
           key={segmentIndex + segmentValueIndex}
           isFocussed={start + segmentValueIndex === inputValue.length}
-          size={size}
         >
           {slicedInputValue[segmentValueIndex]}
         </InputTile>
@@ -113,7 +103,7 @@ const TileInputForm = ({
       onSubmit={handleSubmit}
       onValidate={handleValidate}
       renderInput={(inputValue, onClick) => (
-        <InputTiles onClick={onClick}>
+        <Tiles onClick={onClick}>
           {targetSegments.map(({ value }, segmentIndex) => {
             if (READ_ONLY_CHARACTERS.includes(value)) {
               return renderReadOnlyTile(value, segmentIndex);
@@ -121,10 +111,10 @@ const TileInputForm = ({
 
             return renderInputTile(inputValue, value, segmentIndex);
           })}
-        </InputTiles>
+        </Tiles>
       )}
     />
   );
 };
 
-export default TileInputForm;
+export default InputForm;
