@@ -1,8 +1,5 @@
 import { useState } from "react";
-import { TileSize } from "./Tile";
-import { GameMode } from "./types";
-import { validateWord } from "../../services/words";
-import { validateEquation } from "../../services/equation";
+import { GameConfig } from "./types";
 import {
   stringifyTargetSegments,
   READ_ONLY_CHARACTERS,
@@ -16,17 +13,6 @@ import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
 import TileInputForm from "./TileInputForm";
 
-const gameConfig = {
-  [GameMode.Letters]: {
-    tileSize: TileSize.Default,
-    validate: validateWord,
-  },
-  [GameMode.Numbers]: {
-    tileSize: TileSize.Small,
-    validate: validateEquation,
-  },
-};
-
 const checkDidSucceed = (attempts: string[], target: string) => {
   const lastAttempt = attempts.length
     ? attempts[attempts.length - 1]
@@ -36,15 +22,14 @@ const checkDidSucceed = (attempts: string[], target: string) => {
 };
 
 type Props = {
-  targetSegments: TargetSegments;
-  gameMode: GameMode;
+  config: GameConfig;
 };
 
-const Game = ({ targetSegments, gameMode }: Props) => {
+const Game = ({ config }: Props) => {
   const [attempts, setAttempts] = useState<string[]>([]);
   const [error, setError] = useState("");
 
-  const { tileSize, validate } = gameConfig[gameMode];
+  const { tileSize, targetSegments, mode, validate } = config;
   const target = stringifyTargetSegments(targetSegments);
   const didSucceed = checkDidSucceed(attempts, target);
 
@@ -78,7 +63,7 @@ const Game = ({ targetSegments, gameMode }: Props) => {
 
       {!didSucceed && (
         <TileInputForm
-          mode={gameMode}
+          mode={mode}
           size={tileSize}
           targetSegments={targetSegments}
           onSubmit={handleSubmit}

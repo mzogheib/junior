@@ -1,37 +1,32 @@
 import { useState } from "react";
 
-import { getRandomEquation } from "../../services/equation";
-import { TargetSegments } from "../../services/segments";
-import { getRandomWord } from "../../services/words";
-import { GameMode } from "./types";
+import { getRandomEquation, validateEquation } from "../../services/equation";
+import { getRandomWord, validateWord } from "../../services/words";
+import { TileSize } from "./Tile";
+import { GameMode, GameConfig } from "./types";
 
 const useNewGame = () => {
-  const [gameMode, setGameMode] = useState<GameMode>();
+  const [gameConfig, setGameConfig] = useState<GameConfig>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const [targetSegments, setTargetSegments] = useState<TargetSegments>();
-
-  const onNewGame = (newGameMode: GameMode, length: number) => {
+  const onNewGame = (mode: GameMode, length: number) => {
     setIsLoading(true);
 
-    if (newGameMode === GameMode.Numbers) {
-      const newTargetSegments = getRandomEquation();
-      setTargetSegments(newTargetSegments);
-    } else {
-      const newTarget = getRandomWord(length);
-      setTargetSegments(newTarget);
-    }
+    const tileSize =
+      mode === GameMode.Letters ? TileSize.Default : TileSize.Small;
 
-    setGameMode(newGameMode);
+    const targetSegments =
+      mode === GameMode.Letters ? getRandomWord(length) : getRandomEquation();
+
+    const validate =
+      mode === GameMode.Letters ? validateWord : validateEquation;
+
+    setGameConfig({ mode, tileSize, targetSegments, validate });
+
     setIsLoading(false);
   };
 
-  return {
-    targetSegments,
-    isLoading,
-    gameMode,
-    onNewGame,
-  };
+  return { isLoading, gameConfig, onNewGame };
 };
 
 export default useNewGame;

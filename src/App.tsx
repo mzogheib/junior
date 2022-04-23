@@ -2,7 +2,6 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 
 import AppHeader from "./components/AppHeader";
-import { stringifyTargetSegments } from "./services/segments";
 import { GameMode } from "./components/Game/types";
 import Game from "./components/Game/Game";
 import NewGameDialog from "./components/Game/NewGameDialog";
@@ -20,7 +19,7 @@ const Main = styled.main`
 
 const App = () => {
   const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
-  const { targetSegments, isLoading, gameMode, onNewGame } = useNewGame();
+  const { isLoading, gameConfig, onNewGame } = useNewGame();
 
   const handleNewGame = (newGameMode: GameMode, length: number) => {
     onNewGame(newGameMode, length);
@@ -29,7 +28,7 @@ const App = () => {
 
   const handleCancelNewGame = () => {
     // Cannot avoid creating the first game
-    const isFirstGame = !targetSegments;
+    const isFirstGame = !gameConfig;
     if (isFirstGame) {
       return;
     }
@@ -38,16 +37,14 @@ const App = () => {
   };
 
   const renderGame = () => {
-    if (isLoading || !targetSegments?.length || !gameMode) {
+    if (isLoading || !gameConfig) {
       return;
     }
 
-    // Add a key to force a re-mount when the target changes. This avoids
+    // Add a key to force a re-mount when the game changes. This avoids
     // left over state from a previous game.
-    const key = stringifyTargetSegments(targetSegments);
-    return (
-      <Game key={key} targetSegments={targetSegments} gameMode={gameMode} />
-    );
+    const key = JSON.stringify(gameConfig);
+    return <Game key={key} config={gameConfig} />;
   };
 
   return (
