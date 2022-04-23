@@ -1,15 +1,15 @@
 import styled from "@emotion/styled";
 
 export enum TileState {
-  Match,
-  Present,
-  Absent,
-  ReadOnly,
+  Match = "match",
+  Present = "present",
+  Absent = "absent",
+  ReadOnly = "readOnly",
 }
 
 export enum TileSize {
-  Small,
-  Default,
+  Small = "small",
+  Default = "default",
 }
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
@@ -21,7 +21,7 @@ const stateMap = {
 };
 
 type Props = {
-  state: TileState;
+  state?: TileState;
   size?: TileSize;
 };
 
@@ -33,7 +33,7 @@ const Tile = styled.div<Props>`
   margin: 0 2px;
 
   color: black;
-  background-color: ${({ state }) => stateMap[state]};
+  background-color: ${({ state }) => state && stateMap[state]};
   font-weight: 500;
   display: flex;
   justify-content: center;

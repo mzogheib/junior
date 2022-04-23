@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Theme } from "@emotion/react";
-import { TileSize } from "./Tile";
+import Tile from "./Tile";
 
 const getBorderColor = (isFocussed: boolean, theme: Theme) => {
   const focussedConfig = {
@@ -11,18 +11,14 @@ const getBorderColor = (isFocussed: boolean, theme: Theme) => {
   return isFocussed ? focussedConfig[theme.palette.mode] : "gray";
 };
 
-const InputTile = styled.div<{ isFocussed: boolean; size?: TileSize }>`
-  width: ${({ size }) => (size === TileSize.Small ? "36px" : "50px")};
-  height: ${({ size }) => (size === TileSize.Small ? "36px" : "50px")};
+type Props = {
+  isFocussed: boolean;
+};
+
+const InputTile = styled(Tile)<Props>`
   border: ${({ isFocussed }) => (isFocussed ? "2px" : "1px")}
     ${({ isFocussed, theme }) => getBorderColor(isFocussed, theme)} solid;
-  border-radius: ${({ theme }) => theme.shape.borderRadius}px;
-  margin: 0 2px;
   color: ${({ theme }) => (theme.palette.mode === "light" ? "black" : "white")};
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export default InputTile;
