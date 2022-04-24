@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Typography from "@mui/material/Typography";
+import { Attempt, GameConfig } from "./types";
 
 const Wrapper = styled.div`
   display: flex;
@@ -7,25 +8,32 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const makeMessage = (numAttempts: number) => {
+const makeMessage = (attempts: Attempt[], gameConfig: GameConfig) => {
+  const numAttempts = attempts.length;
+  const lastAttempt = attempts[numAttempts - 1];
+  const finishedAt = lastAttempt.submittedAt;
+  const duration = finishedAt - gameConfig.startedAt;
+  const durationInSeconds = Math.round(duration / 1000).toLocaleString();
+
   if (numAttempts === 1) {
-    return "Solved in 1 attempt";
+    return `Solved in ${durationInSeconds}s with 1 attempt`;
   }
 
-  return `Solved in ${numAttempts} attempts`;
+  return `Solved in ${durationInSeconds}s with ${numAttempts} attempts`;
 };
 
 type Props = {
-  numAttempts: number;
+  gameConfig: GameConfig;
+  attempts: Attempt[];
 };
 
-const SuccessMessage = ({ numAttempts }: Props) => (
+const SuccessMessage = ({ attempts, gameConfig }: Props) => (
   <Wrapper>
     <Typography variant="h4" color="primary.main">
       🥳
     </Typography>
     <Typography variant="body1" color="primary.main">
-      {makeMessage(numAttempts)}
+      {makeMessage(attempts, gameConfig)}
     </Typography>
   </Wrapper>
 );

@@ -79,7 +79,7 @@ const Game = ({ config }: Props) => {
         />
       )}
 
-      {didSucceed && <SuccessMessage numAttempts={attempts.length} />}
+      {didSucceed && <SuccessMessage attempts={attempts} gameConfig={config} />}
 
       {error && (
         <>
