@@ -21,15 +21,15 @@ type Props = {
 
 const getWidth = ({ state }: Props) => {
   if (state === TileState.ReadOnly) {
-    return 25;
+    return 20;
   }
 
-  return 50;
+  return 40;
 };
 
 const Tile = styled.div<Props>`
   max-width: ${getWidth}px;
-  height: 50px;
+  height: 40px;
   width: 100%;
   border: 1px transparent solid;
   border-radius: ${({ theme }) => theme.shape.borderRadius}px;
