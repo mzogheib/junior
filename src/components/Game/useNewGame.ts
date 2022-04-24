@@ -13,6 +13,8 @@ const useNewGame = () => {
 
     const { targetLength, difficulty } = options;
 
+    const startedAt = Date.now();
+
     const targetSegments =
       mode === GameMode.Letters
         ? getRandomWord(targetLength)
@@ -21,7 +23,7 @@ const useNewGame = () => {
     const validate =
       mode === GameMode.Letters ? validateWord : validateEquation;
 
-    setGameConfig({ mode, targetSegments, validate });
+    setGameConfig({ startedAt, mode, targetSegments, validate });
 
     setIsLoading(false);
   };
