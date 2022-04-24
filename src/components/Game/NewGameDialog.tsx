@@ -8,7 +8,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Typography from "@mui/material/Typography";
 
-import { GameDifficulty, GameMode, GameOptions } from "./types";
+import { GameDifficulty, GameMode, GameOptions, WordLength } from "./types";
 
 type Props = {
   isLoading: boolean;
@@ -18,7 +18,7 @@ type Props = {
 
 const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
   const [gameMode, setGameMode] = useState(GameMode.Numbers);
-  const [targetLength, setTargetLength] = useState(5);
+  const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
 
   const handleSubmit = () => onSubmit(gameMode, { targetLength, difficulty });
@@ -82,10 +82,10 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
               onChange={handleChangeTargetLength}
               aria-label="word length"
             >
-              <ToggleButton value={5} aria-label="five">
+              <ToggleButton value={WordLength.Five} aria-label="five">
                 five
               </ToggleButton>
-              <ToggleButton value={6} aria-label="six">
+              <ToggleButton value={WordLength.Six} aria-label="six">
                 six
               </ToggleButton>
             </ToggleButtonGroup>

@@ -6,6 +6,7 @@ import {
   stringifyTargetSegments,
   TargetSegments,
 } from "./segments";
+import { WordLength } from "../components/Game/types";
 
 type WordsData = {
   source: string;
@@ -13,17 +14,17 @@ type WordsData = {
 };
 
 const wordsDataMap: Record<number, WordsData> = {
-  5: wordsData05,
-  6: wordsData06,
+  [WordLength.Five]: wordsData05,
+  [WordLength.Six]: wordsData06,
 };
 
 const getWords = (length: number) => {
-  const { words } = wordsDataMap[length] ?? wordsDataMap[5];
+  const { words } = wordsDataMap[length] ?? wordsDataMap[WordLength.Five];
 
   return words;
 };
 
-export const getRandomWord = (length: number = 5) => {
+export const getRandomWord = (length: number = WordLength.Five) => {
   const words = getWords(length);
   const WORDS_LENGTH = words.length;
   const index = randomNumberBetween(0, WORDS_LENGTH - 1);

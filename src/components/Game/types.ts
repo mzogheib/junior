@@ -5,6 +5,11 @@ export enum GameMode {
   Numbers = "numbers",
 }
 
+export enum WordLength {
+  Five = 5,
+  Six = 6,
+}
+
 export enum GameDifficulty {
   Easy = "easy",
   Hard = "hard",
