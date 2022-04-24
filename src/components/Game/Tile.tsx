@@ -35,7 +35,7 @@ const Tile = styled.div<Props>`
   border-radius: ${({ theme }) => theme.shape.borderRadius}px;
   margin: 0 2px;
 
-  color: black;
+  color: ${({ theme }) => (theme.palette.mode === "light" ? "black" : "white")};
   background-color: ${({ state }) => state && stateMap[state]};
   font-size: 22px;
   display: flex;
