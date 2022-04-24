@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import { GameConfig } from "./types";
+import { Attempt, GameConfig } from "./types";
 import {
   stringifyTargetSegments,
   READ_ONLY_CHARACTERS,
@@ -35,12 +35,13 @@ type Props = {
 };
 
 const Game = ({ config }: Props) => {
-  const [attempts, setAttempts] = useState<string[]>([]);
+  const [attempts, setAttempts] = useState<Attempt[]>([]);
   const [error, setError] = useState("");
 
+  const attemptsValues = attempts.map(({ value }) => value);
   const { targetSegments, mode, validate } = config;
   const target = stringifyTargetSegments(targetSegments);
-  const didSucceed = checkDidSucceed(attempts, target);
+  const didSucceed = checkDidSucceed(attemptsValues, target);
 
   const handleValidate = (attemptSegments: TargetSegments) => {
     const error = validate(attemptSegments);
@@ -55,14 +56,14 @@ const Game = ({ config }: Props) => {
 
   const handleSubmit = (attempt: string) => {
     setError("");
-    setAttempts(attempts.concat([attempt]));
+    setAttempts(attempts.concat([{ value: attempt, submittedAt: Date.now() }]));
   };
 
   return (
     <Wrapper>
       {!!attempts.length && (
         <Attempts
-          attempts={attempts}
+          attempts={attemptsValues}
           target={stringifyTargetSegments(targetSegments)}
           readOnlyValues={READ_ONLY_CHARACTERS}
           characterMap={CHARACTER_DISPLAY_MAP}

@@ -25,3 +25,8 @@ export type GameConfig = {
   targetSegments: TargetSegments;
   validate: (targetSegments: TargetSegments) => string | undefined;
 };
+
+export type Attempt = {
+  value: string;
+  submittedAt: number;
+};
