@@ -8,19 +8,20 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Typography from "@mui/material/Typography";
 
-import { GameMode } from "./types";
+import { GameDifficulty, GameMode, GameOptions } from "./types";
 
 type Props = {
   isLoading: boolean;
-  onSubmit: (gameMode: GameMode, length: number) => void;
+  onSubmit: (gameMode: GameMode, options: GameOptions) => void;
   onCancel?: () => void;
 };
 
 const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
   const [gameMode, setGameMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(5);
+  const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
 
-  const handleSubmit = () => onSubmit(gameMode, targetLength);
+  const handleSubmit = () => onSubmit(gameMode, { targetLength, difficulty });
 
   const handleChangeGameMode = (
     event: React.MouseEvent<HTMLElement>,
@@ -37,6 +38,15 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
   ) => {
     if (value) {
       setTargetLength(value);
+    }
+  };
+
+  const handleChangeDifficulty = (
+    event: React.MouseEvent<HTMLElement>,
+    value: GameDifficulty | null
+  ) => {
+    if (value) {
+      setDifficulty(value);
     }
   };
 
@@ -59,7 +69,7 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
           </ToggleButton>
         </ToggleButtonGroup>
 
-        {gameMode === "letters" && (
+        {gameMode === GameMode.Letters && (
           <>
             <Typography variant="body1" color="primary.main">
               <br />
@@ -70,13 +80,36 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
               value={targetLength}
               exclusive
               onChange={handleChangeTargetLength}
-              aria-label="game mode"
+              aria-label="word length"
             >
               <ToggleButton value={5} aria-label="five">
                 five
               </ToggleButton>
               <ToggleButton value={6} aria-label="six">
                 six
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </>
+        )}
+
+        {gameMode === GameMode.Numbers && (
+          <>
+            <Typography variant="body1" color="primary.main">
+              <br />
+              Difficulty
+            </Typography>
+
+            <ToggleButtonGroup
+              value={difficulty}
+              exclusive
+              onChange={handleChangeDifficulty}
+              aria-label="game difficulty"
+            >
+              <ToggleButton value={GameDifficulty.Easy} aria-label="easy">
+                easy
+              </ToggleButton>
+              <ToggleButton value={GameDifficulty.Hard} aria-label="hard">
+                hard
               </ToggleButton>
             </ToggleButtonGroup>
           </>

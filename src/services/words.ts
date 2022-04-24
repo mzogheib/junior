@@ -23,7 +23,7 @@ const getWords = (length: number) => {
   return words;
 };
 
-export const getRandomWord = (length: number) => {
+export const getRandomWord = (length: number = 5) => {
   const words = getWords(length);
   const WORDS_LENGTH = words.length;
   const index = randomNumberBetween(0, WORDS_LENGTH - 1);

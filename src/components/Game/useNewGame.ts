@@ -2,17 +2,21 @@ import { useState } from "react";
 
 import { getRandomEquation, validateEquation } from "../../services/equation";
 import { getRandomWord, validateWord } from "../../services/words";
-import { GameMode, GameConfig } from "./types";
+import { GameMode, GameConfig, GameOptions } from "./types";
 
 const useNewGame = () => {
   const [gameConfig, setGameConfig] = useState<GameConfig>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const onNewGame = (mode: GameMode, length: number) => {
+  const onNewGame = (mode: GameMode, options: GameOptions) => {
     setIsLoading(true);
 
+    const { targetLength, difficulty } = options;
+
     const targetSegments =
-      mode === GameMode.Letters ? getRandomWord(length) : getRandomEquation();
+      mode === GameMode.Letters
+        ? getRandomWord(targetLength)
+        : getRandomEquation(difficulty);
 
     const validate =
       mode === GameMode.Letters ? validateWord : validateEquation;

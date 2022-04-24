@@ -5,6 +5,16 @@ export enum GameMode {
   Numbers = "numbers",
 }
 
+export enum GameDifficulty {
+  Easy = "easy",
+  Hard = "hard",
+}
+
+export type GameOptions = {
+  targetLength?: number;
+  difficulty?: GameDifficulty;
+};
+
 export type GameConfig = {
   mode: GameMode;
   targetSegments: TargetSegments;

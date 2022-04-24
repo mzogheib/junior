@@ -1,3 +1,4 @@
+import { GameDifficulty } from "../components/Game/types";
 import { randomNumberBetween } from "../misc/utils";
 import {
   TargetSegments,
@@ -36,11 +37,16 @@ const getRandomOperator = () => {
   return values[index];
 };
 
-export const getRandomEquation = () => {
+export const getRandomEquation = (
+  difficulty: GameDifficulty = GameDifficulty.Easy
+) => {
+  const termMin = difficulty === GameDifficulty.Easy ? 1 : 10;
+  const termMax = difficulty === GameDifficulty.Easy ? 9 : 99;
+
   const expression: TargetSegments = [
     {
       type: SegmentType.Writeable,
-      value: randomNumberBetween(1, 9).toString(),
+      value: randomNumberBetween(termMin, termMax).toString(),
     },
     {
       type: SegmentType.ReadOnly,
@@ -48,7 +54,7 @@ export const getRandomEquation = () => {
     },
     {
       type: SegmentType.Writeable,
-      value: randomNumberBetween(1, 9).toString(),
+      value: randomNumberBetween(termMin, termMax).toString(),
     },
     {
       type: SegmentType.ReadOnly,
@@ -56,7 +62,7 @@ export const getRandomEquation = () => {
     },
     {
       type: SegmentType.Writeable,
-      value: randomNumberBetween(1, 9).toString(),
+      value: randomNumberBetween(termMin, termMax).toString(),
     },
   ];
 
