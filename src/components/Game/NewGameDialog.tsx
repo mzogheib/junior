@@ -144,7 +144,7 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
           </Button>
         )}
         <Button disabled={isLoading} onClick={handleSubmit}>
-          Go!
+          Go
         </Button>
       </DialogActions>
     </Dialog>
