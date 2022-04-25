@@ -47,8 +47,8 @@ const App = () => {
     return () => setIsNewGameDialogOpen(false);
   };
 
-  const handleClickNewGame = () => {
-    if (gameSettings) {
+  const handleClickNewGame = (isCustom?: boolean) => {
+    if (gameSettings && !isCustom) {
       handleSubmitNewGame(gameSettings, true);
     } else {
       setIsNewGameDialogOpen(true);
