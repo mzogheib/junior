@@ -7,6 +7,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Typography from "@mui/material/Typography";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 import { GameDifficulty, GameMode, GameOptions, WordLength } from "./types";
 
@@ -20,6 +22,7 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
   const [gameMode, setGameMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
+  const [isSaveSettings, setIsSaveSettings] = useState(false);
 
   const handleSubmit = () => onSubmit(gameMode, { targetLength, difficulty });
 
@@ -48,6 +51,12 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
     if (value) {
       setDifficulty(value);
     }
+  };
+
+  const handleChangeSaveSettings = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setIsSaveSettings(event.target.checked);
   };
 
   return (
@@ -114,6 +123,17 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
             </ToggleButtonGroup>
           </>
         )}
+        <br />
+        <br />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={isSaveSettings}
+              onChange={handleChangeSaveSettings}
+            />
+          }
+          label="Save settings"
+        />
       </DialogContent>
 
       <DialogActions>
