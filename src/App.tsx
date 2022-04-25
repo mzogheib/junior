@@ -43,8 +43,7 @@ const App = () => {
 
     // Add a key to force a re-mount when the game changes. This avoids
     // left over state from a previous game.
-    const key = JSON.stringify(gameConfig);
-    return <Game key={key} config={gameConfig} />;
+    return <Game key={gameConfig.startedAt} config={gameConfig} />;
   };
 
   return (
