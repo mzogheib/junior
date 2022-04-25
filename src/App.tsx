@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 
 import AppHeader from "./components/AppHeader";
-import { GameOptions } from "./components/Game/types";
+import { GameSettings } from "./components/Game/types";
 import Game from "./components/Game/Game";
 import NewGameDialog from "./components/Game/NewGameDialog";
 import useNewGame from "./components/Game/useNewGame";
@@ -21,8 +21,8 @@ const App = () => {
   const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
   const { isLoading, gameConfig, onNewGame } = useNewGame();
 
-  const handleNewGame = (options: GameOptions) => {
-    onNewGame(options);
+  const handleNewGame = (settings: GameSettings) => {
+    onNewGame(settings);
     setIsNewGameDialogOpen(false);
   };
 

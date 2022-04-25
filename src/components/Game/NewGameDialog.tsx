@@ -10,11 +10,11 @@ import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-import { GameDifficulty, GameMode, GameOptions, WordLength } from "./types";
+import { GameDifficulty, GameMode, GameSettings, WordLength } from "./types";
 
 type Props = {
   isLoading: boolean;
-  onSubmit: (options: GameOptions) => void;
+  onSubmit: (settings: GameSettings) => void;
   onCancel?: () => void;
 };
 

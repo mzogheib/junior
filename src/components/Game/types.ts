@@ -15,7 +15,7 @@ export enum GameDifficulty {
   Hard = "hard",
 }
 
-export type GameOptions = {
+export type GameSettings = {
   mode: GameMode;
   targetLength?: number;
   difficulty?: GameDifficulty;
