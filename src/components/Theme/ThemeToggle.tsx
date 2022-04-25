@@ -21,9 +21,7 @@ const ThemeToggle = () => {
 
   return (
     <div>
-      <Typography variant="body1" color="primary.main">
-        Mode
-      </Typography>
+      <Typography variant="body1">Theme</Typography>
 
       <ToggleButtonGroup
         value={mode}

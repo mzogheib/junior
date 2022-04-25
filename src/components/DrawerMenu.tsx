@@ -23,11 +23,9 @@ const DrawerMenu = ({ isOpen, onClose }: Props) => {
 
   return (
     <Drawer anchor="right" open={isOpen} onClose={onClose}>
-      {firstName && (
-        <Wrapper>
-          <UserWelcome firstName={firstName} />
-        </Wrapper>
-      )}
+      <Wrapper>
+        <UserWelcome firstName={firstName} />
+      </Wrapper>
       <Wrapper>
         <ThemeToggle />
       </Wrapper>

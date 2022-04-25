@@ -2,16 +2,16 @@ import { useState } from "react";
 
 import { getRandomEquation, validateEquation } from "../../services/equation";
 import { getRandomWord, validateWord } from "../../services/words";
-import { GameMode, GameConfig, GameOptions } from "./types";
+import { GameMode, GameConfig, GameSettings } from "./types";
 
 const useNewGame = () => {
   const [gameConfig, setGameConfig] = useState<GameConfig>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const onNewGame = (mode: GameMode, options: GameOptions) => {
+  const onNewGame = (settings: GameSettings) => {
     setIsLoading(true);
 
-    const { targetLength, difficulty } = options;
+    const { mode, targetLength, difficulty } = settings;
 
     const startedAt = new Date().toISOString();
 

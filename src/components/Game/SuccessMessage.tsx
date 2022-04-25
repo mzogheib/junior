@@ -28,9 +28,7 @@ type Props = {
 
 const SuccessMessage = ({ attempts, gameConfig }: Props) => (
   <Wrapper>
-    <Typography variant="h4" color="primary.main">
-      🥳
-    </Typography>
+    <Typography variant="h4">🥳</Typography>
     <Typography variant="body1" color="primary.main">
       {makeMessage(attempts, gameConfig)}
     </Typography>

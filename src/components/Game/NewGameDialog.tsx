@@ -7,28 +7,32 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Typography from "@mui/material/Typography";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
-import { GameDifficulty, GameMode, GameOptions, WordLength } from "./types";
+import { GameDifficulty, GameMode, GameSettings, WordLength } from "./types";
 
 type Props = {
   isLoading: boolean;
-  onSubmit: (gameMode: GameMode, options: GameOptions) => void;
+  onSubmit: (settings: GameSettings, shouldSaveSettings: boolean) => void;
   onCancel?: () => void;
 };
 
 const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
-  const [gameMode, setGameMode] = useState(GameMode.Numbers);
+  const [mode, setMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
+  const [shouldSaveSettings, setShouldSaveSettings] = useState(false);
 
-  const handleSubmit = () => onSubmit(gameMode, { targetLength, difficulty });
+  const handleSubmit = () =>
+    onSubmit({ mode, targetLength, difficulty }, shouldSaveSettings);
 
-  const handleChangeGameMode = (
+  const handleChangeMode = (
     event: React.MouseEvent<HTMLElement>,
     value: GameMode | null
   ) => {
     if (value) {
-      setGameMode(value);
+      setMode(value);
     }
   };
 
@@ -50,15 +54,21 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
     }
   };
 
+  const handleChangeSaveSettings = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setShouldSaveSettings(event.target.checked);
+  };
+
   return (
     <Dialog open={true}>
       <DialogTitle>New Game</DialogTitle>
 
       <DialogContent>
         <ToggleButtonGroup
-          value={gameMode}
+          value={mode}
           exclusive
-          onChange={handleChangeGameMode}
+          onChange={handleChangeMode}
           aria-label="game mode"
         >
           <ToggleButton value={GameMode.Numbers} aria-label="equations">
@@ -69,9 +79,9 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
           </ToggleButton>
         </ToggleButtonGroup>
 
-        {gameMode === GameMode.Letters && (
+        {mode === GameMode.Letters && (
           <>
-            <Typography variant="body1" color="primary.main">
+            <Typography variant="body1">
               <br />
               How many letters?
             </Typography>
@@ -92,9 +102,9 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
           </>
         )}
 
-        {gameMode === GameMode.Numbers && (
+        {mode === GameMode.Numbers && (
           <>
-            <Typography variant="body1" color="primary.main">
+            <Typography variant="body1">
               <br />
               Difficulty
             </Typography>
@@ -114,6 +124,17 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
             </ToggleButtonGroup>
           </>
         )}
+        <br />
+        <br />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={shouldSaveSettings}
+              onChange={handleChangeSaveSettings}
+            />
+          }
+          label="Save settings"
+        />
       </DialogContent>
 
       <DialogActions>
@@ -123,7 +144,7 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
           </Button>
         )}
         <Button disabled={isLoading} onClick={handleSubmit}>
-          Go!
+          Go
         </Button>
       </DialogActions>
     </Dialog>

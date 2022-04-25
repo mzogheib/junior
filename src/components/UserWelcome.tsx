@@ -2,17 +2,13 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 
 type Props = {
-  firstName: string;
+  firstName?: string;
 };
 
-const UserWelcome = ({ firstName }: Props) => {
+const UserWelcome = ({ firstName = "friend" }: Props) => {
   const variant = firstName.length < 10 ? "h5" : "h6";
 
-  return (
-    <Typography variant={variant} color="primary.main">
-      Hi {firstName}!
-    </Typography>
-  );
+  return <Typography variant={variant}>Hi {firstName} 👋</Typography>;
 };
 
 export default UserWelcome;
