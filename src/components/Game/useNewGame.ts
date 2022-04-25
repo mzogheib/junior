@@ -8,10 +8,10 @@ const useNewGame = () => {
   const [gameConfig, setGameConfig] = useState<GameConfig>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const onNewGame = (mode: GameMode, options: GameOptions) => {
+  const onNewGame = (options: GameOptions) => {
     setIsLoading(true);
 
-    const { targetLength, difficulty } = options;
+    const { mode, targetLength, difficulty } = options;
 
     const startedAt = new Date().toISOString();
 

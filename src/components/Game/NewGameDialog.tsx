@@ -14,24 +14,24 @@ import { GameDifficulty, GameMode, GameOptions, WordLength } from "./types";
 
 type Props = {
   isLoading: boolean;
-  onSubmit: (gameMode: GameMode, options: GameOptions) => void;
+  onSubmit: (options: GameOptions) => void;
   onCancel?: () => void;
 };
 
 const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
-  const [gameMode, setGameMode] = useState(GameMode.Numbers);
+  const [mode, setMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
   const [isSaveSettings, setIsSaveSettings] = useState(false);
 
-  const handleSubmit = () => onSubmit(gameMode, { targetLength, difficulty });
+  const handleSubmit = () => onSubmit({ mode, targetLength, difficulty });
 
-  const handleChangeGameMode = (
+  const handleChangeMode = (
     event: React.MouseEvent<HTMLElement>,
     value: GameMode | null
   ) => {
     if (value) {
-      setGameMode(value);
+      setMode(value);
     }
   };
 
@@ -65,9 +65,9 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
 
       <DialogContent>
         <ToggleButtonGroup
-          value={gameMode}
+          value={mode}
           exclusive
-          onChange={handleChangeGameMode}
+          onChange={handleChangeMode}
           aria-label="game mode"
         >
           <ToggleButton value={GameMode.Numbers} aria-label="equations">
@@ -78,7 +78,7 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
           </ToggleButton>
         </ToggleButtonGroup>
 
-        {gameMode === GameMode.Letters && (
+        {mode === GameMode.Letters && (
           <>
             <Typography variant="body1" color="primary.main">
               <br />
@@ -101,7 +101,7 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
           </>
         )}
 
-        {gameMode === GameMode.Numbers && (
+        {mode === GameMode.Numbers && (
           <>
             <Typography variant="body1" color="primary.main">
               <br />
