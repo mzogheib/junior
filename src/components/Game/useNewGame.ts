@@ -13,7 +13,7 @@ const useNewGame = () => {
 
     const { targetLength, difficulty } = options;
 
-    const startedAt = Date.now();
+    const startedAt = new Date().toISOString();
 
     const targetSegments =
       mode === GameMode.Letters

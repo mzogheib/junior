@@ -23,11 +23,11 @@ export type GameOptions = {
 export type GameConfig = {
   mode: GameMode;
   targetSegments: TargetSegments;
-  startedAt: number;
+  startedAt: string;
   validate: (targetSegments: TargetSegments) => string | undefined;
 };
 
 export type Attempt = {
   value: string;
-  submittedAt: number;
+  submittedAt: string;
 };

@@ -54,9 +54,11 @@ const Game = ({ config }: Props) => {
     return true;
   };
 
-  const handleSubmit = (attempt: string) => {
+  const handleSubmit = (value: string) => {
     setError("");
-    setAttempts(attempts.concat([{ value: attempt, submittedAt: Date.now() }]));
+
+    const submittedAt = new Date().toISOString();
+    setAttempts(attempts.concat([{ value, submittedAt }]));
   };
 
   return (
