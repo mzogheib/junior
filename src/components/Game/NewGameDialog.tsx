@@ -14,7 +14,7 @@ import { GameDifficulty, GameMode, GameSettings, WordLength } from "./types";
 
 type Props = {
   isLoading: boolean;
-  onSubmit: (settings: GameSettings) => void;
+  onSubmit: (settings: GameSettings, shouldSaveSettings: boolean) => void;
   onCancel?: () => void;
 };
 
@@ -22,9 +22,10 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
   const [mode, setMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
-  const [isSaveSettings, setIsSaveSettings] = useState(false);
+  const [shouldSaveSettings, setShouldSaveSettings] = useState(false);
 
-  const handleSubmit = () => onSubmit({ mode, targetLength, difficulty });
+  const handleSubmit = () =>
+    onSubmit({ mode, targetLength, difficulty }, shouldSaveSettings);
 
   const handleChangeMode = (
     event: React.MouseEvent<HTMLElement>,
@@ -56,7 +57,7 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
   const handleChangeSaveSettings = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setIsSaveSettings(event.target.checked);
+    setShouldSaveSettings(event.target.checked);
   };
 
   return (
@@ -128,7 +129,7 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
         <FormControlLabel
           control={
             <Checkbox
-              checked={isSaveSettings}
+              checked={shouldSaveSettings}
               onChange={handleChangeSaveSettings}
             />
           }

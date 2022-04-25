@@ -19,10 +19,21 @@ const Main = styled.main`
 
 const App = () => {
   const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
+  const [gameSettings, setGameSettings] = useState<GameSettings>();
   const { isLoading, gameConfig, onNewGame } = useNewGame();
 
-  const handleNewGame = (settings: GameSettings) => {
-    onNewGame(settings);
+  const handleSubmitNewGame = (
+    newGameSettings: GameSettings,
+    shouldSaveSettings: boolean
+  ) => {
+    onNewGame(newGameSettings);
+
+    if (shouldSaveSettings) {
+      setGameSettings(newGameSettings);
+    } else {
+      setGameSettings(undefined);
+    }
+
     setIsNewGameDialogOpen(false);
   };
 
@@ -34,6 +45,14 @@ const App = () => {
     }
 
     return () => setIsNewGameDialogOpen(false);
+  };
+
+  const handleClickNewGame = () => {
+    if (gameSettings) {
+      handleSubmitNewGame(gameSettings, true);
+    } else {
+      setIsNewGameDialogOpen(true);
+    }
   };
 
   const renderGame = () => {
@@ -49,10 +68,7 @@ const App = () => {
   return (
     <>
       <Wrapper>
-        <AppHeader
-          isLoading={isLoading}
-          onNewGame={() => setIsNewGameDialogOpen(true)}
-        />
+        <AppHeader isLoading={isLoading} onNewGame={handleClickNewGame} />
 
         <Main>{renderGame()}</Main>
       </Wrapper>
@@ -60,7 +76,7 @@ const App = () => {
       {isNewGameDialogOpen && (
         <NewGameDialog
           isLoading={isLoading}
-          onSubmit={handleNewGame}
+          onSubmit={handleSubmitNewGame}
           onCancel={handleCancelNewGame()}
         />
       )}
