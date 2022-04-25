@@ -2,7 +2,6 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -29,22 +28,25 @@ const AppHeader = ({ isLoading, onNewGame }: Props) => {
     <>
       <AppBar position="sticky">
         <StyledToolbar>
-          <ButtonGroup
-            variant="text"
-            aria-label="new game"
-            disabled={isLoading}
-          >
-            <Button onClick={handleNewGame()} color="inherit">
+          <div>
+            <Button
+              disabled={isLoading}
+              onClick={handleNewGame()}
+              color="inherit"
+              aria-label="new game"
+            >
               new game
             </Button>
             <IconButton
+              disabled={isLoading}
               onClick={handleNewGame(true)}
               color="inherit"
               size="large"
+              aria-label="customise game"
             >
               <SettingsIcon />
             </IconButton>
-          </ButtonGroup>
+          </div>
 
           <IconButton onClick={() => setIsMenuOpen(true)} color="inherit">
             <MenuIcon />
