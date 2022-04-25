@@ -68,7 +68,11 @@ const App = () => {
   return (
     <>
       <Wrapper>
-        <AppHeader isLoading={isLoading} onNewGame={handleClickNewGame} />
+        <AppHeader
+          isLoading={isLoading}
+          hasSavedGameSettings={!!gameSettings}
+          onNewGame={handleClickNewGame}
+        />
 
         <Main>{renderGame()}</Main>
       </Wrapper>

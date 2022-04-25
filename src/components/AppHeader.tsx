@@ -16,10 +16,11 @@ const StyledToolbar = styled(Toolbar)`
 
 type Props = {
   isLoading?: boolean;
+  hasSavedGameSettings?: boolean;
   onNewGame(isCustom?: boolean): void;
 };
 
-const AppHeader = ({ isLoading, onNewGame }: Props) => {
+const AppHeader = ({ isLoading, hasSavedGameSettings, onNewGame }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleNewGame = (isCustom?: boolean) => () => onNewGame(isCustom);
@@ -37,15 +38,17 @@ const AppHeader = ({ isLoading, onNewGame }: Props) => {
             >
               new game
             </Button>
-            <IconButton
-              disabled={isLoading}
-              onClick={handleNewGame(true)}
-              color="inherit"
-              size="large"
-              aria-label="customise game"
-            >
-              <SettingsIcon />
-            </IconButton>
+            {hasSavedGameSettings && (
+              <IconButton
+                disabled={isLoading}
+                onClick={handleNewGame(true)}
+                color="inherit"
+                size="large"
+                aria-label="customise game"
+              >
+                <SettingsIcon />
+              </IconButton>
+            )}
           </div>
 
           <IconButton onClick={() => setIsMenuOpen(true)} color="inherit">
