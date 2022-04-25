@@ -19,15 +19,13 @@ type Props = {
 
 const DrawerMenu = ({ isOpen, onClose }: Props) => {
   const { user } = useAuth0();
-  const firstName = user?.given_name || "Willy";
+  const firstName = user?.given_name;
 
   return (
     <Drawer anchor="right" open={isOpen} onClose={onClose}>
-      {firstName && (
-        <Wrapper>
-          <UserWelcome firstName={firstName} />
-        </Wrapper>
-      )}
+      <Wrapper>
+        <UserWelcome firstName={firstName} />
+      </Wrapper>
       <Wrapper>
         <ThemeToggle />
       </Wrapper>
