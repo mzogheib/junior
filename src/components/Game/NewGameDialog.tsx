@@ -81,7 +81,7 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
 
         {mode === GameMode.Letters && (
           <>
-            <Typography variant="body1" color="primary.main">
+            <Typography variant="body1">
               <br />
               How many letters?
             </Typography>
@@ -104,7 +104,7 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
 
         {mode === GameMode.Numbers && (
           <>
-            <Typography variant="body1" color="primary.main">
+            <Typography variant="body1">
               <br />
               Difficulty
             </Typography>

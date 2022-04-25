@@ -8,11 +8,7 @@ type Props = {
 const UserWelcome = ({ firstName }: Props) => {
   const variant = firstName.length < 10 ? "h5" : "h6";
 
-  return (
-    <Typography variant={variant} color="primary.main">
-      Hi {firstName}!
-    </Typography>
-  );
+  return <Typography variant={variant}>Hi {firstName}!</Typography>;
 };
 
 export default UserWelcome;
