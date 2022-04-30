@@ -79,6 +79,7 @@ const Game = ({ config }: Props) => {
           targetSegments={targetSegments}
           onSubmit={handleSubmit}
           onValidate={handleValidate}
+          onChange={() => setError("")}
         />
       )}
 

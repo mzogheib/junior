@@ -2,7 +2,10 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 
-import { TargetSegments } from "../../services/segments";
+import {
+  stringifyTargetSegments,
+  TargetSegments,
+} from "../../services/segments";
 import AttemptInput from "../Input/AttemptInput";
 
 const Form = styled.form`
@@ -21,17 +24,25 @@ const ButtonWrapper = styled.div`
 type Props = {
   mode: "letters" | "numbers";
   targetSegments: TargetSegments;
+  onChange: () => void;
   onSubmit: (attemptSegments: TargetSegments) => void;
   onValidate: (attemptSegments: TargetSegments) => boolean;
 };
 
-const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
+const InputForm = ({
+  mode,
+  targetSegments,
+  onChange,
+  onSubmit,
+  onValidate,
+}: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [attemptSegments, setAttemptSegments] = useState<TargetSegments>([]);
 
-  const nonEmptySegments = attemptSegments.filter(({ value }) => value !== "");
-  const isComplete = nonEmptySegments.length === targetSegments.length;
+  const attemptLength = stringifyTargetSegments(attemptSegments).length;
+  const targetLength = stringifyTargetSegments(targetSegments).length;
+  const isComplete = attemptLength === targetLength;
 
   useEffect(() => {
     if (isComplete) {
@@ -53,13 +64,18 @@ const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
     }
   };
 
+  const handleChange = (newAttemptSegments: TargetSegments) => {
+    setAttemptSegments(newAttemptSegments);
+    onChange();
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
       <AttemptInput
         targetSegments={targetSegments}
         mode={mode}
         attemptSegments={attemptSegments}
-        onChange={setAttemptSegments}
+        onChange={handleChange}
         inputRef={inputRef}
         autoFocus
       />
