@@ -54,8 +54,9 @@ const Game = ({ config }: Props) => {
     return true;
   };
 
-  const handleSubmit = (value: string) => {
+  const handleSubmit = (attemptSegments: TargetSegments) => {
     setError("");
+    const value = stringifyTargetSegments(attemptSegments);
 
     const submittedAt = new Date().toISOString();
     setAttempts(attempts.concat([{ value, submittedAt }]));
