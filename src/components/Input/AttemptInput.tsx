@@ -1,42 +1,17 @@
 import { ChangeEvent, useRef } from "react";
 import {
   TargetSegments,
-  SegmentType,
   CHARACTER_DISPLAY_MAP,
-  isWriteableSegment,
   READ_ONLY_CHARACTERS,
   stringifyTargetSegments,
+  makeAttemptSegments,
+  getSegmentValueFromInput,
+  getStartEndOfSegment,
 } from "../../services/segments";
 import InputTile from "../Game/InputTile";
 import Tile, { TileState } from "../Game/Tile";
 import Tiles from "../Game/Tiles";
 import InvisibleInput from "./InvisibleInput";
-
-const getStartEndOfSegment = (
-  targetSegments: TargetSegments,
-  segmentIndex: number
-) => {
-  const prevSegments = targetSegments
-    .slice(0, segmentIndex)
-    .filter(isWriteableSegment);
-  const prevSegmentsString = stringifyTargetSegments(prevSegments);
-  const prevSegmentsStringLength = prevSegmentsString.length;
-  const segmentValueLength = targetSegments[segmentIndex].value.length;
-
-  const start = prevSegmentsStringLength;
-  const end = prevSegmentsStringLength + segmentValueLength;
-
-  return [start, end];
-};
-
-const getSegmentValueFromInput = (
-  inputValue: string,
-  targetSegments: TargetSegments,
-  segmentIndex: number
-) => {
-  const [start, end] = getStartEndOfSegment(targetSegments, segmentIndex);
-  return inputValue.slice(start, end);
-};
 
 type Props = {
   targetSegments: TargetSegments;
@@ -55,18 +30,6 @@ const AttemptInput = ({
 
   const handleTilesClick = () => inputRef.current?.focus();
 
-  const makeAttemptSegments = (inputValue: string) =>
-    targetSegments.map((segment, index) => {
-      if (segment.type === SegmentType.ReadOnly) {
-        return segment;
-      }
-
-      return {
-        ...segment,
-        value: getSegmentValueFromInput(inputValue, targetSegments, index),
-      };
-    });
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.toUpperCase();
 
@@ -75,7 +38,7 @@ const AttemptInput = ({
       return;
     }
 
-    const newAttemptSegments = makeAttemptSegments(inputValue);
+    const newAttemptSegments = makeAttemptSegments(inputValue, targetSegments);
     onChange(newAttemptSegments);
   };
 
@@ -90,7 +53,6 @@ const AttemptInput = ({
     targetSegmentValue: string,
     targetSegmentIndex: number
   ) => {
-    const [start] = getStartEndOfSegment(targetSegments, targetSegmentIndex);
     const slicedInputValue = getSegmentValueFromInput(
       inputValue,
       targetSegments,
@@ -99,6 +61,7 @@ const AttemptInput = ({
 
     return targetSegmentValue.split("").map((_, targetSegmentValueIndex) => {
       const key = targetSegmentIndex + targetSegmentValueIndex;
+      const [start] = getStartEndOfSegment(targetSegments, targetSegmentIndex);
       const isFocussed = start + targetSegmentValueIndex === inputValue.length;
 
       return (

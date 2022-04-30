@@ -51,3 +51,44 @@ export const parseTarget = (target: string): TargetSegments =>
       value,
     };
   });
+
+export const getStartEndOfSegment = (
+  targetSegments: TargetSegments,
+  segmentIndex: number
+) => {
+  const prevSegments = targetSegments
+    .slice(0, segmentIndex)
+    .filter(isWriteableSegment);
+  const prevSegmentsString = stringifyTargetSegments(prevSegments);
+  const prevSegmentsStringLength = prevSegmentsString.length;
+  const segmentValueLength = targetSegments[segmentIndex].value.length;
+
+  const start = prevSegmentsStringLength;
+  const end = prevSegmentsStringLength + segmentValueLength;
+
+  return [start, end];
+};
+
+export const getSegmentValueFromInput = (
+  inputValue: string,
+  targetSegments: TargetSegments,
+  segmentIndex: number
+) => {
+  const [start, end] = getStartEndOfSegment(targetSegments, segmentIndex);
+  return inputValue.slice(start, end);
+};
+
+export const makeAttemptSegments = (
+  inputValue: string,
+  targetSegments: TargetSegment[]
+) =>
+  targetSegments.map((segment, index) => {
+    if (segment.type === SegmentType.ReadOnly) {
+      return segment;
+    }
+
+    return {
+      ...segment,
+      value: getSegmentValueFromInput(inputValue, targetSegments, index),
+    };
+  });
