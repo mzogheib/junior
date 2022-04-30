@@ -55,6 +55,7 @@ const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
         attemptSegments={attemptSegments}
         onChange={setAttemptSegments}
         inputRef={inputRef}
+        autoFocus
       />
       <ButtonWrapper>
         <Button type="submit" variant="contained">

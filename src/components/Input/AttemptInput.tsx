@@ -19,6 +19,7 @@ type Props = {
   attemptSegments: TargetSegments;
   mode: "letters" | "numbers";
   inputRef?: RefObject<HTMLInputElement>;
+  autoFocus?: boolean;
   onChange: (attemptSegments: TargetSegments) => void;
 };
 
@@ -27,6 +28,7 @@ const AttemptInput = ({
   mode,
   attemptSegments,
   inputRef,
+  autoFocus,
   onChange,
 }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +81,7 @@ const AttemptInput = ({
     <InvisibleInput
       value={inputValue}
       onChange={handleChange}
-      autoFocus
+      autoFocus={autoFocus}
       type={inputType}
       inputRef={inputRef}
     >
