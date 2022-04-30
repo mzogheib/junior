@@ -40,6 +40,6 @@ export const validateWord = (wordSegments: TargetSegments) => {
   const isInWordsList = words.map((w) => w.toUpperCase()).includes(word);
 
   if (!isInWordsList) {
-    return `Not in word list: ${word}`;
+    return "Not in word list";
   }
 };
