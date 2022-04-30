@@ -1,5 +1,5 @@
-import Tiles from "./Tiles";
-import Tile, { TileState, TileVariant } from "./Tile";
+import Tiles from "../Tiles/Tiles";
+import Tile, { TileState, TileVariant } from "../Tiles/Tile";
 
 const getTileState = (
   target: string,

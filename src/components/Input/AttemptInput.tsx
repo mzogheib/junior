@@ -9,9 +9,9 @@ import {
   getWriteableSegments,
   isReadOnlySegment,
 } from "../../services/segments";
-import InputTile from "../Game/InputTile";
-import Tile, { TileState, TileVariant } from "../Game/Tile";
-import Tiles from "../Game/Tiles";
+import InputTile from "../Tiles/InputTile";
+import Tile, { TileState, TileVariant } from "../Tiles/Tile";
+import Tiles from "../Tiles/Tiles";
 import InvisibleInput from "./InvisibleInput";
 
 type Props = {
