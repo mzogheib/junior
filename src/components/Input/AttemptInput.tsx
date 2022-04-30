@@ -10,7 +10,7 @@ import {
   isReadOnlySegment,
 } from "../../services/segments";
 import InputTile from "../Tiles/InputTile";
-import { TileState, TileVariant } from "../Tiles/types";
+import { TileVariant } from "../Tiles/types";
 import Tile from "../Tiles/Tile";
 import Tiles from "../Tiles/Tiles";
 import InvisibleInput from "./InvisibleInput";
@@ -46,15 +46,11 @@ const AttemptInput = ({
     onChange(newAttemptSegments);
   };
 
-  const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => {
-    const tileState = isError ? TileState.Error : undefined;
-
-    return (
-      <Tile key={segmentIndex} variant={TileVariant.ReadOnly} state={tileState}>
-        {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
-      </Tile>
-    );
-  };
+  const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
+    <Tile key={segmentIndex} variant={TileVariant.ReadOnly} isError={isError}>
+      {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
+    </Tile>
+  );
 
   const renderInputTiles = (
     inputValue: string,

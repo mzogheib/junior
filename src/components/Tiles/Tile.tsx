@@ -1,17 +1,16 @@
 import styled from "@emotion/styled";
 import { Theme } from "@emotion/react";
-import { TileState } from "./types";
+import { TileState, TileColor } from "./types";
 import BaseTile from "./BaseTile";
 
-// https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 const backgroundColorMap = {
-  [TileState.Match]: "#91C483",
-  [TileState.Present]: "#FFE162",
-  [TileState.Absent]: "#FF6464",
-  [TileState.Error]: "transparent",
+  [TileState.Match]: TileColor.Match,
+  [TileState.Present]: TileColor.Present,
+  [TileState.Absent]: TileColor.Absent,
 };
 
 type OwnProps = {
+  isError?: boolean;
   state?: TileState;
 };
 
@@ -21,9 +20,9 @@ type ThemeProps = {
 
 type Props = OwnProps & ThemeProps;
 
-const color = ({ state, theme }: Props) => {
-  if (state === TileState.Error) {
-    return "#FF6464";
+const color = ({ isError, theme }: Props) => {
+  if (isError) {
+    return TileColor.Absent;
   }
 
   return theme.palette.mode === "light" ? "black" : "white";
