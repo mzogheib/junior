@@ -34,6 +34,12 @@ export const CHARACTER_DISPLAY_MAP = {
 export const isWriteableSegment = ({ type }: TargetSegment) =>
   type === SegmentType.Writeable;
 
+export const getWriteableSegments = (segments: TargetSegments) =>
+  segments.filter(({ value }) => !READ_ONLY_CHARACTERS.includes(value));
+
+export const isReadOnlySegment = ({ type }: TargetSegment) =>
+  type === SegmentType.ReadOnly;
+
 export const stringifyTargetSegments = (targetSegments: TargetSegments) =>
   targetSegments.map(({ value }) => value).join("");
 

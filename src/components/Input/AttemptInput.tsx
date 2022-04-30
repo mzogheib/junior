@@ -2,11 +2,12 @@ import { ChangeEvent, useRef } from "react";
 import {
   TargetSegments,
   CHARACTER_DISPLAY_MAP,
-  READ_ONLY_CHARACTERS,
   stringifyTargetSegments,
   makeAttemptSegments,
   getSegmentValueFromInput,
   getStartEndOfSegment,
+  getWriteableSegments,
+  isReadOnlySegment,
 } from "../../services/segments";
 import InputTile from "../Game/InputTile";
 import Tile, { TileState } from "../Game/Tile";
@@ -72,28 +73,23 @@ const AttemptInput = ({
     });
   };
 
-  const writeableSegments = attemptSegments.filter(
-    ({ value }) => !READ_ONLY_CHARACTERS.includes(value)
-  );
-
+  const writeableSegments = getWriteableSegments(attemptSegments);
   const inputValue = stringifyTargetSegments(writeableSegments);
 
   return (
     <InvisibleInput value={inputValue} onChange={handleChange} ref={inputRef}>
       <Tiles onClick={handleTilesClick}>
-        {targetSegments.map(
-          ({ value: targetSegmentValue }, targetSegmentIndex) => {
-            if (READ_ONLY_CHARACTERS.includes(targetSegmentValue)) {
-              return renderReadOnlyTile(targetSegmentValue, targetSegmentIndex);
-            }
-
-            return renderInputTiles(
-              inputValue,
-              targetSegmentValue,
-              targetSegmentIndex
-            );
+        {targetSegments.map((targetSegment, targetSegmentIndex) => {
+          if (isReadOnlySegment(targetSegment)) {
+            return renderReadOnlyTile(targetSegment.value, targetSegmentIndex);
           }
-        )}
+
+          return renderInputTiles(
+            inputValue,
+            targetSegment.value,
+            targetSegmentIndex
+          );
+        })}
       </Tiles>
     </InvisibleInput>
   );
