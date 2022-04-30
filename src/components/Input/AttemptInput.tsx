@@ -74,8 +74,8 @@ const AttemptInput = ({
 
   return (
     <InvisibleInput value={inputValue} onChange={handleChange} autoFocus>
-      {(onClick) => (
-        <Tiles onClick={onClick}>
+      {(setFocus) => (
+        <Tiles onClick={setFocus}>
           {targetSegments.map((targetSegment, targetSegmentIndex) => {
             if (isReadOnlySegment(targetSegment)) {
               return renderReadOnlyTile(

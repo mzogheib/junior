@@ -11,7 +11,7 @@ const Input = styled.input`
 `;
 
 type OwnProps = {
-  children: (onClick: () => void) => ReactNode;
+  children: (setFocus: () => void) => ReactNode;
 };
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
@@ -21,12 +21,12 @@ type Props = OwnProps & InputProps;
 const InvisibleInput = ({ children, ...inputProps }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleClick = () => inputRef.current?.focus();
+  const setFocus = () => inputRef.current?.focus();
 
   return (
     <>
       <Input {...inputProps} ref={inputRef} />
-      {children(handleClick)}
+      {children(setFocus)}
     </>
   );
 };
