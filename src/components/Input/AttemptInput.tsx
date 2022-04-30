@@ -73,7 +73,7 @@ const AttemptInput = ({
   const inputValue = stringifyTargetSegments(writeableSegments);
 
   return (
-    <InvisibleInput value={inputValue} onChange={handleChange}>
+    <InvisibleInput value={inputValue} onChange={handleChange} autoFocus>
       {(onClick) => (
         <Tiles onClick={onClick}>
           {targetSegments.map((targetSegment, targetSegmentIndex) => {
