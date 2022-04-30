@@ -34,6 +34,7 @@ const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    inputRef.current?.focus();
 
     if (!isComplete) {
       return;
@@ -43,8 +44,6 @@ const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
       onSubmit(attemptSegments);
       setAttemptSegments([]);
     }
-
-    inputRef.current?.focus();
   };
 
   return (
