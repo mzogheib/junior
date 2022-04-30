@@ -30,7 +30,8 @@ const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
 
   const [attemptSegments, setAttemptSegments] = useState<TargetSegments>([]);
 
-  const isComplete = attemptSegments.length === targetSegments.length;
+  const nonEmptySegments = attemptSegments.filter(({ value }) => value !== "");
+  const isComplete = nonEmptySegments.length === targetSegments.length;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
