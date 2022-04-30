@@ -9,9 +9,10 @@ import {
   getWriteableSegments,
   isReadOnlySegment,
 } from "../../services/segments";
-import InputTile from "../Game/InputTile";
-import Tile, { TileState } from "../Game/Tile";
-import Tiles from "../Game/Tiles";
+import InputTile from "../Tiles/InputTile";
+import { TileVariant } from "../Tiles/types";
+import Tile from "../Tiles/Tile";
+import Tiles from "../Tiles/Tiles";
 import InvisibleInput from "./InvisibleInput";
 
 type Props = {
@@ -20,6 +21,7 @@ type Props = {
   mode: "letters" | "numbers";
   inputRef?: RefObject<HTMLInputElement>;
   autoFocus?: boolean;
+  isError?: boolean;
   onChange: (attemptSegments: TargetSegments) => void;
 };
 
@@ -29,6 +31,7 @@ const AttemptInput = ({
   attemptSegments,
   inputRef,
   autoFocus,
+  isError,
   onChange,
 }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +47,7 @@ const AttemptInput = ({
   };
 
   const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
-    <Tile key={segmentIndex} state={TileState.ReadOnly}>
+    <Tile key={segmentIndex} variant={TileVariant.ReadOnly} isError={isError}>
       {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
     </Tile>
   );
@@ -66,7 +69,7 @@ const AttemptInput = ({
       const isFocussed = start + targetSegmentValueIndex === inputValue.length;
 
       return (
-        <InputTile key={key} isFocussed={isFocussed}>
+        <InputTile key={key} isFocussed={isFocussed} isError={isError}>
           {slicedInputValue[targetSegmentValueIndex]}
         </InputTile>
       );
