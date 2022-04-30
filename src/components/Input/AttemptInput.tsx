@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent } from "react";
 import {
   TargetSegments,
   CHARACTER_DISPLAY_MAP,
@@ -27,10 +27,6 @@ const AttemptInput = ({
   attemptSegments,
   onChange,
 }: Props) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleTilesClick = () => inputRef.current?.focus();
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.toUpperCase();
 
@@ -77,20 +73,25 @@ const AttemptInput = ({
   const inputValue = stringifyTargetSegments(writeableSegments);
 
   return (
-    <InvisibleInput value={inputValue} onChange={handleChange} ref={inputRef}>
-      <Tiles onClick={handleTilesClick}>
-        {targetSegments.map((targetSegment, targetSegmentIndex) => {
-          if (isReadOnlySegment(targetSegment)) {
-            return renderReadOnlyTile(targetSegment.value, targetSegmentIndex);
-          }
+    <InvisibleInput value={inputValue} onChange={handleChange}>
+      {(onClick) => (
+        <Tiles onClick={onClick}>
+          {targetSegments.map((targetSegment, targetSegmentIndex) => {
+            if (isReadOnlySegment(targetSegment)) {
+              return renderReadOnlyTile(
+                targetSegment.value,
+                targetSegmentIndex
+              );
+            }
 
-          return renderInputTiles(
-            inputValue,
-            targetSegment.value,
-            targetSegmentIndex
-          );
-        })}
-      </Tiles>
+            return renderInputTiles(
+              inputValue,
+              targetSegment.value,
+              targetSegmentIndex
+            );
+          })}
+        </Tiles>
+      )}
     </InvisibleInput>
   );
 };

@@ -1,4 +1,4 @@
-import { ReactNode, InputHTMLAttributes, forwardRef } from "react";
+import { ReactNode, InputHTMLAttributes, useRef } from "react";
 import styled from "@emotion/styled";
 
 const Input = styled.input`
@@ -11,20 +11,24 @@ const Input = styled.input`
 `;
 
 type OwnProps = {
-  children: ReactNode;
+  children: (onClick: () => void) => ReactNode;
 };
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
 type Props = OwnProps & InputProps;
 
-const InvisibleInput = forwardRef<HTMLInputElement, Props>(
-  ({ children, ...inputProps }, ref) => (
+const InvisibleInput = ({ children, ...inputProps }: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleClick = () => inputRef.current?.focus();
+
+  return (
     <>
-      <Input {...inputProps} ref={ref} />
-      {children}
+      <Input {...inputProps} ref={inputRef} />
+      {children(handleClick)}
     </>
-  )
-);
+  );
+};
 
 export default InvisibleInput;
