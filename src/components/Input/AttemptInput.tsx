@@ -10,7 +10,8 @@ import {
   isReadOnlySegment,
 } from "../../services/segments";
 import InputTile from "../Tiles/InputTile";
-import Tile, { TileState, TileVariant } from "../Tiles/Tile";
+import { TileState, TileVariant } from "../Tiles/types";
+import Tile from "../Tiles/Tile";
 import Tiles from "../Tiles/Tiles";
 import InvisibleInput from "./InvisibleInput";
 

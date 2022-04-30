@@ -1,17 +1,6 @@
 import styled from "@emotion/styled";
 import { Theme } from "@emotion/react";
-
-export enum TileState {
-  Match = "match",
-  Present = "present",
-  Absent = "absent",
-  Error = "error",
-}
-
-export enum TileVariant {
-  Default = "default",
-  ReadOnly = "ReadOnly",
-}
+import { TileState, TileVariant } from "./types";
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 const backgroundColorMap = {
