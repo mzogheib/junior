@@ -1,0 +1,99 @@
+import { ChangeEvent } from "react";
+import {
+  TargetSegments,
+  CHARACTER_DISPLAY_MAP,
+  stringifyTargetSegments,
+  makeAttemptSegments,
+  getSegmentValueFromInput,
+  getStartEndOfSegment,
+  getWriteableSegments,
+  isReadOnlySegment,
+} from "../../services/segments";
+import InputTile from "../Game/InputTile";
+import Tile, { TileState } from "../Game/Tile";
+import Tiles from "../Game/Tiles";
+import InvisibleInput from "./InvisibleInput";
+
+type Props = {
+  targetSegments: TargetSegments;
+  attemptSegments: TargetSegments;
+  mode: "letters" | "numbers";
+  onChange: (attemptSegments: TargetSegments) => void;
+};
+
+const AttemptInput = ({
+  targetSegments,
+  mode,
+  attemptSegments,
+  onChange,
+}: Props) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value.toUpperCase();
+
+    const reg = mode === "letters" ? /^[a-z]+$/i : /^[0-9]+$/i;
+    if (inputValue && !reg.test(inputValue)) {
+      return;
+    }
+
+    const newAttemptSegments = makeAttemptSegments(inputValue, targetSegments);
+    onChange(newAttemptSegments);
+  };
+
+  const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
+    <Tile key={segmentIndex} state={TileState.ReadOnly}>
+      {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
+    </Tile>
+  );
+
+  const renderInputTiles = (
+    inputValue: string,
+    targetSegmentValue: string,
+    targetSegmentIndex: number
+  ) => {
+    const slicedInputValue = getSegmentValueFromInput(
+      inputValue,
+      targetSegments,
+      targetSegmentIndex
+    );
+
+    return targetSegmentValue.split("").map((_, targetSegmentValueIndex) => {
+      const key = targetSegmentIndex + targetSegmentValueIndex;
+      const [start] = getStartEndOfSegment(targetSegments, targetSegmentIndex);
+      const isFocussed = start + targetSegmentValueIndex === inputValue.length;
+
+      return (
+        <InputTile key={key} isFocussed={isFocussed}>
+          {slicedInputValue[targetSegmentValueIndex]}
+        </InputTile>
+      );
+    });
+  };
+
+  const writeableSegments = getWriteableSegments(attemptSegments);
+  const inputValue = stringifyTargetSegments(writeableSegments);
+
+  return (
+    <InvisibleInput value={inputValue} onChange={handleChange} autoFocus>
+      {(onClick) => (
+        <Tiles onClick={onClick}>
+          {targetSegments.map((targetSegment, targetSegmentIndex) => {
+            if (isReadOnlySegment(targetSegment)) {
+              return renderReadOnlyTile(
+                targetSegment.value,
+                targetSegmentIndex
+              );
+            }
+
+            return renderInputTiles(
+              inputValue,
+              targetSegment.value,
+              targetSegmentIndex
+            );
+          })}
+        </Tiles>
+      )}
+    </InvisibleInput>
+  );
+};
+
+export default AttemptInput;

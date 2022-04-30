@@ -1,119 +1,62 @@
-import {
-  TargetSegments,
-  SegmentType,
-  CHARACTER_DISPLAY_MAP,
-  isWriteableSegment,
-  READ_ONLY_CHARACTERS,
-  stringifyTargetSegments,
-} from "../../services/segments";
-import InvisibleInputForm from "./InvisibleInputForm";
-import Tiles from "./Tiles";
-import InputTile from "./InputTile";
-import Tile, { TileState } from "./Tile";
+import { FormEvent, useState } from "react";
+import styled from "@emotion/styled";
+import Button from "@mui/material/Button";
 
-const getStartEndOfSegment = (
-  targetSegments: TargetSegments,
-  segmentIndex: number
-) => {
-  const prevSegments = targetSegments
-    .slice(0, segmentIndex)
-    .filter(isWriteableSegment);
-  const prevSegmentsString = stringifyTargetSegments(prevSegments);
-  const prevSegmentsStringLength = prevSegmentsString.length;
-  const segmentValueLength = targetSegments[segmentIndex].value.length;
+import { TargetSegments } from "../../services/segments";
+import AttemptInput from "../Input/AttemptInput";
 
-  const start = prevSegmentsStringLength;
-  const end = prevSegmentsStringLength + segmentValueLength;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
 
-  return [start, end];
-};
-
-const getSegmentValueFromInput = (
-  inputValue: string,
-  targetSegments: TargetSegments,
-  segmentIndex: number
-) => {
-  const [start, end] = getStartEndOfSegment(targetSegments, segmentIndex);
-  return inputValue.slice(start, end);
-};
+const ButtonWrapper = styled.div`
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+`;
 
 type Props = {
   mode: "letters" | "numbers";
   targetSegments: TargetSegments;
-  onSubmit: (attempt: string) => void;
-  onValidate: (targetSegments: TargetSegments) => boolean;
+  onSubmit: (attemptSegments: TargetSegments) => void;
+  onValidate: (attemptSegments: TargetSegments) => boolean;
 };
 
 const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
-  const makeAttempt = (inputValue: string) =>
-    targetSegments.map((segment, index) => {
-      if (segment.type === SegmentType.ReadOnly) {
-        return segment;
-      }
+  const [attemptSegments, setAttemptSegments] = useState<TargetSegments>([]);
 
-      return {
-        ...segment,
-        value: getSegmentValueFromInput(inputValue, targetSegments, index),
-      };
-    });
+  const isComplete = attemptSegments.length === targetSegments.length;
 
-  const handleSubmit = (value: string) =>
-    onSubmit(stringifyTargetSegments(makeAttempt(value)));
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  const handleValidate = (value: string) => onValidate(makeAttempt(value));
+    if (!isComplete) {
+      return;
+    }
 
-  const termsString = stringifyTargetSegments(
-    targetSegments.filter(isWriteableSegment)
-  );
-
-  const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
-    <Tile key={segmentIndex} state={TileState.ReadOnly}>
-      {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
-    </Tile>
-  );
-
-  const renderInputTile = (
-    inputValue: string,
-    segmentValue: string,
-    segmentIndex: number
-  ) => {
-    const [start] = getStartEndOfSegment(targetSegments, segmentIndex);
-    const slicedInputValue = getSegmentValueFromInput(
-      inputValue,
-      targetSegments,
-      segmentIndex
-    );
-
-    return segmentValue.split("").map((_, segmentValueIndex) => {
-      return (
-        <InputTile
-          key={segmentIndex + segmentValueIndex}
-          isFocussed={start + segmentValueIndex === inputValue.length}
-        >
-          {slicedInputValue[segmentValueIndex]}
-        </InputTile>
-      );
-    });
+    if (onValidate(attemptSegments)) {
+      onSubmit(attemptSegments);
+      setAttemptSegments([]);
+    }
   };
 
   return (
-    <InvisibleInputForm
-      mode={mode}
-      length={termsString.length}
-      onSubmit={handleSubmit}
-      onValidate={handleValidate}
-      renderInput={(inputValue, onClick) => (
-        <Tiles onClick={onClick}>
-          {targetSegments.map(({ value }, segmentIndex) => {
-            if (READ_ONLY_CHARACTERS.includes(value)) {
-              return renderReadOnlyTile(value, segmentIndex);
-            }
-
-            return renderInputTile(inputValue, value, segmentIndex);
-          })}
-        </Tiles>
-      )}
-    />
+    <Form onSubmit={handleSubmit}>
+      <AttemptInput
+        targetSegments={targetSegments}
+        mode={mode}
+        attemptSegments={attemptSegments}
+        onChange={setAttemptSegments}
+      />
+      <ButtonWrapper>
+        <Button type="submit" variant="contained">
+          Submit
+        </Button>
+      </ButtonWrapper>
+    </Form>
   );
 };
 
