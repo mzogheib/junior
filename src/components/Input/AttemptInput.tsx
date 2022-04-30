@@ -71,9 +71,15 @@ const AttemptInput = ({
 
   const writeableSegments = getWriteableSegments(attemptSegments);
   const inputValue = stringifyTargetSegments(writeableSegments);
+  const inputType = mode === "numbers" ? "tel" : undefined;
 
   return (
-    <InvisibleInput value={inputValue} onChange={handleChange} autoFocus>
+    <InvisibleInput
+      value={inputValue}
+      onChange={handleChange}
+      autoFocus
+      type={inputType}
+    >
       <Tiles>
         {targetSegments.map((targetSegment, targetSegmentIndex) => {
           if (isReadOnlySegment(targetSegment)) {
