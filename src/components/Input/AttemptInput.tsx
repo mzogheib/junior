@@ -74,24 +74,19 @@ const AttemptInput = ({
 
   return (
     <InvisibleInput value={inputValue} onChange={handleChange} autoFocus>
-      {(setFocus) => (
-        <Tiles onClick={setFocus}>
-          {targetSegments.map((targetSegment, targetSegmentIndex) => {
-            if (isReadOnlySegment(targetSegment)) {
-              return renderReadOnlyTile(
-                targetSegment.value,
-                targetSegmentIndex
-              );
-            }
+      <Tiles>
+        {targetSegments.map((targetSegment, targetSegmentIndex) => {
+          if (isReadOnlySegment(targetSegment)) {
+            return renderReadOnlyTile(targetSegment.value, targetSegmentIndex);
+          }
 
-            return renderInputTiles(
-              inputValue,
-              targetSegment.value,
-              targetSegmentIndex
-            );
-          })}
-        </Tiles>
-      )}
+          return renderInputTiles(
+            inputValue,
+            targetSegment.value,
+            targetSegmentIndex
+          );
+        })}
+      </Tiles>
     </InvisibleInput>
   );
 };

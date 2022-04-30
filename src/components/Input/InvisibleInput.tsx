@@ -1,6 +1,10 @@
 import { ReactNode, InputHTMLAttributes, useRef } from "react";
 import styled from "@emotion/styled";
 
+const Wrapper = styled.div`
+  width: 100%;
+`;
+
 const Input = styled.input`
   height: 0;
   margin: 0;
@@ -11,7 +15,7 @@ const Input = styled.input`
 `;
 
 type OwnProps = {
-  children: (setFocus: () => void) => ReactNode;
+  children: ReactNode;
 };
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
@@ -24,10 +28,10 @@ const InvisibleInput = ({ children, ...inputProps }: Props) => {
   const setFocus = () => inputRef.current?.focus();
 
   return (
-    <>
+    <Wrapper onClick={setFocus}>
       <Input {...inputProps} ref={inputRef} />
-      {children(setFocus)}
-    </>
+      {children}
+    </Wrapper>
   );
 };
 
