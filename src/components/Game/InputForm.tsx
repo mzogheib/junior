@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 
@@ -26,6 +26,8 @@ type Props = {
 };
 
 const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [attemptSegments, setAttemptSegments] = useState<TargetSegments>([]);
 
   const isComplete = attemptSegments.length === targetSegments.length;
@@ -41,6 +43,8 @@ const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
       onSubmit(attemptSegments);
       setAttemptSegments([]);
     }
+
+    inputRef.current?.focus();
   };
 
   return (
@@ -50,6 +54,7 @@ const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
         mode={mode}
         attemptSegments={attemptSegments}
         onChange={setAttemptSegments}
+        inputRef={inputRef}
       />
       <ButtonWrapper>
         <Button type="submit" variant="contained">

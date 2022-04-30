@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, RefObject } from "react";
 import {
   TargetSegments,
   CHARACTER_DISPLAY_MAP,
@@ -18,6 +18,7 @@ type Props = {
   targetSegments: TargetSegments;
   attemptSegments: TargetSegments;
   mode: "letters" | "numbers";
+  inputRef?: RefObject<HTMLInputElement>;
   onChange: (attemptSegments: TargetSegments) => void;
 };
 
@@ -25,6 +26,7 @@ const AttemptInput = ({
   targetSegments,
   mode,
   attemptSegments,
+  inputRef,
   onChange,
 }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -79,6 +81,7 @@ const AttemptInput = ({
       onChange={handleChange}
       autoFocus
       type={inputType}
+      inputRef={inputRef}
     >
       <Tiles>
         {targetSegments.map((targetSegment, targetSegmentIndex) => {

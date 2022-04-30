@@ -1,4 +1,4 @@
-import { ReactNode, InputHTMLAttributes, useRef } from "react";
+import { ReactNode, InputHTMLAttributes, useRef, RefObject } from "react";
 import styled from "@emotion/styled";
 
 const Wrapper = styled.div`
@@ -16,16 +16,22 @@ const Input = styled.input`
 
 type OwnProps = {
   children: ReactNode;
+  inputRef?: RefObject<HTMLInputElement>;
 };
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
 type Props = OwnProps & InputProps;
 
-const InvisibleInput = ({ children, ...inputProps }: Props) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+const InvisibleInput = ({
+  children,
+  inputRef: customRef,
+  ...inputProps
+}: Props) => {
+  const ownRef = useRef<HTMLInputElement>(null);
+  const inputRef = customRef || ownRef;
 
-  const setFocus = () => inputRef.current?.focus();
+  const setFocus = () => inputRef?.current?.focus();
 
   return (
     <Wrapper onClick={setFocus}>
