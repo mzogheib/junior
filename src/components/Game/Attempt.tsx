@@ -1,5 +1,5 @@
 import Tiles from "./Tiles";
-import Tile, { TileState } from "./Tile";
+import Tile, { TileState, TileVariant } from "./Tile";
 
 const getTileState = (
   target: string,
@@ -11,7 +11,7 @@ const getTileState = (
   const attemptValue = attempt[index];
 
   if (readOnlyValues?.includes(targetValue)) {
-    return TileState.ReadOnly;
+    return;
   }
 
   if (targetValue === attemptValue) {
@@ -38,6 +38,20 @@ const getTileState = (
   return TileState.Absent;
 };
 
+const getTileVariant = (
+  target: string,
+  index: number,
+  readOnlyValues?: string[]
+) => {
+  const targetValue = target[index];
+
+  if (readOnlyValues?.includes(targetValue)) {
+    return TileVariant.ReadOnly;
+  }
+
+  return TileVariant.Default;
+};
+
 type Props = {
   target: string;
   attempt: string;
@@ -51,6 +65,7 @@ const Attempt = ({ target, attempt, readOnlyValues, characterMap }: Props) => (
       <Tile
         key={index}
         state={getTileState(target, attempt, index, readOnlyValues)}
+        variant={getTileVariant(target, index, readOnlyValues)}
       >
         {characterMap?.[attempt[index]] ?? attempt[index]}
       </Tile>

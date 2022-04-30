@@ -1,43 +1,31 @@
 import styled from "@emotion/styled";
 import { Theme } from "@emotion/react";
 import Tile from "./Tile";
+import { ComponentProps } from "react";
+
+type OwnProps = {
+  isFocussed?: boolean;
+};
 
 type ThemeProps = {
   theme: Theme;
 };
 
-type OwnProps = {
-  isFocussed?: boolean;
-  isError?: boolean;
-};
+type Props = ThemeProps & OwnProps & ComponentProps<typeof Tile>;
 
-type Props = ThemeProps & OwnProps;
+const borderWidth = ({ isFocussed }: Props) => (isFocussed ? "3px" : "1px");
 
-const borderWidth = ({ isFocussed }: Props) => (isFocussed ? "2px" : "1px");
-
-const borderColor = ({ theme, isFocussed, isError }: Props) => {
-  if (isError) {
-    return "#FF6464";
-  }
-
-  const focussedConfig = {
-    light: "black",
-    dark: "white",
-  };
-
-  return isFocussed ? focussedConfig[theme.palette.mode] : "gray";
-};
-
-const color = ({ theme, isError }: Props) => {
-  if (isError) {
-    return "#FF6464";
+const color = ({ theme, state }: Props) => {
+  // The Tile component will handle it
+  if (state) {
+    return;
   }
 
   return theme.palette.mode === "light" ? "black" : "white";
 };
 
 const InputTile = styled(Tile)<OwnProps>`
-  border: ${borderWidth} ${borderColor} solid;
+  border: ${borderWidth} ${color} solid;
   color: ${color};
 `;
 

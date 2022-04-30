@@ -1,42 +1,80 @@
 import styled from "@emotion/styled";
+import { Theme } from "@emotion/react";
 
 export enum TileState {
   Match = "match",
   Present = "present",
   Absent = "absent",
-  ReadOnly = "readOnly",
+  Error = "error",
+}
+
+export enum TileVariant {
+  Default = "default",
+  ReadOnly = "ReadOnly",
 }
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
-const stateMap = {
+const backgroundColorMap = {
   [TileState.Match]: "#91C483",
   [TileState.Present]: "#FFE162",
   [TileState.Absent]: "#FF6464",
-  [TileState.ReadOnly]: "transparent",
+  [TileState.Error]: "transparent",
 };
 
-type Props = {
+type OwnProps = {
+  variant?: TileVariant;
   state?: TileState;
 };
 
-const getWidth = ({ state }: Props) => {
-  if (state === TileState.ReadOnly) {
+type ThemeProps = {
+  theme: Theme;
+};
+
+type Props = OwnProps & ThemeProps;
+
+const width = ({ variant }: Props) => {
+  if (variant === TileVariant.ReadOnly) {
     return 20;
   }
 
   return 40;
 };
 
-const Tile = styled.div<Props>`
-  max-width: ${getWidth}px;
+const color = ({ state, theme }: Props) => {
+  if (state === TileState.Error) {
+    return "#FF6464";
+  }
+
+  return theme.palette.mode === "light" ? "black" : "white";
+};
+
+const backgroundColor = ({ state }: Props) =>
+  state && backgroundColorMap[state];
+
+const borderColor = ({ state, variant, theme }: Props) => {
+  if (variant === TileVariant.ReadOnly) {
+    return "transparent";
+  }
+
+  if (state) {
+    return backgroundColorMap[state];
+  }
+
+  return theme.palette.mode === "light" ? "black" : "white";
+};
+
+const borderRadius = ({ theme }: Props) => theme.shape.borderRadius;
+
+const Tile = styled.div<OwnProps>`
+  max-width: ${width}px;
   height: 40px;
   width: 100%;
-  border: 1px transparent solid;
-  border-radius: ${({ theme }) => theme.shape.borderRadius}px;
+  border: 1px ${borderColor} solid;
+  border-radius: ${borderRadius}px;
   margin: 0 2px;
 
-  color: ${({ theme }) => (theme.palette.mode === "light" ? "black" : "white")};
-  background-color: ${({ state }) => state && stateMap[state]};
+  color: ${color};
+  background-color: ${backgroundColor};
   font-size: 22px;
   display: flex;
   justify-content: center;

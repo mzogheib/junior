@@ -10,7 +10,7 @@ import {
   isReadOnlySegment,
 } from "../../services/segments";
 import InputTile from "../Game/InputTile";
-import Tile, { TileState } from "../Game/Tile";
+import Tile, { TileState, TileVariant } from "../Game/Tile";
 import Tiles from "../Game/Tiles";
 import InvisibleInput from "./InvisibleInput";
 
@@ -33,6 +33,8 @@ const AttemptInput = ({
   isError,
   onChange,
 }: Props) => {
+  const tileState = isError ? TileState.Error : undefined;
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.toUpperCase();
 
@@ -46,7 +48,7 @@ const AttemptInput = ({
   };
 
   const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
-    <Tile key={segmentIndex} state={TileState.ReadOnly}>
+    <Tile key={segmentIndex} variant={TileVariant.ReadOnly} state={tileState}>
       {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
     </Tile>
   );
@@ -68,7 +70,7 @@ const AttemptInput = ({
       const isFocussed = start + targetSegmentValueIndex === inputValue.length;
 
       return (
-        <InputTile key={key} isFocussed={isFocussed} isError={isError}>
+        <InputTile key={key} isFocussed={isFocussed} state={tileState}>
           {slicedInputValue[targetSegmentValueIndex]}
         </InputTile>
       );
