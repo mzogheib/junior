@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Theme } from "@emotion/react";
-import { TileState, TileVariant } from "./types";
+import { TileState } from "./types";
+import BaseTile from "./BaseTile";
 
 // https://colorhunt.co/palette/ffe162ff646491c483eeeeee
 const backgroundColorMap = {
@@ -11,7 +12,6 @@ const backgroundColorMap = {
 };
 
 type OwnProps = {
-  variant?: TileVariant;
   state?: TileState;
 };
 
@@ -20,14 +20,6 @@ type ThemeProps = {
 };
 
 type Props = OwnProps & ThemeProps;
-
-const width = ({ variant }: Props) => {
-  if (variant === TileVariant.ReadOnly) {
-    return 20;
-  }
-
-  return 40;
-};
 
 const color = ({ state, theme }: Props) => {
   if (state === TileState.Error) {
@@ -40,34 +32,9 @@ const color = ({ state, theme }: Props) => {
 const backgroundColor = ({ state }: Props) =>
   state && backgroundColorMap[state];
 
-const borderColor = ({ state, variant, theme }: Props) => {
-  if (variant === TileVariant.ReadOnly) {
-    return "transparent";
-  }
-
-  if (state) {
-    return backgroundColorMap[state];
-  }
-
-  return theme.palette.mode === "light" ? "black" : "white";
-};
-
-const borderRadius = ({ theme }: Props) => theme.shape.borderRadius;
-
-const Tile = styled.div<OwnProps>`
-  max-width: ${width}px;
-  height: 40px;
-  width: 100%;
-  border: 1px ${borderColor} solid;
-  border-radius: ${borderRadius}px;
-  margin: 0 2px;
-
+const Tile = styled(BaseTile)<OwnProps>`
   color: ${color};
   background-color: ${backgroundColor};
-  font-size: 22px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export default Tile;

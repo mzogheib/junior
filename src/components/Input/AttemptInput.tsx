@@ -34,8 +34,6 @@ const AttemptInput = ({
   isError,
   onChange,
 }: Props) => {
-  const tileState = isError ? TileState.Error : undefined;
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.toUpperCase();
 
@@ -48,11 +46,15 @@ const AttemptInput = ({
     onChange(newAttemptSegments);
   };
 
-  const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
-    <Tile key={segmentIndex} variant={TileVariant.ReadOnly} state={tileState}>
-      {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
-    </Tile>
-  );
+  const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => {
+    const tileState = isError ? TileState.Error : undefined;
+
+    return (
+      <Tile key={segmentIndex} variant={TileVariant.ReadOnly} state={tileState}>
+        {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
+      </Tile>
+    );
+  };
 
   const renderInputTiles = (
     inputValue: string,
@@ -71,7 +73,7 @@ const AttemptInput = ({
       const isFocussed = start + targetSegmentValueIndex === inputValue.length;
 
       return (
-        <InputTile key={key} isFocussed={isFocussed} state={tileState}>
+        <InputTile key={key} isFocussed={isFocussed} isError={isError}>
           {slicedInputValue[targetSegmentValueIndex]}
         </InputTile>
       );
