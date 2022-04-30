@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 
@@ -32,6 +32,12 @@ const InputForm = ({ mode, targetSegments, onSubmit, onValidate }: Props) => {
 
   const nonEmptySegments = attemptSegments.filter(({ value }) => value !== "");
   const isComplete = nonEmptySegments.length === targetSegments.length;
+
+  useEffect(() => {
+    if (isComplete) {
+      onValidate(attemptSegments);
+    }
+  }, [attemptSegments, isComplete, onValidate]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
