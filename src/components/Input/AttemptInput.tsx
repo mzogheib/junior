@@ -20,6 +20,7 @@ type Props = {
   mode: "letters" | "numbers";
   inputRef?: RefObject<HTMLInputElement>;
   autoFocus?: boolean;
+  isError?: boolean;
   onChange: (attemptSegments: TargetSegments) => void;
 };
 
@@ -29,6 +30,7 @@ const AttemptInput = ({
   attemptSegments,
   inputRef,
   autoFocus,
+  isError,
   onChange,
 }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +68,7 @@ const AttemptInput = ({
       const isFocussed = start + targetSegmentValueIndex === inputValue.length;
 
       return (
-        <InputTile key={key} isFocussed={isFocussed}>
+        <InputTile key={key} isFocussed={isFocussed} isError={isError}>
           {slicedInputValue[targetSegmentValueIndex]}
         </InputTile>
       );

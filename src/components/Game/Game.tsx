@@ -77,6 +77,7 @@ const Game = ({ config }: Props) => {
         <InputForm
           mode={mode}
           targetSegments={targetSegments}
+          isError={!!error}
           onSubmit={handleSubmit}
           onValidate={handleValidate}
           onChange={() => setError("")}
