@@ -1,19 +1,12 @@
 import { ChangeEvent, RefObject, useEffect } from "react";
 import {
   TargetSegments,
-  CHARACTER_DISPLAY_MAP,
   stringifyTargetSegments,
   makeAttemptSegments,
-  getSegmentValueFromInput,
-  getStartEndOfSegment,
   getWriteableSegments,
-  isReadOnlySegment,
 } from "../../services/segments";
-import InputTile from "../Tiles/InputTile";
-import { TileVariant } from "../Tiles/types";
-import Tile from "../Tiles/Tile";
-import Tiles from "../Tiles/Tiles";
 import InvisibleInput from "./InvisibleInput";
+import InputTiles from "../Tiles/InputTiles";
 
 type Props = {
   targetSegments: TargetSegments;
@@ -58,36 +51,6 @@ const AttemptInput = ({
     onChange(newAttemptSegments);
   };
 
-  const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
-    <Tile key={segmentIndex} variant={TileVariant.ReadOnly} isError={isError}>
-      {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
-    </Tile>
-  );
-
-  const renderInputTiles = (
-    inputValue: string,
-    targetSegmentValue: string,
-    targetSegmentIndex: number
-  ) => {
-    const slicedInputValue = getSegmentValueFromInput(
-      inputValue,
-      targetSegments,
-      targetSegmentIndex
-    );
-
-    return targetSegmentValue.split("").map((_, targetSegmentValueIndex) => {
-      const key = targetSegmentIndex + targetSegmentValueIndex;
-      const [start] = getStartEndOfSegment(targetSegments, targetSegmentIndex);
-      const isFocussed = start + targetSegmentValueIndex === inputValue.length;
-
-      return (
-        <InputTile key={key} isFocussed={isFocussed} isError={isError}>
-          {slicedInputValue[targetSegmentValueIndex]}
-        </InputTile>
-      );
-    });
-  };
-
   const writeableSegments = getWriteableSegments(attemptSegments);
   const inputValue = stringifyTargetSegments(writeableSegments);
   const inputType = mode === "numbers" ? "tel" : undefined;
@@ -100,19 +63,11 @@ const AttemptInput = ({
       type={inputType}
       inputRef={inputRef}
     >
-      <Tiles>
-        {targetSegments.map((targetSegment, targetSegmentIndex) => {
-          if (isReadOnlySegment(targetSegment)) {
-            return renderReadOnlyTile(targetSegment.value, targetSegmentIndex);
-          }
-
-          return renderInputTiles(
-            inputValue,
-            targetSegment.value,
-            targetSegmentIndex
-          );
-        })}
-      </Tiles>
+      <InputTiles
+        targetSegments={targetSegments}
+        inputValue={inputValue}
+        isError={isError}
+      />
     </InvisibleInput>
   );
 };
