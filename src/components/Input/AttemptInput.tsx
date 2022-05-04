@@ -1,4 +1,4 @@
-import { ChangeEvent, RefObject } from "react";
+import { ChangeEvent, RefObject, useEffect } from "react";
 import {
   TargetSegments,
   CHARACTER_DISPLAY_MAP,
@@ -23,6 +23,7 @@ type Props = {
   autoFocus?: boolean;
   isError?: boolean;
   onChange: (attemptSegments: TargetSegments) => void;
+  onComplete?: (attemptSegments: TargetSegments) => void;
 };
 
 const AttemptInput = ({
@@ -33,7 +34,18 @@ const AttemptInput = ({
   autoFocus,
   isError,
   onChange,
+  onComplete,
 }: Props) => {
+  const attemptLength = stringifyTargetSegments(attemptSegments).length;
+  const targetLength = stringifyTargetSegments(targetSegments).length;
+  const isComplete = attemptLength === targetLength;
+
+  useEffect(() => {
+    if (isComplete) {
+      onComplete?.(attemptSegments);
+    }
+  }, [attemptSegments, isComplete, onComplete]);
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.toUpperCase();
 
