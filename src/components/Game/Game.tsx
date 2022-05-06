@@ -21,8 +21,15 @@ import InputTiles from "../Tiles/InputTiles";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
+`;
+
+const Inner = styled.div`
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 100%;
+  flex-grow: 1;
 `;
 
 const checkDidSucceed = (attempts: string[], target: string) => {
@@ -100,31 +107,37 @@ const Game = ({ config }: Props) => {
 
   return (
     <Wrapper>
-      {!!attempts.length && (
-        <Attempts
-          attempts={attemptsValues}
-          target={stringifyTargetSegments(targetSegments)}
-          readOnlyValues={READ_ONLY_CHARACTERS}
-          characterMap={CHARACTER_DISPLAY_MAP}
-        />
-      )}
+      <Inner>
+        {!!attempts.length && (
+          <Attempts
+            attempts={attemptsValues}
+            target={stringifyTargetSegments(targetSegments)}
+            readOnlyValues={READ_ONLY_CHARACTERS}
+            characterMap={CHARACTER_DISPLAY_MAP}
+          />
+        )}
 
-      {!didSucceed && (
-        <InputTiles
-          inputValue={inputValue}
-          targetSegments={targetSegments}
-          isError={!!error}
-        />
-      )}
+        {!didSucceed && (
+          <InputTiles
+            inputValue={inputValue}
+            targetSegments={targetSegments}
+            isError={!!error}
+          />
+        )}
 
-      {didSucceed && <SuccessMessage attempts={attempts} gameConfig={config} />}
+        {didSucceed && (
+          <SuccessMessage attempts={attempts} gameConfig={config} />
+        )}
 
-      {error && (
-        <>
-          <br />
-          <ErrorMessage error={error} />
-        </>
-      )}
+        {error && (
+          <>
+            <br />
+            <ErrorMessage error={error} />
+          </>
+        )}
+
+        <AutoScrollToBottom />
+      </Inner>
 
       <Keyboard
         // A hacky way to remount the keyboard to clear old input
@@ -134,8 +147,6 @@ const Game = ({ config }: Props) => {
         onChange={handleChange}
         onEnter={handleSubmit}
       />
-
-      <AutoScrollToBottom />
     </Wrapper>
   );
 };
