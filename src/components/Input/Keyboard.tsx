@@ -36,10 +36,18 @@ const Keyboard = ({ mode, targetSegments, onChange, onEnter }: Props) => {
     }
   };
 
+  const display = {
+    "{bksp}": "⌫",
+    "{enter}": "↵",
+  };
+
+  const layoutName = mode === GameMode.Letters ? "shift" : "default";
+
   return (
     <RSKeyboard
       layout={layout}
-      layoutName={mode === GameMode.Letters ? "shift" : "default"}
+      layoutName={layoutName}
+      display={display}
       onChange={handleChange}
       onKeyPress={handleKeyPress}
     />
