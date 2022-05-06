@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
 import { Attempt, GameConfig } from "./types";
@@ -7,13 +7,16 @@ import {
   READ_ONLY_CHARACTERS,
   CHARACTER_DISPLAY_MAP,
   TargetSegments,
+  makeAttemptSegments,
+  getWriteableSegments,
 } from "../../services/segments";
 import Attempts from "./Attempts";
 
 import AutoScrollToBottom from "../AutoScrollToBottom";
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
-import InputForm from "./InputForm";
+import Keyboard from "../Input/Keyboard";
+import InputTiles from "../Tiles/InputTiles";
 
 const Wrapper = styled.div`
   display: flex;
@@ -35,31 +38,64 @@ type Props = {
 };
 
 const Game = ({ config }: Props) => {
+  const { targetSegments, mode, validate } = config;
+  const initialAttempt = makeAttemptSegments("", targetSegments);
+
+  const [attemptSegments, setAttemptSegments] =
+    useState<TargetSegments>(initialAttempt);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
   const [error, setError] = useState("");
 
   const attemptsValues = attempts.map(({ value }) => value);
-  const { targetSegments, mode, validate } = config;
   const target = stringifyTargetSegments(targetSegments);
   const didSucceed = checkDidSucceed(attemptsValues, target);
 
-  const handleValidate = (attemptSegments: TargetSegments) => {
-    const error = validate(attemptSegments);
+  const writeableSegments = getWriteableSegments(attemptSegments);
+  const inputValue = stringifyTargetSegments(writeableSegments);
 
-    if (error) {
-      setError(error);
-      return false;
+  const attemptLength = stringifyTargetSegments(attemptSegments).length;
+  const targetLength = stringifyTargetSegments(targetSegments).length;
+  const isComplete = attemptLength === targetLength;
+
+  const handleValidate = useCallback(
+    (attemptSegments: TargetSegments) => {
+      const error = validate(attemptSegments);
+
+      if (error) {
+        setError(error);
+        return false;
+      }
+
+      return true;
+    },
+    [validate]
+  );
+
+  useEffect(() => {
+    if (isComplete) {
+      handleValidate(attemptSegments);
     }
+  }, [attemptSegments, handleValidate, isComplete]);
 
-    return true;
+  const handleChange = (newAttemptSegments: TargetSegments) => {
+    setAttemptSegments(newAttemptSegments);
+    setError("");
   };
 
-  const handleSubmit = (attemptSegments: TargetSegments) => {
-    setError("");
-    const value = stringifyTargetSegments(attemptSegments);
+  const handleSubmit = () => {
+    if (!isComplete) {
+      return;
+    }
 
+    if (!handleValidate(attemptSegments)) {
+      return;
+    }
+
+    const value = stringifyTargetSegments(attemptSegments);
     const submittedAt = new Date().toISOString();
     setAttempts(attempts.concat([{ value, submittedAt }]));
+    setAttemptSegments(initialAttempt);
+    setError("");
   };
 
   return (
@@ -74,13 +110,10 @@ const Game = ({ config }: Props) => {
       )}
 
       {!didSucceed && (
-        <InputForm
-          mode={mode}
+        <InputTiles
+          inputValue={inputValue}
           targetSegments={targetSegments}
           isError={!!error}
-          onSubmit={handleSubmit}
-          onValidate={handleValidate}
-          onChange={() => setError("")}
         />
       )}
 
@@ -92,6 +125,15 @@ const Game = ({ config }: Props) => {
           <ErrorMessage error={error} />
         </>
       )}
+
+      <Keyboard
+        // A hacky way to remount the keyboard to clear old input
+        key={attempts.length}
+        mode={mode}
+        targetSegments={targetSegments}
+        onChange={handleChange}
+        onEnter={handleSubmit}
+      />
 
       <AutoScrollToBottom />
     </Wrapper>
