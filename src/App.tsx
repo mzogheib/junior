@@ -8,13 +8,14 @@ import NewGameDialog from "./components/Game/NewGameDialog";
 import useNewGame from "./components/Game/useNewGame";
 
 const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   height: 100%;
   background-color: ${({ theme }) => theme.palette.background.paper};
 `;
 
 const Main = styled.main`
-  padding: 10px;
-  overflow: auto;
+  flex-grow: 1;
 `;
 
 const App = () => {

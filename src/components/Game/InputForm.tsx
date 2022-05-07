@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 
@@ -46,12 +46,6 @@ const InputForm = ({
   const targetLength = stringifyTargetSegments(targetSegments).length;
   const isComplete = attemptLength === targetLength;
 
-  useEffect(() => {
-    if (isComplete) {
-      onValidate(attemptSegments);
-    }
-  }, [attemptSegments, isComplete, onValidate]);
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     inputRef.current?.focus();
@@ -78,6 +72,7 @@ const InputForm = ({
         mode={mode}
         attemptSegments={attemptSegments}
         onChange={handleChange}
+        onComplete={onValidate}
         inputRef={inputRef}
         autoFocus
         isError={isError}

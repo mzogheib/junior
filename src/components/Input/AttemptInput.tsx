@@ -1,19 +1,12 @@
-import { ChangeEvent, RefObject } from "react";
+import { ChangeEvent, RefObject, useEffect } from "react";
 import {
   TargetSegments,
-  CHARACTER_DISPLAY_MAP,
   stringifyTargetSegments,
   makeAttemptSegments,
-  getSegmentValueFromInput,
-  getStartEndOfSegment,
   getWriteableSegments,
-  isReadOnlySegment,
 } from "../../services/segments";
-import InputTile from "../Tiles/InputTile";
-import { TileVariant } from "../Tiles/types";
-import Tile from "../Tiles/Tile";
-import Tiles from "../Tiles/Tiles";
 import InvisibleInput from "./InvisibleInput";
+import InputTiles from "../Tiles/InputTiles";
 
 type Props = {
   targetSegments: TargetSegments;
@@ -23,6 +16,7 @@ type Props = {
   autoFocus?: boolean;
   isError?: boolean;
   onChange: (attemptSegments: TargetSegments) => void;
+  onComplete?: (attemptSegments: TargetSegments) => void;
 };
 
 const AttemptInput = ({
@@ -33,7 +27,18 @@ const AttemptInput = ({
   autoFocus,
   isError,
   onChange,
+  onComplete,
 }: Props) => {
+  const attemptLength = stringifyTargetSegments(attemptSegments).length;
+  const targetLength = stringifyTargetSegments(targetSegments).length;
+  const isComplete = attemptLength === targetLength;
+
+  useEffect(() => {
+    if (isComplete) {
+      onComplete?.(attemptSegments);
+    }
+  }, [attemptSegments, isComplete, onComplete]);
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.toUpperCase();
 
@@ -44,36 +49,6 @@ const AttemptInput = ({
 
     const newAttemptSegments = makeAttemptSegments(inputValue, targetSegments);
     onChange(newAttemptSegments);
-  };
-
-  const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
-    <Tile key={segmentIndex} variant={TileVariant.ReadOnly} isError={isError}>
-      {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
-    </Tile>
-  );
-
-  const renderInputTiles = (
-    inputValue: string,
-    targetSegmentValue: string,
-    targetSegmentIndex: number
-  ) => {
-    const slicedInputValue = getSegmentValueFromInput(
-      inputValue,
-      targetSegments,
-      targetSegmentIndex
-    );
-
-    return targetSegmentValue.split("").map((_, targetSegmentValueIndex) => {
-      const key = targetSegmentIndex + targetSegmentValueIndex;
-      const [start] = getStartEndOfSegment(targetSegments, targetSegmentIndex);
-      const isFocussed = start + targetSegmentValueIndex === inputValue.length;
-
-      return (
-        <InputTile key={key} isFocussed={isFocussed} isError={isError}>
-          {slicedInputValue[targetSegmentValueIndex]}
-        </InputTile>
-      );
-    });
   };
 
   const writeableSegments = getWriteableSegments(attemptSegments);
@@ -88,19 +63,11 @@ const AttemptInput = ({
       type={inputType}
       inputRef={inputRef}
     >
-      <Tiles>
-        {targetSegments.map((targetSegment, targetSegmentIndex) => {
-          if (isReadOnlySegment(targetSegment)) {
-            return renderReadOnlyTile(targetSegment.value, targetSegmentIndex);
-          }
-
-          return renderInputTiles(
-            inputValue,
-            targetSegment.value,
-            targetSegmentIndex
-          );
-        })}
-      </Tiles>
+      <InputTiles
+        targetSegments={targetSegments}
+        inputValue={inputValue}
+        isError={isError}
+      />
     </InvisibleInput>
   );
 };
