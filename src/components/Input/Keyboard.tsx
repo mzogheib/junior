@@ -22,6 +22,9 @@ const makeButtonClass = ({ theme, css }: ClassNamesContent) => css`
   border: 1px solid ${theme.palette.mode === "light" ? "black" : "white"};
   border-bottom: 1px solid ${theme.palette.mode === "light" ? "black" : "white"} !important;
   border-radius: ${theme.shape.borderRadius}px;
+
+  flex-grow: unset !important;
+  flex: 100%;
 `;
 
 const layout = {
