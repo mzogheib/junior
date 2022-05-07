@@ -21,6 +21,7 @@ const width = ({ variant }: Props) => {
 };
 
 const borderRadius = ({ theme }: Props) => theme.shape.borderRadius;
+const fontFamily = ({ theme }: Props) => theme.typography.fontFamily;
 
 const BaseTile = styled.div<OwnProps>`
   max-width: ${width}px;
@@ -31,6 +32,7 @@ const BaseTile = styled.div<OwnProps>`
   margin: 0 2px;
 
   font-size: 22px;
+  font-family: ${fontFamily};
   display: flex;
   justify-content: center;
   align-items: center;

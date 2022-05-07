@@ -12,12 +12,13 @@ const makeThemeClass = ({ theme, css }: ClassNamesContent) => css`
 `;
 
 const makeButtonClass = ({ theme, css }: ClassNamesContent) => css`
-  background-color: ${theme.palette.background.default} !important;
-  box-shadow: unset !important;
-  font-family: unset !important;
+  font-family: ${theme.typography.fontFamily} !important;
 
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 25%) !important;
   color: ${theme.palette.mode === "light" ? "black" : "white"};
+  background-color: ${theme.palette.background.default} !important;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 25%) !important;
+  box-shadow: unset !important;
+
   border: 1px solid ${theme.palette.mode === "light" ? "black" : "white"};
   border-bottom: 1px solid ${theme.palette.mode === "light" ? "black" : "white"} !important;
   border-radius: ${theme.shape.borderRadius}px;
