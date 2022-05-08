@@ -17,7 +17,7 @@ const Key = styled(Button)<{ layout: "letters" | "numbers" }>`
   margin: 2px;
   padding: 5px 0;
   min-width: unset;
-  flex-basis: ${({ layout }) => (layout === "letters" ? "10%" : "33%")};
+  flex-basis: ${({ layout }) => (layout === "letters" ? "9%" : "33%")};
 `;
 
 const ActionKey = styled(Key)`
