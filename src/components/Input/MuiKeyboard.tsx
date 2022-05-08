@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
+import BackspaceIcon from "@mui/icons-material/Backspace";
+import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import { ReactNode } from "react";
 
 const Wrapper = styled.div`
   display: flex;
@@ -23,6 +26,7 @@ const Key = styled(Button)<{ layout: "letters" | "numbers" }>`
 const ActionKey = styled(Key)`
   padding: 0;
   font-size: 1.25rem;
+  flex-grow: 1;
 `;
 
 const layouts = {
@@ -34,9 +38,9 @@ const layouts = {
   ],
 };
 
-const keyDisplayMap: Record<string, string> = {
-  "{bksp}": "⌫",
-  "{enter}": "↵",
+const keyDisplayMap: Record<string, ReactNode> = {
+  "{bksp}": <BackspaceIcon />,
+  "{enter}": <KeyboardReturnIcon />,
 };
 
 const isActionKey = (key: string) => ["{bksp}", "{enter}"].includes(key);
@@ -50,19 +54,19 @@ const MUIKeyboard = ({ layout, onKeyPress }: Props) => {
   const renderKey = (key: string) => {
     const commonProps = {
       key,
-      layout,
       onClick: () => onKeyPress(key),
-      fullWidth: true,
     };
 
     if (isActionKey(key)) {
       return (
-        <ActionKey {...commonProps}>{keyDisplayMap[key] ?? key}</ActionKey>
+        <ActionKey {...commonProps} layout={layout}>
+          {keyDisplayMap[key] ?? key}
+        </ActionKey>
       );
     }
 
     return (
-      <Key {...commonProps} variant="outlined">
+      <Key {...commonProps} layout={layout} variant="outlined">
         {key}
       </Key>
     );
