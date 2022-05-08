@@ -20,6 +20,11 @@ const Key = styled(Button)<{ layout: "letters" | "numbers" }>`
   flex-basis: ${({ layout }) => (layout === "letters" ? "10%" : "33%")};
 `;
 
+const ActionKey = styled(Key)`
+  padding: 0;
+  font-size: 1.25rem;
+`;
+
 const layouts = {
   numbers: ["1 2 3", "4 5 6", "7 8 9", "{enter} 0 {bksp}"],
   letters: [
@@ -34,26 +39,37 @@ const keyDisplayMap: Record<string, string> = {
   "{enter}": "↵",
 };
 
+const isActionKey = (key: string) => ["{bksp}", "{enter}"].includes(key);
+
 type Props = {
   layout: "letters" | "numbers";
   onKeyPress: (key: string) => void;
 };
 
 const MUIKeyboard = ({ layout, onKeyPress }: Props) => {
+  const renderKey = (key: string) => {
+    const commonProps = {
+      key,
+      layout,
+      onClick: () => onKeyPress(key),
+      fullWidth: true,
+    };
+
+    if (isActionKey(key)) {
+      return (
+        <ActionKey {...commonProps}>{keyDisplayMap[key] ?? key}</ActionKey>
+      );
+    }
+
+    return (
+      <Key {...commonProps} variant="outlined">
+        {key}
+      </Key>
+    );
+  };
+
   const renderRow = (rowOfKeys: string) => (
-    <Row layout={layout}>
-      {rowOfKeys.split(" ").map((key) => (
-        <Key
-          key={key}
-          layout={layout}
-          onClick={() => onKeyPress(key)}
-          variant="outlined"
-          fullWidth
-        >
-          {keyDisplayMap[key] ?? key}
-        </Key>
-      ))}
-    </Row>
+    <Row layout={layout}>{rowOfKeys.split(" ").map(renderKey)}</Row>
   );
 
   const renderRows = (rowsOfKeys: string[]) => rowsOfKeys.map(renderRow);
