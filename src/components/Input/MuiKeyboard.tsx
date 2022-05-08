@@ -11,13 +11,13 @@ const Row = styled.div<{ layout: "letters" | "numbers" }>`
   display: flex;
   justify-content: center;
   width: 100%;
+`;
 
-  button {
-    margin: 2px;
-    padding: 5px 0;
-    min-width: unset;
-    flex-basis: ${({ layout }) => (layout === "letters" ? "10%" : "33%")};
-  }
+const Key = styled(Button)<{ layout: "letters" | "numbers" }>`
+  margin: 2px;
+  padding: 5px 0;
+  min-width: unset;
+  flex-basis: ${({ layout }) => (layout === "letters" ? "10%" : "33%")};
 `;
 
 const layouts = {
@@ -43,9 +43,15 @@ const MUIKeyboard = ({ layout, onKeyPress }: Props) => {
   const renderRow = (rowOfKeys: string) => (
     <Row layout={layout}>
       {rowOfKeys.split(" ").map((key) => (
-        <Button onClick={() => onKeyPress(key)} variant="outlined" fullWidth>
+        <Key
+          key={key}
+          layout={layout}
+          onClick={() => onKeyPress(key)}
+          variant="outlined"
+          fullWidth
+        >
           {keyDisplayMap[key] ?? key}
-        </Button>
+        </Key>
       ))}
     </Row>
   );
