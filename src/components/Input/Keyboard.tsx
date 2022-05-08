@@ -12,7 +12,7 @@ import MUIKeyboard from "./MuiKeyboard";
 
 const Wrapper = styled.div`
   margin: 0 auto;
-  padding: 0 5px 20px;
+  padding: 0 10px 20px;
   width: 100%;
   max-width: 500px;
 `;

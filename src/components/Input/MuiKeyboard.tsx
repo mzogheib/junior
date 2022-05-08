@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: -2px;
 `;
 
 const Row = styled.div<{ layout: "letters" | "numbers" }>`
