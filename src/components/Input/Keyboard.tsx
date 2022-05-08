@@ -35,6 +35,12 @@ const makeButtonClass = ({ theme, css }: ClassNamesContent) => css`
   flex: 100%;
 `;
 
+const makeActionButtonClass = ({ theme, css }: ClassNamesContent) => css`
+  border: none;
+  border-bottom: none !important;
+  font-size: 24px;
+`;
+
 const layout = {
   default: ["1 2 3", "4 5 6", "7 8 9", "{enter} 0 {bksp}"],
   shift: [
@@ -44,7 +50,9 @@ const layout = {
   ],
 };
 
-const allButtons = layout.default.concat(layout.shift).join(" ");
+const allKeys = layout.default.concat(layout.shift).join(" ");
+
+const actionKeys = "{enter} {bksp}";
 
 type Props = {
   mode: GameMode;
@@ -89,7 +97,11 @@ const Keyboard = ({ mode, targetSegments, onChange, onEnter }: Props) => {
             buttonTheme={[
               {
                 class: makeButtonClass(params),
-                buttons: allButtons,
+                buttons: allKeys,
+              },
+              {
+                class: makeActionButtonClass(params),
+                buttons: actionKeys,
               },
             ]}
           />
