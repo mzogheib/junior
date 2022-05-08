@@ -7,6 +7,9 @@ import { GameMode } from "../Game/types";
 
 // TODO: look into making this more "material"
 
+const color = ({ theme }: Partial<ClassNamesContent>) =>
+  theme?.palette.mode === "light" ? "black" : "white";
+
 const makeThemeClass = ({ theme, css }: ClassNamesContent) => css`
   background-color: transparent;
 `;
@@ -14,13 +17,13 @@ const makeThemeClass = ({ theme, css }: ClassNamesContent) => css`
 const makeButtonClass = ({ theme, css }: ClassNamesContent) => css`
   font-family: ${theme.typography.fontFamily} !important;
 
-  color: ${theme.palette.mode === "light" ? "black" : "white"};
+  color: ${color({ theme })};
   background-color: ${theme.palette.background.default} !important;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 25%) !important;
   box-shadow: unset !important;
 
-  border: 1px solid ${theme.palette.mode === "light" ? "black" : "white"};
-  border-bottom: 1px solid ${theme.palette.mode === "light" ? "black" : "white"} !important;
+  border: 1px solid ${color({ theme })};
+  border-bottom: 1px solid ${color({ theme })} !important;
   border-radius: ${theme.shape.borderRadius}px;
 
   flex-grow: unset !important;
@@ -28,12 +31,11 @@ const makeButtonClass = ({ theme, css }: ClassNamesContent) => css`
 `;
 
 const layout = {
-  default: ["1 2 3", "4 5 6", "7 8 9", "0", "{enter} {bksp}"],
+  default: ["1 2 3", "4 5 6", "7 8 9", "{enter} 0 {bksp}"],
   shift: [
     "Q W E R T Y U I O P",
     "A S D F G H J K L",
-    "Z X C V B N M",
-    "{enter} {bksp}",
+    "{enter} Z X C V B N M {bksp}",
   ],
 };
 
