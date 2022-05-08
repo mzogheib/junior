@@ -1,11 +1,16 @@
 import RSKeyboard from "react-simple-keyboard";
 import { ClassNames, ClassNamesContent } from "@emotion/react";
+import styled from "@emotion/styled";
 import "react-simple-keyboard/build/css/index.css";
 
 import { makeAttemptSegments, TargetSegments } from "../../services/segments";
 import { GameMode } from "../Game/types";
 
 // TODO: look into making this more "material"
+
+const Wrapper = styled.div`
+  padding-bottom: 20px;
+`;
 
 const color = ({ theme }: Partial<ClassNamesContent>) =>
   theme?.palette.mode === "light" ? "black" : "white";
@@ -71,24 +76,26 @@ const Keyboard = ({ mode, targetSegments, onChange, onEnter }: Props) => {
   const layoutName = mode === GameMode.Letters ? "shift" : "default";
 
   return (
-    <ClassNames>
-      {(params) => (
-        <RSKeyboard
-          layout={layout}
-          layoutName={layoutName}
-          display={display}
-          onChange={handleChange}
-          onKeyPress={handleKeyPress}
-          theme={params.cx(makeThemeClass(params), "hg-theme-default")}
-          buttonTheme={[
-            {
-              class: makeButtonClass(params),
-              buttons: allButtons,
-            },
-          ]}
-        />
-      )}
-    </ClassNames>
+    <Wrapper>
+      <ClassNames>
+        {(params) => (
+          <RSKeyboard
+            layout={layout}
+            layoutName={layoutName}
+            display={display}
+            onChange={handleChange}
+            onKeyPress={handleKeyPress}
+            theme={params.cx(makeThemeClass(params), "hg-theme-default")}
+            buttonTheme={[
+              {
+                class: makeButtonClass(params),
+                buttons: allButtons,
+              },
+            ]}
+          />
+        )}
+      </ClassNames>
+    </Wrapper>
   );
 };
 
