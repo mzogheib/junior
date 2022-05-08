@@ -1,58 +1,21 @@
-import RSKeyboard from "react-simple-keyboard";
-import { ClassNames, ClassNamesContent } from "@emotion/react";
+import { useState } from "react";
 import styled from "@emotion/styled";
-import "react-simple-keyboard/build/css/index.css";
 
-import { makeAttemptSegments, TargetSegments } from "../../services/segments";
+import {
+  isWriteableSegment,
+  makeAttemptSegments,
+  stringifyTargetSegments,
+  TargetSegments,
+} from "../../services/segments";
 import { GameMode } from "../Game/types";
-
-// TODO: look into making this more "material"
+import MUIKeyboard from "./MuiKeyboard";
 
 const Wrapper = styled.div`
-  padding-bottom: 20px;
+  margin: 0 auto;
+  padding: 0 5px 20px;
+  width: 100%;
+  max-width: 500px;
 `;
-
-const color = ({ theme }: Partial<ClassNamesContent>) =>
-  theme?.palette.mode === "light" ? "black" : "white";
-
-const makeThemeClass = ({ theme, css }: ClassNamesContent) => css`
-  background-color: transparent;
-`;
-
-const makeButtonClass = ({ theme, css }: ClassNamesContent) => css`
-  font-family: ${theme.typography.fontFamily} !important;
-
-  color: ${color({ theme })};
-  background-color: ${theme.palette.background.default} !important;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 25%) !important;
-  box-shadow: unset !important;
-
-  border: 1px solid ${color({ theme })};
-  border-bottom: 1px solid ${color({ theme })} !important;
-  border-radius: ${theme.shape.borderRadius}px;
-
-  flex-grow: unset !important;
-  flex: 100%;
-`;
-
-const makeActionButtonClass = ({ theme, css }: ClassNamesContent) => css`
-  border: none;
-  border-bottom: none !important;
-  font-size: 24px;
-`;
-
-const layout = {
-  default: ["1 2 3", "4 5 6", "7 8 9", "{enter} 0 {bksp}"],
-  shift: [
-    "Q W E R T Y U I O P",
-    "A S D F G H J K L",
-    "{enter} Z X C V B N M {bksp}",
-  ],
-};
-
-const allKeys = layout.default.concat(layout.shift).join(" ");
-
-const actionKeys = "{enter} {bksp}";
 
 type Props = {
   mode: GameMode;
@@ -62,51 +25,48 @@ type Props = {
 };
 
 const Keyboard = ({ mode, targetSegments, onChange, onEnter }: Props) => {
-  const handleChange = (value: string) => {
+  const [value, setValue] = useState("");
+
+  const targetValueLength = stringifyTargetSegments(
+    targetSegments.filter(isWriteableSegment)
+  ).length;
+
+  const handleNewValue = (newValue: string) => {
+    setValue(newValue);
+
     const newAttemptSegments = makeAttemptSegments(
-      value.toUpperCase(),
+      newValue.toUpperCase(),
       targetSegments
     );
+
     onChange(newAttemptSegments);
   };
 
-  const handleKeyPress = (value: string) => {
-    if (value === "{enter}") {
+  const handleKeyPress = (key: string) => {
+    if (key === "{enter}") {
       onEnter();
+      return;
     }
-  };
 
-  const display = {
-    "{bksp}": "⌫",
-    "{enter}": "↵",
-  };
+    if (key === "{bksp}") {
+      const newValue = value.slice(0, -1);
+      handleNewValue(newValue);
 
-  const layoutName = mode === GameMode.Letters ? "shift" : "default";
+      return;
+    }
+
+    if (value.length === targetValueLength) {
+      return;
+    }
+
+    const newValue = value.concat(key);
+
+    handleNewValue(newValue);
+  };
 
   return (
     <Wrapper>
-      <ClassNames>
-        {(params) => (
-          <RSKeyboard
-            layout={layout}
-            layoutName={layoutName}
-            display={display}
-            onChange={handleChange}
-            onKeyPress={handleKeyPress}
-            theme={params.cx(makeThemeClass(params), "hg-theme-default")}
-            buttonTheme={[
-              {
-                class: makeButtonClass(params),
-                buttons: allKeys,
-              },
-              {
-                class: makeActionButtonClass(params),
-                buttons: actionKeys,
-              },
-            ]}
-          />
-        )}
-      </ClassNames>
+      <MUIKeyboard layout={mode} onKeyPress={handleKeyPress} />
     </Wrapper>
   );
 };
