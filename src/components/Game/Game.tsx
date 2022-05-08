@@ -139,14 +139,16 @@ const Game = ({ config }: Props) => {
         <AutoScrollToBottom />
       </Inner>
 
-      <Keyboard
-        // A hacky way to remount the keyboard to clear old input
-        key={attempts.length}
-        mode={mode}
-        targetSegments={targetSegments}
-        onChange={handleChange}
-        onEnter={handleSubmit}
-      />
+      {!didSucceed && (
+        <Keyboard
+          // A hacky way to remount the keyboard to clear old input
+          key={attempts.length}
+          mode={mode}
+          targetSegments={targetSegments}
+          onChange={handleChange}
+          onEnter={handleSubmit}
+        />
+      )}
     </Wrapper>
   );
 };
