@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const Row = styled.div`
+const Row = styled.div<{ layout: "letters" | "numbers" }>`
   display: flex;
   justify-content: center;
   width: 100%;
@@ -16,7 +16,7 @@ const Row = styled.div`
     margin: 2px;
     padding: 5px 0;
     min-width: unset;
-    flex-basis: 9%;
+    flex-basis: ${({ layout }) => (layout === "letters" ? "10%" : "33%")};
   }
 `;
 
@@ -41,7 +41,7 @@ type Props = {
 
 const MUIKeyboard = ({ layout, onKeyPress }: Props) => {
   const renderRow = (rowOfKeys: string) => (
-    <Row>
+    <Row layout={layout}>
       {rowOfKeys.split(" ").map((key) => (
         <Button onClick={() => onKeyPress(key)} variant="outlined" fullWidth>
           {keyDisplayMap[key] ?? key}
