@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
-import BackspaceIcon from "@mui/icons-material/Backspace";
-import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import BackspaceIcon from "@mui/icons-material/BackspaceOutlined";
+import ReturnIcon from "@mui/icons-material/KeyboardReturnOutlined";
 import { ReactNode } from "react";
 
 const Wrapper = styled.div`
@@ -40,7 +40,7 @@ const layouts = {
 
 const keyDisplayMap: Record<string, ReactNode> = {
   "{bksp}": <BackspaceIcon />,
-  "{enter}": <KeyboardReturnIcon />,
+  "{enter}": <ReturnIcon />,
 };
 
 const isActionKey = (key: string) => ["{bksp}", "{enter}"].includes(key);
