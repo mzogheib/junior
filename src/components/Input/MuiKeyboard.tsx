@@ -54,19 +54,18 @@ const MUIKeyboard = ({ layout, onKeyPress }: Props) => {
   const renderKey = (key: string) => {
     const commonProps = {
       key,
+      layout,
       onClick: () => onKeyPress(key),
     };
 
     if (isActionKey(key)) {
       return (
-        <ActionKey {...commonProps} layout={layout}>
-          {keyDisplayMap[key] ?? key}
-        </ActionKey>
+        <ActionKey {...commonProps}>{keyDisplayMap[key] ?? key}</ActionKey>
       );
     }
 
     return (
-      <Key {...commonProps} layout={layout} variant="outlined">
+      <Key {...commonProps} variant="outlined">
         {key}
       </Key>
     );
