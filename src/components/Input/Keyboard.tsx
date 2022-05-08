@@ -27,9 +27,9 @@ type Props = {
 const Keyboard = ({ mode, targetSegments, onChange, onEnter }: Props) => {
   const [value, setValue] = useState("");
 
-  const targetValueLength = stringifyTargetSegments(
+  const targetValue = stringifyTargetSegments(
     targetSegments.filter(isWriteableSegment)
-  ).length;
+  );
 
   const handleNewValue = (newValue: string) => {
     setValue(newValue);
@@ -55,7 +55,7 @@ const Keyboard = ({ mode, targetSegments, onChange, onEnter }: Props) => {
       return;
     }
 
-    if (value.length === targetValueLength) {
+    if (value.length === targetValue.length) {
       return;
     }
 
