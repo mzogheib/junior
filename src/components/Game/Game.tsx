@@ -9,6 +9,7 @@ import {
   TargetSegments,
   makeAttemptSegments,
   getWriteableSegments,
+  getSegementsValues,
 } from "../../services/segments";
 import Attempts from "./Attempts";
 
@@ -47,6 +48,7 @@ type Props = {
 const Game = ({ config }: Props) => {
   const { targetSegments, mode, validate } = config;
   const initialAttempt = makeAttemptSegments("", targetSegments);
+  const [disabledKeys, setDisabledKeys] = useState<string[]>([]);
 
   const [attemptSegments, setAttemptSegments] =
     useState<TargetSegments>(initialAttempt);
@@ -101,6 +103,15 @@ const Game = ({ config }: Props) => {
     const value = stringifyTargetSegments(attemptSegments);
     const submittedAt = new Date().toISOString();
     setAttempts(attempts.concat([{ value, submittedAt }]));
+
+    const targetValues = getSegementsValues(targetSegments);
+    const attemptValues = getSegementsValues(attemptSegments);
+    const newDisabledKeys = attemptValues.filter(
+      (value) => !targetValues.includes(value)
+    );
+
+    setDisabledKeys(disabledKeys.concat(newDisabledKeys));
+
     setAttemptSegments(initialAttempt);
     setError("");
   };
@@ -147,6 +158,7 @@ const Game = ({ config }: Props) => {
           targetSegments={targetSegments}
           onChange={handleChange}
           onEnter={handleSubmit}
+          disabledKeys={disabledKeys}
         />
       )}
     </Wrapper>

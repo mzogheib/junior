@@ -58,6 +58,9 @@ export const parseTarget = (target: string): TargetSegments =>
     };
   });
 
+export const getSegementsValues = (targetSegments: TargetSegments) =>
+  targetSegments.map(({ value }) => value);
+
 export const getStartEndOfSegment = (
   targetSegments: TargetSegments,
   segmentIndex: number
