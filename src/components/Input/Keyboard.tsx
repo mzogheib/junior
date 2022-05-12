@@ -20,11 +20,18 @@ const Wrapper = styled.div`
 type Props = {
   mode: GameMode;
   targetSegments: TargetSegments;
+  disabledKeys?: string[];
   onChange: (attemptSegments: TargetSegments) => void;
   onEnter: () => void;
 };
 
-const Keyboard = ({ mode, targetSegments, onChange, onEnter }: Props) => {
+const Keyboard = ({
+  mode,
+  targetSegments,
+  disabledKeys,
+  onChange,
+  onEnter,
+}: Props) => {
   const [value, setValue] = useState("");
 
   const targetValue = stringifyTargetSegments(
@@ -66,7 +73,11 @@ const Keyboard = ({ mode, targetSegments, onChange, onEnter }: Props) => {
 
   return (
     <Wrapper>
-      <MUIKeyboard layout={mode} onKeyPress={handleKeyPress} />
+      <MUIKeyboard
+        layout={mode}
+        onKeyPress={handleKeyPress}
+        disabledKeys={disabledKeys}
+      />
     </Wrapper>
   );
 };

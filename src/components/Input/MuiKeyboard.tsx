@@ -49,10 +49,11 @@ const isActionKey = (key: string) => ["{bksp}", "{enter}"].includes(key);
 
 type Props = {
   layout: "letters" | "numbers";
+  disabledKeys?: string[];
   onKeyPress: (key: string) => void;
 };
 
-const MUIKeyboard = ({ layout, onKeyPress }: Props) => {
+const MUIKeyboard = ({ layout, disabledKeys, onKeyPress }: Props) => {
   const renderKey = (key: string) => {
     const commonProps = {
       key,
@@ -67,7 +68,11 @@ const MUIKeyboard = ({ layout, onKeyPress }: Props) => {
     }
 
     return (
-      <Key {...commonProps} variant="outlined">
+      <Key
+        {...commonProps}
+        variant="outlined"
+        disabled={disabledKeys?.includes(key)}
+      >
         {key}
       </Key>
     );
