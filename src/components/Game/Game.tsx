@@ -48,7 +48,7 @@ type Props = {
 const Game = ({ config }: Props) => {
   const { targetSegments, mode, validate } = config;
   const initialAttempt = makeAttemptSegments("", targetSegments);
-  const [disabledKeys, setDisabledKeys] = useState<string[]>([]);
+  const [absentKeys, setAbsentKeys] = useState<string[]>([]);
 
   const [attemptSegments, setAttemptSegments] =
     useState<TargetSegments>(initialAttempt);
@@ -106,11 +106,11 @@ const Game = ({ config }: Props) => {
 
     const targetValues = getSegementsValues(targetSegments);
     const attemptValues = getSegementsValues(attemptSegments);
-    const newDisabledKeys = attemptValues.filter(
+    const newAbsentKeys = attemptValues.filter(
       (value) => !targetValues.includes(value)
     );
 
-    setDisabledKeys(disabledKeys.concat(newDisabledKeys));
+    setAbsentKeys(absentKeys.concat(newAbsentKeys));
 
     setAttemptSegments(initialAttempt);
     setError("");
@@ -158,7 +158,7 @@ const Game = ({ config }: Props) => {
           targetSegments={targetSegments}
           onChange={handleChange}
           onEnter={handleSubmit}
-          disabledKeys={disabledKeys}
+          mutedKeys={absentKeys}
         />
       )}
     </Wrapper>

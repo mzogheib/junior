@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 type Props = {
   mode: GameMode;
   targetSegments: TargetSegments;
-  disabledKeys?: string[];
+  mutedKeys?: string[];
   onChange: (attemptSegments: TargetSegments) => void;
   onEnter: () => void;
 };
@@ -28,7 +28,7 @@ type Props = {
 const Keyboard = ({
   mode,
   targetSegments,
-  disabledKeys,
+  mutedKeys,
   onChange,
   onEnter,
 }: Props) => {
@@ -76,7 +76,7 @@ const Keyboard = ({
       <MUIKeyboard
         layout={mode}
         onKeyPress={handleKeyPress}
-        disabledKeys={disabledKeys}
+        mutedKeys={mutedKeys}
       />
     </Wrapper>
   );

@@ -1,8 +1,9 @@
+import { ReactNode } from "react";
 import styled from "@emotion/styled";
-import Button from "@mui/material/Button";
 import BackspaceIcon from "@mui/icons-material/BackspaceOutlined";
 import ReturnIcon from "@mui/icons-material/KeyboardReturnOutlined";
-import { ReactNode } from "react";
+
+import { ActionKey, Key } from "./MuiKey";
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,20 +16,6 @@ const Row = styled.div<{ layout: "letters" | "numbers" }>`
   display: flex;
   justify-content: center;
   width: 100%;
-`;
-
-const Key = styled(Button)<{ layout: "letters" | "numbers" }>`
-  margin: 2px;
-  padding: 5px 0;
-  min-width: unset;
-  flex-basis: ${({ layout }) => (layout === "letters" ? "9%" : "33%")};
-  font-size: 1.125rem;
-`;
-
-const ActionKey = styled(Key)`
-  padding: 0;
-  font-size: 1.25rem;
-  flex-grow: 1;
 `;
 
 const layouts = {
@@ -49,11 +36,11 @@ const isActionKey = (key: string) => ["{bksp}", "{enter}"].includes(key);
 
 type Props = {
   layout: "letters" | "numbers";
-  disabledKeys?: string[];
+  mutedKeys?: string[];
   onKeyPress: (key: string) => void;
 };
 
-const MUIKeyboard = ({ layout, disabledKeys, onKeyPress }: Props) => {
+const MUIKeyboard = ({ layout, mutedKeys, onKeyPress }: Props) => {
   const renderKey = (key: string) => {
     const commonProps = {
       key,
@@ -67,12 +54,11 @@ const MUIKeyboard = ({ layout, disabledKeys, onKeyPress }: Props) => {
       );
     }
 
+    const isMuted = mutedKeys?.includes(key);
+    const variant = isMuted ? "text" : "outlined";
+
     return (
-      <Key
-        {...commonProps}
-        variant="outlined"
-        disabled={disabledKeys?.includes(key)}
-      >
+      <Key {...commonProps} variant={variant} isMuted={isMuted}>
         {key}
       </Key>
     );
