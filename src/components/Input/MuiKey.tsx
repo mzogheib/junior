@@ -9,14 +9,6 @@ type OwnProps = {
 
 type Props = OwnProps & ThemeProps;
 
-const keyColor = ({ theme }: Props) => {
-  if (theme.palette.mode === "dark") {
-    return theme.palette.grey[800];
-  } else {
-    return theme.palette.grey[500];
-  }
-};
-
 export const Key = styled(Button)<OwnProps>`
   margin: 2px;
   padding: 5px 0;
@@ -25,8 +17,13 @@ export const Key = styled(Button)<OwnProps>`
   font-size: 1.125rem;
 `;
 
+const mutedKeyColor = ({ theme }: Props) => {
+  const weight = theme.palette.mode === "dark" ? 800 : 500;
+  return theme.palette.grey[weight];
+};
+
 export const MutedKey = styled(Key)`
-  color: ${keyColor};
+  color: ${mutedKeyColor};
   border-color: transparent;
 
   &:hover {
