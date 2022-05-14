@@ -56,10 +56,9 @@ const MUIKeyboard = ({ layout, mutedKeys, onKeyPress }: Props) => {
 
     const isMuted = mutedKeys?.includes(key);
     const KeyComp = isMuted ? MutedKey : Key;
-    const variant = isMuted ? "text" : "outlined";
 
     return (
-      <KeyComp {...commonProps} variant={variant}>
+      <KeyComp {...commonProps} variant="outlined">
         {key}
       </KeyComp>
     );
