@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import BackspaceIcon from "@mui/icons-material/BackspaceOutlined";
 import ReturnIcon from "@mui/icons-material/KeyboardReturnOutlined";
 
-import { ActionKey, Key } from "./MuiKey";
+import { ActionKey, Key, MutedKey } from "./MuiKey";
 
 const Wrapper = styled.div`
   display: flex;
@@ -55,12 +55,13 @@ const MUIKeyboard = ({ layout, mutedKeys, onKeyPress }: Props) => {
     }
 
     const isMuted = mutedKeys?.includes(key);
+    const KeyComp = isMuted ? MutedKey : Key;
     const variant = isMuted ? "text" : "outlined";
 
     return (
-      <Key {...commonProps} variant={variant} isMuted={isMuted}>
+      <KeyComp {...commonProps} variant={variant}>
         {key}
-      </Key>
+      </KeyComp>
     );
   };
 
