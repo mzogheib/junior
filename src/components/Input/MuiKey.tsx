@@ -11,9 +11,9 @@ type Props = OwnProps & ThemeProps;
 
 const color = ({
   theme: {
-    palette: { mode, common },
+    palette: { mode, grey },
   },
-}: Props) => (mode === "dark" ? common.white : common.black);
+}: Props) => (mode === "dark" ? grey[400] : grey[600]);
 
 const backgroundColor = ({
   theme: {
