@@ -1,3 +1,5 @@
+import { getUnique } from "../misc/utils";
+
 export enum SegmentType {
   Writeable = "writeable",
   ReadOnly = "readOnly",
@@ -40,8 +42,14 @@ export const getWriteableSegments = (segments: TargetSegments) =>
 export const isReadOnlySegment = ({ type }: TargetSegment) =>
   type === SegmentType.ReadOnly;
 
+const getSegmentValues = (targetSegments: TargetSegments) =>
+  targetSegments.map(({ value }) => value);
+
 export const stringifyTargetSegments = (targetSegments: TargetSegments) =>
-  targetSegments.map(({ value }) => value).join("");
+  getSegmentValues(targetSegments).join("");
+
+export const getUniqueSegmentValueChars = (targetSegments: TargetSegments) =>
+  getUnique(stringifyTargetSegments(targetSegments).split(""));
 
 export const parseTarget = (target: string): TargetSegments =>
   target.split("").map((value) => {
@@ -57,9 +65,6 @@ export const parseTarget = (target: string): TargetSegments =>
       value,
     };
   });
-
-export const getSegementsValues = (targetSegments: TargetSegments) =>
-  targetSegments.map(({ value }) => value);
 
 export const getStartEndOfSegment = (
   targetSegments: TargetSegments,

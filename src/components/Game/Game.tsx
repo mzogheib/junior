@@ -9,7 +9,7 @@ import {
   TargetSegments,
   makeAttemptSegments,
   getWriteableSegments,
-  getSegementsValues,
+  getUniqueSegmentValueChars,
 } from "../../services/segments";
 import Attempts from "./Attempts";
 
@@ -104,8 +104,8 @@ const Game = ({ config }: Props) => {
     const submittedAt = new Date().toISOString();
     setAttempts(attempts.concat([{ value, submittedAt }]));
 
-    const targetValues = getSegementsValues(targetSegments);
-    const attemptValues = getSegementsValues(attemptSegments);
+    const targetValues = getUniqueSegmentValueChars(targetSegments);
+    const attemptValues = getUniqueSegmentValueChars(attemptSegments);
     const newAbsentKeys = attemptValues.filter(
       (value) => !targetValues.includes(value)
     );
