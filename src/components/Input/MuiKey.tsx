@@ -9,21 +9,40 @@ type OwnProps = {
 
 type Props = OwnProps & ThemeProps;
 
+const color = ({
+  theme: {
+    palette: { mode, common },
+  },
+}: Props) => (mode === "dark" ? common.white : common.black);
+
+const backgroundColor = ({
+  theme: {
+    palette: { mode, grey },
+  },
+}: Props) => (mode === "dark" ? grey[900] : grey[100]);
+
 export const Key = styled(Button)<OwnProps>`
   margin: 2px;
   padding: 5px 0;
   min-width: unset;
   flex-basis: ${({ layout }) => (layout === "letters" ? "9%" : "33%")};
   font-size: 1.125rem;
+  color: ${color};
+  border-color: ${color};
+
+  &:hover {
+    border: 1px ${color} solid;
+    background-color: ${backgroundColor};
+  }
 `;
 
-const mutedKeyColor = ({ theme }: Props) => {
-  const weight = theme.palette.mode === "dark" ? 800 : 500;
+const mutedColor = ({ theme }: Props) => {
+  const weight = theme.palette.mode === "dark" ? 600 : 500;
   return theme.palette.grey[weight];
 };
 
 export const MutedKey = styled(Key)`
-  color: ${mutedKeyColor};
+  color: ${mutedColor};
   border-color: transparent;
 
   &:hover {
@@ -35,4 +54,9 @@ export const ActionKey = styled(Key)`
   padding: 0;
   font-size: 1.25rem;
   flex-grow: 1;
+  border-color: transparent;
+
+  &:hover {
+    border-color: transparent;
+  }
 `;
