@@ -17,12 +17,17 @@ type OwnProps = {
 
 type Props = OwnProps & ThemeProps;
 
-const color = ({ isError, theme }: Props) => {
+const color = ({
+  isError,
+  theme: {
+    palette: { mode, grey },
+  },
+}: Props) => {
   if (isError) {
     return TileColor.Absent;
   }
 
-  return theme.palette.mode === "light" ? "black" : "white";
+  return mode === "light" ? "black" : grey[800];
 };
 
 const backgroundColor = ({ state }: Props) =>
