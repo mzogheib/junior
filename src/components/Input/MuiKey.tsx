@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 
 type OwnProps = {
   layout: "letters" | "numbers";
-  isMuted?: boolean;
 };
 
 type ThemeProps = {
@@ -13,11 +12,7 @@ type ThemeProps = {
 
 type Props = OwnProps & ThemeProps;
 
-export const keyColor = ({ isMuted, theme }: Props) => {
-  if (!isMuted) {
-    return;
-  }
-
+const keyColor = ({ theme }: Props) => {
   if (theme.palette.mode === "dark") {
     return theme.palette.grey[800];
   } else {
@@ -31,7 +26,15 @@ export const Key = styled(Button)<OwnProps>`
   min-width: unset;
   flex-basis: ${({ layout }) => (layout === "letters" ? "9%" : "33%")};
   font-size: 1.125rem;
+`;
+
+export const MutedKey = styled(Key)`
   color: ${keyColor};
+  border-color: transparent;
+
+  &:hover {
+    border-color: transparent;
+  }
 `;
 
 export const ActionKey = styled(Key)`
