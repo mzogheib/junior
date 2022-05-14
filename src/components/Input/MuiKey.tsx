@@ -1,13 +1,10 @@
 import styled from "@emotion/styled";
-import { Theme } from "@emotion/react";
 import Button from "@mui/material/Button";
+
+import { ThemeProps } from "../Theme/types";
 
 type OwnProps = {
   layout: "letters" | "numbers";
-};
-
-type ThemeProps = {
-  theme: Theme;
 };
 
 type Props = OwnProps & ThemeProps;

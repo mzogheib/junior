@@ -1,16 +1,12 @@
 import styled from "@emotion/styled";
-import { Theme } from "@emotion/react";
 
 import BaseTile from "./BaseTile";
 import { TileColor } from "./types";
+import { ThemeProps } from "../Theme/types";
 
 type OwnProps = {
   isFocussed?: boolean;
   isError?: boolean;
-};
-
-type ThemeProps = {
-  theme: Theme;
 };
 
 type Props = ThemeProps & OwnProps;

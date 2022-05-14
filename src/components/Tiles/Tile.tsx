@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
-import { Theme } from "@emotion/react";
+
 import { TileState, TileColor } from "./types";
 import BaseTile from "./BaseTile";
+import { ThemeProps } from "../Theme/types";
 
 const backgroundColorMap = {
   [TileState.Match]: TileColor.Match,
@@ -12,10 +13,6 @@ const backgroundColorMap = {
 type OwnProps = {
   isError?: boolean;
   state?: TileState;
-};
-
-type ThemeProps = {
-  theme: Theme;
 };
 
 type Props = OwnProps & ThemeProps;
