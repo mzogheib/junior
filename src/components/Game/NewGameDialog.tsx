@@ -13,12 +13,11 @@ import Checkbox from "@mui/material/Checkbox";
 import { GameDifficulty, GameMode, GameSettings, WordLength } from "./types";
 
 type Props = {
-  isLoading: boolean;
   onSubmit: (settings: GameSettings, shouldSaveSettings: boolean) => void;
   onCancel?: () => void;
 };
 
-const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
+const NewGameDialog = ({ onSubmit, onCancel }: Props) => {
   const [mode, setMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
@@ -138,14 +137,8 @@ const NewGameDialog = ({ isLoading, onSubmit, onCancel }: Props) => {
       </DialogContent>
 
       <DialogActions>
-        {onCancel && (
-          <Button disabled={isLoading} onClick={onCancel}>
-            Cancel
-          </Button>
-        )}
-        <Button disabled={isLoading} onClick={handleSubmit}>
-          Go
-        </Button>
+        {onCancel && <Button onClick={onCancel}>Cancel</Button>}
+        <Button onClick={handleSubmit}>Go</Button>
       </DialogActions>
     </Dialog>
   );

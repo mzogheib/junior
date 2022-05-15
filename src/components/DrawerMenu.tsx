@@ -20,7 +20,6 @@ const Item = styled.div`
 
 type Props = {
   isOpen: boolean;
-  isLoading?: boolean;
   hasSavedGameSettings?: boolean;
   onNewGame(isCustom?: boolean): void;
   onClose: () => void;
@@ -28,7 +27,6 @@ type Props = {
 
 const DrawerMenu = ({
   isOpen,
-  isLoading,
   hasSavedGameSettings,
   onNewGame,
   onClose,
@@ -51,7 +49,6 @@ const DrawerMenu = ({
       <Divider />
       <Wrapper>
         <NewGameButton
-          isLoading={isLoading}
           hasSavedGameSettings={hasSavedGameSettings}
           onNewGame={onNewGame}
         />

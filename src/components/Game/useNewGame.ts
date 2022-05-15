@@ -6,11 +6,8 @@ import { GameMode, GameConfig, GameSettings } from "./types";
 
 const useNewGame = () => {
   const [gameConfig, setGameConfig] = useState<GameConfig>();
-  const [isLoading, setIsLoading] = useState(false);
 
   const onNewGame = (settings: GameSettings) => {
-    setIsLoading(true);
-
     const { mode, targetLength, difficulty } = settings;
 
     const startedAt = new Date().toISOString();
@@ -24,11 +21,9 @@ const useNewGame = () => {
       mode === GameMode.Letters ? validateWord : validateEquation;
 
     setGameConfig({ startedAt, mode, targetSegments, validate });
-
-    setIsLoading(false);
   };
 
-  return { isLoading, gameConfig, onNewGame };
+  return { gameConfig, onNewGame };
 };
 
 export default useNewGame;

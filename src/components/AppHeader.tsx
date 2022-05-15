@@ -13,12 +13,11 @@ const StyledToolbar = styled(Toolbar)`
 `;
 
 type Props = {
-  isLoading?: boolean;
   hasSavedGameSettings?: boolean;
   onNewGame(isCustom?: boolean): void;
 };
 
-const AppHeader = ({ isLoading, hasSavedGameSettings, onNewGame }: Props) => {
+const AppHeader = ({ hasSavedGameSettings, onNewGame }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleNewGame = (isCustom?: boolean) => {
@@ -37,7 +36,6 @@ const AppHeader = ({ isLoading, hasSavedGameSettings, onNewGame }: Props) => {
       </AppBar>
       <DrawerMenu
         isOpen={isMenuOpen}
-        isLoading={isLoading}
         hasSavedGameSettings={hasSavedGameSettings}
         onNewGame={handleNewGame}
         onClose={() => setIsMenuOpen(false)}
