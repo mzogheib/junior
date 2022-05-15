@@ -1,5 +1,7 @@
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
+import { Button, ButtonGroup } from "@mui/material";
+import SettingsIcon from "@mui/icons-material/Settings";
 import styled from "@emotion/styled";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -19,12 +21,23 @@ const Item = styled.div`
 
 type Props = {
   isOpen: boolean;
+  isLoading?: boolean;
+  hasSavedGameSettings?: boolean;
+  onNewGame(isCustom?: boolean): void;
   onClose: () => void;
 };
 
-const DrawerMenu = ({ isOpen, onClose }: Props) => {
+const DrawerMenu = ({
+  isOpen,
+  isLoading,
+  hasSavedGameSettings,
+  onNewGame,
+  onClose,
+}: Props) => {
   const { user } = useAuth0();
   const firstName = user?.given_name;
+
+  const handleNewGame = (isCustom?: boolean) => () => onNewGame(isCustom);
 
   return (
     <Drawer anchor="right" open={isOpen} onClose={onClose}>
@@ -37,6 +50,30 @@ const DrawerMenu = ({ isOpen, onClose }: Props) => {
       <Divider />
       <Wrapper>
         <ThemeToggle />
+      </Wrapper>
+      <Divider />
+      <Wrapper>
+        <ButtonGroup variant="outlined" fullWidth aria-label="new game buttons">
+          <Button
+            disabled={isLoading}
+            onClick={handleNewGame()}
+            aria-label="new game"
+            fullWidth
+          >
+            new game
+          </Button>
+          {hasSavedGameSettings && (
+            <Button
+              disabled={isLoading}
+              onClick={handleNewGame(true)}
+              color="primary"
+              fullWidth={false}
+              aria-label="customise game"
+            >
+              <SettingsIcon />
+            </Button>
+          )}
+        </ButtonGroup>
       </Wrapper>
     </Drawer>
   );
