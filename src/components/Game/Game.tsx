@@ -129,11 +129,7 @@ const Game = ({ config }: Props) => {
         )}
 
         {!didSucceed && (
-          <InputTiles
-            inputValue={inputValue}
-            targetSegments={targetSegments}
-            isError={!!error}
-          />
+          <InputTiles inputValue={inputValue} targetSegments={targetSegments} />
         )}
 
         {didSucceed && (

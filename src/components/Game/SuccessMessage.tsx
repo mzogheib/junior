@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Typography from "@mui/material/Typography";
+import Alert from "@mui/material/Alert";
 import { Attempt, GameConfig } from "./types";
 import { makeDuration } from "./utils";
 
@@ -29,9 +30,9 @@ type Props = {
 const SuccessMessage = ({ attempts, gameConfig }: Props) => (
   <Wrapper>
     <Typography variant="h4">🥳</Typography>
-    <Typography variant="body1" color="primary.main">
+    <Alert icon={false} severity="success">
       {makeMessage(attempts, gameConfig)}
-    </Typography>
+    </Alert>
   </Wrapper>
 );
 
