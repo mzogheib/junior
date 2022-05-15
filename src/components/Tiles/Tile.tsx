@@ -16,17 +16,10 @@ type OwnProps = {
 
 type Props = OwnProps & ThemeProps;
 
-const color = ({
-  theme: {
-    palette: { mode, grey },
-  },
-}: Props) => (mode === "light" ? "black" : grey[800]);
-
 const backgroundColor = ({ state }: Props) =>
   state && backgroundColorMap[state];
 
 const Tile = styled(BaseTile)<OwnProps>`
-  color: ${color};
   background-color: ${backgroundColor};
 `;
 
