@@ -13,6 +13,10 @@ const Wrapper = styled.div`
   max-width: 230px;
 `;
 
+const Item = styled.div`
+  margin-top: ${spacing(1)};
+`;
+
 type Props = {
   isOpen: boolean;
   onClose: () => void;
@@ -26,13 +30,13 @@ const DrawerMenu = ({ isOpen, onClose }: Props) => {
     <Drawer anchor="right" open={isOpen} onClose={onClose}>
       <Wrapper>
         <UserWelcome firstName={firstName} />
-      </Wrapper>
-      <Wrapper>
-        <ThemeToggle />
+        <Item>
+          <AuthToggle />
+        </Item>
       </Wrapper>
       <Divider />
       <Wrapper>
-        <AuthToggle />
+        <ThemeToggle />
       </Wrapper>
     </Drawer>
   );
