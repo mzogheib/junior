@@ -13,12 +13,11 @@ import {
 type Props = {
   targetSegments: TargetSegments;
   inputValue: string;
-  isError?: boolean;
 };
 
-const InputTiles = ({ targetSegments, inputValue, isError }: Props) => {
+const InputTiles = ({ targetSegments, inputValue }: Props) => {
   const renderReadOnlyTile = (segmentValue: string, segmentIndex: number) => (
-    <Tile key={segmentIndex} variant={TileVariant.ReadOnly} isError={isError}>
+    <Tile key={segmentIndex} variant={TileVariant.ReadOnly}>
       {CHARACTER_DISPLAY_MAP[segmentValue] ?? segmentValue}
     </Tile>
   );
@@ -40,7 +39,7 @@ const InputTiles = ({ targetSegments, inputValue, isError }: Props) => {
       const isFocussed = start + targetSegmentValueIndex === inputValue.length;
 
       return (
-        <InputTile key={key} isFocussed={isFocussed} isError={isError}>
+        <InputTile key={key} isFocussed={isFocussed}>
           {slicedInputValue[targetSegmentValueIndex]}
         </InputTile>
       );

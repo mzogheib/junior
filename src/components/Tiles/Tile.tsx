@@ -11,19 +11,16 @@ const backgroundColorMap = {
 };
 
 type OwnProps = {
-  isError?: boolean;
   state?: TileState;
 };
 
 type Props = OwnProps & ThemeProps;
 
-const color = ({ isError, theme }: Props) => {
-  if (isError) {
-    return TileColor.Absent;
-  }
-
-  return theme.palette.mode === "light" ? "black" : "white";
-};
+const color = ({
+  theme: {
+    palette: { mode, grey },
+  },
+}: Props) => (mode === "light" ? "black" : grey[800]);
 
 const backgroundColor = ({ state }: Props) =>
   state && backgroundColorMap[state];

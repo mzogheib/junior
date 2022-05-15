@@ -24,7 +24,6 @@ const ButtonWrapper = styled.div`
 type Props = {
   mode: "letters" | "numbers";
   targetSegments: TargetSegments;
-  isError?: boolean;
   onChange: () => void;
   onSubmit: (attemptSegments: TargetSegments) => void;
   onValidate: (attemptSegments: TargetSegments) => boolean;
@@ -33,7 +32,6 @@ type Props = {
 const InputForm = ({
   mode,
   targetSegments,
-  isError,
   onChange,
   onSubmit,
   onValidate,
@@ -75,7 +73,6 @@ const InputForm = ({
         onComplete={onValidate}
         inputRef={inputRef}
         autoFocus
-        isError={isError}
       />
       <ButtonWrapper>
         <Button type="submit" variant="contained">

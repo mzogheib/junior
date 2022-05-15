@@ -13,5 +13,5 @@ export enum TileVariant {
 export enum TileColor {
   Match = "#91C483",
   Present = "#FFE162",
-  Absent = "#FF6464",
+  Absent = "#DDDDDD",
 }

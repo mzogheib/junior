@@ -14,7 +14,6 @@ type Props = {
   mode: "letters" | "numbers";
   inputRef?: RefObject<HTMLInputElement>;
   autoFocus?: boolean;
-  isError?: boolean;
   onChange: (attemptSegments: TargetSegments) => void;
   onComplete?: (attemptSegments: TargetSegments) => void;
 };
@@ -25,7 +24,6 @@ const AttemptInput = ({
   attemptSegments,
   inputRef,
   autoFocus,
-  isError,
   onChange,
   onComplete,
 }: Props) => {
@@ -63,11 +61,7 @@ const AttemptInput = ({
       type={inputType}
       inputRef={inputRef}
     >
-      <InputTiles
-        targetSegments={targetSegments}
-        inputValue={inputValue}
-        isError={isError}
-      />
+      <InputTiles targetSegments={targetSegments} inputValue={inputValue} />
     </InvisibleInput>
   );
 };
