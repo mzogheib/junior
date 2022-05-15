@@ -9,10 +9,11 @@ import {
 } from "../../services/segments";
 import { GameMode } from "../Game/types";
 import MUIKeyboard from "./MuiKeyboard";
+import { spacing } from "../Theme/utils";
 
 const Wrapper = styled.div`
   margin: 0 auto;
-  padding: 0 10px 20px;
+  padding: 0 ${spacing(1)} ${spacing(4)};
   width: 100%;
   max-width: 500px;
 `;

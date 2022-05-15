@@ -18,6 +18,7 @@ import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
 import Keyboard from "../Input/Keyboard";
 import InputTiles from "../Tiles/InputTiles";
+import { spacing } from "../Theme/utils";
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,11 +27,15 @@ const Wrapper = styled.div`
 `;
 
 const Inner = styled.div`
-  padding: 10px;
+  padding: ${spacing(2)};
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-grow: 1;
+`;
+
+const MessageWrapper = styled.div`
+  margin-top: ${spacing(3)};
 `;
 
 const checkDidSucceed = (attempts: string[], target: string) => {
@@ -133,14 +138,15 @@ const Game = ({ config }: Props) => {
         )}
 
         {didSucceed && (
-          <SuccessMessage attempts={attempts} gameConfig={config} />
+          <MessageWrapper>
+            <SuccessMessage attempts={attempts} gameConfig={config} />
+          </MessageWrapper>
         )}
 
         {error && (
-          <>
-            <br />
+          <MessageWrapper>
             <ErrorMessage error={error} />
-          </>
+          </MessageWrapper>
         )}
 
         <AutoScrollToBottom />

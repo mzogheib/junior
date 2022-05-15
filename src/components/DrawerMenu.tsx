@@ -6,9 +6,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import ThemeToggle from "./Theme/ThemeToggle";
 import AuthToggle from "./Auth/AuthToggle";
 import UserWelcome from "./UserWelcome";
+import { spacing } from "./Theme/utils";
 
 const Wrapper = styled.div`
-  padding: ${({ theme }) => theme.spacing(2)};
+  padding: ${spacing(2)};
   max-width: 230px;
 `;
 
