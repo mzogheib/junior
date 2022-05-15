@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import Typography from "@mui/material/Typography";
-import Alert from "@mui/material/Alert";
 import { Attempt, GameConfig } from "./types";
 import { makeDuration } from "./utils";
+import { Paper } from "@mui/material";
 
-const Wrapper = styled.div`
+const Wrapper = styled(Paper)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,11 +28,9 @@ type Props = {
 };
 
 const SuccessMessage = ({ attempts, gameConfig }: Props) => (
-  <Wrapper>
+  <Wrapper elevation={0}>
     <Typography variant="h4">🥳</Typography>
-    <Alert icon={false} severity="success">
-      {makeMessage(attempts, gameConfig)}
-    </Alert>
+    <Typography variant="body1">{makeMessage(attempts, gameConfig)}</Typography>
   </Wrapper>
 );
 
