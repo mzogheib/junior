@@ -5,7 +5,9 @@ import { getRandomWord, validateWord } from "../../services/words";
 import { GameMode, GameConfig, GameSettings } from "./types";
 
 const useNewGame = () => {
+  const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
   const [gameConfig, setGameConfig] = useState<GameConfig>();
+  const [gameSettings, setGameSettings] = useState<GameSettings>();
 
   const onNewGame = (settings: GameSettings) => {
     const { mode, targetLength, difficulty } = settings;
@@ -23,7 +25,14 @@ const useNewGame = () => {
     setGameConfig({ startedAt, mode, targetSegments, validate });
   };
 
-  return { gameConfig, onNewGame };
+  return {
+    gameConfig,
+    gameSettings,
+    setGameSettings,
+    isNewGameDialogOpen,
+    setIsNewGameDialogOpen,
+    onNewGame,
+  };
 };
 
 export default useNewGame;

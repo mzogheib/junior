@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "@emotion/styled";
 
 import AppHeader from "./components/AppHeader";
@@ -19,9 +18,14 @@ const Main = styled.main`
 `;
 
 const App = () => {
-  const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
-  const [gameSettings, setGameSettings] = useState<GameSettings>();
-  const { gameConfig, onNewGame } = useNewGame();
+  const {
+    gameConfig,
+    gameSettings,
+    setGameSettings,
+    isNewGameDialogOpen,
+    setIsNewGameDialogOpen,
+    onNewGame,
+  } = useNewGame();
 
   const handleSubmitNewGame = (
     newGameSettings: GameSettings,
