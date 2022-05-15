@@ -21,7 +21,7 @@ export const makeDuration = (startedAt: string, finishedAt: string) => {
   const leftOverSeconds = durationInSeconds % 60;
 
   if (durationInMinutes > 9) {
-    return "and you took way too long";
+    return "but you took way too long";
   }
 
   if (durationInMinutes === 0) {

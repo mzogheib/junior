@@ -29,12 +29,12 @@ describe("utils", () => {
           "2022-01-20T00:12:31.000Z",
         ],
         [
-          "and you took way too long",
+          "but you took way too long",
           "2022-04-25T00:17:00.000Z",
           "2022-04-25T00:27:00.000Z",
         ],
         [
-          "and you took way too long",
+          "but you took way too long",
           "2022-04-25T00:17:00.000Z",
           "2022-04-28T00:27:00.000Z",
         ],
