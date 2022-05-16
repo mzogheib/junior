@@ -9,7 +9,7 @@ const useNewGame = () => {
   const [gameConfig, setGameConfig] = useState<GameConfig>();
   const [gameSettings, setGameSettings] = useState<GameSettings>();
 
-  const onNewGame = (settings: GameSettings) => {
+  const onNewGame = (settings: GameSettings, shouldSaveSettings: boolean) => {
     const { mode, targetLength, difficulty } = settings;
 
     const startedAt = new Date().toISOString();
@@ -22,13 +22,18 @@ const useNewGame = () => {
     const validate =
       mode === GameMode.Letters ? validateWord : validateEquation;
 
+    if (shouldSaveSettings) {
+      setGameSettings(settings);
+    } else {
+      setGameSettings(undefined);
+    }
+
     setGameConfig({ startedAt, mode, targetSegments, validate });
   };
 
   return {
     gameConfig,
     gameSettings,
-    setGameSettings,
     isNewGameDialogOpen,
     setIsNewGameDialogOpen,
     onNewGame,

@@ -21,7 +21,6 @@ const App = () => {
   const {
     gameConfig,
     gameSettings,
-    setGameSettings,
     isNewGameDialogOpen,
     setIsNewGameDialogOpen,
     onNewGame,
@@ -31,13 +30,7 @@ const App = () => {
     newGameSettings: GameSettings,
     shouldSaveSettings: boolean
   ) => {
-    onNewGame(newGameSettings);
-
-    if (shouldSaveSettings) {
-      setGameSettings(newGameSettings);
-    } else {
-      setGameSettings(undefined);
-    }
+    onNewGame(newGameSettings, shouldSaveSettings);
 
     setIsNewGameDialogOpen(false);
   };
