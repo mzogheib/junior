@@ -10,16 +10,12 @@ import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-import { GameDifficulty, GameMode, GameSettings, WordLength } from "./types";
+import { GameDifficulty, GameMode, WordLength } from "./types";
 import { useNewGame } from "./NewGameProvider";
 
-type Props = {
-  onSubmit: (settings: GameSettings, shouldSaveSettings: boolean) => void;
-  onCancel?: () => void;
-};
-
-const NewGameDialog = ({ onSubmit, onCancel }: Props) => {
-  const { isNewGameDialogOpen } = useNewGame();
+const NewGameDialog = () => {
+  const { gameConfig, isNewGameDialogOpen, onNewGame, setIsNewGameDialogOpen } =
+    useNewGame();
   const [mode, setMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
@@ -29,8 +25,15 @@ const NewGameDialog = ({ onSubmit, onCancel }: Props) => {
     return null;
   }
 
-  const handleSubmit = () =>
-    onSubmit({ mode, targetLength, difficulty }, shouldSaveSettings);
+  const isFirstGame = !gameConfig;
+
+  const handleCancel = () => setIsNewGameDialogOpen(false);
+
+  const handleSubmit = () => {
+    onNewGame({ mode, targetLength, difficulty }, shouldSaveSettings);
+
+    setIsNewGameDialogOpen(false);
+  };
 
   const handleChangeMode = (
     event: React.MouseEvent<HTMLElement>,
@@ -143,7 +146,7 @@ const NewGameDialog = ({ onSubmit, onCancel }: Props) => {
       </DialogContent>
 
       <DialogActions>
-        {onCancel && <Button onClick={onCancel}>Cancel</Button>}
+        {!isFirstGame && <Button onClick={handleCancel}>Cancel</Button>}
         <Button onClick={handleSubmit}>Go</Button>
       </DialogActions>
     </Dialog>

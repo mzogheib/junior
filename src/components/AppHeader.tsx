@@ -12,18 +12,8 @@ const StyledToolbar = styled(Toolbar)`
   justify-content: flex-end;
 `;
 
-type Props = {
-  hasSavedGameSettings?: boolean;
-  onNewGame(isCustom?: boolean): void;
-};
-
-const AppHeader = ({ hasSavedGameSettings, onNewGame }: Props) => {
+const AppHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleNewGame = (isCustom?: boolean) => {
-    onNewGame(isCustom);
-    setIsMenuOpen(false);
-  };
 
   return (
     <>
@@ -34,12 +24,7 @@ const AppHeader = ({ hasSavedGameSettings, onNewGame }: Props) => {
           </IconButton>
         </StyledToolbar>
       </AppBar>
-      <DrawerMenu
-        isOpen={isMenuOpen}
-        hasSavedGameSettings={hasSavedGameSettings}
-        onNewGame={handleNewGame}
-        onClose={() => setIsMenuOpen(false)}
-      />
+      <DrawerMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );
 };

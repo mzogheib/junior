@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 import AppHeader from "./components/AppHeader";
-import { GameSettings } from "./components/Game/types";
 import Game from "./components/Game/Game";
 import NewGameDialog from "./components/Game/NewGameDialog";
 import { useNewGame } from "./components/Game/NewGameProvider";
@@ -18,35 +17,7 @@ const Main = styled.main`
 `;
 
 const App = () => {
-  const { gameConfig, gameSettings, setIsNewGameDialogOpen, onNewGame } =
-    useNewGame();
-
-  const handleSubmitNewGame = (
-    newGameSettings: GameSettings,
-    shouldSaveSettings: boolean
-  ) => {
-    onNewGame(newGameSettings, shouldSaveSettings);
-
-    setIsNewGameDialogOpen(false);
-  };
-
-  const handleCancelNewGame = () => {
-    // Cannot avoid creating the first game
-    const isFirstGame = !gameConfig;
-    if (isFirstGame) {
-      return;
-    }
-
-    return () => setIsNewGameDialogOpen(false);
-  };
-
-  const handleClickNewGame = (isCustom?: boolean) => {
-    if (gameSettings && !isCustom) {
-      handleSubmitNewGame(gameSettings, true);
-    } else {
-      setIsNewGameDialogOpen(true);
-    }
-  };
+  const { gameConfig } = useNewGame();
 
   const renderGame = () => {
     if (!gameConfig) {
@@ -61,18 +32,11 @@ const App = () => {
   return (
     <>
       <Wrapper>
-        <AppHeader
-          hasSavedGameSettings={!!gameSettings}
-          onNewGame={handleClickNewGame}
-        />
-
+        <AppHeader />
         <Main>{renderGame()}</Main>
       </Wrapper>
 
-      <NewGameDialog
-        onSubmit={handleSubmitNewGame}
-        onCancel={handleCancelNewGame()}
-      />
+      <NewGameDialog />
     </>
   );
 };

@@ -20,17 +20,10 @@ const Item = styled.div`
 
 type Props = {
   isOpen: boolean;
-  hasSavedGameSettings?: boolean;
-  onNewGame(isCustom?: boolean): void;
   onClose: () => void;
 };
 
-const DrawerMenu = ({
-  isOpen,
-  hasSavedGameSettings,
-  onNewGame,
-  onClose,
-}: Props) => {
+const DrawerMenu = ({ isOpen, onClose }: Props) => {
   const { user } = useAuth0();
   const firstName = user?.given_name;
 
@@ -48,10 +41,7 @@ const DrawerMenu = ({
       </Wrapper>
       <Divider />
       <Wrapper>
-        <NewGameButton
-          hasSavedGameSettings={hasSavedGameSettings}
-          onNewGame={onNewGame}
-        />
+        <NewGameButton />
       </Wrapper>
     </Drawer>
   );
