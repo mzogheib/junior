@@ -3,7 +3,11 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useNewGame } from "./NewGameProvider";
 import { GameSettings } from "./types";
 
-const NewGameButton = () => {
+type Props = {
+  onClick?: () => void;
+};
+
+const NewGameButton = ({ onClick }: Props) => {
   const { gameSettings, setIsNewGameDialogOpen, onNewGame } = useNewGame();
 
   const handleSubmitNewGame = (
@@ -16,6 +20,8 @@ const NewGameButton = () => {
   };
 
   const handleClick = (isCustom?: boolean) => () => {
+    onClick?.();
+
     if (gameSettings && !isCustom) {
       handleSubmitNewGame(gameSettings, true);
     } else {
