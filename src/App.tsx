@@ -4,7 +4,7 @@ import AppHeader from "./components/AppHeader";
 import { GameSettings } from "./components/Game/types";
 import Game from "./components/Game/Game";
 import NewGameDialog from "./components/Game/NewGameDialog";
-import useNewGame from "./components/Game/useNewGame";
+import { useNewGame } from "./components/Game/NewGameProvider";
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,13 +18,8 @@ const Main = styled.main`
 `;
 
 const App = () => {
-  const {
-    gameConfig,
-    gameSettings,
-    isNewGameDialogOpen,
-    setIsNewGameDialogOpen,
-    onNewGame,
-  } = useNewGame();
+  const { gameConfig, gameSettings, setIsNewGameDialogOpen, onNewGame } =
+    useNewGame();
 
   const handleSubmitNewGame = (
     newGameSettings: GameSettings,
@@ -74,12 +69,10 @@ const App = () => {
         <Main>{renderGame()}</Main>
       </Wrapper>
 
-      {isNewGameDialogOpen && (
-        <NewGameDialog
-          onSubmit={handleSubmitNewGame}
-          onCancel={handleCancelNewGame()}
-        />
-      )}
+      <NewGameDialog
+        onSubmit={handleSubmitNewGame}
+        onCancel={handleCancelNewGame()}
+      />
     </>
   );
 };

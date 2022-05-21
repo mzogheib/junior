@@ -6,6 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import ThemeProvider from "./components/Theme/ThemeProvider";
 import AuthProvider from "./components/Auth/AuthProvider";
+import NewGameProvider from "./components/Game/NewGameProvider";
 
 const globalStyles = css`
   html,
@@ -31,8 +32,10 @@ ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
       <ThemeProvider>
-        <App />
-        <Global styles={globalStyles} />
+        <NewGameProvider>
+          <App />
+          <Global styles={globalStyles} />
+        </NewGameProvider>
       </ThemeProvider>
     </AuthProvider>
   </React.StrictMode>,

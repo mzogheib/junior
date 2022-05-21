@@ -11,6 +11,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 import { GameDifficulty, GameMode, GameSettings, WordLength } from "./types";
+import { useNewGame } from "./NewGameProvider";
 
 type Props = {
   onSubmit: (settings: GameSettings, shouldSaveSettings: boolean) => void;
@@ -18,10 +19,15 @@ type Props = {
 };
 
 const NewGameDialog = ({ onSubmit, onCancel }: Props) => {
+  const { isNewGameDialogOpen } = useNewGame();
   const [mode, setMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
   const [shouldSaveSettings, setShouldSaveSettings] = useState(false);
+
+  if (!isNewGameDialogOpen) {
+    return null;
+  }
 
   const handleSubmit = () =>
     onSubmit({ mode, targetLength, difficulty }, shouldSaveSettings);

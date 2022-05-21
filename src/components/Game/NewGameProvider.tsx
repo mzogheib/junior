@@ -1,10 +1,15 @@
-import { useState } from "react";
-
+import React, { FC, useState, createContext, useContext } from "react";
 import { getRandomEquation, validateEquation } from "../../services/equation";
 import { getRandomWord, validateWord } from "../../services/words";
-import { GameMode, GameConfig, GameSettings } from "./types";
+import { GameConfig, GameSettings, GameMode } from "./types";
 
-const useNewGame = () => {
+type NewGameContextValue = any;
+
+const NewGameContext = createContext<NewGameContextValue>({});
+
+export const useNewGame = () => useContext(NewGameContext);
+
+const NewGameProvider: FC = ({ children }) => {
   const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
   const [gameConfig, setGameConfig] = useState<GameConfig>();
   const [gameSettings, setGameSettings] = useState<GameSettings>();
@@ -31,13 +36,17 @@ const useNewGame = () => {
     setGameConfig({ startedAt, mode, targetSegments, validate });
   };
 
-  return {
+  const value = {
     gameConfig,
     gameSettings,
     isNewGameDialogOpen,
     setIsNewGameDialogOpen,
     onNewGame,
   };
+
+  return (
+    <NewGameContext.Provider value={value}>{children}</NewGameContext.Provider>
+  );
 };
 
-export default useNewGame;
+export default NewGameProvider;
