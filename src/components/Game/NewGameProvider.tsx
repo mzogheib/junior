@@ -3,9 +3,19 @@ import { getRandomEquation, validateEquation } from "../../services/equation";
 import { getRandomWord, validateWord } from "../../services/words";
 import { GameConfig, GameSettings, GameMode } from "./types";
 
-type NewGameContextValue = any;
+type NewGameContextValue = {
+  gameConfig?: GameConfig;
+  gameSettings?: GameSettings;
+  isNewGameDialogOpen: boolean;
+  setIsNewGameDialogOpen: (value: boolean) => void;
+  onNewGame: (settings: GameSettings, shouldSaveSettings: boolean) => void;
+};
 
-const NewGameContext = createContext<NewGameContextValue>({});
+const NewGameContext = createContext<NewGameContextValue>({
+  isNewGameDialogOpen: false,
+  setIsNewGameDialogOpen: (value: boolean) => {},
+  onNewGame: (settings: GameSettings, shouldSaveSettings: boolean) => {},
+});
 
 export const useNewGame = () => useContext(NewGameContext);
 
