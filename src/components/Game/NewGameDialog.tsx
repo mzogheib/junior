@@ -13,6 +13,13 @@ import Checkbox from "@mui/material/Checkbox";
 import { GameDifficulty, GameMode, WordLength } from "./types";
 import { useNewGame } from "./NewGameProvider";
 
+// Maybe trying to be a little too clever...
+const handleChange =
+  <V,>(setValue: (value: V) => void) =>
+  (event: React.MouseEvent<HTMLElement>, value: V | null) => {
+    if (value) setValue(value);
+  };
+
 const NewGameDialog = () => {
   const { gameConfig, isNewGameDialogOpen, onNewGame, setIsNewGameDialogOpen } =
     useNewGame();
@@ -35,32 +42,9 @@ const NewGameDialog = () => {
     setIsNewGameDialogOpen(false);
   };
 
-  const handleChangeMode = (
-    event: React.MouseEvent<HTMLElement>,
-    value: GameMode | null
-  ) => {
-    if (value) {
-      setMode(value);
-    }
-  };
-
-  const handleChangeTargetLength = (
-    event: React.MouseEvent<HTMLElement>,
-    value: number | null
-  ) => {
-    if (value) {
-      setTargetLength(value);
-    }
-  };
-
-  const handleChangeDifficulty = (
-    event: React.MouseEvent<HTMLElement>,
-    value: GameDifficulty | null
-  ) => {
-    if (value) {
-      setDifficulty(value);
-    }
-  };
+  const handleChangeMode = handleChange(setMode);
+  const handleChangeTargetLength = handleChange(setTargetLength);
+  const handleChangeDifficulty = handleChange(setDifficulty);
 
   const handleChangeSaveSettings = (
     event: React.ChangeEvent<HTMLInputElement>
