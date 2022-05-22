@@ -6,7 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import ThemeProvider from "./components/Theme/ThemeProvider";
 import AuthProvider from "./components/Auth/AuthProvider";
-import NewGameProvider from "./components/Game/NewGameProvider";
+import NewGameProvider from "./components/Game/NewGame/NewGameProvider";
 
 const globalStyles = css`
   html,

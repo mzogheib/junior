@@ -1,7 +1,7 @@
 import { Button, ButtonGroup } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useNewGame } from "./NewGameProvider";
-import { GameSettings } from "./types";
+import { GameSettings } from "../types";
 
 type Props = {
   onClick?: () => void;

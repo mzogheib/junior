@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 
 import AppHeader from "./components/AppHeader";
 import Game from "./components/Game/Game";
-import NewGameDialog from "./components/Game/NewGameDialog";
-import { useNewGame } from "./components/Game/NewGameProvider";
+import NewGameDialog from "./components/Game/NewGame/NewGameDialog";
+import { useNewGame } from "./components/Game/NewGame/NewGameProvider";
 
 const Wrapper = styled.div`
   display: flex;
