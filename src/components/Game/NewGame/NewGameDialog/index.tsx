@@ -12,11 +12,12 @@ import { useNewGame } from "./../NewGameProvider";
 import ModeSettings from "./ModeSettings";
 import LettersSettings from "./LettersSettings";
 import NumbersSettings from "./NumbersSettings";
+import { ChangeHandler } from "./types";
 
 // Maybe trying to be a little too clever...
 const handleChange =
-  <V,>(setValue: (value: V) => void) =>
-  (event: React.MouseEvent<HTMLElement>, value: V | null) => {
+  <V,>(setValue: (value: V) => void): ChangeHandler<V> =>
+  (event, value) => {
     if (value) setValue(value);
   };
 
