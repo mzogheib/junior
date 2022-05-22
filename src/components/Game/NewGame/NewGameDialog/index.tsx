@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-import { GameDifficulty, GameMode, WordLength } from "../types";
-import { useNewGame } from "./NewGameProvider";
+import { GameDifficulty, GameMode, WordLength } from "../../types";
+import { useNewGame } from "./../NewGameProvider";
+import ModeSettings from "./ModeSettings";
+import LettersSettings from "./LettersSettings";
+import NumbersSettings from "./NumbersSettings";
 
 // Maybe trying to be a little too clever...
 const handleChange =
@@ -57,65 +57,22 @@ const NewGameDialog = () => {
       <DialogTitle>New Game</DialogTitle>
 
       <DialogContent>
-        <ToggleButtonGroup
-          value={mode}
-          exclusive
-          onChange={handleChangeMode}
-          aria-label="game mode"
-        >
-          <ToggleButton value={GameMode.Numbers} aria-label="equations">
-            Equations
-          </ToggleButton>
-          <ToggleButton value={GameMode.Letters} aria-label="words">
-            Words
-          </ToggleButton>
-        </ToggleButtonGroup>
+        <ModeSettings value={mode} onChange={handleChangeMode} />
 
         {mode === GameMode.Letters && (
-          <>
-            <Typography variant="body1">
-              <br />
-              How many letters?
-            </Typography>
-
-            <ToggleButtonGroup
-              value={targetLength}
-              exclusive
-              onChange={handleChangeTargetLength}
-              aria-label="word length"
-            >
-              <ToggleButton value={WordLength.Five} aria-label="five">
-                five
-              </ToggleButton>
-              <ToggleButton value={WordLength.Six} aria-label="six">
-                six
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </>
+          <LettersSettings
+            value={targetLength}
+            onChange={handleChangeTargetLength}
+          />
         )}
 
         {mode === GameMode.Numbers && (
-          <>
-            <Typography variant="body1">
-              <br />
-              Difficulty
-            </Typography>
-
-            <ToggleButtonGroup
-              value={difficulty}
-              exclusive
-              onChange={handleChangeDifficulty}
-              aria-label="game difficulty"
-            >
-              <ToggleButton value={GameDifficulty.Easy} aria-label="easy">
-                easy
-              </ToggleButton>
-              <ToggleButton value={GameDifficulty.Hard} aria-label="hard">
-                hard
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </>
+          <NumbersSettings
+            value={difficulty}
+            onChange={handleChangeDifficulty}
+          />
         )}
+
         <br />
         <br />
         <FormControlLabel
