@@ -22,16 +22,11 @@ const handleChange =
   };
 
 const NewGameDialog = () => {
-  const { gameConfig, isNewGameDialogOpen, onNewGame, setIsNewGameDialogOpen } =
-    useNewGame();
+  const { gameConfig, onNewGame, setIsNewGameDialogOpen } = useNewGame();
   const [mode, setMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
   const [shouldSaveSettings, setShouldSaveSettings] = useState(false);
-
-  if (!isNewGameDialogOpen) {
-    return null;
-  }
 
   const isFirstGame = !gameConfig;
 

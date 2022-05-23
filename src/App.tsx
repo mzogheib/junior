@@ -17,7 +17,7 @@ const Main = styled.main`
 `;
 
 const App = () => {
-  const { gameConfig } = useNewGame();
+  const { gameConfig, isNewGameDialogOpen } = useNewGame();
 
   const renderGame = () => {
     if (!gameConfig) {
@@ -36,7 +36,7 @@ const App = () => {
         <Main>{renderGame()}</Main>
       </Wrapper>
 
-      <NewGameDialog />
+      {isNewGameDialogOpen && <NewGameDialog />}
     </>
   );
 };
