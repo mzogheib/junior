@@ -31,17 +31,14 @@ const NewGameDialog = () => {
   const isFirstGame = !gameConfig;
 
   const handleCancel = () => setIsNewGameDialogOpen(false);
-
   const handleSubmit = () => {
     onNewGame({ mode, targetLength, difficulty }, shouldSaveSettings);
-
     setIsNewGameDialogOpen(false);
   };
 
   const handleChangeMode = handleChange(setMode);
   const handleChangeTargetLength = handleChange(setTargetLength);
   const handleChangeDifficulty = handleChange(setDifficulty);
-
   const handleChangeSaveSettings = (event: ChangeEvent<HTMLInputElement>) => {
     setShouldSaveSettings(event.target.checked);
   };
