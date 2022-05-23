@@ -1,4 +1,6 @@
+import { MouseEvent } from "react";
+
 export type ChangeHandler<ValueType> = (
-  event: React.MouseEvent<HTMLElement>,
+  event: MouseEvent<HTMLElement>,
   value: ValueType | null
 ) => void;

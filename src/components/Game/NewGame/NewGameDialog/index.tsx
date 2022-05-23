@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction, ChangeEvent } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -16,7 +16,7 @@ import { ChangeHandler } from "./types";
 
 // Maybe trying to be a little too clever...
 const handleChange =
-  <V,>(setValue: (value: V) => void): ChangeHandler<V> =>
+  <V,>(setValue: Dispatch<SetStateAction<V>>): ChangeHandler<V> =>
   (event, value) => {
     if (value) setValue(value);
   };
@@ -42,9 +42,7 @@ const NewGameDialog = () => {
   const handleChangeTargetLength = handleChange(setTargetLength);
   const handleChangeDifficulty = handleChange(setDifficulty);
 
-  const handleChangeSaveSettings = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChangeSaveSettings = (event: ChangeEvent<HTMLInputElement>) => {
     setShouldSaveSettings(event.target.checked);
   };
 
