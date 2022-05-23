@@ -1,7 +1,6 @@
 import { Button, ButtonGroup } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useNewGame } from "./NewGameProvider";
-import { GameSettings } from "../types";
 
 type Props = {
   onClick?: () => void;
@@ -10,23 +9,17 @@ type Props = {
 const NewGameButton = ({ onClick }: Props) => {
   const { gameSettings, setIsNewGameDialogOpen, onNewGame } = useNewGame();
 
-  const handleSubmitNewGame = (
-    newGameSettings: GameSettings,
-    shouldSaveSettings: boolean
-  ) => {
-    onNewGame(newGameSettings, shouldSaveSettings);
-
-    setIsNewGameDialogOpen(false);
-  };
+  const hasSavedGameSettings = !!gameSettings;
 
   const handleClick = (isCustom?: boolean) => () => {
     onClick?.();
 
-    if (gameSettings && !isCustom) {
-      handleSubmitNewGame(gameSettings, true);
-    } else {
+    if (isCustom || !hasSavedGameSettings) {
       setIsNewGameDialogOpen(true);
+      return;
     }
+
+    onNewGame(gameSettings, true);
   };
 
   return (
@@ -34,7 +27,7 @@ const NewGameButton = ({ onClick }: Props) => {
       <Button onClick={handleClick()} aria-label="new game" fullWidth>
         new game
       </Button>
-      {!!gameSettings && (
+      {hasSavedGameSettings && (
         <Button
           onClick={handleClick(true)}
           color="primary"
