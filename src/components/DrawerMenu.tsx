@@ -7,7 +7,7 @@ import ThemeToggle from "./Theme/ThemeToggle";
 import AuthToggle from "./Auth/AuthToggle";
 import UserWelcome from "./UserWelcome";
 import { spacing } from "./Theme/utils";
-import NewGameButton from "./Game/NewGameButton";
+import NewGameButton from "./Game/NewGame/NewGameButton";
 
 const Wrapper = styled.div`
   padding: ${spacing(2)};
@@ -20,17 +20,11 @@ const Item = styled.div`
 
 type Props = {
   isOpen: boolean;
-  hasSavedGameSettings?: boolean;
-  onNewGame(isCustom?: boolean): void;
   onClose: () => void;
+  onClickNewGame: () => void;
 };
 
-const DrawerMenu = ({
-  isOpen,
-  hasSavedGameSettings,
-  onNewGame,
-  onClose,
-}: Props) => {
+const DrawerMenu = ({ isOpen, onClose, onClickNewGame }: Props) => {
   const { user } = useAuth0();
   const firstName = user?.given_name;
 
@@ -48,10 +42,7 @@ const DrawerMenu = ({
       </Wrapper>
       <Divider />
       <Wrapper>
-        <NewGameButton
-          hasSavedGameSettings={hasSavedGameSettings}
-          onNewGame={onNewGame}
-        />
+        <NewGameButton onClick={onClickNewGame} />
       </Wrapper>
     </Drawer>
   );

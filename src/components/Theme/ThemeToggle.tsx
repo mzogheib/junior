@@ -1,3 +1,4 @@
+import { MouseEvent } from "react";
 import { PaletteMode } from "@mui/material";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -11,7 +12,7 @@ const ThemeToggle = () => {
   const { setMode, mode } = useTheme();
 
   const handleThemeModeChange = (
-    event: React.MouseEvent<HTMLElement>,
+    event: MouseEvent<HTMLElement>,
     value: PaletteMode | null
   ) => {
     if (setMode && value) {

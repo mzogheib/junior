@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+
 import { Attempt, GameConfig } from "./types";
 import { makeDuration } from "./utils";
-import { Paper } from "@mui/material";
 
 const Wrapper = styled(Paper)`
   display: flex;
