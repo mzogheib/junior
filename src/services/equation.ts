@@ -1,11 +1,11 @@
-import { GameDifficulty } from "../components/Game/types";
-import { randomNumberBetween } from "../misc/utils";
+import { GameDifficulty } from "components/Game/types";
+import { randomNumberBetween } from "misc/utils";
 import {
   TargetSegments,
   stringifyTargetSegments,
   ReadOnlySegmentValue,
   SegmentType,
-} from "./segments";
+} from "services/segments";
 
 const evaluateExpression = (expressionString: string) =>
   // This isn't evaluating arbitrary input so should be safe... I think

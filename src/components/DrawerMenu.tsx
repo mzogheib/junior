@@ -3,11 +3,11 @@ import Divider from "@mui/material/Divider";
 import styled from "@emotion/styled";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import ThemeToggle from "./Theme/ThemeToggle";
-import AuthToggle from "./Auth/AuthToggle";
-import UserWelcome from "./UserWelcome";
-import { spacing } from "./Theme/utils";
-import NewGameButton from "./Game/NewGame/NewGameButton";
+import ThemeToggle from "components/Theme/ThemeToggle";
+import { spacing } from "components/Theme/utils";
+import AuthToggle from "components/Auth/AuthToggle";
+import UserWelcome from "components/UserWelcome";
+import NewGameButton from "components/Game/NewGame/NewGameButton";
 
 const Wrapper = styled.div`
   padding: ${spacing(2)};

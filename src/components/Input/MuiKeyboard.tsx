@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import BackspaceIcon from "@mui/icons-material/BackspaceOutlined";
 import ReturnIcon from "@mui/icons-material/KeyboardReturnOutlined";
 
-import { ActionKey, Key, MutedKey } from "./MuiKey";
+import { ActionKey, Key, MutedKey } from "components/Input/MuiKey";
 
 const Wrapper = styled.div`
   display: flex;

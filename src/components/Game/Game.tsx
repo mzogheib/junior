@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
-import { Attempt, GameConfig } from "./types";
+import { Attempt, GameConfig } from "components/Game/types";
 import {
   stringifyTargetSegments,
   READ_ONLY_CHARACTERS,
@@ -10,16 +10,15 @@ import {
   makeAttemptSegments,
   getWriteableSegments,
   getUniqueSegmentValueChars,
-} from "../../services/segments";
-import Attempts from "./Attempts";
-
-import AutoScrollToBottom from "../AutoScrollToBottom";
-import ErrorMessage from "./ErrorMessage";
-import SuccessMessage from "./SuccessMessage";
-import Keyboard from "../Input/Keyboard";
-import InputTiles from "../Tiles/InputTiles";
-import { spacing } from "../Theme/utils";
-import NewGameButton from "./NewGame/NewGameButton";
+} from "services/segments";
+import Attempts from "components/Game/Attempts";
+import AutoScrollToBottom from "components/AutoScrollToBottom";
+import ErrorMessage from "components/Game/ErrorMessage";
+import SuccessMessage from "components/Game/SuccessMessage";
+import Keyboard from "components/Input/Keyboard";
+import InputTiles from "components/Tiles/InputTiles";
+import { spacing } from "components/Theme/utils";
+import NewGameButton from "components/Game/NewGame/NewGameButton";
 
 const Wrapper = styled.div`
   display: flex;

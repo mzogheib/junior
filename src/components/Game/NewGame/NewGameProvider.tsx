@@ -1,10 +1,8 @@
 import React, { FC, useState, createContext, useContext } from "react";
-import {
-  getRandomEquation,
-  validateEquation,
-} from "../../../services/equation";
-import { getRandomWord, validateWord } from "../../../services/words";
-import { GameConfig, GameSettings, GameMode } from "../types";
+
+import { getRandomEquation, validateEquation } from "services/equation";
+import { getRandomWord, validateWord } from "services/words";
+import { GameConfig, GameSettings, GameMode } from "components/Game/types";
 
 type NewGameContextValue = {
   gameConfig?: GameConfig;

@@ -7,12 +7,12 @@ import DialogActions from "@mui/material/DialogActions";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-import { GameDifficulty, GameMode, WordLength } from "../../types";
-import { useNewGame } from "./../NewGameProvider";
-import ModeSettings from "./ModeSettings";
-import LettersSettings from "./LettersSettings";
-import NumbersSettings from "./NumbersSettings";
-import { ChangeHandler } from "./types";
+import { GameDifficulty, GameMode, WordLength } from "components/Game/types";
+import { useNewGame } from "components/Game/NewGame//NewGameProvider";
+import ModeSettings from "components/Game/NewGame/NewGameDialog/ModeSettings";
+import LettersSettings from "components/Game/NewGame/NewGameDialog/LettersSettings";
+import NumbersSettings from "components/Game/NewGame/NewGameDialog/NumbersSettings";
+import { ChangeHandler } from "components/Game/NewGame/NewGameDialog/types";
 
 // Maybe trying to be a little too clever...
 const handleChange =

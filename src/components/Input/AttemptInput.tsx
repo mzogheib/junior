@@ -1,12 +1,13 @@
 import { ChangeEvent, RefObject, useEffect } from "react";
+
 import {
   TargetSegments,
   stringifyTargetSegments,
   makeAttemptSegments,
   getWriteableSegments,
-} from "../../services/segments";
-import InvisibleInput from "./InvisibleInput";
-import InputTiles from "../Tiles/InputTiles";
+} from "services/segments";
+import InvisibleInput from "components/Input/InvisibleInput";
+import InputTiles from "components/Tiles/InputTiles";
 
 type Props = {
   targetSegments: TargetSegments;

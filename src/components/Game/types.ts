@@ -1,4 +1,4 @@
-import { TargetSegments } from "../../services/segments";
+import { TargetSegments } from "services/segments";
 
 export enum GameMode {
   Letters = "letters",

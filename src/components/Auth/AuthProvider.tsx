@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { Auth0Provider } from "@auth0/auth0-react";
-import configJsonDev from "./config/dev.json";
-import configJsonProd from "./config/prod.json";
+
+import configJsonDev from "components/Auth/config/dev.json";
+import configJsonProd from "components/Auth/config/prod.json";
 
 const getConfig = () => {
   if (process.env.NODE_ENV === "development") {

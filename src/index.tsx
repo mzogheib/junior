@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Global, css } from "@emotion/react";
 
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import ThemeProvider from "./components/Theme/ThemeProvider";
-import AuthProvider from "./components/Auth/AuthProvider";
-import NewGameProvider from "./components/Game/NewGame/NewGameProvider";
+import App from "App";
+import reportWebVitals from "reportWebVitals";
+import ThemeProvider from "components/Theme/ThemeProvider";
+import AuthProvider from "components/Auth/AuthProvider";
+import NewGameProvider from "components/Game/NewGame/NewGameProvider";
 
 const globalStyles = css`
   html,

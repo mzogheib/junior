@@ -6,10 +6,10 @@ import {
   makeAttemptSegments,
   stringifyTargetSegments,
   TargetSegments,
-} from "../../services/segments";
-import { GameMode } from "../Game/types";
-import MUIKeyboard from "./MuiKeyboard";
-import { spacing } from "../Theme/utils";
+} from "services/segments";
+import { GameMode } from "components/Game/types";
+import MUIKeyboard from "components/Input/MuiKeyboard";
+import { spacing } from "components/Theme/utils";
 
 const Wrapper = styled.div`
   margin: 0 auto;

@@ -1,6 +1,6 @@
-import { TileState, TileVariant } from "../Tiles/types";
-import Tiles from "../Tiles/Tiles";
-import Tile from "../Tiles/Tile";
+import { TileState, TileVariant } from "components/Tiles/types";
+import Tiles from "components/Tiles/Tiles";
+import Tile from "components/Tiles/Tile";
 
 const getTileState = (
   target: string,

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-import Attempt from "./Attempt";
+
+import Attempt from "components/Game/Attempt";
 
 const Wrapper = styled.div`
   display: flex;
