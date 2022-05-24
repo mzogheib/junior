@@ -1,5 +1,7 @@
-import { ReactNode, InputHTMLAttributes, useRef, RefObject } from "react";
+import { InputHTMLAttributes, useRef, RefObject } from "react";
 import styled from "@emotion/styled";
+
+import { ChildrenProp } from "types";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -15,13 +17,12 @@ const Input = styled.input`
 `;
 
 type OwnProps = {
-  children: ReactNode;
   inputRef?: RefObject<HTMLInputElement>;
 };
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-type Props = OwnProps & InputProps;
+type Props = OwnProps & InputProps & ChildrenProp;
 
 const InvisibleInput = ({
   children,

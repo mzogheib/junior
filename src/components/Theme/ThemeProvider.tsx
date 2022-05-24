@@ -1,6 +1,8 @@
-import React, { ReactNode, useState, createContext, useContext } from "react";
+import { useState, createContext, useContext } from "react";
 import { ThemeProvider as EmotionThemeProvider } from "@emotion/react";
 import { createTheme, PaletteMode } from "@mui/material";
+
+import { ChildrenProp } from "types";
 
 type ThemeContextValue = {
   onToggleMode?: () => void;
@@ -12,11 +14,7 @@ const ThemeContext = createContext<ThemeContextValue>({});
 
 export const useTheme = () => useContext(ThemeContext);
 
-type Props = {
-  children?: ReactNode;
-};
-
-const ThemeProvider = ({ children }: Props) => {
+const ThemeProvider = ({ children }: ChildrenProp) => {
   const [mode, setMode] = useState<PaletteMode>("light");
 
   const handleToggleMode = () => {
