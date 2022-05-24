@@ -65,7 +65,9 @@ const MUIKeyboard = ({ layout, mutedKeys, onKeyPress }: Props) => {
   };
 
   const renderRow = (rowOfKeys: string) => (
-    <Row layout={layout}>{rowOfKeys.split(" ").map(renderKey)}</Row>
+    <Row key={rowOfKeys} layout={layout}>
+      {rowOfKeys.split(" ").map(renderKey)}
+    </Row>
   );
 
   const renderRows = (rowsOfKeys: string[]) => rowsOfKeys.map(renderRow);
