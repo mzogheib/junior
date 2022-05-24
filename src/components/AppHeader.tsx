@@ -6,10 +6,11 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import DrawerMenu from "components/DrawerMenu";
+import Logo from "components/Logo";
 
 const StyledToolbar = styled(Toolbar)`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 `;
 
 const AppHeader = () => {
@@ -19,6 +20,7 @@ const AppHeader = () => {
     <>
       <AppBar position="sticky">
         <StyledToolbar>
+          <Logo />
           <IconButton onClick={() => setIsMenuOpen(true)} color="inherit">
             <MenuIcon />
           </IconButton>
