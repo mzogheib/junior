@@ -1,4 +1,7 @@
-import { ToggleButtonGroup, ToggleButton, Typography } from "@mui/material";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import ToggleButton from "@mui/material/ToggleButton";
+import Typography from "@mui/material/Typography";
+
 import { GameDifficulty } from "../../types";
 import { ChangeHandler } from "./types";
 
