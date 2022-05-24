@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { ReactNode } from "react";
 import { Auth0Provider } from "@auth0/auth0-react";
 
 import configJsonDev from "components/Auth/config/dev.json";
@@ -17,7 +17,11 @@ const config = {
   redirectUri: `${window.location.origin}/junior`,
 };
 
-const AuthProvider: FC = ({ children }) => {
+type Props = {
+  children?: ReactNode;
+};
+
+const AuthProvider = ({ children }: Props) => {
   return <Auth0Provider {...config}> {children}</Auth0Provider>;
 };
 

@@ -1,4 +1,4 @@
-import React, { FC, useState, createContext, useContext } from "react";
+import React, { ReactNode, useState, createContext, useContext } from "react";
 
 import { getRandomEquation, validateEquation } from "services/equation";
 import { getRandomWord, validateWord } from "services/words";
@@ -20,7 +20,11 @@ const NewGameContext = createContext<NewGameContextValue>({
 
 export const useNewGame = () => useContext(NewGameContext);
 
-const NewGameProvider: FC = ({ children }) => {
+type Props = {
+  children?: ReactNode;
+};
+
+const NewGameProvider = ({ children }: Props) => {
   const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
   const [gameConfig, setGameConfig] = useState<GameConfig>();
   const [gameSettings, setGameSettings] = useState<GameSettings>();
