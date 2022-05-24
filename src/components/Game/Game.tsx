@@ -37,6 +37,9 @@ const Inner = styled.div`
 
 const MessageWrapper = styled.div`
   margin-top: ${spacing(3)};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const checkDidSucceed = (attempts: string[], target: string) => {
@@ -142,7 +145,7 @@ const Game = ({ config }: Props) => {
           <MessageWrapper>
             <SuccessMessage attempts={attempts} gameConfig={config} />
             <br />
-            <NewGameButton variant="contained" />
+            <NewGameButton variant="contained" fullWidth={false} />
           </MessageWrapper>
         )}
 

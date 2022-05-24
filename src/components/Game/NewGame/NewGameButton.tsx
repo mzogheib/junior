@@ -6,9 +6,10 @@ import { useNewGame } from "./NewGameProvider";
 type Props = {
   onClick?: () => void;
   variant?: ButtonProps["variant"];
+  fullWidth?: ButtonProps["fullWidth"];
 };
 
-const NewGameButton = ({ onClick, variant }: Props) => {
+const NewGameButton = ({ onClick, variant, fullWidth = true }: Props) => {
   const { gameSettings, setIsNewGameDialogOpen, onNewGame } = useNewGame();
 
   const hasSavedGameSettings = !!gameSettings;
@@ -25,10 +26,14 @@ const NewGameButton = ({ onClick, variant }: Props) => {
   };
 
   return (
-    <ButtonGroup variant="outlined" fullWidth aria-label="new game buttons">
+    <ButtonGroup
+      variant="outlined"
+      fullWidth={fullWidth}
+      aria-label="new game buttons"
+    >
       <Button
         aria-label="new game"
-        fullWidth
+        fullWidth={fullWidth}
         onClick={handleClick()}
         variant={variant}
       >
