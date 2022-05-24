@@ -19,6 +19,7 @@ import SuccessMessage from "./SuccessMessage";
 import Keyboard from "../Input/Keyboard";
 import InputTiles from "../Tiles/InputTiles";
 import { spacing } from "../Theme/utils";
+import NewGameButton from "./NewGame/NewGameButton";
 
 const Wrapper = styled.div`
   display: flex;
@@ -140,6 +141,8 @@ const Game = ({ config }: Props) => {
         {didSucceed && (
           <MessageWrapper>
             <SuccessMessage attempts={attempts} gameConfig={config} />
+            <br />
+            <NewGameButton variant="contained" />
           </MessageWrapper>
         )}
 

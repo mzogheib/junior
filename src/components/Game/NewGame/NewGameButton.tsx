@@ -1,13 +1,14 @@
-import Button from "@mui/material/Button";
+import Button, { ButtonProps } from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useNewGame } from "./NewGameProvider";
 
 type Props = {
   onClick?: () => void;
+  variant?: ButtonProps["variant"];
 };
 
-const NewGameButton = ({ onClick }: Props) => {
+const NewGameButton = ({ onClick, variant }: Props) => {
   const { gameSettings, setIsNewGameDialogOpen, onNewGame } = useNewGame();
 
   const hasSavedGameSettings = !!gameSettings;
@@ -25,15 +26,21 @@ const NewGameButton = ({ onClick }: Props) => {
 
   return (
     <ButtonGroup variant="outlined" fullWidth aria-label="new game buttons">
-      <Button onClick={handleClick()} aria-label="new game" fullWidth>
+      <Button
+        aria-label="new game"
+        fullWidth
+        onClick={handleClick()}
+        variant={variant}
+      >
         new game
       </Button>
       {hasSavedGameSettings && (
         <Button
-          onClick={handleClick(true)}
+          aria-label="customise game"
           color="primary"
           fullWidth={false}
-          aria-label="customise game"
+          onClick={handleClick(true)}
+          variant={variant}
         >
           <SettingsIcon />
         </Button>
