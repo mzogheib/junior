@@ -10,10 +10,10 @@
 - Solve word and math puzzles
 - Multiple difficulty levels
 
-<div style="display: flex; justify-content: center;">
-    <img src="assets/words.png" alt="words" style="max-width: 200px; margin: 0 5px"/>
-    <img src="assets/numbers.png" alt="numbers" style="max-width: 200px; margin: 0 5px"/>
-    <img src="assets/new game.png" alt="new game" style="max-width: 200px; margin: 0 5px"/>
+<div align="center">
+    <img src="assets/words.png" alt="words" width="200" />
+    <img src="assets/numbers.png" alt="numbers" width="200" />
+    <img src="assets/new game.png" alt="new game" width="200" />
 </div>
 
 <br />
