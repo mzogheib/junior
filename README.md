@@ -1,9 +1,8 @@
 <div align="center">
 <h1>Junior 🧢</h1>
-<em>Yet another <a href="https://en.wikipedia.org/wiki/Wordle" target="_blank">Wordle</a> clone - but with a twist 💃</em>
-<br />
-<br />
 <div><a href="https://mzogheib.github.io/junior">mzogheib.github.io/junior</a></div>
+<br />
+<em>Yet another <a href="https://en.wikipedia.org/wiki/Wordle" target="_blank">Wordle</a> clone - but with a twist 💃</em>
 </div>
 
 ## 💫 Features
