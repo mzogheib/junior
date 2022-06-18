@@ -10,7 +10,7 @@
 - Solve word and math puzzles
 - Multiple difficulty levels
 
-<div align="center">
+<div align="center" style="max-width: 700px">
     <img src="assets/words.png" alt="words" style="max-width: 200px"/>
     <img src="assets/numbers.png" alt="numbers" style="max-width: 200px"/>
     <img src="assets/new game.png" alt="new game" style="max-width: 200px"/>
@@ -18,6 +18,6 @@
 
 <br />
 
-## Development
+## 🛠️ Development
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and is deployed via [GitHub Pages](https://docs.github.com/en/pages).
