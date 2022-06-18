@@ -3,8 +3,6 @@
 <em>Yet another <a href="https://en.wikipedia.org/wiki/Wordle" target="_blank">Wordle</a> clone - but with a twist 💃</em>
 </div>
 
-<br />
-
 ## 💫 Features
 
 - Solve word and math puzzles
@@ -16,8 +14,8 @@
     <img src="assets/new game.png" alt="new game" width="200" />
 </div>
 
-<br />
-
 ## 🛠️ Development
+
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and is deployed via [GitHub Pages](https://docs.github.com/en/pages).
