@@ -1,4 +1,4 @@
-import { Auth0Provider } from "@auth0/auth0-react";
+import { Auth0Provider, Auth0ProviderOptions } from "@auth0/auth0-react";
 
 import configJsonDev from "components/Auth/config/dev.json";
 import configJsonProd from "components/Auth/config/prod.json";
@@ -12,7 +12,7 @@ const getConfig = () => {
   return configJsonProd;
 };
 
-const config = {
+const config: Auth0ProviderOptions = {
   ...getConfig(),
   redirectUri: `${window.location.origin}/junior`,
 };
