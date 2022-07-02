@@ -36,5 +36,5 @@ Find out how to do this by Googling the following:
 ### Develop
 
 ```console
-npm start --ss ./sdf
+npm start
 ```
