@@ -7,7 +7,7 @@
 
 ## 💫 Features
 
-- Solve word and math puzzles
+- Solve words and equations
 - Multiple difficulty levels
 
 <div align="center">
