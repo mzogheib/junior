@@ -9,6 +9,13 @@ import UserWelcome from "components/UserWelcome";
 import NewGameButton from "components/Game/NewGame/NewGameButton";
 
 const Wrapper = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const ItemWrapper = styled.div`
   padding: ${spacing(2)};
   max-width: 230px;
 `;
@@ -26,15 +33,21 @@ const DrawerMenu = ({ isOpen, onClose, onClickNewGame }: Props) => {
   return (
     <Drawer anchor="right" open={isOpen} onClose={onClose}>
       <Wrapper>
-        <UserWelcome firstName={firstName} />
-      </Wrapper>
-      <Divider />
-      <Wrapper>
-        <ThemeToggle />
-      </Wrapper>
-      <Divider />
-      <Wrapper>
-        <NewGameButton onClick={onClickNewGame} />
+        <div>
+          <ItemWrapper>
+            <UserWelcome firstName={firstName} />
+          </ItemWrapper>
+          <Divider />
+        </div>
+        <div>
+          <ItemWrapper>
+            <ThemeToggle />
+          </ItemWrapper>
+          <Divider />
+          <ItemWrapper>
+            <NewGameButton onClick={onClickNewGame} />
+          </ItemWrapper>
+        </div>
       </Wrapper>
     </Drawer>
   );
