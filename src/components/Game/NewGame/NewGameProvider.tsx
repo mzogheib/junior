@@ -5,7 +5,7 @@ import { getRandomWord } from "services/words";
 import { getValidateFunction } from "services/utils";
 import { GameConfig, GameSettings, GameMode } from "components/Game/types";
 import { ChildrenProp } from "types";
-import { useSharedGame } from "components/ShareGame/utils";
+import { useSharedGame } from "components/Game/ShareGame/utils";
 
 type NewGameContextValue = {
   gameConfig?: GameConfig;
