@@ -5,7 +5,7 @@ import { getRandomWord } from "services/words";
 import { getValidateFunction } from "services/utils";
 import { GameConfig, GameSettings, GameMode } from "components/Game/types";
 import { ChildrenProp } from "types";
-import { getQueryParams } from "misc/queryParams";
+import { getQueryParams, setQueryParams } from "misc/queryParams";
 
 const useSharedGame = () => {
   const [sharedConfig, setSharedConfig] = useState<GameConfig>();
@@ -25,7 +25,7 @@ const useSharedGame = () => {
 
     setSharedConfig({ startedAt, mode, targetSegments, validate });
 
-    window.history.pushState(undefined, "", window.location.pathname);
+    setQueryParams({});
   }, []);
 
   return sharedConfig;
