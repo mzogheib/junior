@@ -39,7 +39,7 @@ const ShareGamePrompt = (props: Props) => {
   return (
     <>
       <Button
-        aria-label="new game"
+        aria-label="share game"
         fullWidth
         onClick={handleClick}
         variant="text"
