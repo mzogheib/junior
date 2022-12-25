@@ -6,6 +6,7 @@ import { getValidateFunction } from "services/utils";
 import { GameConfig, GameSettings, GameMode } from "components/Game/types";
 import { ChildrenProp } from "types";
 import { getQueryParams, setQueryParams } from "misc/queryParams";
+import { deserializeConfig } from "misc/serializeConfig";
 
 const useSharedGame = () => {
   const [sharedConfig, setSharedConfig] = useState<GameConfig>();
@@ -15,7 +16,13 @@ const useSharedGame = () => {
 
     if (!configHash) return;
 
-    const config = JSON.parse(window.atob(configHash));
+    const config = deserializeConfig(configHash);
+
+    if (!config) {
+      setQueryParams({});
+      return;
+    }
+
     const { settings, targetSegments } = config;
     const { mode } = settings;
 
