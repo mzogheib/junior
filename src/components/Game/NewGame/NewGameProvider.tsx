@@ -1,9 +1,11 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 
-import { getRandomEquation, validateEquation } from "services/equation";
-import { getRandomWord, validateWord } from "services/words";
+import { getRandomEquation } from "services/equation";
+import { getRandomWord } from "services/words";
+import { getValidateFunction } from "services/utils";
 import { GameConfig, GameSettings, GameMode } from "components/Game/types";
 import { ChildrenProp } from "types";
+import { useSharedGame } from "components/Game/ShareGame/utils";
 
 type NewGameContextValue = {
   gameConfig?: GameConfig;
@@ -22,9 +24,18 @@ const NewGameContext = createContext<NewGameContextValue>({
 export const useNewGame = () => useContext(NewGameContext);
 
 const NewGameProvider = ({ children }: ChildrenProp) => {
+  const initialConfig = useSharedGame();
+
   const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
   const [gameConfig, setGameConfig] = useState<GameConfig>();
   const [gameSettings, setGameSettings] = useState<GameSettings>();
+
+  useEffect(() => {
+    if (initialConfig) {
+      setIsNewGameDialogOpen(false);
+      setGameConfig(initialConfig);
+    }
+  }, [initialConfig]);
 
   const onNewGame = (settings: GameSettings, shouldSaveSettings: boolean) => {
     const { mode, targetLength, difficulty } = settings;
@@ -36,8 +47,7 @@ const NewGameProvider = ({ children }: ChildrenProp) => {
         ? getRandomWord(targetLength)
         : getRandomEquation(difficulty);
 
-    const validate =
-      mode === GameMode.Letters ? validateWord : validateEquation;
+    const validate = getValidateFunction(mode);
 
     if (shouldSaveSettings) {
       setGameSettings(settings);
