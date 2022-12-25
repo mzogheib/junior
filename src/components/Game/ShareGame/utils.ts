@@ -1,8 +1,16 @@
 import { useState, useEffect } from "react";
 
 import { GameConfig } from "components/Game/types";
-import { getQueryParams, setQueryParams } from "misc/queryParams";
-import { deserializeConfig } from "misc/serializeConfig";
+import {
+  getQueryParams,
+  makeSearchString,
+  setQueryParams,
+} from "misc/queryParams";
+import {
+  deserializeConfig,
+  DeserializedConfig,
+  serializeConfig,
+} from "misc/serializeConfig";
 import { getValidateFunction } from "services/utils";
 
 export const useSharedGame = () => {
@@ -33,4 +41,12 @@ export const useSharedGame = () => {
   }, []);
 
   return sharedConfig;
+};
+
+export const makeSharedGameUrl = (params: DeserializedConfig) => {
+  const { origin } = window.location;
+  const serializedConfig = serializeConfig(params);
+  const searchString = makeSearchString({ config: serializedConfig });
+
+  return `${origin}/junior?${searchString}`;
 };

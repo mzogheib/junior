@@ -19,6 +19,7 @@ import Keyboard from "components/Input/Keyboard";
 import InputTiles from "components/Tiles/InputTiles";
 import { spacing } from "components/Theme/utils";
 import NewGameButton from "components/Game/NewGame/NewGameButton";
+import ShareGamePrompt from "components/Game/ShareGame/ShareGamePrompt";
 
 const Wrapper = styled.div`
   display: flex;
@@ -145,6 +146,11 @@ const Game = ({ config }: Props) => {
             <SuccessMessage attempts={attempts} gameConfig={config} />
             <br />
             <NewGameButton variant="contained" fullWidth={false} />
+            <br />
+            <ShareGamePrompt
+              targetSegments={targetSegments}
+              settings={{ mode }}
+            />
           </MessageWrapper>
         )}
 

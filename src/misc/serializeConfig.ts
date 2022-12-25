@@ -3,7 +3,7 @@ import { TargetSegments } from "services/segments";
 
 type SerializedConfig = string;
 
-type DeserializedConfig = {
+export type DeserializedConfig = {
   settings: GameSettings;
   targetSegments: TargetSegments;
 };
