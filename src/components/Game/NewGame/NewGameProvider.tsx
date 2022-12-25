@@ -5,38 +5,7 @@ import { getRandomWord } from "services/words";
 import { getValidateFunction } from "services/utils";
 import { GameConfig, GameSettings, GameMode } from "components/Game/types";
 import { ChildrenProp } from "types";
-import { getQueryParams, setQueryParams } from "misc/queryParams";
-import { deserializeConfig } from "misc/serializeConfig";
-
-const useSharedGame = () => {
-  const [sharedConfig, setSharedConfig] = useState<GameConfig>();
-
-  useEffect(() => {
-    const { config: configHash } = getQueryParams();
-
-    if (!configHash) return;
-
-    const config = deserializeConfig(configHash);
-
-    if (!config) {
-      setQueryParams({});
-      return;
-    }
-
-    const { settings, targetSegments } = config;
-    const { mode } = settings;
-
-    const validate = getValidateFunction(mode);
-
-    const startedAt = new Date().toISOString();
-
-    setSharedConfig({ startedAt, mode, targetSegments, validate });
-
-    setQueryParams({});
-  }, []);
-
-  return sharedConfig;
-};
+import { useSharedGame } from "components/ShareGame/utils";
 
 type NewGameContextValue = {
   gameConfig?: GameConfig;
