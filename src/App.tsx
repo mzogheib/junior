@@ -1,20 +1,7 @@
-import styled from "@emotion/styled";
-
-import AppHeader from "components/AppHeader";
 import Game from "components/Game/Game";
 import NewGameDialog from "components/Game/NewGame/NewGameDialog";
 import { useNewGame } from "components/Game/NewGame/NewGameProvider";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background-color: ${({ theme }) => theme.palette.background.paper};
-`;
-
-const Main = styled.main`
-  flex-grow: 1;
-`;
+import PageWrapper from "pages/PageWrapper";
 
 const App = () => {
   const { gameConfig, isNewGameDialogOpen } = useNewGame();
@@ -30,14 +17,11 @@ const App = () => {
   };
 
   return (
-    <>
-      <Wrapper>
-        <AppHeader />
-        <Main>{renderGame()}</Main>
-      </Wrapper>
+    <PageWrapper>
+      {renderGame()}
 
       {isNewGameDialogOpen && <NewGameDialog />}
-    </>
+    </PageWrapper>
   );
 };
 

@@ -1,34 +1,26 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import * as serviceWorkerRegistration from "serviceWorkerRegistration";
 
-import App from "App";
 import reportWebVitals from "reportWebVitals";
 import ThemeProvider from "components/Theme/ThemeProvider";
 import GlobalStyles from "components/Theme/GlobalStyles";
 import AuthProvider from "components/Auth/AuthProvider";
 import NewGameProvider from "components/Game/NewGame/NewGameProvider";
+import PageRouter from "pages/PageRouter";
 
 const container = document.getElementById("root");
 
-const makePath = (path: string) => `/junior${path}`;
-const router = createBrowserRouter([
-  {
-    path: makePath(""),
-    element: <App />,
-  },
-]);
-
 if (container) {
   const root = createRoot(container);
+
   root.render(
     <React.StrictMode>
       <AuthProvider>
         <ThemeProvider>
           <NewGameProvider>
-            <RouterProvider router={router} />
+            <PageRouter />
             <GlobalStyles />
           </NewGameProvider>
         </ThemeProvider>
