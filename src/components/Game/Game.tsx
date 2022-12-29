@@ -125,6 +125,10 @@ const Game = ({ config }: Props) => {
     setError("");
   };
 
+  const numAttempts = attempts.length;
+  const finishedAt = attempts[numAttempts - 1]?.submittedAt;
+  const gameStats = { startedAt: config.startedAt, finishedAt, numAttempts };
+
   return (
     <Wrapper>
       <Inner>
@@ -150,6 +154,7 @@ const Game = ({ config }: Props) => {
             <ShareGamePrompt
               targetSegments={targetSegments}
               settings={{ mode }}
+              stats={gameStats}
             />
           </MessageWrapper>
         )}

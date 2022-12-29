@@ -1,4 +1,4 @@
-import { GameSettings } from "components/Game/types";
+import { GameSettings, GameStats } from "components/Game/types";
 import { TargetSegments } from "services/segments";
 
 type SerializedConfig = string;
@@ -6,6 +6,7 @@ type SerializedConfig = string;
 export type DeserializedConfig = {
   settings: GameSettings;
   targetSegments: TargetSegments;
+  stats: GameStats;
 };
 
 type DeserializeConfig = (
@@ -17,7 +18,11 @@ export const deserializeConfig: DeserializeConfig = (serializedConfig) => {
     const deserializedConfig = JSON.parse(window.atob(serializedConfig));
 
     // TODO add a full check or type guard
-    if (!deserializedConfig?.settings || !deserializedConfig?.targetSegments) {
+    if (
+      !deserializedConfig?.settings ||
+      !deserializedConfig?.targetSegments ||
+      !deserializedConfig?.stats
+    ) {
       throw new Error("Invalid config");
     }
 

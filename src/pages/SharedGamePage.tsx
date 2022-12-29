@@ -11,6 +11,7 @@ import Attempt from "components/Game/Attempt";
 import { spacing } from "components/Theme/utils";
 import { GameMode } from "components/Game/types";
 import { SegmentType } from "services/segments";
+import { makeDuration } from "components/Game/utils";
 
 const Wrapper = styled.div`
   padding: ${spacing(2)};
@@ -32,19 +33,19 @@ const SharedGamePage = () => {
   const { setGameConfig } = useNewGame();
 
   const handleClick = () => {
-    if (!initialConfig) return;
+    if (!initialConfig.config) return;
 
-    setGameConfig(initialConfig);
+    setGameConfig(initialConfig.config);
     navigate(paths.game);
   };
 
-  if (!initialConfig) {
+  if (!initialConfig.config || !initialConfig.stats) {
     return null;
   }
 
-  console.log(initialConfig);
-
-  const { mode, targetSegments } = initialConfig;
+  const { mode, targetSegments } = initialConfig.config;
+  const { startedAt, finishedAt } = initialConfig.stats;
+  const duration = makeDuration(startedAt, finishedAt);
 
   const gameMode = gameModeMap[mode];
 
@@ -81,7 +82,9 @@ const SharedGamePage = () => {
 
         <Typography variant="body1">You've been challenged!</Typography>
 
-        <Typography variant="body1">Can you solve this {gameMode}?</Typography>
+        <Typography variant="body1">
+          Can you solve this {gameMode} {duration}?
+        </Typography>
 
         <br />
 
