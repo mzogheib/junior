@@ -48,5 +48,5 @@ export const makeSharedGameUrl = (params: DeserializedConfig) => {
   const serializedConfig = serializeConfig(params);
   const searchString = makeSearchString({ config: serializedConfig });
 
-  return `${origin}/junior?${searchString}`;
+  return `${origin}/junior/shared-game?${searchString}`;
 };
