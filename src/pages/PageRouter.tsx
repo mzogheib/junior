@@ -1,12 +1,23 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import App from "App";
+import NewGamePage from "pages/NewGamePage";
+import GamePage from "pages/GamePage";
 
 const makePath = (path: string) => `/junior${path}`;
+
+export const paths = {
+  home: makePath(""),
+  game: makePath("/game"),
+};
+
 const router = createBrowserRouter([
   {
-    path: makePath(""),
-    element: <App />,
+    path: paths.home,
+    element: <NewGamePage />,
+  },
+  {
+    path: paths.game,
+    element: <GamePage />,
   },
 ]);
 

@@ -26,11 +26,7 @@ const AppHeader = () => {
           </IconButton>
         </StyledToolbar>
       </AppBar>
-      <DrawerMenu
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        onClickNewGame={() => setIsMenuOpen(false)}
-      />
+      <DrawerMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );
 };
