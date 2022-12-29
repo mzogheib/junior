@@ -1,5 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import * as serviceWorkerRegistration from "serviceWorkerRegistration";
 
@@ -12,6 +13,14 @@ import NewGameProvider from "components/Game/NewGame/NewGameProvider";
 
 const container = document.getElementById("root");
 
+const makePath = (path: string) => `/junior${path}`;
+const router = createBrowserRouter([
+  {
+    path: makePath(""),
+    element: <App />,
+  },
+]);
+
 if (container) {
   const root = createRoot(container);
   root.render(
@@ -19,7 +28,7 @@ if (container) {
       <AuthProvider>
         <ThemeProvider>
           <NewGameProvider>
-            <App />
+            <RouterProvider router={router} />
             <GlobalStyles />
           </NewGameProvider>
         </ThemeProvider>

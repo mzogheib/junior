@@ -14,7 +14,7 @@ const getConfig = () => {
 
 const config: Auth0ProviderOptions = {
   ...getConfig(),
-  redirectUri: `${window.location.origin}/junior`,
+  redirectUri: `${window.location.origin}/juniorzz`,
 };
 
 const AuthProvider = ({ children }: ChildrenProp) => {
