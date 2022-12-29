@@ -3,23 +3,24 @@ import { createRoot } from "react-dom/client";
 
 import * as serviceWorkerRegistration from "serviceWorkerRegistration";
 
-import App from "App";
 import reportWebVitals from "reportWebVitals";
 import ThemeProvider from "components/Theme/ThemeProvider";
 import GlobalStyles from "components/Theme/GlobalStyles";
 import AuthProvider from "components/Auth/AuthProvider";
 import NewGameProvider from "components/Game/NewGame/NewGameProvider";
+import PageRouter from "pages/PageRouter";
 
 const container = document.getElementById("root");
 
 if (container) {
   const root = createRoot(container);
+
   root.render(
     <React.StrictMode>
       <AuthProvider>
         <ThemeProvider>
           <NewGameProvider>
-            <App />
+            <PageRouter />
             <GlobalStyles />
           </NewGameProvider>
         </ThemeProvider>

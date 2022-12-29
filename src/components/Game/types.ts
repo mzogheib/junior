@@ -32,3 +32,9 @@ export type Attempt = {
   value: string;
   submittedAt: string;
 };
+
+export type GameStats = {
+  startedAt: string;
+  finishedAt: string;
+  numAttempts: number;
+};

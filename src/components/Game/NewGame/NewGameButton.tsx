@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import Button, { ButtonProps } from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import { useNewGame } from "components/Game/NewGame/NewGameProvider";
+import { paths } from "pages/PageRouter";
 
 type Props = {
   onClick?: () => void;
@@ -11,7 +13,9 @@ type Props = {
 };
 
 const NewGameButton = ({ onClick, variant, fullWidth = true }: Props) => {
-  const { gameSettings, setIsNewGameDialogOpen, onNewGame } = useNewGame();
+  const navigate = useNavigate();
+
+  const { gameSettings, onNewGame } = useNewGame();
 
   const hasSavedGameSettings = !!gameSettings;
 
@@ -19,7 +23,7 @@ const NewGameButton = ({ onClick, variant, fullWidth = true }: Props) => {
     onClick?.();
 
     if (isCustom || !hasSavedGameSettings) {
-      setIsNewGameDialogOpen(true);
+      navigate(paths.home);
       return;
     }
 

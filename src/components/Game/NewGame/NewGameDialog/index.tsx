@@ -1,4 +1,5 @@
-import React, { useState, Dispatch, SetStateAction, ChangeEvent } from "react";
+import { useState, Dispatch, SetStateAction, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -13,6 +14,7 @@ import ModeSettings from "components/Game/NewGame/NewGameDialog/ModeSettings";
 import LettersSettings from "components/Game/NewGame/NewGameDialog/LettersSettings";
 import NumbersSettings from "components/Game/NewGame/NewGameDialog/NumbersSettings";
 import { ChangeHandler } from "components/Game/NewGame/NewGameDialog/types";
+import { paths } from "pages/PageRouter";
 
 // Maybe trying to be a little too clever...
 const handleChange =
@@ -22,18 +24,16 @@ const handleChange =
   };
 
 const NewGameDialog = () => {
-  const { gameConfig, onNewGame, setIsNewGameDialogOpen } = useNewGame();
+  const navigate = useNavigate();
+  const { onNewGame } = useNewGame();
   const [mode, setMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
   const [shouldSaveSettings, setShouldSaveSettings] = useState(false);
 
-  const isFirstGame = !gameConfig;
-
-  const handleCancel = () => setIsNewGameDialogOpen(false);
   const handleSubmit = () => {
     onNewGame({ mode, targetLength, difficulty }, shouldSaveSettings);
-    setIsNewGameDialogOpen(false);
+    navigate(paths.game);
   };
 
   const handleChangeMode = handleChange(setMode);
@@ -78,7 +78,6 @@ const NewGameDialog = () => {
       </DialogContent>
 
       <DialogActions>
-        {!isFirstGame && <Button onClick={handleCancel}>Cancel</Button>}
         <Button onClick={handleSubmit}>Go</Button>
       </DialogActions>
     </Dialog>

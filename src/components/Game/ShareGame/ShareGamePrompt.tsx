@@ -4,13 +4,14 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { TargetSegments } from "services/segments";
-import { GameSettings } from "components/Game/types";
+import { GameSettings, GameStats } from "components/Game/types";
 import { makeSharedGameUrl } from "components/Game/ShareGame/utils";
 import { useState } from "react";
 
 type Props = {
   settings: GameSettings;
   targetSegments: TargetSegments;
+  stats: GameStats;
 };
 
 const ShareGamePrompt = (props: Props) => {

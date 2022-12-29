@@ -1,11 +1,10 @@
-import { useState, createContext, useContext, useEffect } from "react";
+import { useState, createContext, useContext } from "react";
 
 import { getRandomEquation } from "services/equation";
 import { getRandomWord } from "services/words";
 import { getValidateFunction } from "services/utils";
 import { GameConfig, GameSettings, GameMode } from "components/Game/types";
 import { ChildrenProp } from "types";
-import { useSharedGame } from "components/Game/ShareGame/utils";
 
 type NewGameContextValue = {
   gameConfig?: GameConfig;
@@ -13,29 +12,22 @@ type NewGameContextValue = {
   isNewGameDialogOpen: boolean;
   setIsNewGameDialogOpen: (value: boolean) => void;
   onNewGame: (settings: GameSettings, shouldSaveSettings: boolean) => void;
+  setGameConfig: (config: GameConfig) => void;
 };
 
 const NewGameContext = createContext<NewGameContextValue>({
   isNewGameDialogOpen: false,
   setIsNewGameDialogOpen: (value: boolean) => {},
   onNewGame: (settings: GameSettings, shouldSaveSettings: boolean) => {},
+  setGameConfig: (config: GameConfig) => {},
 });
 
 export const useNewGame = () => useContext(NewGameContext);
 
 const NewGameProvider = ({ children }: ChildrenProp) => {
-  const initialConfig = useSharedGame();
-
   const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
   const [gameConfig, setGameConfig] = useState<GameConfig>();
   const [gameSettings, setGameSettings] = useState<GameSettings>();
-
-  useEffect(() => {
-    if (initialConfig) {
-      setIsNewGameDialogOpen(false);
-      setGameConfig(initialConfig);
-    }
-  }, [initialConfig]);
 
   const onNewGame = (settings: GameSettings, shouldSaveSettings: boolean) => {
     const { mode, targetLength, difficulty } = settings;
@@ -64,6 +56,7 @@ const NewGameProvider = ({ children }: ChildrenProp) => {
     isNewGameDialogOpen,
     setIsNewGameDialogOpen,
     onNewGame,
+    setGameConfig,
   };
 
   return (
