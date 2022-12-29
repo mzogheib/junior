@@ -38,14 +38,13 @@ const DrawerMenu = ({ isOpen, onClose, onClickNewGame }: Props) => {
             <UserWelcome firstName={firstName} />
           </ItemWrapper>
           <Divider />
+          <ItemWrapper>
+            <NewGameButton onClick={onClickNewGame} />
+          </ItemWrapper>
         </div>
         <div>
           <ItemWrapper>
             <ThemeToggle />
-          </ItemWrapper>
-          <Divider />
-          <ItemWrapper>
-            <NewGameButton onClick={onClickNewGame} />
           </ItemWrapper>
         </div>
       </Wrapper>
