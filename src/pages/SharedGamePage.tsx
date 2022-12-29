@@ -80,9 +80,11 @@ const SharedGamePage = () => {
 
         <br />
 
-        <Typography variant="body1">You've been challenged!</Typography>
+        <Typography color="textPrimary" variant="body1">
+          You've been challenged!
+        </Typography>
 
-        <Typography variant="body1">
+        <Typography color="textPrimary" variant="body1">
           Can you solve this {gameMode} {duration}?
         </Typography>
 
