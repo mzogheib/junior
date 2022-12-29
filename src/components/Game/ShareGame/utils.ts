@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { GameConfig, GameStats } from "components/Game/types";
-import { makeSearchString } from "misc/queryParams";
 import {
   deserializeConfig,
   DeserializedConfig,
@@ -41,7 +40,6 @@ export const useSharedGame = () => {
 export const makeSharedGameUrl = (params: DeserializedConfig) => {
   const { origin } = window.location;
   const serializedConfig = serializeConfig(params);
-  const searchString = makeSearchString({ config: serializedConfig });
 
-  return `${origin}/junior/shared-game?${searchString}`;
+  return `${origin}/junior/game/${serializedConfig}`;
 };
