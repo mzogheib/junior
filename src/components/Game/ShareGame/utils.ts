@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import { GameConfig, GameStats } from "components/Game/types";
-import {
-  getQueryParams,
-  makeSearchString,
-  setQueryParams,
-} from "misc/queryParams";
+import { makeSearchString } from "misc/queryParams";
 import {
   deserializeConfig,
   DeserializedConfig,
@@ -14,20 +11,17 @@ import {
 import { getValidateFunction } from "services/utils";
 
 export const useSharedGame = () => {
+  const { config: configHash } = useParams();
+
   const [sharedConfig, setSharedConfig] = useState<GameConfig>();
   const [sharedStats, setSharedStats] = useState<GameStats>();
 
   useEffect(() => {
-    const { config: configHash } = getQueryParams();
-
     if (!configHash) return;
 
     const config = deserializeConfig(configHash);
 
-    if (!config) {
-      setQueryParams({});
-      return;
-    }
+    if (!config) return;
 
     const { settings, targetSegments, stats } = config;
     const { mode } = settings;
@@ -39,9 +33,7 @@ export const useSharedGame = () => {
     setSharedConfig({ startedAt, mode, targetSegments, validate });
 
     setSharedStats(stats);
-
-    setQueryParams({});
-  }, []);
+  }, [configHash]);
 
   return { config: sharedConfig, stats: sharedStats };
 };

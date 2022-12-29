@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     element: <GamePage />,
   },
   {
-    path: paths.sharedGame,
+    path: `${paths.game}/:config`,
     element: <SharedGamePage />,
   },
 ]);
