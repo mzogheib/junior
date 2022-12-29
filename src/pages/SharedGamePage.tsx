@@ -10,7 +10,7 @@ import { paths } from "pages/PageRouter";
 import Attempt from "components/Game/Attempt";
 import { spacing } from "components/Theme/utils";
 import { GameMode } from "components/Game/types";
-import { SegmentType } from "services/segments";
+import { CHARACTER_DISPLAY_MAP, SegmentType } from "services/segments";
 import { makeDuration } from "components/Game/utils";
 
 const Wrapper = styled.div`
@@ -76,6 +76,7 @@ const SharedGamePage = () => {
           target={target}
           attempt={attempt}
           readOnlyValues={readOnlyValues}
+          characterMap={CHARACTER_DISPLAY_MAP}
         />
 
         <br />
