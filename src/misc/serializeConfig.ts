@@ -7,6 +7,7 @@ export type DeserializedConfig = {
   settings: GameSettings;
   targetSegments: TargetSegments;
   stats: GameStats;
+  successMessage?: string;
 };
 
 type DeserializeConfig = (

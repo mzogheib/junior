@@ -22,14 +22,20 @@ export const useSharedGame = () => {
 
     if (!config) return;
 
-    const { settings, targetSegments, stats } = config;
+    const { settings, targetSegments, stats, successMessage } = config;
     const { mode } = settings;
 
     const validate = getValidateFunction(mode);
 
     const startedAt = new Date().toISOString();
 
-    setSharedConfig({ startedAt, mode, targetSegments, validate });
+    setSharedConfig({
+      startedAt,
+      mode,
+      targetSegments,
+      successMessage,
+      validate,
+    });
 
     setSharedStats(stats);
   }, [configHash]);

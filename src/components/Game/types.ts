@@ -26,6 +26,7 @@ export type GameConfig = {
   targetSegments: TargetSegments;
   startedAt: string;
   validate: (targetSegments: TargetSegments) => string | undefined;
+  successMessage?: string;
 };
 
 export type Attempt = {

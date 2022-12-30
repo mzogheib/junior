@@ -28,11 +28,15 @@ type Props = {
   attempts: Attempt[];
 };
 
-const SuccessMessage = ({ attempts, gameConfig }: Props) => (
-  <Wrapper elevation={0}>
-    <Typography variant="h4">🥳</Typography>
-    <Typography variant="body1">{makeMessage(attempts, gameConfig)}</Typography>
-  </Wrapper>
-);
+const SuccessMessage = ({ attempts, gameConfig }: Props) => {
+  const message =
+    gameConfig.successMessage ?? makeMessage(attempts, gameConfig);
+  return (
+    <Wrapper elevation={0}>
+      <Typography variant="h4">🥳</Typography>
+      <Typography variant="body1">{message}</Typography>
+    </Wrapper>
+  );
+};
 
 export default SuccessMessage;
