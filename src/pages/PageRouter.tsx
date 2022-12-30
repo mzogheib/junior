@@ -3,13 +3,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NewGamePage from "pages/NewGamePage";
 import GamePage from "pages/GamePage";
 import SharedGamePage from "pages/SharedGamePage";
+import CustomGamePage from "pages/CustomGamePage";
 
 const makePath = (path: string) => `/junior${path}`;
 
 export const paths = {
   home: makePath(""),
   game: makePath("/game"),
-  sharedGame: makePath("/shared-game"),
+  customGame: makePath("/custom-game"),
 };
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: `${paths.game}/:config`,
     element: <SharedGamePage />,
+  },
+  {
+    path: `${paths.customGame}/:hash`,
+    element: <CustomGamePage />,
   },
 ]);
 
