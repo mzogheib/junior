@@ -54,7 +54,9 @@ type DeserializeCustomGameConfig = (
 
 const deserializeCustomGameConfig: DeserializeCustomGameConfig = (hash) => {
   try {
-    const deserializedConfig = JSON.parse(window.atob(hash));
+    const deserializedConfig = JSON.parse(
+      window.atob(window.decodeURIComponent(hash))
+    );
 
     // TODO add a full check or type guard
     if (!deserializedConfig?.target) {
