@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -40,7 +40,7 @@ const SharedGamePage = () => {
   };
 
   if (!initialConfig.config || !initialConfig.stats) {
-    return null;
+    return <Navigate to={paths.home} />;
   }
 
   const { mode, targetSegments } = initialConfig.config;
