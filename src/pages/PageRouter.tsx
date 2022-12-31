@@ -5,7 +5,7 @@ import GamePage from "pages/GamePage";
 import SharedGamePage from "pages/SharedGamePage";
 import CustomGamePage from "pages/CustomGamePage";
 
-const makePath = (path: string) => `/junior${path}`;
+const makePath = (path: string) => `${path}`;
 
 export const paths = {
   home: makePath(""),
@@ -13,24 +13,27 @@ export const paths = {
   customGame: makePath("/custom-game"),
 };
 
-const router = createHashRouter([
-  {
-    path: paths.home,
-    element: <NewGamePage />,
-  },
-  {
-    path: paths.game,
-    element: <GamePage />,
-  },
-  {
-    path: `${paths.game}/:config`,
-    element: <SharedGamePage />,
-  },
-  {
-    path: `${paths.customGame}`,
-    element: <CustomGamePage />,
-  },
-]);
+const router = createHashRouter(
+  [
+    {
+      path: paths.home,
+      element: <NewGamePage />,
+    },
+    {
+      path: paths.game,
+      element: <GamePage />,
+    },
+    {
+      path: `${paths.game}/:config`,
+      element: <SharedGamePage />,
+    },
+    {
+      path: `${paths.customGame}`,
+      element: <CustomGamePage />,
+    },
+  ],
+  { basename: "/junior" }
+);
 
 const PageRouter = () => <RouterProvider router={router} />;
 
