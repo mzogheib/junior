@@ -9,7 +9,11 @@ export const paths = {
   game: "/game",
   sharedGame: "/shared-game",
   customGame: "/custom-game",
-};
+} as const;
+
+type Keys = keyof typeof paths;
+
+export type Paths = typeof paths[Keys];
 
 const router = createHashRouter([
   {

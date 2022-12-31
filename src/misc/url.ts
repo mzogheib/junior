@@ -1,3 +1,5 @@
+import { Paths } from "pages/PageRouter";
+
 export const getQueryParams = () => {
   const urlSearchParams = new URLSearchParams(
     window.location.hash.split("?")[1]
@@ -23,7 +25,7 @@ export const setQueryParams = (params: Record<string, string>) => {
 };
 
 export const makeUrl = (
-  pathname: string,
+  pathname: Paths,
   searchParams?: Record<string, string>
 ) => {
   const { origin } = window.location;
