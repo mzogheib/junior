@@ -1,4 +1,4 @@
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider, Navigate } from "react-router-dom";
 
 import NewGamePage from "pages/NewGamePage";
 import GamePage from "pages/GamePage";
@@ -27,6 +27,10 @@ const router = createHashRouter([
   {
     path: paths.sharedGame,
     element: <SharedGamePage />,
+  },
+  {
+    path: "*",
+    element: <Navigate to={paths.home} />,
   },
 ]);
 
