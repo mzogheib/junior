@@ -8,7 +8,7 @@ import CustomGamePage from "pages/CustomGamePage";
 const makePath = (path: string) => `${path}`;
 
 export const paths = {
-  home: makePath(""),
+  home: makePath("/"),
   game: makePath("/game"),
   customGame: makePath("/custom-game"),
 };
