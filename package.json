@@ -2,7 +2,7 @@
   "name": "junior",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mzogheib.github.io/junior",
+  "homepage": "https://mzogheib.github.io/#/junior",
   "dependencies": {
     "@auth0/auth0-react": "^1.10.1",
     "@emotion/react": "^11.9.3",

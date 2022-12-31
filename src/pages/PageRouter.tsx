@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 
 import NewGamePage from "pages/NewGamePage";
 import GamePage from "pages/GamePage";
@@ -13,7 +13,7 @@ export const paths = {
   customGame: makePath("/custom-game"),
 };
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: paths.home,
     element: <NewGamePage />,

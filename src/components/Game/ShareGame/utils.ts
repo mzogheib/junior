@@ -47,5 +47,5 @@ export const makeSharedGameUrl = (params: DeserializedConfig) => {
   const { origin } = window.location;
   const serializedConfig = serializeConfig(params);
 
-  return `${origin}/junior/game/${serializedConfig}`;
+  return `${origin}/#/junior/game/${serializedConfig}`;
 };
