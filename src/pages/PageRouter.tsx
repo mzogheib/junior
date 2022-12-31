@@ -5,12 +5,10 @@ import GamePage from "pages/GamePage";
 import SharedGamePage from "pages/SharedGamePage";
 import CustomGamePage from "pages/CustomGamePage";
 
-const makePath = (path: string) => `${path}`;
-
 export const paths = {
-  home: makePath("/"),
-  game: makePath("/game"),
-  customGame: makePath("/custom-game"),
+  home: "/",
+  game: "/game",
+  customGame: "/custom-game",
 };
 
 const router = createHashRouter([
@@ -27,7 +25,7 @@ const router = createHashRouter([
     element: <SharedGamePage />,
   },
   {
-    path: `${paths.customGame}`,
+    path: paths.customGame,
     element: <CustomGamePage />,
   },
 ]);
