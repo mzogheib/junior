@@ -3,7 +3,6 @@ import { createHashRouter, RouterProvider } from "react-router-dom";
 import NewGamePage from "pages/NewGamePage";
 import GamePage from "pages/GamePage";
 import SharedGamePage from "pages/SharedGamePage";
-import CustomGamePage from "pages/CustomGamePage";
 
 export const paths = {
   home: "/",
@@ -24,10 +23,6 @@ const router = createHashRouter([
   {
     path: paths.sharedGame,
     element: <SharedGamePage />,
-  },
-  {
-    path: paths.customGame,
-    element: <CustomGamePage />,
   },
 ]);
 
