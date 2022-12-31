@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     element: <SharedGamePage />,
   },
   {
-    path: `${paths.customGame}/:hash`,
+    path: `${paths.customGame}`,
     element: <CustomGamePage />,
   },
 ]);

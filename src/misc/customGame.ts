@@ -1,6 +1,7 @@
 import { GameConfig, GameMode } from "components/Game/types";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+
 import { parseTarget } from "services/segments";
 import { getValidateFunction } from "services/utils";
 
@@ -13,7 +14,9 @@ const isLetter = (character: string) =>
   character.length === 1 && character.match(/[A-Z]/i);
 
 export const useCustomGame = () => {
-  const { hash } = useParams();
+  const [searchParams] = useSearchParams();
+
+  const hash = searchParams.get("hash");
 
   const [gameConfig, setGameConfig] = useState<GameConfig>();
 
