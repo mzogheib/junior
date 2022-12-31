@@ -1,5 +1,7 @@
 export const getQueryParams = () => {
-  const urlSearchParams = new URLSearchParams(window.location.search);
+  const urlSearchParams = new URLSearchParams(
+    window.location.hash.split("?")[1]
+  );
 
   return Object.fromEntries(urlSearchParams);
 };

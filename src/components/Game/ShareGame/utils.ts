@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 import { GameConfig, GameStats } from "components/Game/types";
 import {
@@ -8,17 +7,18 @@ import {
   serializeConfig,
 } from "misc/serializeConfig";
 import { getValidateFunction } from "services/utils";
+import { makeSearchString, getQueryParams } from "misc/queryParams";
 
 export const useSharedGame = () => {
-  const { config: configHash } = useParams();
-
   const [sharedConfig, setSharedConfig] = useState<GameConfig>();
   const [sharedStats, setSharedStats] = useState<GameStats>();
 
   useEffect(() => {
-    if (!configHash) return;
+    const { hash } = getQueryParams();
 
-    const config = deserializeConfig(configHash);
+    if (!hash) return;
+
+    const config = deserializeConfig(hash);
 
     if (!config) return;
 
@@ -38,7 +38,7 @@ export const useSharedGame = () => {
     });
 
     setSharedStats(stats);
-  }, [configHash]);
+  }, []);
 
   return { config: sharedConfig, stats: sharedStats };
 };
@@ -46,6 +46,7 @@ export const useSharedGame = () => {
 export const makeSharedGameUrl = (params: DeserializedConfig) => {
   const { origin } = window.location;
   const serializedConfig = serializeConfig(params);
+  const searchString = makeSearchString({ hash: serializedConfig });
 
-  return `${origin}/junior/#/game/${serializedConfig}`;
+  return `${origin}/junior/#/shared-game?${searchString}`;
 };

@@ -16,7 +16,9 @@ type DeserializeConfig = (
 
 export const deserializeConfig: DeserializeConfig = (serializedConfig) => {
   try {
-    const deserializedConfig = JSON.parse(window.atob(serializedConfig));
+    const deserializedConfig = JSON.parse(
+      window.atob(window.decodeURIComponent(serializedConfig))
+    );
 
     // TODO add a full check or type guard
     if (
@@ -38,4 +40,4 @@ type SerializeConfig = (
 ) => SerializedConfig;
 
 export const serializeConfig: SerializeConfig = (params) =>
-  window.btoa(JSON.stringify(params));
+  window.encodeURIComponent(window.btoa(JSON.stringify(params)));

@@ -8,6 +8,7 @@ import CustomGamePage from "pages/CustomGamePage";
 export const paths = {
   home: "/",
   game: "/game",
+  sharedGame: "/shared-game",
   customGame: "/custom-game",
 };
 
@@ -21,7 +22,7 @@ const router = createHashRouter([
     element: <GamePage />,
   },
   {
-    path: `${paths.game}/:config`,
+    path: paths.sharedGame,
     element: <SharedGamePage />,
   },
   {
