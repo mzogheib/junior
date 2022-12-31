@@ -21,3 +21,14 @@ export const setQueryParams = (params: Record<string, string>) => {
 
   window.history.pushState(undefined, "", newUrl);
 };
+
+export const makeUrl = (
+  pathname: string,
+  searchParams?: Record<string, string>
+) => {
+  const { origin } = window.location;
+
+  const searchString = searchParams ? `?${makeSearchString(searchParams)}` : "";
+
+  return `${origin}/junior/#${pathname}${searchString}`;
+};

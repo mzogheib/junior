@@ -7,7 +7,7 @@ import {
   serializeConfig,
 } from "misc/serializeConfig";
 import { getValidateFunction } from "services/utils";
-import { makeSearchString, getQueryParams } from "misc/queryParams";
+import { makeUrl, getQueryParams } from "misc/url";
 
 export const useSharedGame = () => {
   const [sharedConfig, setSharedConfig] = useState<GameConfig>();
@@ -47,12 +47,4 @@ export const makeSharedGameUrl = (params: DeserializedConfig) => {
   const serializedConfig = serializeConfig(params);
 
   return makeUrl("/shared-game", { hash: serializedConfig });
-};
-
-const makeUrl = (pathname: string, searchParams?: Record<string, string>) => {
-  const { origin } = window.location;
-
-  const searchString = searchParams ? `?${makeSearchString(searchParams)}` : "";
-
-  return `${origin}/junior/#${pathname}${searchString}`;
 };
