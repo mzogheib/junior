@@ -9,9 +9,9 @@ import {
 import { getValidateFunction } from "services/utils";
 import { makeUrl, getQueryParams } from "misc/url";
 
-export const useSharedGame = () => {
-  const [sharedConfig, setSharedConfig] = useState<GameConfig>();
-  const [sharedStats, setSharedStats] = useState<GameStats>();
+export const useCustomGame = () => {
+  const [gameConfig, setGameConfig] = useState<GameConfig>();
+  const [gameStats, setGameStats] = useState<GameStats>();
 
   useEffect(() => {
     const { hash } = getQueryParams();
@@ -29,7 +29,7 @@ export const useSharedGame = () => {
 
     const startedAt = new Date().toISOString();
 
-    setSharedConfig({
+    setGameConfig({
       startedAt,
       mode,
       targetSegments,
@@ -37,14 +37,14 @@ export const useSharedGame = () => {
       validate,
     });
 
-    setSharedStats(stats);
+    setGameStats(stats);
   }, []);
 
-  return { config: sharedConfig, stats: sharedStats };
+  return { config: gameConfig, stats: gameStats };
 };
 
 export const makeSharedGameUrl = (params: DeserializedConfig) => {
   const serializedConfig = serializeConfig(params);
 
-  return makeUrl("/shared-game", { hash: serializedConfig });
+  return makeUrl("/custom-game", { hash: serializedConfig });
 };

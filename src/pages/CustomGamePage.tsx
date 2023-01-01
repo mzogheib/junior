@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import { useSharedGame } from "components/Game/ShareGame/utils";
+import { useCustomGame } from "components/Game/ShareGame/utils";
 import { useNewGame } from "components/Game/NewGame/NewGameProvider";
 import PageWrapper from "pages/PageWrapper";
 import { paths } from "pages/PageRouter";
@@ -26,10 +26,10 @@ const gameModeMap = {
   [GameMode.Numbers]: "equation",
 };
 
-const SharedGamePage = () => {
+const CustomGamePage = () => {
   const navigate = useNavigate();
 
-  const initialConfig = useSharedGame();
+  const initialConfig = useCustomGame();
   const { setGameConfig } = useNewGame();
 
   const handleClick = () => {
@@ -99,4 +99,4 @@ const SharedGamePage = () => {
   );
 };
 
-export default SharedGamePage;
+export default CustomGamePage;
