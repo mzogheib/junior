@@ -95,7 +95,7 @@ export const getSegmentValueFromInput = (
 export const makeAttemptSegments = (
   inputValue: string,
   targetSegments: TargetSegment[]
-) =>
+): TargetSegments =>
   targetSegments.map((segment, index) => {
     if (segment.type === SegmentType.ReadOnly) {
       return segment;
@@ -105,4 +105,19 @@ export const makeAttemptSegments = (
       ...segment,
       value: getSegmentValueFromInput(inputValue, targetSegments, index),
     };
+  });
+
+export const replaceSegmentValues = (
+  targetSegments: TargetSegment[],
+  newValue: string
+): TargetSegment[] =>
+  targetSegments.map((segment) => {
+    if (segment.type === SegmentType.ReadOnly) return segment;
+
+    const value = segment.value
+      .split("")
+      .map((_) => newValue)
+      .join("");
+
+    return { ...segment, value };
   });

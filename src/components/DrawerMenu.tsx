@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import ThemeToggle from "components/Theme/ThemeToggle";
 import { spacing } from "components/Theme/utils";
 import UserWelcome from "components/UserWelcome";
-import NewGameButton from "components/Game/NewGame/NewGameButton";
+import NewGameButton from "components/NewGame/NewGameButton";
 
 const Wrapper = styled.div`
   height: 100%;

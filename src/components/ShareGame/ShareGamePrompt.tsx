@@ -5,7 +5,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { TargetSegments } from "services/segments";
 import { GameSettings, GameStats } from "components/Game/types";
-import { makeSharedGameUrl } from "components/Game/ShareGame/utils";
+import { makeSharedGameUrl } from "components/ShareGame/utils";
 import { useState } from "react";
 
 type Props = {

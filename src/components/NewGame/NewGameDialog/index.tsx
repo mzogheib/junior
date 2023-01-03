@@ -9,11 +9,11 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 import { GameDifficulty, GameMode, WordLength } from "components/Game/types";
-import { useNewGame } from "components/Game/NewGame//NewGameProvider";
-import ModeSettings from "components/Game/NewGame/NewGameDialog/ModeSettings";
-import LettersSettings from "components/Game/NewGame/NewGameDialog/LettersSettings";
-import NumbersSettings from "components/Game/NewGame/NewGameDialog/NumbersSettings";
-import { ChangeHandler } from "components/Game/NewGame/NewGameDialog/types";
+import { useNewGame } from "components/NewGame/NewGameProvider";
+import ModeSettings from "components/NewGame/NewGameDialog/ModeSettings";
+import LettersSettings from "components/NewGame/NewGameDialog/LettersSettings";
+import NumbersSettings from "components/NewGame/NewGameDialog/NumbersSettings";
+import { ChangeHandler } from "components/NewGame/NewGameDialog/types";
 import { paths } from "pages/PageRouter";
 
 // Maybe trying to be a little too clever...

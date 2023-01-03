@@ -1,25 +1,18 @@
 import { useNavigate, Navigate } from "react-router-dom";
-import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import { useCustomGame } from "components/Game/ShareGame/utils";
-import { useNewGame } from "components/Game/NewGame/NewGameProvider";
+import { useCustomGame } from "components/ShareGame/utils";
+import { useNewGame } from "components/NewGame/NewGameProvider";
 import PageWrapper from "pages/PageWrapper";
 import { paths } from "pages/PageRouter";
-import Attempt from "components/Game/Attempt";
-import { spacing } from "components/Theme/utils";
 import { GameMode } from "components/Game/types";
-import { CHARACTER_DISPLAY_MAP, SegmentType } from "services/segments";
+import {
+  replaceSegmentValues,
+  stringifyTargetSegments,
+} from "services/segments";
 import { makeDuration } from "components/Game/utils";
-
-const Wrapper = styled.div`
-  padding: ${spacing(2)};
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+import GameAttempts from "components/Game/GameAttempts";
 
 const gameModeMap = {
   [GameMode.Letters]: "word",
@@ -49,35 +42,15 @@ const CustomGamePage = () => {
 
   const gameMode = gameModeMap[mode];
 
-  const target = targetSegments.map((segment) => segment.value).join("");
+  const fakeAttemptSegments = replaceSegmentValues(targetSegments, "?");
+  const attemptValue = stringifyTargetSegments(fakeAttemptSegments);
 
-  const readOnlyValues = targetSegments
-    .filter((segment) => segment.type === SegmentType.ReadOnly)
-    .map((segment) => segment.value);
-
-  const attempt = targetSegments
-    .map((segment) => {
-      if (segment.type === SegmentType.Writeable) {
-        const newValue = segment.value
-          .split("")
-          .map((_) => "?")
-          .join("");
-        return { ...segment, value: newValue };
-      }
-      return segment;
-    })
-    .map((segment) => segment.value)
-    .join("");
+  const attempts = [{ value: attemptValue, submittedAt: "" }];
 
   return (
     <PageWrapper>
-      <Wrapper>
-        <Attempt
-          target={target}
-          attempt={attempt}
-          readOnlyValues={readOnlyValues}
-          characterMap={CHARACTER_DISPLAY_MAP}
-        />
+      <PageWrapper.Inner>
+        <GameAttempts attempts={attempts} targetSegments={targetSegments} />
 
         <br />
 
@@ -94,7 +67,7 @@ const CustomGamePage = () => {
         <Button variant="contained" onClick={handleClick}>
           Go
         </Button>
-      </Wrapper>
+      </PageWrapper.Inner>
     </PageWrapper>
   );
 };

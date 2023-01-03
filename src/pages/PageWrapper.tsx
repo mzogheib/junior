@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import styled from "@emotion/styled";
 
 import AppHeader from "components/AppHeader";
+import { spacing } from "components/Theme/utils";
 
 const Wrapper = styled.div`
   display: flex;
@@ -12,6 +13,15 @@ const Wrapper = styled.div`
 
 const Main = styled.main`
   flex-grow: 1;
+  display: grid;
+  grid-template-rows: 1fr;
+`;
+
+const Inner = styled.div`
+  padding: ${spacing(2)};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 type Props = {
@@ -24,5 +34,7 @@ const PageWrapper = ({ children }: Props) => (
     <Main>{children}</Main>
   </Wrapper>
 );
+
+PageWrapper.Inner = Inner;
 
 export default PageWrapper;

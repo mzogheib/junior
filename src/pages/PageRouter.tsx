@@ -2,11 +2,13 @@ import { createHashRouter, RouterProvider, Navigate } from "react-router-dom";
 
 import NewGamePage from "pages/NewGamePage";
 import GamePage from "pages/GamePage";
+import GameSuccessPage from "pages/GameSuccessPage";
 import CustomGamePage from "pages/CustomGamePage";
 
 export const paths = {
   home: "/",
   game: "/game",
+  gameSuccess: "/game/success",
   customGame: "/custom-game",
 } as const;
 
@@ -22,6 +24,10 @@ const router = createHashRouter([
   {
     path: paths.game,
     element: <GamePage />,
+  },
+  {
+    path: paths.gameSuccess,
+    element: <GameSuccessPage />,
   },
   {
     path: paths.customGame,

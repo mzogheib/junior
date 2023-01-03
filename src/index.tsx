@@ -7,7 +7,8 @@ import reportWebVitals from "reportWebVitals";
 import ThemeProvider from "components/Theme/ThemeProvider";
 import GlobalStyles from "components/Theme/GlobalStyles";
 import AuthProvider from "components/Auth/AuthProvider";
-import NewGameProvider from "components/Game/NewGame/NewGameProvider";
+import NewGameProvider from "components/NewGame/NewGameProvider";
+import GameProvider from "components/Game/GameProvider";
 import PageRouter from "pages/PageRouter";
 
 const container = document.getElementById("root");
@@ -20,8 +21,10 @@ if (container) {
       <AuthProvider>
         <ThemeProvider>
           <NewGameProvider>
-            <PageRouter />
-            <GlobalStyles />
+            <GameProvider>
+              <PageRouter />
+              <GlobalStyles />
+            </GameProvider>
           </NewGameProvider>
         </ThemeProvider>
       </AuthProvider>
