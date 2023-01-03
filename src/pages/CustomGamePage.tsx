@@ -22,22 +22,30 @@ const gameModeMap = {
 const CustomGamePage = () => {
   const navigate = useNavigate();
 
-  const initialConfig = useCustomGame();
+  const { config, stats, isLoading } = useCustomGame();
   const { setGameConfig } = useNewGame();
 
   const handleClick = () => {
-    if (!initialConfig.config) return;
+    if (!config) return;
 
-    setGameConfig(initialConfig.config);
+    setGameConfig(config);
     navigate(paths.game);
   };
 
-  if (!initialConfig.config || !initialConfig.stats) {
+  if (isLoading) {
+    return (
+      <PageWrapper>
+        <PageWrapper.Inner>Loading...</PageWrapper.Inner>
+      </PageWrapper>
+    );
+  }
+
+  if (!config || !stats) {
     return <Navigate to={paths.home} />;
   }
 
-  const { mode, targetSegments } = initialConfig.config;
-  const { startedAt, finishedAt } = initialConfig.stats;
+  const { mode, targetSegments } = config;
+  const { startedAt, finishedAt } = stats;
   const duration = makeDuration(startedAt, finishedAt);
 
   const gameMode = gameModeMap[mode];

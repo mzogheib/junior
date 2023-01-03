@@ -5,6 +5,8 @@ export const getQueryParams = () => {
     window.location.hash.split("?")[1]
   );
 
+  console.log("urlSearchParams", window.location.hash);
+
   return Object.fromEntries(urlSearchParams);
 };
 
