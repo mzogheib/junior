@@ -48,10 +48,6 @@ const Game = ({ gameConfig }: Props) => {
   const [attempts, setAttempts] = useState<Attempt[]>([]);
   const [error, setError] = useState("");
 
-  const numAttempts = attempts.length;
-  const finishedAt = attempts[numAttempts - 1]?.submittedAt;
-  const gameStats = { startedAt, finishedAt, numAttempts };
-
   const writeableSegments = getWriteableSegments(attemptSegments);
   const inputValue = stringifyTargetSegments(writeableSegments);
 
@@ -111,9 +107,13 @@ const Game = ({ gameConfig }: Props) => {
 
   useEffect(() => {
     if (didSucceed) {
+      const numAttempts = attempts.length;
+      const finishedAt = attempts[numAttempts - 1]?.submittedAt;
+      const gameStats = { startedAt, finishedAt, numAttempts };
+
       setGameResult({ attempts, gameStats });
     }
-  }, [attempts, didSucceed, gameStats, setGameResult]);
+  }, [attempts, didSucceed, setGameResult, startedAt]);
 
   if (didSucceed) {
     return <Navigate to={paths.gameSuccess} />;
