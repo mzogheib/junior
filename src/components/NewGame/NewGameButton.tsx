@@ -5,7 +5,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 import { paths } from "pages/PageRouter";
 import { useCreateNewGame } from "components/NewGame/utils";
-import { useGameSettings } from "core/gameSettings";
+import { useGameSettings } from "sharedState/gameSettings";
 
 type Props = {
   onClick?: () => void;

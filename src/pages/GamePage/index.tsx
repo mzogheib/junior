@@ -1,11 +1,11 @@
 import { Navigate, useNavigate } from "react-router-dom";
 
-import { useGameConfig } from "core/gameConfig";
+import { useGameConfig } from "sharedState/gameConfig";
 import { paths } from "pages/PageRouter";
 import PageWrapper from "pages/PageWrapper";
 import Game from "./Game";
 import { GameResult } from "components/Game/types";
-import { useSetGameResult } from "core/gameResult";
+import { useSetGameResult } from "sharedState/gameResult";
 
 const GamePage = () => {
   const navigate = useNavigate();

@@ -1,8 +1,8 @@
 import { Navigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
-import { useGameConfig } from "core/gameConfig";
-import { useGameResult } from "core/gameResult";
+import { useGameConfig } from "sharedState/gameConfig";
+import { useGameResult } from "sharedState/gameResult";
 import PageWrapper from "pages/PageWrapper";
 import { paths } from "pages/PageRouter";
 import NewGameButton from "components/NewGame/NewGameButton";
