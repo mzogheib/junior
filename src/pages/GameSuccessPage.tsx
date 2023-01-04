@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
-import { useNewGame } from "components/NewGame/NewGameProvider";
+import { useGameConfig } from "core/game";
 import PageWrapper from "pages/PageWrapper";
 import { paths } from "pages/PageRouter";
 import { useGame } from "components/Game/GameProvider";
@@ -20,7 +20,7 @@ const MessageWrapper = styled.div`
 `;
 
 const GameSuccessPage = () => {
-  const { gameConfig } = useNewGame();
+  const [gameConfig] = useGameConfig();
   const { targetSegments, mode } = gameConfig;
 
   const { attempts, gameStats } = useGame();

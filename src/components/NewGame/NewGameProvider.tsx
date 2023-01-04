@@ -1,28 +1,19 @@
 import { useState, createContext, useContext } from "react";
 
 import { getRandomEquation } from "services/equation";
-import { getRandomWord, validateWord } from "services/words";
+import { getRandomWord } from "services/words";
 import { getValidateFunction } from "services/utils";
 import { GameConfig, GameSettings, GameMode } from "components/Game/types";
 import { ChildrenProp } from "types";
-import { parseTarget } from "services/segments";
+import { useGameConfig } from "core/game";
 
 type NewGameContextValue = {
-  gameConfig: GameConfig;
   gameSettings?: GameSettings;
   onNewGame: (settings: GameSettings, shouldSaveSettings: boolean) => void;
   setGameConfig: (config: GameConfig) => void;
 };
 
-const defaultGameConfig = {
-  mode: GameMode.Letters,
-  targetSegments: parseTarget(""),
-  startedAt: "",
-  validate: validateWord,
-};
-
 const NewGameContext = createContext<NewGameContextValue>({
-  gameConfig: defaultGameConfig,
   onNewGame: () => {},
   setGameConfig: () => {},
 });
@@ -30,7 +21,7 @@ const NewGameContext = createContext<NewGameContextValue>({
 export const useNewGame = () => useContext(NewGameContext);
 
 const NewGameProvider = ({ children }: ChildrenProp) => {
-  const [gameConfig, setGameConfig] = useState<GameConfig>(defaultGameConfig);
+  const [gameConfig, setGameConfig] = useGameConfig();
   const [gameSettings, setGameSettings] = useState<GameSettings>();
 
   const onNewGame = (settings: GameSettings, shouldSaveSettings: boolean) => {

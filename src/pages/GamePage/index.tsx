@@ -14,7 +14,7 @@ import Keyboard from "components/Input/Keyboard";
 import InputTiles from "components/Tiles/InputTiles";
 import { spacing } from "components/Theme/utils";
 import { useGame } from "components/Game/GameProvider";
-import { useNewGame } from "components/NewGame/NewGameProvider";
+import { useGameConfig } from "core/game";
 import { paths } from "pages/PageRouter";
 import PageWrapper from "pages/PageWrapper";
 import { checkIsComplete, checkDidSucceed } from "./utils";
@@ -28,7 +28,7 @@ const MessageWrapper = styled.div`
 `;
 
 const GamePage = () => {
-  const { gameConfig } = useNewGame();
+  const [gameConfig] = useGameConfig();
   const { targetSegments, mode, validate } = gameConfig;
 
   const {

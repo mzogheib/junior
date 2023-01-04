@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { makeAttemptSegments, TargetSegments } from "services/segments";
 import { Attempt, GameStats } from "components/Game/types";
 import { ChildrenProp } from "types";
-import { useNewGame } from "components/NewGame/NewGameProvider";
+import { useGameConfig } from "core/game";
 
 type GameContextValue = {
   absentKeys: string[];
@@ -34,7 +34,7 @@ const GameContext = createContext<GameContextValue>({
 export const useGame = () => useContext(GameContext);
 
 const GameProvider = ({ children }: ChildrenProp) => {
-  const { gameConfig } = useNewGame();
+  const [gameConfig] = useGameConfig();
 
   const { targetSegments, startedAt } = gameConfig;
   const initialAttempt = useMemo(
