@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
 import {
@@ -13,12 +12,10 @@ import ErrorMessage from "components/Game/ErrorMessage";
 import Keyboard from "components/Input/Keyboard";
 import InputTiles from "components/Tiles/InputTiles";
 import { spacing } from "components/Theme/utils";
-import { paths } from "pages/PageRouter";
 import PageWrapper from "pages/PageWrapper";
 import { checkIsComplete, checkDidSucceed } from "./utils";
 import GameAttempts from "components/Game/GameAttempts";
-import { Attempt, GameConfig } from "components/Game/types";
-import { useSetGameResult } from "core/gameResult";
+import { Attempt, GameConfig, GameResult } from "components/Game/types";
 
 const MessageWrapper = styled.div`
   margin-top: ${spacing(3)};
@@ -29,11 +26,10 @@ const MessageWrapper = styled.div`
 
 type Props = {
   gameConfig: GameConfig;
+  onGameCompleted: (result: GameResult) => void;
 };
 
-const Game = ({ gameConfig }: Props) => {
-  const setGameResult = useSetGameResult();
-
+const Game = ({ gameConfig, onGameCompleted }: Props) => {
   const { targetSegments, startedAt, mode, validate } = gameConfig;
 
   const [absentKeys, setAbsentKeys] = useState<string[]>([]);
@@ -107,13 +103,9 @@ const Game = ({ gameConfig }: Props) => {
       const finishedAt = attempts[numAttempts - 1]?.submittedAt;
       const gameStats = { startedAt, finishedAt, numAttempts };
 
-      setGameResult({ attempts, gameStats });
+      onGameCompleted({ attempts, gameStats });
     }
-  }, [attempts, didSucceed, setGameResult, startedAt]);
-
-  if (didSucceed) {
-    return <Navigate to={paths.gameSuccess} />;
-  }
+  }, [attempts, didSucceed, onGameCompleted, startedAt]);
 
   return (
     <>
