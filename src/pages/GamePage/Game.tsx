@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
@@ -7,7 +7,6 @@ import {
   TargetSegments,
   getWriteableSegments,
   getUniqueSegmentValueChars,
-  makeAttemptSegments,
 } from "services/segments";
 import AutoScrollToBottom from "components/AutoScrollToBottom";
 import ErrorMessage from "components/Game/ErrorMessage";
@@ -37,19 +36,15 @@ const Game = ({ gameConfig }: Props) => {
 
   const { targetSegments, startedAt, mode, validate } = gameConfig;
 
-  const initialAttempt = useMemo(
-    () => makeAttemptSegments("", targetSegments),
-    [targetSegments]
-  );
-
   const [absentKeys, setAbsentKeys] = useState<string[]>([]);
-  const [attemptSegments, setAttemptSegments] =
-    useState<TargetSegments>(initialAttempt);
+  const [attemptSegments, setAttemptSegments] = useState<TargetSegments>();
   const [attempts, setAttempts] = useState<Attempt[]>([]);
   const [error, setError] = useState("");
 
-  const writeableSegments = getWriteableSegments(attemptSegments);
-  const inputValue = stringifyTargetSegments(writeableSegments);
+  const writeableSegments =
+    attemptSegments && getWriteableSegments(attemptSegments);
+  const inputValue =
+    writeableSegments && stringifyTargetSegments(writeableSegments);
 
   const handleValidate = useCallback(
     (attemptSegments: TargetSegments) => {
@@ -65,7 +60,8 @@ const Game = ({ gameConfig }: Props) => {
     [setError, validate]
   );
 
-  const isComplete = checkIsComplete(attemptSegments, targetSegments);
+  const isComplete =
+    attemptSegments && checkIsComplete(attemptSegments, targetSegments);
 
   useEffect(() => {
     if (isComplete) {
@@ -99,7 +95,7 @@ const Game = ({ gameConfig }: Props) => {
 
     setAbsentKeys(absentKeys.concat(newAbsentKeys));
 
-    setAttemptSegments(initialAttempt);
+    setAttemptSegments(undefined);
     setError("");
   };
 
@@ -124,7 +120,10 @@ const Game = ({ gameConfig }: Props) => {
       <PageWrapper.Inner>
         <GameAttempts attempts={attempts} targetSegments={targetSegments} />
 
-        <InputTiles inputValue={inputValue} targetSegments={targetSegments} />
+        <InputTiles
+          inputValue={inputValue || ""}
+          targetSegments={targetSegments}
+        />
 
         {error && (
           <MessageWrapper>
