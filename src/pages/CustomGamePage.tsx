@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import { useCustomGame } from "components/ShareGame/utils";
-import { useNewGame } from "components/NewGame/NewGameProvider";
+import { useSetGameConfig } from "core/gameConfig";
 import PageWrapper from "pages/PageWrapper";
 import { paths } from "pages/PageRouter";
 import { GameMode } from "components/Game/types";
@@ -23,7 +23,7 @@ const CustomGamePage = () => {
   const navigate = useNavigate();
 
   const { config, stats, isLoading } = useCustomGame();
-  const { setGameConfig } = useNewGame();
+  const setGameConfig = useSetGameConfig();
 
   const handleClick = () => {
     if (!config) return;

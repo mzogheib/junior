@@ -9,7 +9,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 import { GameDifficulty, GameMode, WordLength } from "components/Game/types";
-import { useNewGame } from "components/NewGame/NewGameProvider";
+import { useCreateNewGame } from "components/NewGame/utils";
 import ModeSettings from "components/NewGame/NewGameDialog/ModeSettings";
 import LettersSettings from "components/NewGame/NewGameDialog/LettersSettings";
 import NumbersSettings from "components/NewGame/NewGameDialog/NumbersSettings";
@@ -19,20 +19,22 @@ import { paths } from "pages/PageRouter";
 // Maybe trying to be a little too clever...
 const handleChange =
   <V,>(setValue: Dispatch<SetStateAction<V>>): ChangeHandler<V> =>
-  (event, value) => {
+  (_, value) => {
     if (value) setValue(value);
   };
 
 const NewGameDialog = () => {
   const navigate = useNavigate();
-  const { onNewGame } = useNewGame();
+
   const [mode, setMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
   const [shouldSaveSettings, setShouldSaveSettings] = useState(false);
 
+  const createNewGame = useCreateNewGame();
+
   const handleSubmit = () => {
-    onNewGame({ mode, targetLength, difficulty }, shouldSaveSettings);
+    createNewGame({ mode, targetLength, difficulty }, shouldSaveSettings);
     navigate(paths.game);
   };
 
