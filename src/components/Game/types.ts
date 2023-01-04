@@ -39,3 +39,8 @@ export type GameStats = {
   finishedAt: string;
   numAttempts: number;
 };
+
+export type GameResult = {
+  attempts: Attempt[];
+  gameStats: GameStats;
+};

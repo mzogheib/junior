@@ -8,7 +8,7 @@ import Game from "./Game";
 const GamePage = () => {
   const [gameConfig] = useGameConfig();
 
-  if (!gameConfig.startedAt) {
+  if (!gameConfig) {
     return <Navigate to={paths.home} />;
   }
 

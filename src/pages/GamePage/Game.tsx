@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Navigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
@@ -7,18 +7,19 @@ import {
   TargetSegments,
   getWriteableSegments,
   getUniqueSegmentValueChars,
+  makeAttemptSegments,
 } from "services/segments";
 import AutoScrollToBottom from "components/AutoScrollToBottom";
 import ErrorMessage from "components/Game/ErrorMessage";
 import Keyboard from "components/Input/Keyboard";
 import InputTiles from "components/Tiles/InputTiles";
 import { spacing } from "components/Theme/utils";
-import { useGame } from "components/Game/GameProvider";
 import { paths } from "pages/PageRouter";
 import PageWrapper from "pages/PageWrapper";
 import { checkIsComplete, checkDidSucceed } from "./utils";
-import GameAttempts from "../../components/Game/GameAttempts";
-import { GameConfig } from "components/Game/types";
+import GameAttempts from "components/Game/GameAttempts";
+import { Attempt, GameConfig } from "components/Game/types";
+import { useGameResult } from "core/game";
 
 const MessageWrapper = styled.div`
   margin-top: ${spacing(3)};
@@ -32,19 +33,24 @@ type Props = {
 };
 
 const Game = ({ gameConfig }: Props) => {
-  const { targetSegments, mode, validate } = gameConfig;
+  const [_, setGameResult] = useGameResult();
 
-  const {
-    absentKeys,
-    setAbsentKeys,
-    attemptSegments,
-    setAttemptSegments,
-    attempts,
-    setAttempts,
-    error,
-    setError,
-    initialAttempt,
-  } = useGame();
+  const { targetSegments, startedAt, mode, validate } = gameConfig;
+
+  const initialAttempt = useMemo(
+    () => makeAttemptSegments("", targetSegments),
+    [targetSegments]
+  );
+
+  const [absentKeys, setAbsentKeys] = useState<string[]>([]);
+  const [attemptSegments, setAttemptSegments] =
+    useState<TargetSegments>(initialAttempt);
+  const [attempts, setAttempts] = useState<Attempt[]>([]);
+  const [error, setError] = useState("");
+
+  const numAttempts = attempts.length;
+  const finishedAt = attempts[numAttempts - 1]?.submittedAt;
+  const gameStats = { startedAt, finishedAt, numAttempts };
 
   const writeableSegments = getWriteableSegments(attemptSegments);
   const inputValue = stringifyTargetSegments(writeableSegments);
@@ -102,6 +108,12 @@ const Game = ({ gameConfig }: Props) => {
   };
 
   const didSucceed = checkDidSucceed(attempts, targetSegments);
+
+  useEffect(() => {
+    if (didSucceed) {
+      setGameResult({ attempts, gameStats });
+    }
+  }, [attempts, didSucceed, gameStats, setGameResult]);
 
   if (didSucceed) {
     return <Navigate to={paths.gameSuccess} />;

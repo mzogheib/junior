@@ -1,10 +1,9 @@
 import { Navigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
-import { useGameConfig } from "core/game";
+import { useGameConfig, useGameResult } from "core/game";
 import PageWrapper from "pages/PageWrapper";
 import { paths } from "pages/PageRouter";
-import { useGame } from "components/Game/GameProvider";
 import NewGameButton from "components/NewGame/NewGameButton";
 import ShareGamePrompt from "components/ShareGame/ShareGamePrompt";
 import SuccessMessage from "components/Game/SuccessMessage";
@@ -21,13 +20,14 @@ const MessageWrapper = styled.div`
 
 const GameSuccessPage = () => {
   const [gameConfig] = useGameConfig();
-  const { targetSegments, mode } = gameConfig;
+  const [gameResult] = useGameResult();
 
-  const { attempts, gameStats } = useGame();
-
-  if (!attempts.length) {
+  if (!gameConfig || !gameResult) {
     return <Navigate to={paths.home} />;
   }
+
+  const { targetSegments, mode } = gameConfig;
+  const { attempts, gameStats } = gameResult;
 
   return (
     <PageWrapper>

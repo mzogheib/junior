@@ -1,23 +1,23 @@
 import { atom, useAtom } from "jotai";
 
-import { GameConfig, GameMode, GameSettings } from "components/Game/types";
-import { parseTarget } from "services/segments";
-import { getRandomWord, validateWord } from "services/words";
+import {
+  GameConfig,
+  GameMode,
+  GameSettings,
+  GameResult,
+} from "components/Game/types";
+import { getRandomWord } from "services/words";
 import { getRandomEquation } from "services/equation";
 import { getValidateFunction } from "services/utils";
 
-const defaultGameConfig = {
-  mode: GameMode.Letters,
-  targetSegments: parseTarget(""),
-  startedAt: "",
-  validate: validateWord,
-};
-
-const gameConfigAtom = atom<GameConfig>(defaultGameConfig);
+const gameConfigAtom = atom<GameConfig | null>(null);
 export const useGameConfig = () => useAtom(gameConfigAtom);
 
 const gameSettingsAtom = atom<GameSettings | null>(null);
 export const useGameSettings = () => useAtom(gameSettingsAtom);
+
+const gameResultAtom = atom<GameResult | null>(null);
+export const useGameResult = () => useAtom(gameResultAtom);
 
 export const useNewGame = () => {
   const [_, setGameConfig] = useGameConfig();
