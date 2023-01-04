@@ -9,11 +9,12 @@
 
 - Solve words and equations
 - Multiple difficulty levels
+- Challenge friends to beat your time
 
 <div align="center">
     <img src="assets/words.png" alt="words" width="200" />
     <img src="assets/numbers.png" alt="numbers" width="200" />
-    <img src="assets/new game.png" alt="new game" width="200" />
+    <img src="assets/challenge.png" alt="challenge" width="200" />
 </div>
 
 ## 🛠️ Development
