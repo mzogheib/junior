@@ -10,8 +10,6 @@ import { parseTarget } from "services/segments";
 type NewGameContextValue = {
   gameConfig: GameConfig;
   gameSettings?: GameSettings;
-  isNewGameDialogOpen: boolean;
-  setIsNewGameDialogOpen: (value: boolean) => void;
   onNewGame: (settings: GameSettings, shouldSaveSettings: boolean) => void;
   setGameConfig: (config: GameConfig) => void;
 };
@@ -25,8 +23,6 @@ const defaultGameConfig = {
 
 const NewGameContext = createContext<NewGameContextValue>({
   gameConfig: defaultGameConfig,
-  isNewGameDialogOpen: false,
-  setIsNewGameDialogOpen: () => {},
   onNewGame: () => {},
   setGameConfig: () => {},
 });
@@ -34,7 +30,6 @@ const NewGameContext = createContext<NewGameContextValue>({
 export const useNewGame = () => useContext(NewGameContext);
 
 const NewGameProvider = ({ children }: ChildrenProp) => {
-  const [isNewGameDialogOpen, setIsNewGameDialogOpen] = useState(true);
   const [gameConfig, setGameConfig] = useState<GameConfig>(defaultGameConfig);
   const [gameSettings, setGameSettings] = useState<GameSettings>();
 
@@ -62,8 +57,6 @@ const NewGameProvider = ({ children }: ChildrenProp) => {
   const value = {
     gameConfig,
     gameSettings,
-    isNewGameDialogOpen,
-    setIsNewGameDialogOpen,
     onNewGame,
     setGameConfig,
   };
