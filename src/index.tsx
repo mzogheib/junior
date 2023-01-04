@@ -7,7 +7,6 @@ import reportWebVitals from "reportWebVitals";
 import ThemeProvider from "components/Theme/ThemeProvider";
 import GlobalStyles from "components/Theme/GlobalStyles";
 import AuthProvider from "components/Auth/AuthProvider";
-import NewGameProvider from "components/NewGame/NewGameProvider";
 import GameProvider from "components/Game/GameProvider";
 import PageRouter from "pages/PageRouter";
 
@@ -20,12 +19,10 @@ if (container) {
     <React.StrictMode>
       <AuthProvider>
         <ThemeProvider>
-          <NewGameProvider>
-            <GameProvider>
-              <PageRouter />
-              <GlobalStyles />
-            </GameProvider>
-          </NewGameProvider>
+          <GameProvider>
+            <PageRouter />
+            <GlobalStyles />
+          </GameProvider>
         </ThemeProvider>
       </AuthProvider>
     </React.StrictMode>

@@ -3,7 +3,7 @@ import Button, { ButtonProps } from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-import { useNewGame } from "components/NewGame/NewGameProvider";
+import { useGameSettings, useNewGame } from "core/game";
 import { paths } from "pages/PageRouter";
 
 type Props = {
@@ -15,7 +15,8 @@ type Props = {
 const NewGameButton = ({ onClick, variant, fullWidth = true }: Props) => {
   const navigate = useNavigate();
 
-  const { gameSettings, onNewGame } = useNewGame();
+  const { createNewGame } = useNewGame();
+  const [gameSettings] = useGameSettings();
 
   const hasSavedGameSettings = !!gameSettings;
 
@@ -27,7 +28,7 @@ const NewGameButton = ({ onClick, variant, fullWidth = true }: Props) => {
       return;
     }
 
-    onNewGame(gameSettings, true);
+    createNewGame(gameSettings, true);
   };
 
   return (

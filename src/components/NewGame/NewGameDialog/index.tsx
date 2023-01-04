@@ -9,7 +9,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 import { GameDifficulty, GameMode, WordLength } from "components/Game/types";
-import { useNewGame } from "components/NewGame/NewGameProvider";
+import { useNewGame } from "core/game";
 import ModeSettings from "components/NewGame/NewGameDialog/ModeSettings";
 import LettersSettings from "components/NewGame/NewGameDialog/LettersSettings";
 import NumbersSettings from "components/NewGame/NewGameDialog/NumbersSettings";
@@ -25,14 +25,15 @@ const handleChange =
 
 const NewGameDialog = () => {
   const navigate = useNavigate();
-  const { onNewGame } = useNewGame();
+  const { createNewGame } = useNewGame();
   const [mode, setMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
   const [shouldSaveSettings, setShouldSaveSettings] = useState(false);
 
   const handleSubmit = () => {
-    onNewGame({ mode, targetLength, difficulty }, shouldSaveSettings);
+    createNewGame({ mode, targetLength, difficulty }, shouldSaveSettings);
+
     navigate(paths.game);
   };
 
