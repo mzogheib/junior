@@ -1,26 +1,9 @@
-import { atom, useAtomValue, useSetAtom } from "jotai";
-
-import {
-  GameConfig,
-  GameMode,
-  GameSettings,
-  GameResult,
-} from "components/Game/types";
+import { GameMode, GameSettings } from "components/Game/types";
 import { getRandomWord } from "services/words";
 import { getRandomEquation } from "services/equation";
 import { getValidateFunction } from "services/utils";
-
-const gameConfigAtom = atom<GameConfig | null>(null);
-export const useGameConfig = () => useAtomValue(gameConfigAtom);
-export const useSetGameConfig = () => useSetAtom(gameConfigAtom);
-
-const gameSettingsAtom = atom<GameSettings | null>(null);
-export const useGameSettings = () => useAtomValue(gameSettingsAtom);
-export const useSetGameSettings = () => useSetAtom(gameSettingsAtom);
-
-const gameResultAtom = atom<GameResult | null>(null);
-export const useGameResult = () => useAtomValue(gameResultAtom);
-export const useSetGameResult = () => useSetAtom(gameResultAtom);
+import { useSetGameConfig } from "core/gameConfig";
+import { useSetGameSettings } from "core/gameSettings";
 
 export const useCreateNewGame = () => {
   const setGameConfig = useSetGameConfig();

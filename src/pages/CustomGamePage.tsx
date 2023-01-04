@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import { useCustomGame } from "components/ShareGame/utils";
-import { useSetGameConfig } from "core/game";
+import { useSetGameConfig } from "core/gameConfig";
 import PageWrapper from "pages/PageWrapper";
 import { paths } from "pages/PageRouter";
 import { GameMode } from "components/Game/types";

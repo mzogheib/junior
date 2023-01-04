@@ -18,7 +18,7 @@ import PageWrapper from "pages/PageWrapper";
 import { checkIsComplete, checkDidSucceed } from "./utils";
 import GameAttempts from "components/Game/GameAttempts";
 import { Attempt, GameConfig } from "components/Game/types";
-import { useSetGameResult } from "core/game";
+import { useSetGameResult } from "core/gameResult";
 
 const MessageWrapper = styled.div`
   margin-top: ${spacing(3)};

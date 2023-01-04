@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 
-import { useGameConfig } from "core/game";
+import { useGameConfig } from "core/gameConfig";
 import { paths } from "pages/PageRouter";
 import PageWrapper from "pages/PageWrapper";
 import Game from "./Game";
