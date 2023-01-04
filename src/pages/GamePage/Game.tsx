@@ -39,7 +39,7 @@ const Game = ({ gameConfig }: Props) => {
   const [absentKeys, setAbsentKeys] = useState<string[]>([]);
   const [attemptSegments, setAttemptSegments] = useState<TargetSegments>();
   const [attempts, setAttempts] = useState<Attempt[]>([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>();
 
   const writeableSegments =
     attemptSegments && getWriteableSegments(attemptSegments);
@@ -96,7 +96,7 @@ const Game = ({ gameConfig }: Props) => {
     setAbsentKeys(absentKeys.concat(newAbsentKeys));
 
     setAttemptSegments(undefined);
-    setError("");
+    setError(undefined);
   };
 
   const didSucceed = checkDidSucceed(attempts, targetSegments);
