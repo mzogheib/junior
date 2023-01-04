@@ -16,7 +16,7 @@ const NewGameButton = ({ onClick, variant, fullWidth = true }: Props) => {
   const navigate = useNavigate();
 
   const { createNewGame } = useNewGame();
-  const [gameSettings] = useGameSettings();
+  const gameSettings = useGameSettings();
 
   const hasSavedGameSettings = !!gameSettings;
 

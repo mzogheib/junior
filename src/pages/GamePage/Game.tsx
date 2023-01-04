@@ -18,7 +18,7 @@ import PageWrapper from "pages/PageWrapper";
 import { checkIsComplete, checkDidSucceed } from "./utils";
 import GameAttempts from "components/Game/GameAttempts";
 import { Attempt, GameConfig } from "components/Game/types";
-import { useGameResult } from "core/game";
+import { useSetGameResult } from "core/game";
 
 const MessageWrapper = styled.div`
   margin-top: ${spacing(3)};
@@ -32,7 +32,7 @@ type Props = {
 };
 
 const Game = ({ gameConfig }: Props) => {
-  const [_, setGameResult] = useGameResult();
+  const setGameResult = useSetGameResult();
 
   const { targetSegments, startedAt, mode, validate } = gameConfig;
 

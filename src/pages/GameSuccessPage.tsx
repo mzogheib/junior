@@ -19,8 +19,8 @@ const MessageWrapper = styled.div`
 `;
 
 const GameSuccessPage = () => {
-  const [gameConfig] = useGameConfig();
-  const [gameResult] = useGameResult();
+  const gameConfig = useGameConfig();
+  const gameResult = useGameResult();
 
   if (!gameConfig || !gameResult) {
     return <Navigate to={paths.home} />;

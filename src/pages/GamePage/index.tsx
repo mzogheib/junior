@@ -6,7 +6,7 @@ import PageWrapper from "pages/PageWrapper";
 import Game from "./Game";
 
 const GamePage = () => {
-  const [gameConfig] = useGameConfig();
+  const gameConfig = useGameConfig();
 
   if (!gameConfig) {
     return <Navigate to={paths.home} />;
