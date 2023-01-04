@@ -22,7 +22,7 @@ const gameResultAtom = atom<GameResult | null>(null);
 export const useGameResult = () => useAtomValue(gameResultAtom);
 export const useSetGameResult = () => useSetAtom(gameResultAtom);
 
-export const useNewGame = () => {
+export const useCreateNewGame = () => {
   const setGameConfig = useSetGameConfig();
   const setGameSettings = useSetGameSettings();
 
@@ -50,5 +50,5 @@ export const useNewGame = () => {
     setGameConfig({ startedAt, mode, targetSegments, validate });
   };
 
-  return { createNewGame };
+  return createNewGame;
 };
