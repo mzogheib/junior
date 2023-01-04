@@ -4,7 +4,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import SettingsIcon from "@mui/icons-material/Settings";
 
 import { paths } from "pages/PageRouter";
-import { useCreateNewGame } from "core/game";
+import { useCreateNewGame } from "components/NewGame/utils";
 import { useGameSettings } from "core/gameSettings";
 
 type Props = {
