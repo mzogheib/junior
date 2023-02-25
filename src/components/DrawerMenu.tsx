@@ -7,6 +7,7 @@ import ThemeToggle from "components/Theme/ThemeToggle";
 import { spacing } from "components/Theme/utils";
 import UserWelcome from "components/UserWelcome";
 import NewGameButton from "components/NewGame/NewGameButton";
+import BuildNumber from "components/BuildNumber";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -44,6 +45,9 @@ const DrawerMenu = ({ isOpen, onClose }: Props) => {
         <div>
           <ItemWrapper>
             <ThemeToggle />
+          </ItemWrapper>
+          <ItemWrapper>
+            <BuildNumber />
           </ItemWrapper>
         </div>
       </Wrapper>
