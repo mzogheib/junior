@@ -11,6 +11,8 @@ import PageRouter from "pages/PageRouter";
 
 const container = document.getElementById("root");
 
+console.log(process.env.REACT_APP_GIT_SHA);
+
 if (container) {
   const root = createRoot(container);
 
