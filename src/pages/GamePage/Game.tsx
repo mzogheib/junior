@@ -16,12 +16,18 @@ import PageWrapper from "pages/PageWrapper";
 import { checkIsComplete, checkDidSucceed } from "./utils";
 import GameAttempts from "components/Game/GameAttempts";
 import { Attempt, GameConfig, GameResult } from "components/Game/types";
+import { useStopwatch } from "misc/timer";
+import Stopwatch from "components/Stopwatch";
 
 const MessageWrapper = styled.div`
   margin-top: ${spacing(3)};
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const StopwatchWrapper = styled.div`
+  margin-top: ${spacing(3)};
 `;
 
 type Props = {
@@ -36,6 +42,12 @@ const Game = ({ gameConfig, onGameCompleted }: Props) => {
   const [attemptSegments, setAttemptSegments] = useState<TargetSegments>();
   const [attempts, setAttempts] = useState<Attempt[]>([]);
   const [error, setError] = useState<string>();
+
+  const { time, start, stop } = useStopwatch();
+
+  useEffect(() => {
+    start();
+  }, [start]);
 
   const writeableSegments =
     attemptSegments && getWriteableSegments(attemptSegments);
@@ -103,9 +115,10 @@ const Game = ({ gameConfig, onGameCompleted }: Props) => {
       const finishedAt = attempts[numAttempts - 1]?.submittedAt;
       const gameStats = { startedAt, finishedAt, numAttempts };
 
+      stop();
       onGameCompleted({ attempts, gameStats });
     }
-  }, [attempts, didSucceed, onGameCompleted, startedAt]);
+  }, [attempts, didSucceed, onGameCompleted, startedAt, stop]);
 
   return (
     <>
@@ -116,6 +129,10 @@ const Game = ({ gameConfig, onGameCompleted }: Props) => {
           inputValue={inputValue || ""}
           targetSegments={targetSegments}
         />
+
+        <StopwatchWrapper>
+          <Stopwatch time={time} />
+        </StopwatchWrapper>
 
         {error && (
           <MessageWrapper>
