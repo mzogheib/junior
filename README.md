@@ -23,19 +23,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and is deployed via [GitHub Pages](https://docs.github.com/en/pages).
 
-### Prerequisites
+1. Clone the repo and install
 
-The app runs locally in HTTPS so you will need to do the following:
+   ```sh
+   npm i
+   ```
 
-1. Create a Certificate Authority (CA) on your machine
-2. Create and add the SSL certificate files to the `./certs` folder
+2. Start
 
-Find out how to do this by Googling the following:
-
-> how to add local certificate authority and ssl certificates to create react app
-
-### Develop
-
-```console
-npm start
-```
+   ```sh
+   npm start
+   ```

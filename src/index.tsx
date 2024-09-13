@@ -6,7 +6,6 @@ import * as serviceWorkerRegistration from "serviceWorkerRegistration";
 import reportWebVitals from "reportWebVitals";
 import ThemeProvider from "components/Theme/ThemeProvider";
 import GlobalStyles from "components/Theme/GlobalStyles";
-import AuthProvider from "components/Auth/AuthProvider";
 import PageRouter from "pages/PageRouter";
 
 const container = document.getElementById("root");
@@ -16,12 +15,10 @@ if (container) {
 
   root.render(
     <React.StrictMode>
-      <AuthProvider>
-        <ThemeProvider>
-          <PageRouter />
-          <GlobalStyles />
-        </ThemeProvider>
-      </AuthProvider>
+      <ThemeProvider>
+        <PageRouter />
+        <GlobalStyles />
+      </ThemeProvider>
     </React.StrictMode>
   );
 }
