@@ -1,7 +1,6 @@
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
 import styled from "@emotion/styled";
-import { useAuth0 } from "@auth0/auth0-react";
 
 import ThemeToggle from "components/Theme/ThemeToggle";
 import { spacing } from "components/Theme/utils";
@@ -27,15 +26,12 @@ type Props = {
 };
 
 const DrawerMenu = ({ isOpen, onClose }: Props) => {
-  const { user } = useAuth0();
-  const firstName = user?.given_name;
-
   return (
     <Drawer anchor="right" open={isOpen} onClose={onClose}>
       <Wrapper>
         <div>
           <ItemWrapper>
-            <UserWelcome firstName={firstName} />
+            <UserWelcome />
           </ItemWrapper>
           <Divider />
           <ItemWrapper>
