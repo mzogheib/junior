@@ -1,8 +1,9 @@
+import { BASE_PATH } from "pages/config";
 import { Paths } from "pages/PageRouter";
 
 export const getQueryParams = () => {
   const urlSearchParams = new URLSearchParams(
-    window.location.hash.split("?")[1]
+    window.location.href.split("?")[1]
   );
 
   return Object.fromEntries(urlSearchParams);
@@ -32,5 +33,5 @@ export const makeUrl = (
 
   const searchString = searchParams ? `?${makeSearchString(searchParams)}` : "";
 
-  return `${origin}/junior/#${pathname}${searchString}`;
+  return `${origin}${BASE_PATH}${pathname}${searchString}`;
 };
