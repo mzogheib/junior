@@ -2,7 +2,7 @@ import {
   getUniqueSegmentValueChars,
   SegmentType,
   TargetSegments,
-} from "services/segments";
+} from "@/services/segments";
 
 describe("segments", () => {
   describe("getUniqueSegmentValueChars", () => {

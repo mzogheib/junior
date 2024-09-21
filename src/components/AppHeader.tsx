@@ -5,8 +5,8 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import DrawerMenu from "components/DrawerMenu";
-import Logo from "components/Logo";
+import DrawerMenu from "@/components/DrawerMenu";
+import Logo from "@/components/Logo";
 
 const StyledToolbar = styled(Toolbar)`
   display: flex;

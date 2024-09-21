@@ -4,10 +4,10 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import NewGamePage from "pages/NewGamePage";
-import GamePage from "pages/GamePage";
-import GameSuccessPage from "pages/GameSuccessPage";
-import CustomGamePage from "pages/CustomGamePage";
+import NewGamePage from "@/pages/NewGamePage";
+import GamePage from "@/pages/GamePage";
+import GameSuccessPage from "@/pages/GameSuccessPage";
+import CustomGamePage from "@/pages/CustomGamePage";
 import { BASE_PATH } from "./config";
 
 export const paths = {

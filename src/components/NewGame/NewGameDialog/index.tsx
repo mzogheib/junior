@@ -8,13 +8,13 @@ import DialogActions from "@mui/material/DialogActions";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
-import { GameDifficulty, GameMode, WordLength } from "components/Game/types";
-import { useCreateNewGame } from "components/NewGame/utils";
-import ModeSettings from "components/NewGame/NewGameDialog/ModeSettings";
-import LettersSettings from "components/NewGame/NewGameDialog/LettersSettings";
-import NumbersSettings from "components/NewGame/NewGameDialog/NumbersSettings";
-import { ChangeHandler } from "components/NewGame/NewGameDialog/types";
-import { paths } from "pages/PageRouter";
+import { GameDifficulty, GameMode, WordLength } from "@/components/Game/types";
+import { useCreateNewGame } from "@/components/NewGame/utils";
+import ModeSettings from "@/components/NewGame/NewGameDialog/ModeSettings";
+import LettersSettings from "@/components/NewGame/NewGameDialog/LettersSettings";
+import NumbersSettings from "@/components/NewGame/NewGameDialog/NumbersSettings";
+import { ChangeHandler } from "@/components/NewGame/NewGameDialog/types";
+import { paths } from "@/pages/PageRouter";
 
 // Maybe trying to be a little too clever...
 const handleChange =

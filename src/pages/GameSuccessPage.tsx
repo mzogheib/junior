@@ -1,16 +1,16 @@
 import { Navigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
-import { useGameConfig } from "sharedState/gameConfig";
-import { useGameResult } from "sharedState/gameResult";
-import PageWrapper from "pages/PageWrapper";
-import { paths } from "pages/PageRouter";
-import NewGameButton from "components/NewGame/NewGameButton";
-import ShareGamePrompt from "components/ShareGame/ShareGamePrompt";
-import SuccessMessage from "components/Game/SuccessMessage";
-import { spacing } from "components/Theme/utils";
-import AutoScrollToBottom from "components/AutoScrollToBottom";
-import GameAttempts from "components/Game/GameAttempts";
+import { useGameConfig } from "@/sharedState/gameConfig";
+import { useGameResult } from "@/sharedState/gameResult";
+import PageWrapper from "@/pages/PageWrapper";
+import { paths } from "@/pages/PageRouter";
+import NewGameButton from "@/components/NewGame/NewGameButton";
+import ShareGamePrompt from "@/components/ShareGame/ShareGamePrompt";
+import SuccessMessage from "@/components/Game/SuccessMessage";
+import { spacing } from "@/components/Theme/utils";
+import AutoScrollToBottom from "@/components/AutoScrollToBottom";
+import GameAttempts from "@/components/Game/GameAttempts";
 
 const MessageWrapper = styled.div`
   margin-top: ${spacing(3)};

@@ -5,9 +5,9 @@ import {
   stringifyTargetSegments,
   makeAttemptSegments,
   getWriteableSegments,
-} from "services/segments";
-import InvisibleInput from "components/Input/InvisibleInput";
-import InputTiles from "components/Tiles/InputTiles";
+} from "@/services/segments";
+import InvisibleInput from "@/components/Input/InvisibleInput";
+import InputTiles from "@/components/Tiles/InputTiles";
 
 type Props = {
   targetSegments: TargetSegments;

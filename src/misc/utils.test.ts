@@ -1,4 +1,4 @@
-import { getUnique } from "misc/utils";
+import { getUnique } from "@/misc/utils";
 
 describe("utils", () => {
   describe("getUnique", () => {

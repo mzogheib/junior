@@ -2,8 +2,8 @@ import { FormEvent, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 
-import { stringifyTargetSegments, TargetSegments } from "services/segments";
-import AttemptInput from "components/Input/AttemptInput";
+import { stringifyTargetSegments, TargetSegments } from "@/services/segments";
+import AttemptInput from "@/components/Input/AttemptInput";
 
 const Form = styled.form`
   display: flex;

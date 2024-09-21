@@ -1,5 +1,5 @@
-import { BASE_PATH } from "pages/config";
-import { Paths } from "pages/PageRouter";
+import { BASE_PATH } from "@/pages/config";
+import { Paths } from "@/pages/PageRouter";
 
 export const getQueryParams = () => {
   const urlSearchParams = new URLSearchParams(

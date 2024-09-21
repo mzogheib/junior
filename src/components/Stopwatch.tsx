@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import { ThemeProps } from "components/Theme/types";
-import { getIntermediateHex } from "misc/utils";
+import { ThemeProps } from "@/components/Theme/types";
+import { getIntermediateHex } from "@/misc/utils";
 
 /**
  * https://chat.openai.com/c/ffd03d73-c824-4b99-bead-c5b81fc4762a

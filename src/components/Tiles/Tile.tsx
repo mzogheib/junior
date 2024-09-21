@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
-import { TileState, TileColor } from "components/Tiles/types";
-import BaseTile from "components/Tiles/BaseTile";
-import { ThemeProps } from "components/Theme/types";
+import { TileState, TileColor } from "@/components/Tiles/types";
+import BaseTile from "@/components/Tiles/BaseTile";
+import { ThemeProps } from "@/components/Theme/types";
 
 const backgroundColorMap = {
   [TileState.Match]: TileColor.Match,

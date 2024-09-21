@@ -1,14 +1,14 @@
-import InputTile from "components/Tiles/InputTile";
-import Tile from "components/Tiles/Tile";
-import Tiles from "components/Tiles/Tiles";
-import { TileVariant } from "components/Tiles/types";
+import InputTile from "@/components/Tiles/InputTile";
+import Tile from "@/components/Tiles/Tile";
+import Tiles from "@/components/Tiles/Tiles";
+import { TileVariant } from "@/components/Tiles/types";
 import {
   CHARACTER_DISPLAY_MAP,
   getSegmentValueFromInput,
   getStartEndOfSegment,
   isReadOnlySegment,
   TargetSegments,
-} from "services/segments";
+} from "@/services/segments";
 
 type Props = {
   targetSegments: TargetSegments;

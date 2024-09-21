@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import BaseTile from "components/Tiles/BaseTile";
-import { ThemeProps } from "components/Theme/types";
+import BaseTile from "@/components/Tiles/BaseTile";
+import { ThemeProps } from "@/components/Theme/types";
 
 type OwnProps = {
   isFocussed?: boolean;

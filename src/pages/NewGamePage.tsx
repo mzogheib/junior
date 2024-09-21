@@ -1,5 +1,5 @@
-import NewGameDialog from "components/NewGame/NewGameDialog";
-import PageWrapper from "pages/PageWrapper";
+import NewGameDialog from "@/components/NewGame/NewGameDialog";
+import PageWrapper from "@/pages/PageWrapper";
 
 const NewGamePage = () => (
   <PageWrapper>

@@ -1,5 +1,5 @@
-import { GameSettings, GameStats } from "components/Game/types";
-import { TargetSegments } from "services/segments";
+import { GameSettings, GameStats } from "@/components/Game/types";
+import { TargetSegments } from "@/services/segments";
 
 type SerializedConfig = string;
 

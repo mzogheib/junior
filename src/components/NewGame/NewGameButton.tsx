@@ -3,9 +3,9 @@ import Button, { ButtonProps } from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-import { paths } from "pages/PageRouter";
-import { useCreateNewGame } from "components/NewGame/utils";
-import { useGameSettings } from "sharedState/gameSettings";
+import { paths } from "@/pages/PageRouter";
+import { useCreateNewGame } from "@/components/NewGame/utils";
+import { useGameSettings } from "@/sharedState/gameSettings";
 
 type Props = {
   onClick?: () => void;

@@ -6,18 +6,18 @@ import {
   TargetSegments,
   getWriteableSegments,
   getUniqueSegmentValueChars,
-} from "services/segments";
-import AutoScrollToBottom from "components/AutoScrollToBottom";
-import ErrorMessage from "components/Game/ErrorMessage";
-import Keyboard from "components/Input/Keyboard";
-import InputTiles from "components/Tiles/InputTiles";
-import { spacing } from "components/Theme/utils";
-import PageWrapper from "pages/PageWrapper";
+} from "@/services/segments";
+import AutoScrollToBottom from "@/components/AutoScrollToBottom";
+import ErrorMessage from "@/components/Game/ErrorMessage";
+import Keyboard from "@/components/Input/Keyboard";
+import InputTiles from "@/components/Tiles/InputTiles";
+import { spacing } from "@/components/Theme/utils";
+import PageWrapper from "@/pages/PageWrapper";
 import { checkIsComplete, checkDidSucceed } from "./utils";
-import GameAttempts from "components/Game/GameAttempts";
-import { Attempt, GameConfig, GameResult } from "components/Game/types";
-import { useStopwatch } from "misc/timer";
-import Stopwatch from "components/Stopwatch";
+import GameAttempts from "@/components/Game/GameAttempts";
+import { Attempt, GameConfig, GameResult } from "@/components/Game/types";
+import { useStopwatch } from "@/misc/timer";
+import Stopwatch from "@/components/Stopwatch";
 
 const MessageWrapper = styled.div`
   margin-top: ${spacing(3)};

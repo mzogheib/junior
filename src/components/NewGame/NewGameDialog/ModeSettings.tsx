@@ -1,8 +1,8 @@
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
 
-import { GameMode } from "components/Game/types";
-import { ChangeHandler } from "components/NewGame/NewGameDialog/types";
+import { GameMode } from "@/components/Game/types";
+import { ChangeHandler } from "@/components/NewGame/NewGameDialog/types";
 
 type Props = {
   value: GameMode;

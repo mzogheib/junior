@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 
-import { useTheme } from "components/Theme/ThemeProvider";
+import { useTheme } from "@/components/Theme/ThemeProvider";
 
 const ThemeToggle = () => {
   const { setMode, mode } = useTheme();

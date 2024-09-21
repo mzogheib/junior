@@ -1,12 +1,12 @@
-import Attempts from "components/Attempts";
-import { Attempt } from "components/Game/types";
+import Attempts from "@/components/Attempts";
+import { Attempt } from "@/components/Game/types";
 import {
   stringifyTargetSegments,
   READ_ONLY_CHARACTERS,
   CHARACTER_DISPLAY_MAP,
   TargetSegments,
-} from "services/segments";
-import { getAttemptsValues } from "services/utils";
+} from "@/services/segments";
+import { getAttemptsValues } from "@/services/utils";
 
 type Props = {
   attempts: Attempt[];

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 
-import { ThemeProps } from "components/Theme/types";
+import { ThemeProps } from "@/components/Theme/types";
 
 type OwnProps = {
   layout: "letters" | "numbers";
