@@ -8,7 +8,7 @@ import { useState, useRef, useEffect } from "react";
 export const useStopwatch = () => {
   const startTime = useRef<number>();
   const [time, setTime] = useState(0);
-  const intervalRef = useRef<NodeJS.Timer | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const delay = 100;
 
