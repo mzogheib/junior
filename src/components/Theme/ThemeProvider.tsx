@@ -2,7 +2,7 @@ import { useState, createContext, useContext } from "react";
 import { ThemeProvider as EmotionThemeProvider } from "@emotion/react";
 import { createTheme, PaletteMode } from "@mui/material";
 
-import { ChildrenProp } from "types";
+import { ChildrenProp } from "@/types";
 
 type ThemeContextValue = {
   onToggleMode?: () => void;
