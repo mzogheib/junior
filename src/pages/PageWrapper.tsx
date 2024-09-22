@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import styled from "@emotion/styled";
 
-import AppHeader from "@/components/AppHeader";
-import { spacing } from "@/components/Theme/utils";
+import AppHeader from "components/AppHeader";
+import { spacing } from "components/Theme/utils";
 
 const Wrapper = styled.div`
   display: flex;

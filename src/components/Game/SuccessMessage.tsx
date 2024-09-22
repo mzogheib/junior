@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 
-import { Attempt, GameConfig } from "@/components/Game/types";
-import { makeDuration } from "@/components/Game/utils";
+import { Attempt, GameConfig } from "components/Game/types";
+import { makeDuration } from "components/Game/utils";
 
 const Wrapper = styled(Paper)`
   display: flex;

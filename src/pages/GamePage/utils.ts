@@ -1,6 +1,6 @@
-import { Attempt } from "@/components/Game/types";
-import { TargetSegments, stringifyTargetSegments } from "@/services/segments";
-import { getAttemptsValues } from "@/services/utils";
+import { Attempt } from "components/Game/types";
+import { TargetSegments, stringifyTargetSegments } from "services/segments";
+import { getAttemptsValues } from "services/utils";
 
 export const checkDidSucceed = (
   attempts: Attempt[],

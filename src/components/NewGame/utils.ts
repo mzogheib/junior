@@ -1,9 +1,9 @@
-import { GameMode, GameSettings } from "@/components/Game/types";
-import { getRandomWord } from "@/services/words";
-import { getRandomEquation } from "@/services/equation";
-import { getValidateFunction } from "@/services/utils";
-import { useSetGameConfig } from "@/sharedState/gameConfig";
-import { useSetGameSettings } from "@/sharedState/gameSettings";
+import { GameMode, GameSettings } from "components/Game/types";
+import { getRandomWord } from "services/words";
+import { getRandomEquation } from "services/equation";
+import { getValidateFunction } from "services/utils";
+import { useSetGameConfig } from "sharedState/gameConfig";
+import { useSetGameSettings } from "sharedState/gameSettings";
 
 export const useCreateNewGame = () => {
   const setGameConfig = useSetGameConfig();

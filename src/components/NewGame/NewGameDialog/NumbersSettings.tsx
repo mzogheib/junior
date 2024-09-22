@@ -2,8 +2,8 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
 import Typography from "@mui/material/Typography";
 
-import { GameDifficulty } from "@/components/Game/types";
-import { ChangeHandler } from "@/components/NewGame/NewGameDialog/types";
+import { GameDifficulty } from "components/Game/types";
+import { ChangeHandler } from "components/NewGame/NewGameDialog/types";
 
 type Props = {
   value: GameDifficulty;

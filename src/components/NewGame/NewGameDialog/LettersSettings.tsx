@@ -2,8 +2,8 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
 import Typography from "@mui/material/Typography";
 
-import { WordLength } from "@/components/Game/types";
-import { ChangeHandler } from "@/components/NewGame/NewGameDialog/types";
+import { WordLength } from "components/Game/types";
+import { ChangeHandler } from "components/NewGame/NewGameDialog/types";
 
 type Props = {
   value: WordLength;

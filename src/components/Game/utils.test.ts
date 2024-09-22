@@ -1,4 +1,4 @@
-import { makeDuration } from "@/components/Game/utils";
+import { makeDuration } from "components/Game/utils";
 
 describe("utils", () => {
   describe("makeDuration", () => {

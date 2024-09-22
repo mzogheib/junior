@@ -1,6 +1,6 @@
 import { atom, useAtomValue, useSetAtom } from "jotai";
 
-import { GameResult } from "@/components/Game/types";
+import { GameResult } from "components/Game/types";
 
 const gameResultAtom = atom<GameResult | null>(null);
 

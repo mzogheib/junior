@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 
-import { GameConfig, GameStats } from "@/components/Game/types";
+import { GameConfig, GameStats } from "components/Game/types";
 import {
   deserializeConfig,
   DeserializedConfig,
   serializeConfig,
-} from "@/misc/serializeConfig";
-import { getValidateFunction } from "@/services/utils";
-import { makeUrl, getQueryParams } from "@/misc/url";
+} from "misc/serializeConfig";
+import { getValidateFunction } from "services/utils";
+import { makeUrl, getQueryParams } from "misc/url";
 
 export const useCustomGame = () => {
   const [isLoading, setIsLoading] = useState(true);

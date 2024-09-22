@@ -1,12 +1,12 @@
-import wordsData05 from "@/services/words-data/05-letters/003.json";
-import wordsData06 from "@/services/words-data/06-letters/001.json";
-import { randomNumberBetween } from "@/misc/utils";
+import wordsData05 from "services/words-data/05-letters/003.json";
+import wordsData06 from "services/words-data/06-letters/001.json";
+import { randomNumberBetween } from "misc/utils";
 import {
   parseTarget,
   stringifyTargetSegments,
   TargetSegments,
-} from "@/services/segments";
-import { WordLength } from "@/components/Game/types";
+} from "services/segments";
+import { WordLength } from "components/Game/types";
 
 type WordsData = {
   source: string;

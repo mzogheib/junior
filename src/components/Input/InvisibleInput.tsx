@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, useRef, RefObject } from "react";
 import styled from "@emotion/styled";
 
-import { ChildrenProp } from "@/types";
+import { ChildrenProp } from "types";
 
 const Wrapper = styled.div`
   width: 100%;

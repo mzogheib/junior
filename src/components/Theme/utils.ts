@@ -1,4 +1,4 @@
-import { ThemeProps } from "@/components/Theme/types";
+import { ThemeProps } from "components/Theme/types";
 
 export const spacing =
   (value: number) =>

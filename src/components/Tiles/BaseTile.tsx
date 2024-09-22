@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
-import { ThemeProps } from "@/components/Theme/types";
-import { TileVariant } from "@/components/Tiles/types";
+import { ThemeProps } from "components/Theme/types";
+import { TileVariant } from "components/Tiles/types";
 
 type OwnProps = {
   variant?: TileVariant;
