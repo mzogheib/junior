@@ -1,20 +1,11 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tsconfigPaths()],
   root: "src",
   build: {
     emptyOutDir: true,
-  },
-  resolve: {
-    alias: {
-      components: path.resolve(__dirname, "./src/components"),
-      misc: path.resolve(__dirname, "./src/misc"),
-      pages: path.resolve(__dirname, "./src/pages"),
-      services: path.resolve(__dirname, "./src/services"),
-      sharedState: path.resolve(__dirname, "./src/sharedState"),
-    },
   },
 });

@@ -6,6 +6,7 @@
   "engines": {
     "node": "18"
   },
+  "type": "module",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
