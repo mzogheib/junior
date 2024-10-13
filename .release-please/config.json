@@ -18,8 +18,7 @@
       ],
       "pull-request-header": "📦 New release",
       "pull-request-title-pattern": "chore: release v${version}",
-      "include-component-in-tag": false,
-      "versioning-strategy": "prerelease"
+      "include-component-in-tag": false
     }
   }
 }
