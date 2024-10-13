@@ -10,18 +10,20 @@ import PageRouter from "pages/PageRouter";
 
 const container = document.getElementById("root");
 
-if (container) {
-  const root = createRoot(container);
-
-  root.render(
-    <React.StrictMode>
-      <ThemeProvider>
-        <PageRouter />
-        <GlobalStyles />
-      </ThemeProvider>
-    </React.StrictMode>
-  );
+if (container === null) {
+  throw new Error("Root element not found");
 }
+
+const root = createRoot(container);
+
+root.render(
+  <React.StrictMode>
+    <ThemeProvider>
+      <PageRouter />
+      <GlobalStyles />
+    </ThemeProvider>
+  </React.StrictMode>
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
