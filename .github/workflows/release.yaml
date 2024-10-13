@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  workflow_call:
+    outputs:
+      release_created:
+        description: "Whether a release was created"
+        value: ${{ jobs.main.outputs.release_created }}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          manifest-file: ".release-please/manifest.json"
+          config-file: ".release-please/config.json"
+
+      - name: Display output
+        run: |
+          echo "Outputs: $(echo '${{ toJson(steps.release.outputs) }}' | jq .)"
