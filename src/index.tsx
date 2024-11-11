@@ -1,9 +1,9 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-import * as serviceWorkerRegistration from "serviceWorkerRegistration";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
-import reportWebVitals from "reportWebVitals";
+import reportWebVitals from "./reportWebVitals";
 import ThemeProvider from "components/Theme/ThemeProvider";
 import GlobalStyles from "components/Theme/GlobalStyles";
 import PageRouter from "pages/PageRouter";
