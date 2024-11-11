@@ -13,6 +13,8 @@ const GamePage = () => {
   const gameConfig = useGameConfig();
   const setGameResult = useSetGameResult();
 
+  console.log({ gameConfig });
+
   if (!gameConfig) {
     return <Navigate to={paths.home} />;
   }

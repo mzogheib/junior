@@ -44,9 +44,11 @@ const CustomGamePage = () => {
     return <Navigate to={paths.home} />;
   }
 
-  const { mode, targetSegments } = config;
+  const { mode, targetSegments, isTimerVisible } = config;
   const { startedAt, finishedAt } = stats;
-  const duration = makeDuration(startedAt, finishedAt);
+  const duration = isTimerVisible
+    ? ` ${makeDuration(startedAt, finishedAt)}`
+    : "";
 
   const gameMode = gameModeMap[mode];
 
@@ -67,7 +69,8 @@ const CustomGamePage = () => {
         </Typography>
 
         <Typography color="textPrimary" variant="body1">
-          Can you solve this {gameMode} {duration}?
+          Can you solve this {gameMode}
+          {duration}?
         </Typography>
 
         <br />

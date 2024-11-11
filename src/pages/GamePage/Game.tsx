@@ -36,7 +36,8 @@ type Props = {
 };
 
 const Game = ({ gameConfig, onGameCompleted }: Props) => {
-  const { targetSegments, startedAt, mode, validate } = gameConfig;
+  const { targetSegments, startedAt, mode, isTimerVisible, validate } =
+    gameConfig;
 
   const [absentKeys, setAbsentKeys] = useState<string[]>([]);
   const [attemptSegments, setAttemptSegments] = useState<TargetSegments>();
@@ -130,9 +131,11 @@ const Game = ({ gameConfig, onGameCompleted }: Props) => {
           targetSegments={targetSegments}
         />
 
-        <StopwatchWrapper>
-          <Stopwatch time={time} />
-        </StopwatchWrapper>
+        {isTimerVisible && (
+          <StopwatchWrapper>
+            <Stopwatch time={time} />
+          </StopwatchWrapper>
+        )}
 
         {error && (
           <MessageWrapper>

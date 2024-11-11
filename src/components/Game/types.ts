@@ -19,6 +19,7 @@ export type GameSettings = {
   mode: GameMode;
   targetLength?: number;
   difficulty?: GameDifficulty;
+  isTimerVisible: boolean;
 };
 
 export type GameConfig = {
@@ -27,6 +28,7 @@ export type GameConfig = {
   startedAt: string;
   validate: (targetSegments: TargetSegments) => string | undefined;
   successMessage?: string;
+  isTimerVisible: boolean;
 };
 
 export type Attempt = {

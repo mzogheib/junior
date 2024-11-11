@@ -27,7 +27,7 @@ const GameSuccessPage = () => {
     return <Navigate to={paths.home} />;
   }
 
-  const { targetSegments, mode } = gameConfig;
+  const { targetSegments, mode, isTimerVisible } = gameConfig;
   const { attempts, gameStats } = gameResult;
 
   return (
@@ -42,7 +42,7 @@ const GameSuccessPage = () => {
           <br />
           <ShareGamePrompt
             targetSegments={targetSegments}
-            settings={{ mode }}
+            settings={{ mode, isTimerVisible }}
             stats={gameStats}
           />
         </MessageWrapper>
