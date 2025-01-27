@@ -12,14 +12,14 @@ permissions:
   id-token: write
 
 jobs:
-  release:
-    uses: ./.github/workflows/release.yaml
-
   checks:
-    needs: release
-    if: ${{ needs.release.outputs.release_created }}
     uses: ./.github/workflows/checks.yaml
 
-  deploy:
+  release:
     needs: checks
+    uses: ./.github/workflows/release.yaml
+
+  deploy:
+    needs: release
+    if: ${{ needs.release.outputs.release_created }}
     uses: ./.github/workflows/deploy.yaml
