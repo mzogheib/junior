@@ -2,7 +2,7 @@
   "name": "junior",
   "version": "1.1.0",
   "private": true,
-  "homepage": "https://mzogheib.github.io/junior",
+  "homepage": "https://mzogheib.github.io/junior/",
   "engines": {
     "node": "18"
   },
