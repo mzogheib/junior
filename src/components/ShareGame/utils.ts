@@ -24,7 +24,7 @@ export const useCustomGame = () => {
     if (!config) return;
 
     const { settings, targetSegments, stats, successMessage } = config;
-    const { mode } = settings;
+    const { mode, isTimerVisible } = settings;
 
     const validate = getValidateFunction(mode);
 
@@ -35,6 +35,7 @@ export const useCustomGame = () => {
       mode,
       targetSegments,
       successMessage,
+      isTimerVisible,
       validate,
     });
 

@@ -13,7 +13,7 @@ export const useCreateNewGame = () => {
     settings: GameSettings,
     shouldSaveSettings: boolean
   ) => {
-    const { mode, targetLength, difficulty } = settings;
+    const { mode, targetLength, difficulty, isTimerVisible } = settings;
 
     const startedAt = new Date().toISOString();
 
@@ -30,7 +30,13 @@ export const useCreateNewGame = () => {
       setGameSettings(null);
     }
 
-    setGameConfig({ startedAt, mode, targetSegments, validate });
+    setGameConfig({
+      startedAt,
+      mode,
+      targetSegments,
+      isTimerVisible,
+      validate,
+    });
   };
 
   return createNewGame;

@@ -1,0 +1,25 @@
+name: CI CD
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+  pages: write
+  id-token: write
+
+jobs:
+  checks:
+    uses: ./.github/workflows/checks.yaml
+
+  release:
+    needs: checks
+    uses: ./.github/workflows/release.yaml
+
+  deploy:
+    needs: release
+    if: ${{ needs.release.outputs.release_created }}
+    uses: ./.github/workflows/deploy.yaml

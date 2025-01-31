@@ -29,12 +29,16 @@ const NewGameDialog = () => {
   const [mode, setMode] = useState(GameMode.Numbers);
   const [targetLength, setTargetLength] = useState(WordLength.Five);
   const [difficulty, setDifficulty] = useState(GameDifficulty.Easy);
+  const [shouldShowTimer, setShouldShowTimer] = useState(true);
   const [shouldSaveSettings, setShouldSaveSettings] = useState(false);
 
   const createNewGame = useCreateNewGame();
 
   const handleSubmit = () => {
-    createNewGame({ mode, targetLength, difficulty }, shouldSaveSettings);
+    createNewGame(
+      { mode, targetLength, difficulty, isTimerVisible: shouldShowTimer },
+      shouldSaveSettings
+    );
     navigate(paths.game);
   };
 
@@ -43,6 +47,9 @@ const NewGameDialog = () => {
   const handleChangeDifficulty = handleChange(setDifficulty);
   const handleChangeSaveSettings = (event: ChangeEvent<HTMLInputElement>) => {
     setShouldSaveSettings(event.target.checked);
+  };
+  const handleChangeShowTimer = (event: ChangeEvent<HTMLInputElement>) => {
+    setShouldShowTimer(event.target.checked);
   };
 
   return (
@@ -65,6 +72,18 @@ const NewGameDialog = () => {
             onChange={handleChangeDifficulty}
           />
         )}
+
+        <br />
+        <br />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={shouldShowTimer}
+              onChange={handleChangeShowTimer}
+            />
+          }
+          label="Show timer"
+        />
 
         <br />
         <br />

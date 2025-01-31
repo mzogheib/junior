@@ -1,8 +1,8 @@
 {
   "name": "junior",
-  "version": "0.1.0",
+  "version": "1.1.1",
   "private": true,
-  "homepage": "https://mzogheib.github.io/junior",
+  "homepage": "https://mzogheib.github.io/junior/",
   "engines": {
     "node": "18"
   },
