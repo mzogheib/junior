@@ -12,6 +12,14 @@
           "section": "🐛 Bug Fixes"
         },
         {
+          "type": "build",
+          "section": "🛠️ Build"
+        },
+        {
+          "type": "perf",
+          "section": "🧰 Miscellaneous"
+        },
+        {
           "type": "refactor",
           "section": "🧰 Miscellaneous"
         }
