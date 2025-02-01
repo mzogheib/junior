@@ -8,7 +8,7 @@ export default defineConfig({
   base: "/junior/",
   build: {
     emptyOutDir: true,
-    outDir: "../dist",
+    outDir: "../build",
   },
   resolve: {
     alias: {
