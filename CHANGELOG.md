@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/mzogheib/junior/compare/v1.1.1...v1.2.0) (2025-02-01)
+
+
+### 🚀 Features
+
+* update app icons ([8c3bb2e](https://github.com/mzogheib/junior/commit/8c3bb2e5eb8fc4533435c4fa100c464516d7c089))
+
+
+### 🛠️ Build
+
+* switch to Vite ([#6](https://github.com/mzogheib/junior/issues/6)) ([bfe7b65](https://github.com/mzogheib/junior/commit/bfe7b6507329deccffcd333084acf4d02810ca4d))
+
 ## [1.1.1](https://github.com/mzogheib/junior/compare/v1.1.0...v1.1.1) (2025-01-27)
 
 
