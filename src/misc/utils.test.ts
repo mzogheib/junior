@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { getUnique } from "misc/utils";
 
 describe("utils", () => {
