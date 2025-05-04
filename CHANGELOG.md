@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/mzogheib/junior/compare/v1.2.0...v1.3.0) (2025-05-04)
+
+
+### 🚀 Features
+
+* update pwa theme color to match ([f82f95e](https://github.com/mzogheib/junior/commit/f82f95e184bad6bba022e226bbf28edbdee3dd3b))
+
 ## [1.2.0](https://github.com/mzogheib/junior/compare/v1.1.1...v1.2.0) (2025-02-01)
 
 
