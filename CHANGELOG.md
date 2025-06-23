@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/mzogheib/junior/compare/v1.3.1...v1.3.2) (2025-06-23)
+
+
+### 🧰 Miscellaneous
+
+* add simple analytics ([1656283](https://github.com/mzogheib/junior/commit/16562836394d750173c4ebcc7ee370d4e9fc513c))
+
 ## [1.3.1](https://github.com/mzogheib/junior/compare/v1.3.0...v1.3.1) (2025-06-23)
 
 
