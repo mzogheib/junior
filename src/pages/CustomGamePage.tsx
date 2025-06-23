@@ -28,7 +28,11 @@ const CustomGamePage = () => {
   const handleClick = () => {
     if (!config) return;
 
-    setGameConfig(config);
+    // The game starts as soon as the user clicks the button
+    setGameConfig({
+      ...config,
+      startedAt: new Date().toISOString(),
+    });
     navigate(paths.game);
   };
 
