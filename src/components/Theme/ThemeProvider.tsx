@@ -3,9 +3,9 @@ import { ThemeProvider as EmotionThemeProvider } from "@emotion/react";
 import { createTheme, PaletteMode } from "@mui/material";
 
 import { ChildrenProp } from "types";
+import { setThemeColorMetaTag } from "./utils";
 
 type ThemeContextValue = {
-  onToggleMode?: () => void;
   setMode?: (mode: PaletteMode) => void;
   mode?: PaletteMode;
 };
@@ -15,14 +15,11 @@ const ThemeContext = createContext<ThemeContextValue>({});
 export const useTheme = () => useContext(ThemeContext);
 
 const ThemeProvider = ({ children }: ChildrenProp) => {
-  const [mode, setMode] = useState<PaletteMode>("light");
+  const [mode, _setMode] = useState<PaletteMode>("light");
 
-  const handleToggleMode = () => {
-    if (mode === "light") {
-      setMode("dark");
-    } else {
-      setMode("light");
-    }
+  const setMode = (newMode: PaletteMode) => {
+    setThemeColorMetaTag(newMode);
+    _setMode(newMode);
   };
 
   // Pass the base MUI theme into Emotion so that it is accessible by Emotion's styled function.
@@ -33,9 +30,7 @@ const ThemeProvider = ({ children }: ChildrenProp) => {
   );
 
   return (
-    <ThemeContext.Provider
-      value={{ onToggleMode: handleToggleMode, setMode, mode }}
-    >
+    <ThemeContext.Provider value={{ setMode, mode }}>
       {renderThemeProvider()}
     </ThemeContext.Provider>
   );

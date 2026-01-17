@@ -12,7 +12,7 @@ const ThemeToggle = () => {
   const { setMode, mode } = useTheme();
 
   const handleThemeModeChange = (
-    event: MouseEvent<HTMLElement>,
+    _: MouseEvent<HTMLElement>,
     value: PaletteMode | null
   ) => {
     if (setMode && value) {
