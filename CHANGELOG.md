@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/mzogheib/junior/compare/v1.3.2...v1.4.0) (2026-01-17)
+
+
+### 🚀 Features
+
+* dynamically update theme_color ([9c64c24](https://github.com/mzogheib/junior/commit/9c64c2419ecd58a25dd4d33ac0adf7246cdd9c44))
+* store UI theme ([7111359](https://github.com/mzogheib/junior/commit/71113593def0bdec6eda542fd54f3dfcab97e840))
+
 ## [1.3.2](https://github.com/mzogheib/junior/compare/v1.3.1...v1.3.2) (2025-06-23)
 
 
