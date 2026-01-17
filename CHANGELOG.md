@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/mzogheib/junior/compare/v1.4.0...v1.4.1) (2026-01-17)
+
+
+### 🐛 Bug Fixes
+
+* fix hex code for dark theme_color ([fa0d5f4](https://github.com/mzogheib/junior/commit/fa0d5f4c360c1fb8b8ba959832a2257232d76e57))
+
 ## [1.4.0](https://github.com/mzogheib/junior/compare/v1.3.2...v1.4.0) (2026-01-17)
 
 
