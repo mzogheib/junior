@@ -12,7 +12,7 @@ export const setThemeColorMetaTag = (mode: PaletteMode) => {
 
   if (!metaThemeColor) return;
 
-  const themeColor = mode === "light" ? "#1976d2" : "#121212";
+  const themeColor = mode === "light" ? "#1976d2" : "#272727";
   metaThemeColor.setAttribute("content", themeColor);
 };
 
