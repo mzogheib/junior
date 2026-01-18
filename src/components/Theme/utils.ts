@@ -21,11 +21,11 @@ const isPaletteMode = (value: any): value is PaletteMode => {
 };
 
 export const storePaletteMode = (mode: PaletteMode) => {
-  storage.set("themeMode", mode);
+  storage.set("paletteMode", mode);
 };
 
 export const getStoredPaletteMode = () => {
-  const storedMode = storage.get("themeMode");
+  const storedMode = storage.get("paletteMode");
 
   if (isPaletteMode(storedMode)) return storedMode;
 
