@@ -2,9 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="theme-color" content="#1975d2" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Junior</title>
+
+    <script>
+      // Set the theme-color before the app renders to avoid flash of default color
+      (function () {
+        const paletteMode = localStorage.getItem("junior_paletteMode");
+        const themeColor = paletteMode === "dark" ? "#272727" : "#1976d2";
+
+        const metaThemeColor = document.querySelector(
+          'meta[name="theme-color"]'
+        );
+
+        if (metaThemeColor) metaThemeColor.setAttribute("content", themeColor);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
