@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/mzogheib/junior/compare/v1.4.1...v1.4.2) (2026-01-18)
+
+
+### 🐛 Bug Fixes
+
+* avoid flash of default theme-color ([#19](https://github.com/mzogheib/junior/issues/19)) ([ccaf0d9](https://github.com/mzogheib/junior/commit/ccaf0d950c97363a2a571adbe04e0c9d723cf3b9))
+
 ## [1.4.1](https://github.com/mzogheib/junior/compare/v1.4.0...v1.4.1) (2026-01-17)
 
 
